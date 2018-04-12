@@ -2,9 +2,9 @@ package main
 
 import (
 	"encoding/gob"
-	"github.com/Sirupsen/logrus"
 	"github.com/spf13/viper"
 	"github.com/tylerb/graceful"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -36,17 +36,17 @@ func newConfig() (*viper.Viper, error) {
 func main() {
 	config, err := newConfig()
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 
 	app, err := application.New(config)
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 
 	middle, err := app.MiddlewareStruct()
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 
 	serverAddress := config.Get("http_addr").(string)
@@ -57,7 +57,7 @@ func main() {
 
 	drainInterval, err := time.ParseDuration(drainIntervalString)
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 
 	srv := &graceful.Server{
@@ -65,7 +65,7 @@ func main() {
 		Server:  &http.Server{Addr: serverAddress, Handler: middle},
 	}
 
-	logrus.Infoln("Running HTTP server on " + serverAddress)
+	log.Println("Running HTTP server on " + serverAddress)
 
 	if certFile != "" && keyFile != "" {
 		err = srv.ListenAndServeTLS(certFile, keyFile)
@@ -74,6 +74,6 @@ func main() {
 	}
 
 	if err != nil {
-		logrus.Fatal(err)
+		log.Fatal(err)
 	}
 }

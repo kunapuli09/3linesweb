@@ -1,0 +1,23 @@
+{{define "content"}}
+<section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 text-center">
+            <h2 class="section-heading text-uppercase">Login</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+          <form class="form-signup-login form-login" method="post" action="/login">
+          <input name="Email" type="text" class="form-control" placeholder="Email" required autofocus>
+          <input name="Password" type="password" class="form-control" placeholder="Password" required>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+
+          <a href="/signup" class="other-form text-center">Create an account</a>
+        </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{{end}}

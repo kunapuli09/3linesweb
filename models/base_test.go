@@ -5,8 +5,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libstring"
-	"testing"
 	"strings"
+	"testing"
 )
 
 func newEmailForTest() string {

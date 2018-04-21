@@ -1,0 +1,39 @@
+{{define "content"}}
+<section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 text-center">
+            <h2 class="section-heading text-uppercase">Add Investment</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+          <form class="form-signup-login form-investment" method="post" action="/add">
+          <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .StartupName }}"  required autofocus>
+          <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Industry }}" autofocus>
+          <input type="text" class="form-control" name="InvestmentDate" id="InvestmentDate" value="2006-Jan-02">
+           <input name="Headquarters" type="text" class="form-control" placeholder="Headquarters" value="{{ .Headquarters }}"  autofocus>
+          <input name="ExitValueAtClosing" type="text" class="form-control" placeholder="ExitValueAtClosing" value="{{ .ExitValueAtClosing }}"  autofocus>
+          <input name="FundOwnershipPercentage" type="text" class="form-control" placeholder="FundOwnershipPercentage" value="{{ .FundOwnershipPercentage }}"  autofocus>
+          <input name="InvestorGroupPercentage" type="text" class="form-control" placeholder="InvestorGroupPercentage" value="{{ .InvestorGroupPercentage }}"  autofocus> 
+          <input name="ManagementOwnership" type="text" class="form-control" placeholder="ManagementOwnership" value="{{ .ManagementOwnership }}"  autofocus>
+          <input name="BoardRepresentation" type="text" class="form-control" placeholder="BoardRepresentation" value="{{ .BoardRepresentation }}"  autofocus>
+          <input name="BoardMembers" type="text" class="form-control" placeholder="BoardMembers" value="{{ .BoardMembers }}"  autofocus>
+          <input name="InvestmentCommittment" type="text" class="form-control" placeholder="InvestmentCommittment" value="{{ .InvestmentCommittment }}"  autofocus>
+
+          <input name="InvestedCapital" type="text" class="form-control" placeholder="InvestedCapital" value="{{ .InvestedCapital }}"  autofocus>
+          <input name="RealizedProceeds" type="text" class="form-control" placeholder="RealizedProceeds" value="{{ .RealizedProceeds }}"  autofocus>
+          <input name="ReportedValue" type="text" class="form-control" placeholder="ReportedValue" value="{{ .ReportedValue }}"  autofocus>
+          <input name="InvestmentMultiple" type="text" class="form-control" placeholder="InvestmentMultiple" value="{{ .InvestmentMultiple }}"  autofocus>
+          <input name="GrossIRR" type="text" class="form-control" placeholder="GrossIRR" value="{{ .GrossIRR }}"  autofocus>
+          <input name="CapTable" type="text" class="form-control" placeholder="CapTable" value="{{ .CapTable }}"  autofocus>
+          <input name="InvestmentBackground" type="text" class="form-control" placeholder="InvestmentBackground" value="{{ .InvestmentBackground }}"  autofocus>
+          <input name="InvestmentThesis" type="text" class="form-control" placeholder="InvestmentThesis" value="{{ .InvestmentThesis }}"  autofocus>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+          <a href="/home" class="other-form text-center">Home</a>
+        </form>
+          </div>
+        </div>
+      </div>
+    </section>
+{{end}}

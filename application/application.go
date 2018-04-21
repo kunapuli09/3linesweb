@@ -3,9 +3,9 @@ package application
 import (
 	"github.com/carbocation/interpose"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 	gorilla_mux "github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
+	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
 	"net/http"
 
@@ -35,9 +35,9 @@ func New(config *viper.Viper) (*Application, error) {
 
 // Application is the application object that runs HTTP server.
 type Application struct {
-	config      *viper.Viper
-	dsn         string
-	db          *sqlx.DB
+	config       *viper.Viper
+	dsn          string
+	db           *sqlx.DB
 	sessionStore sessions.Store
 }
 
@@ -62,9 +62,14 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/login", handlers.GetLogin).Methods("GET")
 	router.HandleFunc("/login", handlers.PostLogin).Methods("POST")
 	router.HandleFunc("/logout", handlers.GetLogout).Methods("GET")
-	router.HandleFunc("/investor", handlers.GetInvestorDashboard).Methods("GET")
 	router.HandleFunc("/blog", handlers.GetBlog).Methods("GET")
-    router.HandleFunc("/contact", handlers.PostEmail).Methods("POST")
+	router.HandleFunc("/contact", handlers.PostEmail).Methods("POST")
+	router.HandleFunc("/portfolio", handlers.GetPortfolio).Methods("GET")
+	router.HandleFunc("/viewinvestment", handlers.ViewInvestment).Methods("GET")
+	router.HandleFunc("/newinvestment", handlers.NewInvestment).Methods("GET")
+	router.HandleFunc("/add", handlers.Add).Methods("POST")
+	router.HandleFunc("/editinvestment", handlers.EditInvestment).Methods("GET")
+	router.HandleFunc("/update", handlers.Update).Methods("POST")
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 
 	// Path of static files must be last!

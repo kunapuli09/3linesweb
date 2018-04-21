@@ -6,6 +6,7 @@ import (
 	"github.com/tylerb/graceful"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -18,14 +19,21 @@ func init() {
 }
 
 func newConfig() (*viper.Viper, error) {
-	defaultDSN := strings.Replace("root:kk@starpath@tcp(localhost:3306)/3linesweb?parseTime=true", "-", "_", -1)
+
+	db_url := os.Getenv("DB_URL") //root:kk@starpath@tcp(localhost:3306)/3linesweb?parseTime=true
+	cookie_secret := os.Getenv("COOKIE_SECRET")
+	http_addr := os.Getenv("HTTP_ADDRESS")
+	http_cert_file := os.Getenv("HTTP_CERT_FILE")
+	http_key_file := os.Getenv("HTTP_KEY_FILE")
+	defaultDSN := strings.Replace(db_url, "-", "_", -1)
 
 	c := viper.New()
 	c.SetDefault("dsn", defaultDSN)
-	c.SetDefault("cookie_secret", "z5mOYQcyv3KQHe3W")
-	c.SetDefault("http_addr", ":8888")
-	c.SetDefault("http_cert_file", "")
-	c.SetDefault("http_key_file", "")
+	//c.SetDefault("cookie_secret", "z5mOYQcyv3KQHe3W")
+	c.SetDefault("cookie_secret", cookie_secret)
+	c.SetDefault("http_addr", http_addr)
+	c.SetDefault("http_cert_file", http_cert_file)
+	c.SetDefault("http_key_file", http_key_file)
 	c.SetDefault("http_drain_interval", "1s")
 
 	c.AutomaticEnv()
@@ -50,7 +58,6 @@ func main() {
 	}
 
 	serverAddress := config.Get("http_addr").(string)
-
 	certFile := config.Get("http_cert_file").(string)
 	keyFile := config.Get("http_key_file").(string)
 	drainIntervalString := config.Get("http_drain_interval").(string)

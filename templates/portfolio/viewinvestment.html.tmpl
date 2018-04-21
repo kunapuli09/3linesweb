@@ -1,0 +1,524 @@
+{{define "View"}}
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" href="../../../../favicon.ico">
+      <title>{{.StartupName}}</title>
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="css/dashboard.css" rel="stylesheet">
+   </head>
+   <body>
+      <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{.StartupName}}</a>
+         <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+         <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+               <a class="nav-link" href="#">Sign out</a>
+            </li>
+         </ul>
+      </nav>
+      <div class="container-fluid">
+         <div class="card-group">
+            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+               <div class="card-header">Header</div>
+               <div class="card-body">
+                  <h5 class="card-title">Primary card title</h5>
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Investment Date</td>
+                              <td>10/15/2017</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Industry</td>
+                              <td>{{.Industry}}</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Headquarters</td>
+                              <td>Brooklyn, NY</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>EV at Closing</td>
+                              <td>$60M</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+               <div class="card-header"></div>
+               <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Fund Ownership</td>
+                              <td>1%</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Investor Group Ownership</td>
+                              <td>20%</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Management Ownership</td>
+                              <td>20%</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Board Representation</td>
+                              <td>0 of 3</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Board Members</td>
+                              <td>Andrew</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+               <div class="card-header"></div>
+               <div class="card-body">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table">
+                        <tbody>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Investment Commitment</td>
+                              <td>$50k</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Invested Capital</td>
+                              <td>$50k</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Realized Proceeds</td>
+                              <td>20%</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Reported Value</td>
+                              <td>$6M</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Investment Multiple</td>
+                              <td>3x</td>
+                           </tr>
+                           <tr>
+                              <th scope="row"></th>
+                              <td>Gross IRR(All Security Types)</td>
+                              <td>15%</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">INVESTMENT BACKGROUND</h5>
+               <p class="card-text">
+                  Company 3, located in Brooklyn, NY, is a top eldercare referral services company that provides move-ins for the senior housing industry. Founded in 1992, the company provides free personalized information about eldercare facility options to tens of thousands of families each month. To do so, Company 3 generates leads primarily from online marketing sources and converts them to move-ins through its nationwide network of 750 eldercare advisors.
+                  On September 15, 2007, BP led a consortium, which completed the acquisition of Company 3 for a total effective consideration of $60 million excluding third-party transaction fees. BP II invested $5 million for a 12% equity stake in a transaction that included $19m of debt. In October 2009, BP II provided $5.0 million of debt as part of a restructuring, following a covenant breach.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">INVESTMENT THESIS</h5>
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table">
+                     <tbody>
+                        <tr>
+                           <th scope="row"></th>
+                           <td>Steady Growth: Organic revenue growth of 6.5% for the five years prior to BP II’s investment versus 5% for the industry</td>
+                        </tr>
+                        <tr>
+                           <th scope="row"></th>
+                           <td>Fragmented industry presents opportunity for sizeable, bolt-on acquisitions at accretive multiples</td>
+                        </tr>
+                        <tr>
+                           <th scope="row"></th>
+                           <td>Expectations: Exit through IPO or strategic sale within 24 months</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">RECENT EVENTS & KEY INITIATIVES</h5>
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table">
+                     <tbody>
+                        <tr>
+                           <th scope="row"></th>
+                           <td>Management: New CEO started on November 1, 2010, and has implemented a 100 day plan including a new budget process</td>
+                        </tr>
+                        <tr>
+                           <th scope="row"></th>
+                           <td>Sales Growth: Signed a new five-year contract with major eldercare facility which will drive sales growth in 2011</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">
+                  INVESTMENT STRUCTURE as of 
+               </h5>
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table table-sm table-dark">
+                     <thead>
+                        <tr>
+                           <th scope="col">Investment Structure</th>
+                           <th scope="col">Units/Par</th>
+                           <th scope="col">Total Invested</th>
+                           <th scope="col">Reported Value</th>
+                           <th scope="col">Realized Proceeds</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">Common Units</th>
+                           <td>500</td>
+                           <td>500</td>
+                           <td>5,000,000</td>
+                           <td>0</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Series A Preferred</th>
+                           <td>2,500,000</td>
+                           <td>2,500,000</td>
+                           <td>5,000,000</td>
+                           <td>10,000,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Sr. Sec. Note</th>
+                           <td>1,200,000</td>
+                           <td>1,500,000</td>
+                           <td>5,200,000</td>
+                           <td>7,900,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Total</th>
+                           <td>0</td>
+                           <td>0</td>
+                           <td>1,000,000</td>
+                           <td>1,000,000</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">
+                  CAPITALIZATION as of 
+               </h5>
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table table-sm table-dark">
+                     <thead>
+                        <tr>
+                           <th scope="col">Capitalization</th>
+                           <th scope="col">Rate</th>
+                           <th scope="col">Maturity</th>
+                           <th scope="col">Closing</th>
+                           <th scope="col">12/31/2017</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">Cash on Hand</th>
+                           <td></td>
+                           <td>12/31/2018</td>
+                           <td>21,320,000</td>
+                           <td>0</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Equity</th>
+                           <td></td>
+                           <td>41,000,000</td>
+                           <td>30,520,000</td>
+                           <td></td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Enterprise Value</th>
+                           <td></td>
+                           <td>60,000,000</td>
+                           <td>51,840,000</td>
+                           <td>7,900,000</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">FINANCIAL RESULTS</h5>
+               <p class="card-text">
+                  <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table table-sm table-dark">
+                     <thead>
+                        <tr>
+                           <th scope="col"></th>
+                           <th scope="col">At Closing</th>
+                           <th scope="col">Q1</th>
+                           <th scope="col">Q2</th>
+                           <th scope="col">Q3</th>
+                           <th scope="col">Q3</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row">Revenue</th>
+                           <td>50,000,000</td>
+                           <td>50,000,000</td>
+                           <td>45,000,000</td>
+                           <td>40,000,000</td>
+                           <td>42,000,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">YOY % Growth</th>
+                           <td>8%</td>
+                           <td>7%</td>
+                           <td>-10%</td>
+                           <td>-11%</td>
+                           <td>5%</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">LTM EBITDA</th>
+                           <td>6,500,000</td>
+                           <td>6,500,000</td>
+                           <td>6,700,000</td>
+                           <td>6,100,000</td>
+                           <td>6,300,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">YOY % Growth</th>
+                           <td>7%</td>
+                           <td>9%</td>
+                           <td>4%</td>
+                           <td>-12%</td>
+                           <td>4%</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">EBITDA Margin</th>
+                           <td>13%</td>
+                           <td>13%</td>
+                           <td>15%</td>
+                           <td>15%</td>
+                           <td>15%</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Total Exit Value</th>
+                           <td>60,000,000</td>
+                           <td>60,000,000</td>
+                           <td>60,840,000</td>
+                           <td>47,840,000</td>
+                           <td>51,840,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Total Exit Value Multiple</th>
+                           <td>9.2x</td>
+                           <td>9.2x</td>
+                           <td>9.1x</td>
+                           <td>7.8x</td>
+                           <td>8.2x</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Total Leverage</th>
+                           <td>19,000,000</td>
+                           <td>18,500,000</td>
+                           <td>18,720,000</td>
+                           <td>21,100,000</td>
+                           <td>21,320,000</td>
+                        </tr>
+                        <tr>
+                           <th scope="row">Total Leverage Multiple</th>
+                           <td>2.9x</td>
+                           <td>2.8x</td>
+                           <td>2.8x</td>
+                           <td>3.5x</td>
+                           <td>3.4x</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">VALUATION METHODOLOGY</h5>
+               <p class="card-text">
+                  To value our interest in Company 3, we analyzed Company 3 on both a multiple of EBITDA basis and a discounted cash flow approach. For the multiple of EBITDA approach, we used an 8.3x multiple on LTM EBITDA as of YE 2015.  We kept Company A's multiple flat to last quarter as a result of the wide range and inter quarter volatility valuation multiples for the trading comparables.  To determine the discount rate, we calculated the WACC using the industry comparables as guidelines. Using the discount rate of 11% and with exit multiples ranging from 7.5x to 8.5x, we calculated a total equity value in the range of $102.2 million to $154.6 million.  This analysis implies a mid-point value of $128.4 million or $77.6 million in equity value for the Fund.  Evaluating Company A using these two methodologies implied a valuation range of $32.9 million to $77.6 million for the Fund's interest in Company A.  Given this analysis, the increase in multiples and positive EBITDA trends in the business, we believe it is appropriate to value Company A at $42.5 million or 55% of cost.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
+               <p class="card-text">
+                  Given the declining amount of eldercare referrals in our target region coupled with rising online marketing prices, the company's covenant headroom remains tight and will be an area of significant focus over the coming months.
+               </p>
+            </div>
+         </div>
+      </div>
+      <!-- 
+         <div class="container-fluid">
+           <div class="row">
+             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+               <div class="sidebar-sticky">
+                 <ul class="nav flex-column">
+                   <li class="nav-item">
+                     <a class="nav-link active" href="#">
+                       <span data-feather="home"></span>
+                       Dashboard <span class="sr-only">(current)</span>
+                     </a>
+                   </li>
+                 </ul>
+         
+                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                   <span>Saved reports</span>
+                   <a class="d-flex align-items-center text-muted" href="#">
+                     <span data-feather="plus-circle"></span>
+                   </a>
+                 </h6>
+                 <ul class="nav flex-column mb-2">
+                   <li class="nav-item">
+                     <a class="nav-link" href="#">
+                       <span data-feather="file-text"></span>
+                       Current month
+                     </a>
+                   </li>
+                 </ul>
+               </div>
+             </nav>
+         
+             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                 <h1 class="h2">Dashboard</h1>
+                 
+               </div>
+         
+               <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> 
+         
+               <h2>Section title</h2>
+             </main>
+           </div> -->
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+      <script src="../../../../assets/js/vendor/popper.min.js"></script>
+      <script src="../../../../dist/js/bootstrap.min.js"></script>
+      <!-- Icons -->
+      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+      <script>
+         feather.replace()
+      </script>
+      <!-- Graphs -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+      <script>
+         var ctx = document.getElementById("myChart");
+         var myChart = new Chart(ctx, {
+           type: 'line',
+           data: {
+             labels: ["2016", "2017", "2018"],
+             datasets: [{
+               data: [400000, 3240000, 10000000],
+               lineTension: 0,
+               backgroundColor: 'transparent',
+               borderColor: '#007bff',
+               borderWidth: 4,
+               pointBackgroundColor: '#007bff'
+             }]
+           },
+           options: {
+             scales: {
+               yAxes: [{
+                 ticks: {
+                   beginAtZero: false
+                 }
+               }]
+             },
+             legend: {
+               display: false,
+             }
+           }
+         });
+      </script>
+   </body>
+</html>
+{{end}}

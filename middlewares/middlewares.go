@@ -4,9 +4,9 @@ package middlewares
 import (
 	"net/http"
 
+	"context"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
-	"context"
 )
 
 func SetDB(db *sqlx.DB) func(http.Handler) http.Handler {
@@ -32,7 +32,7 @@ func SetSessionStore(sessionStore sessions.Store) func(http.Handler) http.Handle
 // MustLogin is a middleware that checks existence of current user.
 func MustLogin(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		sessionStore := req.Context().Value( "sessionStore").(sessions.Store)
+		sessionStore := req.Context().Value("sessionStore").(sessions.Store)
 		session, _ := sessionStore.Get(req, "3linesweb-session")
 		userRowInterface := session.Values["user"]
 

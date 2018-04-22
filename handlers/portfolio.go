@@ -126,7 +126,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	//fmt.Printf("map %v", m)
-	investment, err2 := models.NewInvestment(db).Create(nil, m)
+	_, err2 := models.NewInvestment(db).Create(nil, m)
 	if err2 != nil {
 		fmt.Println("database error")
 		libhttp.HandleErrorJson(w, err2)
@@ -183,7 +183,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	//fmt.Printf("map %v", m)
-	investment, err2 := models.NewInvestment(db).UpdateById(nil, ID, m)
+	_, err2 := models.NewInvestment(db).UpdateById(nil, ID, m)
 	if err2 != nil {
 		libhttp.HandleErrorJson(w, err2)
 		return

@@ -74,17 +74,16 @@
           <input type="hidden" name="id" value="{{ .ID }}">
           <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .StartupName }}"  required autofocus>
           <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Industry }}" autofocus>
-          <input type="text" class="date-picker form-control" name="InvestmentDate" placeholder="InvestmentDate" value="">
+          <input type="text" class="form-control" name="InvestmentDate" id="InvestmentDate" value="{{.InvestmentDate}}">
           <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Industry }}" autofocus>
           <input name="Headquarters" type="text" class="form-control" placeholder="Headquarters" value="{{ .Headquarters }}"  autofocus>
           <input name="ExitValueAtClosing" type="text" class="form-control" placeholder="ExitValueAtClosing" value="{{ .ExitValueAtClosing }}"  autofocus>
           <input name="FundOwnershipPercentage" type="text" class="form-control" placeholder="FundOwnershipPercentage" value="{{ .FundOwnershipPercentage }}"  autofocus>
-          <input name="InvestorGroupOwnershipPercentage" type="text" class="form-control" placeholder="InvestorGroupOwnershipPercentage" value="{{ .InvestorGroupOwnershipPercentage }}"  autofocus>
+          <input name="InvestorGroupPercentage" type="text" class="form-control" placeholder="InvestorGroupPercentage" value="{{ .InvestorGroupPercentage }}"  autofocus> 
           <input name="ManagementOwnership" type="text" class="form-control" placeholder="ManagementOwnership" value="{{ .ManagementOwnership }}"  autofocus>
           <input name="BoardRepresentation" type="text" class="form-control" placeholder="BoardRepresentation" value="{{ .BoardRepresentation }}"  autofocus>
           <input name="BoardMembers" type="text" class="form-control" placeholder="BoardMembers" value="{{ .BoardMembers }}"  autofocus>
           <input name="InvestmentCommittment" type="text" class="form-control" placeholder="InvestmentCommittment" value="{{ .InvestmentCommittment }}"  autofocus>
-
           <input name="InvestedCapital" type="text" class="form-control" placeholder="InvestedCapital" value="{{ .InvestedCapital }}"  autofocus>
           <input name="RealizedProceeds" type="text" class="form-control" placeholder="RealizedProceeds" value="{{ .RealizedProceeds }}"  autofocus>
           <input name="ReportedValue" type="text" class="form-control" placeholder="ReportedValue" value="{{ .ReportedValue }}"  autofocus>

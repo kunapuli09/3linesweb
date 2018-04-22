@@ -1,0 +1,36 @@
+{{define "content"}}
+<section class="bg-light" id="team">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 text-center">
+            <h2 class="section-heading text-uppercase">Add Capital Structure</h2>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-4">
+            <form class="form-signup-login form-investment" method="post" action="/add">
+               <div class="form-group">
+                  <label for="Capitalization">Capitalization</label>
+                  <input name="Capitalization" type="text" class="form-control" placeholder="Cash on Hand, Total Net Debt, Equity, Enterprise Value" value="{{ .Capitalization }}"  required autofocus>
+               </div>
+               <div class="form-group">
+                <label for="ReportingDate">Reporting Date</label>
+                <input type="text" class="form-control" name="ReportingDate" id="ReportingDate" placeholder="2006-Jan-02" value="{{.ReportingDate}}" >
+               </div>
+               <div class="form-group">
+                  <label for="ClosingValue">Closing Value</label>
+                  <input name="ClosingValue" type="text" class="form-control" placeholder="500" value="{{ .ClosingValue }}"  required autofocus>
+               </div>
+               <div class="form-group">
+                  <label for="YearEndValue">Year End Value</label>
+                  <input name="YearEndValue" type="text" class="form-control" placeholder="2,500,000" value="{{ .YearEndValue }}"  required autofocus>
+               </div>
+               
+               <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+               <a href="/home" class="other-form text-center">Home</a>
+               </form>
+         </div>
+      </div>
+   </div>
+</section>
+{{end}}

@@ -196,6 +196,8 @@ func Update(w http.ResponseWriter, r *http.Request) {
 func ConvertFormDate(value string) reflect.Value {
 	if v, err := time.Parse("01/02/2006", value); err == nil {
 		return reflect.ValueOf(v)
+	}else if v, err := time.Parse("2006-01-02 00:00:00 +0000 UTC", value); err == nil {
+		return reflect.ValueOf(v)
 	}
 	return reflect.Value{} // this is the same as the private const invalidType
 }

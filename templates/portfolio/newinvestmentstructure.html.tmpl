@@ -3,38 +3,61 @@
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center">
-            <h2 class="section-heading text-uppercase">Add Investment Structure</h2>
+            <h3 class="section-heading text-uppercase">Add Investment Structure for {{.Investment.StartupName}} </h3>
          </div>
+         <table class="table">
+          <tbody>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td>{{.ReportingDate}}</td>
+              <td>{{.Structure}}</td>
+             <td>{{ .Units }}</td>
+             <td>{{.TotalInvested}}</td>
+             <td><a class="btn btn-sm btn-outline-danger" href="/removeinvestmentstructure?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
       </div>
       <div class="row">
          <div class="col-lg-4">
-            <form class="form-signup-login form-investment" method="post" action="/add">
+            <form class="form-signup-login form-investment" method="post" action="/addInvestmentStructure"> 
+               <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <div class="form-group">
-                  <label for="Structure">Type of Investment</label>
-                  <input name="Structure" type="text" class="form-control" placeholder="Eg: Common Units,Series B Preferred,Note " value="{{ .Structure }}"  required autofocus>
+                 <label for="Structure">Type of Investment</label>
+                 <select class="form-control" id="Structure" name="Structure">
+                   <option value="Common Units">Common Units</option>
+                   <option value="Series A Preferred">Series A Preferred</option>
+                   <option value="Seed Preferred">Seed Preferred</option>
+                   <option value="Note">Note</option>
+                 </select>
                </div>
-               <div class="form-group">
-                <label for="ReportingDate">Reporting Date</label>
-                <input type="text" class="form-control" name="ReportingDate" id="ReportingDate" placeholder="2006-Jan-02" value="{{.ReportingDate}}" >
+               <label for="ReportingDate">Reporting Date</label>
+               <div class="input-group date" data-provide="datepicker-inline">
+                  <input type="text" id="ReportingDate" name="ReportingDate" value="{{ .InvestmentStructure.ReportingDate }}" class="form-control" required autofocus>
+                  <div class="input-group-addon">
+                     <span class="glyphicon glyphicon-th"></span>
+                  </div>
                </div>
                <div class="form-group">
                   <label for="Units">Number of Units Par</label>
-                  <input name="Units" type="text" class="form-control" placeholder="500" value="{{ .Units }}"  required autofocus>
+                  <input name="Units" type="text" class="form-control" placeholder="500" value="{{ .InvestmentStructure.Units }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="TotalInvested">Total Invested</label>
-                  <input name="TotalInvested" type="text" class="form-control" placeholder="2,500,000" value="{{ .TotalInvested }}"  required autofocus>
+                  <input name="TotalInvested" type="text" class="form-control" placeholder="2,500,000" value="{{ .InvestmentStructure.TotalInvested }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="ReportedValue">Reported Value</label>
-                  <input name="ReportedValue" type="text" class="form-control" placeholder="$2,500,000" value="{{ .ReportedValue }}"  required autofocus>
+                  <input name="ReportedValue" type="text" class="form-control" placeholder="$2,500,000" value="{{ .InvestmentStructure.ReportedValue }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="RealizedProceeds">Realized Proceeds</label>
-                  <input name="RealizedProceeds" type="text" class="form-control" placeholder="0" value="{{ .RealizedProceeds }}"  required autofocus>
-               </div>
-               <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-               <a href="/home" class="other-form text-center">Home</a>
+                  <input name="RealizedProceeds" type="text" class="form-control" placeholder="0" value="{{ .InvestmentStructure.RealizedProceeds }}"  required autofocus>
+               </div> 
+               <button class="btn btn-lg btn-primary btn-block" type="submit">Add Investment Structure</button>
+               <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>
                </form>
          </div>
       </div>

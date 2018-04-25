@@ -1,0 +1,47 @@
+{{define "content"}}
+<section class="bg-light" id="team">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-8 text-center">
+            <h3 class="section-heading text-uppercase">Add News for {{.Investment.StartupName}} </h3>
+         </div>
+         <table class="table">
+          <tbody>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td>{{.NewsDate}}</td>
+             <td>{{ .News }}</td>
+             <td><a class="btn btn-sm btn-outline-danger" href="/removenews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+         <div class="col-lg-4">
+            <form class="form-signup-login form-investment" method="post" action="/addNews">
+               <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
+               <label for="NewsDate">News Date</label>
+               <div class="input-group date" data-provide="datepicker-inline">
+                  <input type="text" id="NewsDate" name="NewsDate" value="{{ .News.NewsDate }}" class="form-control" required autofocus>
+                  <div class="input-group-addon">
+                     <span class="glyphicon glyphicon-th"></span>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+      <div class="form-group">
+      <label for="News">News</label>
+      <textarea name="News" class="form-control" rows="3" placeholder="latest news" value="{{ .News.News }}"  autofocus></textarea>
+      </div> 
+      </div> 
+      <button class="btn btn-md btn-primary btn-block" type="submit">Add</button>
+      <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>
+      </form>
+      </div>
+   </div>
+</section>
+{{end}}

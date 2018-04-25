@@ -4,8 +4,9 @@
       <div class="row">
          <form class="form-signup-login form-investment" method="post" action="/add">
          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Add Investment</h2>
+            <h2 class="section-heading text-uppercase">Add New Investment</h2>
          </div>
+         
       </div>
       <div class="row">
       <div class="col-lg-4">
@@ -47,10 +48,6 @@
                   <label for="Industry">Industry</label>
                   <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Industry }}" autofocus>
                </div>
-               <!-- <div class="form-group">
-                  <label for="InvestmentDate">Investment Date</label>
-                  <input type="text" class="form-control" name="InvestmentDate" id="InvestmentDate" value="{{ .InvestmentDate }}">
-               </div> -->
                <label for="InvestmentDate">Investment Date</label>
                <div class="input-group date" data-provide="datepicker-inline">
                   <input type="text" id="InvestmentDate" name="InvestmentDate" value="{{.InvestmentDate}}" class="form-control">
@@ -154,7 +151,7 @@
       </div>   
       </div>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-      <a href="/home" class="other-form text-center">Home</a>
+      <a href="/viewinvestment?id={{.ID}}" class="other-form text-center">Back to Dashboard</a>
       </form>
    </div>
 </section>

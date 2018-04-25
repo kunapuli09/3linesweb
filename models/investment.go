@@ -47,48 +47,6 @@ type InvestmentRow struct {
 	InvestmentMultiple      float64   `db:"InvestmentMultiple"`
 	GrossIRR                float64   `db:"GrossIRR"`
 }
-type News struct {
-	ID            int64     `db:"id"`
-	Investment_ID int64     `db:"investment_id"`
-	NewsDate      time.Time `db:"NewsDate"`
-	News          string    `db:"News"`
-}
-
-type InvestmentStructure struct {
-	ID               int64     `db:"id"`
-	Investment_ID    int64     `db:"investment_id"`
-	ReportingDate    time.Time `db:"ReportingDate"`
-	Units            float64   `db:"Units"`
-	TotalInvested    float64   `db:"TotalInvested"`
-	ReportedValue    float64   `db:"ReportedValue"`
-	RealizedProceeds float64   `db:"RealizedProceeds"`
-	Structure        string    `db:"Structure"`
-}
-
-type CapitalizationStructure struct {
-	ID            int64     `db:"id"`
-	Investment_ID int64     `db:"investment_id"`
-	ReportingDate time.Time `db:"ReportingDate"`
-	//MaturityDate   time.Time `db:"maturity_date"`
-	ClosingValue   float64 `db:"ClosingValue"`
-	YearEndValue   float64 `db:"YearEndValue"`
-	Capitalization string  `db:"Capitalization"`
-}
-
-type FinancialResults struct {
-	ID                     int64     `db:"id"`
-	Investment_ID          int64     `db:"investment_id"`
-	ReportingDate          time.Time `db:"ReportingDate"`
-	Revenue                float64   `db:"Revenue"`
-	YoYGrowthPercentage1   float64   `db:"YoYGrowthPercentage1"`
-	LTMEBITDA              float64   `db:"LTMEBITDA"`
-	YoYGrowthPercentage2   float64   `db:"YoYGrowthPercentage2"`
-	EBITDAMargin           float64   `db:"EBITDAMargin"`
-	TotalExitValue         float64   `db:"TotalExitValue"`
-	TotalExitValueMultiple float64   `db:"TotalExitValueMultiple"`
-	TotalLeverage          float64   `db:"TotalLeverage"`
-	TotalLeverageMultiple  float64   `db:"TotalLeverageMultiple"`
-}
 
 func (i *Investment) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentRow, error) {
 	investmentId, err := sqlResult.LastInsertId()
@@ -124,6 +82,14 @@ func (i *Investment) GetByName(tx *sqlx.Tx, name string) (*InvestmentRow, error)
 	err := i.db.Get(investment, query, name)
 
 	return investment, err
+}
+
+// GetByName returns record by name.
+func (i *Investment) GetStartupNames(tx *sqlx.Tx) ([]*InvestmentRow, error) {
+	investments := []*InvestmentRow{}
+	query := fmt.Sprintf("SELECT StartupName, id FROM %v", i.table)
+	err := i.db.Select(&investments, query)
+	return investments, err
 }
 
 // create a new record of user.

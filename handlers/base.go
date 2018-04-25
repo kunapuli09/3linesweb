@@ -6,6 +6,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
+	"time"
+	"reflect"
 )
 
 func getIdFromPath(w http.ResponseWriter, r *http.Request) (int64, error) {
@@ -20,4 +22,15 @@ func getIdFromPath(w http.ResponseWriter, r *http.Request) (int64, error) {
 	}
 
 	return id, nil
+}
+
+//****big bug with golang date format parsing ***
+//https://stackoverflow.com/questions/14106541/go-parsing-date-time-strings-which-are-not-standard-formats
+func ConvertFormDate(value string) reflect.Value {
+	if v, err := time.Parse("01/02/2006", value); err == nil {
+		return reflect.ValueOf(v)
+	} else if v, err := time.Parse("2006-01-02 00:00:00 +0000 UTC", value); err == nil {
+		return reflect.ValueOf(v)
+	}
+	return reflect.Value{} // this is the same as the private const invalidType
 }

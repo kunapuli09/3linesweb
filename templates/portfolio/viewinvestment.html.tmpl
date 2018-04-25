@@ -7,7 +7,7 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <link rel="icon" href="../../../../favicon.ico">
-      <title>{{.StartupName}}</title>
+      <title>{{.Investment.StartupName}}</title>
       <!-- Bootstrap core CSS -->
       <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <!-- Custom styles for this template -->
@@ -15,20 +15,25 @@
    </head>
    <body>
       <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{.StartupName}}</a>
+         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{.Investment.StartupName}}</a>
          <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
          <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-               <a class="nav-link" href="#">Sign out</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/portfolio" role="button">Portfolio</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/editinvestment?id={{.Investment.ID}}" role="button"> Investment Details</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Investment Structure</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Capital Structure</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Financial Results</a>
+               <a class="btn btn-sm btn-outline-secondary" href="/news?Investment_ID={{.Investment.ID}}" role="button"> News</a>
             </li>
          </ul>
       </nav>
       <div class="container-fluid">
          <div class="card-group">
-            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
                <div class="card-header">Header</div>
                <div class="card-body">
-                  <h5 class="card-title">Primary card title</h5>
+                  <h5 class="card-title">Investment Details</h5>
                   <p class="card-text">
                   <div class="table-responsive-md">
                      <table class="table">
@@ -36,22 +41,22 @@
                            <tr>
                               <th scope="row"></th>
                               <td>Investment Date</td>
-                              <td>10/15/2017</td>
+                              <td>{{.Investment.InvestmentDate}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Industry</td>
-                              <td>{{.Industry}}</td>
+                              <td>{{.Investment.Industry}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Headquarters</td>
-                              <td>Brooklyn, NY</td>
+                              <td>{{.Investment.Headquarters}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
-                              <td>EV at Closing</td>
-                              <td>$60M</td>
+                              <td>Exit Value at Closing</td>
+                              <td>{{.Investment.ExitValueAtClosing}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -59,7 +64,7 @@
                   </p>
                </div>
             </div>
-            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
                <div class="card-header"></div>
                <div class="card-body">
                   <h5 class="card-title"></h5>
@@ -70,27 +75,27 @@
                            <tr>
                               <th scope="row"></th>
                               <td>Fund Ownership</td>
-                              <td>1%</td>
+                              <td>{{.Investment.FundOwnershipPercentage}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Investor Group Ownership</td>
-                              <td>20%</td>
+                              <td>{{.Investment.InvestorGroupPercentage}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Management Ownership</td>
-                              <td>20%</td>
+                              <td>{{.Investment.ManagementOwnership}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Board Representation</td>
-                              <td>0 of 3</td>
+                              <td>{{.Investment.BoardRepresentation}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Board Members</td>
-                              <td>Andrew</td>
+                              <td>{{.Investment.BoardMembers}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -98,7 +103,7 @@
                   </p>
                </div>
             </div>
-            <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
                <div class="card-header"></div>
                <div class="card-body">
                   <h5 class="card-title"></h5>
@@ -109,32 +114,32 @@
                            <tr>
                               <th scope="row"></th>
                               <td>Investment Commitment</td>
-                              <td>$50k</td>
+                              <td>{{.Investment.InvestmentCommittment}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Invested Capital</td>
-                              <td>$50k</td>
+                              <td>{{.Investment.InvestedCapital}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Realized Proceeds</td>
-                              <td>20%</td>
+                              <td>{{.Investment.RealizedProceeds}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Reported Value</td>
-                              <td>$6M</td>
+                              <td>{{.Investment.ReportedValue}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Investment Multiple</td>
-                              <td>3x</td>
+                              <td>{{.Investment.InvestmentMultiple}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
                               <td>Gross IRR(All Security Types)</td>
-                              <td>15%</td>
+                              <td>{{.Investment.GrossIRR}}</td>
                            </tr>
                         </tbody>
                      </table>
@@ -150,8 +155,29 @@
             <div class="card-body">
                <h5 class="card-title">INVESTMENT BACKGROUND</h5>
                <p class="card-text">
-                  Company 3, located in Brooklyn, NY, is a top eldercare referral services company that provides move-ins for the senior housing industry. Founded in 1992, the company provides free personalized information about eldercare facility options to tens of thousands of families each month. To do so, Company 3 generates leads primarily from online marketing sources and converts them to move-ins through its nationwide network of 750 eldercare advisors.
-                  On September 15, 2007, BP led a consortium, which completed the acquisition of Company 3 for a total effective consideration of $60 million excluding third-party transaction fees. BP II invested $5 million for a 12% equity stake in a transaction that included $19m of debt. In October 2009, BP II provided $5.0 million of debt as part of a restructuring, following a covenant breach.
+                  {{.Investment.InvestmentBackground}}
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">VALUATION METHODOLOGY</h5>
+               <p class="card-text">
+                  {{.Investment.ValuationMethodology}}
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="card-group">
+         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
+               <p class="card-text">
+                  {{.Investment.RiskAssessment}}
                </p>
             </div>
          </div>
@@ -167,15 +193,7 @@
                      <tbody>
                         <tr>
                            <th scope="row"></th>
-                           <td>Steady Growth: Organic revenue growth of 6.5% for the five years prior to BP II’s investment versus 5% for the industry</td>
-                        </tr>
-                        <tr>
-                           <th scope="row"></th>
-                           <td>Fragmented industry presents opportunity for sizeable, bolt-on acquisitions at accretive multiples</td>
-                        </tr>
-                        <tr>
-                           <th scope="row"></th>
-                           <td>Expectations: Exit through IPO or strategic sale within 24 months</td>
+                           <td>{{.Investment.InvestmentThesis}}</td>
                         </tr>
                      </tbody>
                   </table>
@@ -183,6 +201,50 @@
                </p>
             </div>
          </div>
+         <div class="card-group">
+         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
+            <div class="card-header"></div>
+            <div class="card-body">
+               <h5 class="card-title">FINANCIAL RESULTS</h5>
+               <p class="card-text">
+               <div class="table-responsive-md">
+                  <table class="table table-sm table-dark">
+                     <thead>
+                        <tr>
+                           <th scope="col">Reporting Date</th>
+                           <th scope="col">Revenue</th>
+                           <th scope="col">YOY % Growth</th>
+                           <th scope="col">LTM EBITDA</th>
+                           <th scope="col">YOY % Growth</th>
+                           <th scope="col">EBITDA Margin</th>
+                           <th scope="col">Total Exit Value</th>
+                           <th scope="col">Total Exit Value Multiple</th>
+                           <th scope="col">Total Leverage</th>
+                           <th scope="col">Total Leverage Multiple</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {{range .Existing }}
+                        <tr>
+                           <td>{{.ReportingDate}}</td>
+                           <td>{{.Revenue}}</td>
+                           <td>{{.YoYGrowthPercentage1}}</td>
+                           <td>{{.LTMEBITDA}}</td>
+                           <td>{{.YoYGrowthPercentage2}}</td>
+                           <td>{{.EBITDAMargin}}</td>
+                           <td>{{.TotalExitValue}}</td>
+                           <td>{{.TotalExitValueMultiple}}</td>
+                           <td>{{.TotalLeverage}}</td>
+                           <td>{{.TotalLeverageMultiple}}</td>
+                        </tr>
+                        {{end}}
+                     </tbody>
+                  </table>
+               </div>
+               </p>
+            </div>
+         </div>
+      </div>
          <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
             <div class="card-header"></div>
             <div class="card-body">
@@ -192,13 +254,15 @@
                   <table class="table">
                      <tbody>
                         <tr>
-                           <th scope="row"></th>
-                           <td>Management: New CEO started on November 1, 2010, and has implemented a 100 day plan including a new budget process</td>
+                           <th scope="row">Reporting Date</th>
+                           <td>News</td>
                         </tr>
+                        {{range .ExistingNews}}
                         <tr>
-                           <th scope="row"></th>
-                           <td>Sales Growth: Signed a new five-year contract with major eldercare facility which will drive sales growth in 2011</td>
+                           <th scope="row">{{.ReportingDate}}</th>
+                           <td>{{.News}}</td>
                         </tr>
+                        {{end}}
                      </tbody>
                   </table>
                </div>
@@ -211,13 +275,14 @@
             <div class="card-header"></div>
             <div class="card-body">
                <h5 class="card-title">
-                  INVESTMENT STRUCTURE as of 
+                  INVESTMENT STRUCTURE
                </h5>
                <p class="card-text">
                <div class="table-responsive-md">
                   <table class="table table-sm table-dark">
                      <thead>
                         <tr>
+                           <th scope="col">Reporting Date</th>
                            <th scope="col">Investment Structure</th>
                            <th scope="col">Units/Par</th>
                            <th scope="col">Total Invested</th>
@@ -226,34 +291,16 @@
                         </tr>
                      </thead>
                      <tbody>
+                        {{range .ExistingInvestmentStructures}}
                         <tr>
-                           <th scope="row">Common Units</th>
-                           <td>500</td>
-                           <td>500</td>
-                           <td>5,000,000</td>
-                           <td>0</td>
+                           <th scope="row">{{.ReportingDate}}</th>
+                           <td>{{.Structure}}</td>
+                           <td>{{.Units}}</td>
+                           <td>{{.TotalInvested}}</td>
+                           <td>{{.ReportedValue}}</td>
+                           <td>{{.RealizedProceeds}}</td>
                         </tr>
-                        <tr>
-                           <th scope="row">Series A Preferred</th>
-                           <td>2,500,000</td>
-                           <td>2,500,000</td>
-                           <td>5,000,000</td>
-                           <td>10,000,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Sr. Sec. Note</th>
-                           <td>1,200,000</td>
-                           <td>1,500,000</td>
-                           <td>5,200,000</td>
-                           <td>7,900,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Total</th>
-                           <td>0</td>
-                           <td>0</td>
-                           <td>1,000,000</td>
-                           <td>1,000,000</td>
-                        </tr>
+                        {{end}}
                      </tbody>
                   </table>
                </div>
@@ -264,42 +311,28 @@
             <div class="card-header"></div>
             <div class="card-body">
                <h5 class="card-title">
-                  CAPITALIZATION as of 
+                  CAPITALIZATION STRUCTURE
                </h5>
                <p class="card-text">
                <div class="table-responsive-md">
                   <table class="table table-sm table-dark">
                      <thead>
                         <tr>
+                           <th scope="col">Reporting Date</th>
                            <th scope="col">Capitalization</th>
-                           <th scope="col">Rate</th>
-                           <th scope="col">Maturity</th>
                            <th scope="col">Closing</th>
-                           <th scope="col">12/31/2017</th>
+                           <th scope="col">Year End Value</th>
                         </tr>
                      </thead>
                      <tbody>
+                        {{range .ExistingCapitalStructures}}
                         <tr>
-                           <th scope="row">Cash on Hand</th>
-                           <td></td>
-                           <td>12/31/2018</td>
-                           <td>21,320,000</td>
-                           <td>0</td>
+                           <th scope="row">{{.ReportingDate}}</th>
+                           <td>{{.Capitalization}}</td>
+                           <td>{{.ClosingValue}}</td>
+                           <td>{{.YearEndValue}}</td>
                         </tr>
-                        <tr>
-                           <th scope="row">Equity</th>
-                           <td></td>
-                           <td>41,000,000</td>
-                           <td>30,520,000</td>
-                           <td></td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Enterprise Value</th>
-                           <td></td>
-                           <td>60,000,000</td>
-                           <td>51,840,000</td>
-                           <td>7,900,000</td>
-                        </tr>
+                        {{end}}
                      </tbody>
                   </table>
                </div>
@@ -307,132 +340,7 @@
             </div>
          </div>
       </div>
-      <div class="card-group">
-         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
-            <div class="card-header"></div>
-            <div class="card-body">
-               <h5 class="card-title">FINANCIAL RESULTS</h5>
-               <p class="card-text">
-                  <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
-            <div class="card-header"></div>
-            <div class="card-body">
-               <p class="card-text">
-               <div class="table-responsive-md">
-                  <table class="table table-sm table-dark">
-                     <thead>
-                        <tr>
-                           <th scope="col"></th>
-                           <th scope="col">At Closing</th>
-                           <th scope="col">Q1</th>
-                           <th scope="col">Q2</th>
-                           <th scope="col">Q3</th>
-                           <th scope="col">Q3</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <tr>
-                           <th scope="row">Revenue</th>
-                           <td>50,000,000</td>
-                           <td>50,000,000</td>
-                           <td>45,000,000</td>
-                           <td>40,000,000</td>
-                           <td>42,000,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">YOY % Growth</th>
-                           <td>8%</td>
-                           <td>7%</td>
-                           <td>-10%</td>
-                           <td>-11%</td>
-                           <td>5%</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">LTM EBITDA</th>
-                           <td>6,500,000</td>
-                           <td>6,500,000</td>
-                           <td>6,700,000</td>
-                           <td>6,100,000</td>
-                           <td>6,300,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">YOY % Growth</th>
-                           <td>7%</td>
-                           <td>9%</td>
-                           <td>4%</td>
-                           <td>-12%</td>
-                           <td>4%</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">EBITDA Margin</th>
-                           <td>13%</td>
-                           <td>13%</td>
-                           <td>15%</td>
-                           <td>15%</td>
-                           <td>15%</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Total Exit Value</th>
-                           <td>60,000,000</td>
-                           <td>60,000,000</td>
-                           <td>60,840,000</td>
-                           <td>47,840,000</td>
-                           <td>51,840,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Total Exit Value Multiple</th>
-                           <td>9.2x</td>
-                           <td>9.2x</td>
-                           <td>9.1x</td>
-                           <td>7.8x</td>
-                           <td>8.2x</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Total Leverage</th>
-                           <td>19,000,000</td>
-                           <td>18,500,000</td>
-                           <td>18,720,000</td>
-                           <td>21,100,000</td>
-                           <td>21,320,000</td>
-                        </tr>
-                        <tr>
-                           <th scope="row">Total Leverage Multiple</th>
-                           <td>2.9x</td>
-                           <td>2.8x</td>
-                           <td>2.8x</td>
-                           <td>3.5x</td>
-                           <td>3.4x</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
-               </p>
-            </div>
-         </div>
-               </p>
-            </div>
-         </div>
       </div>
-      <div class="card-group">
-         <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
-            <div class="card-header"></div>
-            <div class="card-body">
-               <h5 class="card-title">VALUATION METHODOLOGY</h5>
-               <p class="card-text">
-                  To value our interest in Company 3, we analyzed Company 3 on both a multiple of EBITDA basis and a discounted cash flow approach. For the multiple of EBITDA approach, we used an 8.3x multiple on LTM EBITDA as of YE 2015.  We kept Company A's multiple flat to last quarter as a result of the wide range and inter quarter volatility valuation multiples for the trading comparables.  To determine the discount rate, we calculated the WACC using the industry comparables as guidelines. Using the discount rate of 11% and with exit multiples ranging from 7.5x to 8.5x, we calculated a total equity value in the range of $102.2 million to $154.6 million.  This analysis implies a mid-point value of $128.4 million or $77.6 million in equity value for the Fund.  Evaluating Company A using these two methodologies implied a valuation range of $32.9 million to $77.6 million for the Fund's interest in Company A.  Given this analysis, the increase in multiples and positive EBITDA trends in the business, we believe it is appropriate to value Company A at $42.5 million or 55% of cost.
-               </p>
-            </div>
-         </div>
-      </div>
-      <div class="card-group">
-         <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
-            <div class="card-header"></div>
-            <div class="card-body">
-               <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
-               <p class="card-text">
-                  Given the declining amount of eldercare referrals in our target region coupled with rising online marketing prices, the company's covenant headroom remains tight and will be an area of significant focus over the coming months.
-               </p>
-            </div>
-         </div>
       </div>
       <!-- 
          <div class="container-fluid">

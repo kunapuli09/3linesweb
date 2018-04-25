@@ -14,7 +14,8 @@ func newEmailForTest() string {
 }
 
 func newDbForTest(t *testing.T) *sqlx.DB {
-	defaultDSN := strings.Replace("root:@tcp(localhost:3306)/3linesweb_test?parseTime=true", "-", "_", -1)
+
+	defaultDSN := strings.Replace("root:kk@starpath@tcp(localhost:3306)/3linesweb_test?parseTime=true", "-", "_", -1)
 	db, err := sqlx.Connect("mysql", defaultDSN)
 	if err != nil {
 		t.Fatalf("Connecting to local MySQL should never fail. Error: %v", err)
@@ -79,6 +80,69 @@ func TestCreateDeleteGeneric(t *testing.T) {
 		t.Fatalf("Inserting new row should not fail. Error: %v", err)
 	}
 
+	// DELETE WHERE id=...
+	where := fmt.Sprintf("id=%v", lastInsertedId)
+
+	_, err = base.DeleteFromTable(nil, where)
+	if err != nil {
+		t.Fatalf("Deleting row by id should not fail. Error: %v", err)
+	}
+
+}
+
+func TestCreateDeleteInvestment(t *testing.T) {
+	base := newBaseForTest(t)
+	base.table = "investments"
+
+	// INSERT INTO users (email) VALUES (...)
+	data := make(map[string]interface{})
+	data["StartupName"] = "TTTT"
+	data["Description"] = "abc123 abc123 abc124"
+	data["Website"] = "website.com"
+	data["LogoPath"] = "/path"
+	data["Team"] = "krishna"
+	data["RiskAssessment"] = "assessed"
+	data["ValuationMethodology"] = "lengthy"
+	data["Industry"] = "agri"
+	data["Headquarters"] = "denver"
+	data["InvestmentBackground"] = "bcg"
+	data["InvestmentThesis"] = "ths"
+	data["CapTable"] = "ths"
+	data["BoardRepresentation"] = "0 of 3"
+	data["BoardMembers"] = "a,b"
+	data["ExitValueAtClosing"]=0.0
+	data["FundOwnershipPercentage"]=0.0
+	data["InvestorGroupPercentage"]=0.0
+	data["ManagementOwnership"]=0.0
+	data["InvestmentCommittment"]=0.0
+	data["InvestedCapital"]=0.0
+	data["RealizedProceeds"]=0.0
+	data["ReportedValue"]=0.0
+	data["InvestmentMultiple"]=0.0
+	data["GrossIRR"]=0.0
+
+	result, err := base.InsertIntoTable(nil, data)
+	if err != nil {
+		t.Fatalf("Inserting new row should not fail. Error: %v", err)
+	}
+
+	lastInsertedId, err := result.LastInsertId()
+	if err != nil {
+		t.Fatalf("Inserting new row should not fail. Error: %v", err)
+	}
+
+	i := NewInvestment(base.db)
+	investment, err1:= i.GetById(nil,lastInsertedId)
+	if err1 != nil {
+		t.Fatalf("Retrieving row should not fail. Error: %v", err1)
+	}
+	if "abc123 abc123 abc124" != investment.Description {
+		t.Fatalf("Failed to retrieve Description: %v", err)
+	}
+	if "assessed" != investment.RiskAssessment {
+		t.Fatalf("Failed to retrieve Description: %v", err)
+	}
+	fmt.Printf("Description %v", investment.Description)
 	// DELETE WHERE id=...
 	where := fmt.Sprintf("id=%v", lastInsertedId)
 

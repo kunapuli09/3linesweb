@@ -10,6 +10,9 @@ ENV USER krishnakunapuli
 ENV verbose "true"
 ENV HTTP_ADDR "0.0.0.0:8888"
 ENV HTTP_DRAIN_INTERVAL "1s"
+ENV HTTP_CERT_FILE "/etc/pki/rhcerts/www.3lines.vc/server.crt"
+ENV HTTP_KEY_FILE "/etc/pki/rhcerts/www.3lines.vc/www.3lines.vc.key"
+
 ENV COOKIE_SECRET "z5mOYQcyv3KQHe3W"
 ENV DB_URL "root:kk@starpath@tcp(172.17.0.2:3306)/3linesweb?parseTime=true"
 

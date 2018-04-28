@@ -1,40 +1,25 @@
-{{define "View"}}
-<!doctype html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <link rel="icon" href="../../../../favicon.ico">
-      <title>{{.Investment.StartupName}}</title>
-      <!-- Bootstrap core CSS -->
-      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <!-- Custom styles for this template -->
-      <link href="css/dashboard.css" rel="stylesheet">
-   </head>
-   <body>
-      <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{{.Investment.StartupName}}</a>
-         <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-         <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-               <a class="btn btn-sm btn-outline-secondary" href="/portfolio" role="button">Portfolio</a>
-               <a class="btn btn-sm btn-outline-secondary" href="/editinvestment?id={{.Investment.ID}}" role="button"> Investment Details</a>
-               <a class="btn btn-sm btn-outline-secondary" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Investment Structure</a>
-               <a class="btn btn-sm btn-outline-secondary" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Capital Structure</a>
-               <a class="btn btn-sm btn-outline-secondary" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Financial Results</a>
-               <a class="btn btn-sm btn-outline-secondary" href="/news?Investment_ID={{.Investment.ID}}" role="button"> News</a>
-            </li>
-         </ul>
-      </nav>
+{{define "content"}}
+<section class="bg-light" id="viewinvestment">
       <div class="container-fluid">
-         <div class="card-group">
+      <div class="row">
+         <form class="form-signup-login form-investment" method="post" action="/add">
+         <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Investment Dashboard </h2>
+         </div>
+      </div>
+       <a class="btn btn-sm btn-outline-secondary" href="/portfolio" role="button">Back to Portfolio</a>
+       {{if .CurrentUser.Admin }}
+       <a class="btn btn-sm btn-outline-secondary" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
+       <a class="btn btn-sm btn-outline-secondary" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Investment Structure</a>
+       <a class="btn btn-sm btn-outline-secondary" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
+       <a class="btn btn-sm btn-outline-secondary" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
+       <a class="btn btn-sm btn-outline-secondary" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
+       {{end}}
+        <div class="card-group">
             <div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
-               <div class="card-header">Header</div>
+               <div class="card-header"><h3>{{.Investment.StartupName}} Investment Details</h3></div>
                <div class="card-body">
-                  <h5 class="card-title">Investment Details</h5>
-                  <p class="card-text">
+                 <p class="card-text">
                   <div class="table-responsive-md">
                      <table class="table">
                         <tbody>
@@ -188,19 +173,11 @@
             <div class="card-body">
                <h5 class="card-title">INVESTMENT THESIS</h5>
                <p class="card-text">
-               <div class="table-responsive-md">
-                  <table class="table">
-                     <tbody>
-                        <tr>
-                           <th scope="row"></th>
-                           <td>{{.Investment.InvestmentThesis}}</td>
-                        </tr>
-                     </tbody>
-                  </table>
-               </div>
+                  {{.Investment.InvestmentThesis}}
                </p>
             </div>
          </div>
+      </div>
          <div class="card-group">
          <div class="card text-white bg-primary mb-3" style="max-width: 100rem;">
             <div class="card-header"></div>
@@ -259,7 +236,7 @@
                         </tr>
                         {{range .ExistingNews}}
                         <tr>
-                           <th scope="row">{{.ReportingDate}}</th>
+                           <th scope="row">{{.NewsDate}}</th>
                            <td>{{.News}}</td>
                         </tr>
                         {{end}}
@@ -342,91 +319,4 @@
       </div>
       </div>
       </div>
-      <!-- 
-         <div class="container-fluid">
-           <div class="row">
-             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-               <div class="sidebar-sticky">
-                 <ul class="nav flex-column">
-                   <li class="nav-item">
-                     <a class="nav-link active" href="#">
-                       <span data-feather="home"></span>
-                       Dashboard <span class="sr-only">(current)</span>
-                     </a>
-                   </li>
-                 </ul>
-         
-                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                   <span>Saved reports</span>
-                   <a class="d-flex align-items-center text-muted" href="#">
-                     <span data-feather="plus-circle"></span>
-                   </a>
-                 </h6>
-                 <ul class="nav flex-column mb-2">
-                   <li class="nav-item">
-                     <a class="nav-link" href="#">
-                       <span data-feather="file-text"></span>
-                       Current month
-                     </a>
-                   </li>
-                 </ul>
-               </div>
-             </nav>
-         
-             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                 <h1 class="h2">Dashboard</h1>
-                 
-               </div>
-         
-               <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> 
-         
-               <h2>Section title</h2>
-             </main>
-           </div> -->
-      <!-- Bootstrap core JavaScript
-         ================================================== -->
-      <!-- Placed at the end of the document so the pages load faster -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-      <script src="../../../../assets/js/vendor/popper.min.js"></script>
-      <script src="../../../../dist/js/bootstrap.min.js"></script>
-      <!-- Icons -->
-      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-      <script>
-         feather.replace()
-      </script>
-      <!-- Graphs -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-      <script>
-         var ctx = document.getElementById("myChart");
-         var myChart = new Chart(ctx, {
-           type: 'line',
-           data: {
-             labels: ["2016", "2017", "2018"],
-             datasets: [{
-               data: [400000, 3240000, 10000000],
-               lineTension: 0,
-               backgroundColor: 'transparent',
-               borderColor: '#007bff',
-               borderWidth: 4,
-               pointBackgroundColor: '#007bff'
-             }]
-           },
-           options: {
-             scales: {
-               yAxes: [{
-                 ticks: {
-                   beginAtZero: false
-                 }
-               }]
-             },
-             legend: {
-               display: false,
-             }
-           }
-         });
-      </script>
-   </body>
-</html>
 {{end}}

@@ -1,5 +1,5 @@
 {{define "content"}}
-<section class="bg-light" id="team">
+<section class="bg-light" id="newcapitalstructure">
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center">
@@ -41,11 +41,11 @@
                </div>
                <div class="form-group">
                   <label for="ClosingValue">Closing Value</label>
-                  <input name="ClosingValue" type="text" class="form-control" placeholder="500" value="{{ .CapitalizationStructure.ClosingValue }}"  required autofocus>
+                  <input name="ClosingValue" type="number" class="form-control" placeholder="500" value="{{ .CapitalizationStructure.ClosingValue }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="YearEndValue">Year End Value</label>
-                  <input name="YearEndValue" type="text" class="form-control" placeholder="2,500,000" value="{{ .CapitalizationStructure.YearEndValue }}"  required autofocus>
+                  <input name="YearEndValue" type="number" class="form-control" placeholder="2,500,000" value="{{ .CapitalizationStructure.YearEndValue }}"  required autofocus>
                </div>
                
                <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>

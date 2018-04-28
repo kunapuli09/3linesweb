@@ -94,18 +94,35 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		AllCapitalStructures,
 		AllInvestmentStructures,
 	}
-	tmpl.ExecuteTemplate(w, "View", data)
+	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
 //presentation view for new investment
 func NewInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+
+	investment := &models.InvestmentRow{}
+	//create session data for page rendering
+	data := struct {
+		CurrentUser *models.UserRow
+		Investment  *models.InvestmentRow
+	}{
+		currentUser,
+		investment,
+	}
 	tmpl, err := template.ParseFiles("templates/portfolio/newinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl.ExecuteTemplate(w, "layout", nil)
+	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
 //database call to add new

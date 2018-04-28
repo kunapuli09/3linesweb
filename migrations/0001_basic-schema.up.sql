@@ -1,3 +1,5 @@
+# Run "/usr/local/mysql/bin/mysql 3linesweb -uroot -p < migrations/0001_basic-schema.up.sql"
+
 SET SESSION time_zone = "+0:00";
 ALTER DATABASE CHARACTER SET "utf8";
 
@@ -12,6 +14,8 @@ CREATE TABLE users (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    phone VARCHAR(12) NOT NULL,
+    admin TINYINT(1),
     UNIQUE KEY (email)
 )ENGINE=INNODB;
 
@@ -32,16 +36,16 @@ CREATE TABLE investments (
     CapTable VARCHAR(255),
     InvestmentBackground TEXT,
     InvestmentThesis TEXT,
-    ExitValueAtClosing DECIMAL(10,2),
-    FundOwnershipPercentage DECIMAL(10,2),
-    InvestorGroupPercentage DECIMAL(10,2),
-    ManagementOwnership DECIMAL(10,2),
-    InvestmentCommittment DECIMAL(10,2),
-    InvestedCapital DECIMAL(10,2),
-    RealizedProceeds DECIMAL(10,2),
-    ReportedValue DECIMAL(10,2),
-    InvestmentMultiple DECIMAL(10,2),
-    GrossIRR DECIMAL(10,2),
+    ExitValueAtClosing DECIMAL(20,2),
+    FundOwnershipPercentage DECIMAL(20,2),
+    InvestorGroupPercentage DECIMAL(20,2),
+    ManagementOwnership DECIMAL(20,2),
+    InvestmentCommittment DECIMAL(20,2),
+    InvestedCapital DECIMAL(20,2),
+    RealizedProceeds DECIMAL(20,2),
+    ReportedValue DECIMAL(20,2),
+    InvestmentMultiple DECIMAL(20,2),
+    GrossIRR DECIMAL(20,2),
     UNIQUE KEY (StartupName)
 )ENGINE=INNODB;
 
@@ -62,10 +66,10 @@ CREATE TABLE investment_structure (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
     ReportingDate timestamp,
-    Units DECIMAL(10,2),
-    TotalInvested DECIMAL(10,2),
-    ReportedValue DECIMAL(10,2),
-    RealizedProceeds DECIMAL(10,2),
+    Units DECIMAL(20,2),
+    TotalInvested DECIMAL(20,2),
+    ReportedValue DECIMAL(20,2),
+    RealizedProceeds DECIMAL(20,2),
     Structure VARCHAR(255),
     	INDEX is_ind (investment_id),
     	FOREIGN KEY (investment_id)
@@ -77,8 +81,8 @@ CREATE TABLE capital_structure (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
     ReportingDate timestamp,
-    ClosingValue DECIMAL(10,2),
-    YearEndValue DECIMAL(10,2),
+    ClosingValue DECIMAL(20,2),
+    YearEndValue DECIMAL(20,2),
     Capitalization VARCHAR(255),
     	INDEX cs_ind (investment_id),
     	FOREIGN KEY (investment_id)
@@ -90,15 +94,15 @@ CREATE TABLE financial_results (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
     ReportingDate timestamp,
-    Revenue DECIMAL(10,2),
-    YoYGrowthPercentage1 DECIMAL(10,2),
-    LTMEBITDA DECIMAL(10,2),
-    YoYGrowthPercentage2 DECIMAL(10,2),
-    EBITDAMargin DECIMAL(10,2),
-    TotalExitValue DECIMAL(10,2),
-    TotalExitValueMultiple DECIMAL(10,2),
-    TotalLeverage DECIMAL(10,2),
-    TotalLeverageMultiple DECIMAL(10,2),
+    Revenue DECIMAL(20,2),
+    YoYGrowthPercentage1 DECIMAL(20,2),
+    LTMEBITDA DECIMAL(20,2),
+    YoYGrowthPercentage2 DECIMAL(20,2),
+    EBITDAMargin DECIMAL(20,2),
+    TotalExitValue DECIMAL(20,2),
+    TotalExitValueMultiple DECIMAL(20,2),
+    TotalLeverage DECIMAL(20,2),
+    TotalLeverageMultiple DECIMAL(20,2),
     Assessment VARCHAR(255),
     	INDEX fr_ind (investment_id),
     	FOREIGN KEY (investment_id)

@@ -57,9 +57,15 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="/#blog">Blog</a>
             </li>
+            {{if .CurrentUser.Admin}}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/portfolio">Admin</a>
+            </li>
+            {{end}}
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
             </li>
+            
           </ul>
           {{if .CurrentUser }}
           <ul class="nav navbar-nav navbar-right">
@@ -79,7 +85,17 @@
         </div>
       </div>
     </nav>
-
+     
+     <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">3Lines Venture Capital</div>
+          <div class="intro-heading text-uppercase">International Venture Fund</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#contact">Apply for seed funding</a>
+        </div>
+      </div>
+   </header> 
 
     {{template "content" .}}
 

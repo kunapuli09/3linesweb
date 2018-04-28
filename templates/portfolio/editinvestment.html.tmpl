@@ -1,5 +1,5 @@
 {{define "content"}}
-<section class="bg-light" id="team">
+<section class="bg-light" id="editinvestment">
    <div class="container">
       <div class="row">
          <form class="form-signup-login form-investment" method="post" action="/update">
@@ -77,45 +77,45 @@
          <div class="col-lg-4">
          <div class="form-group">
          <label for="ExitValueAtClosing">Exit Value At Closing</label>
-         <input name="ExitValueAtClosing" type="text" class="form-control" placeholder="ExitValueAtClosing" value="{{ .Investment.ExitValueAtClosing }}"  autofocus>
+         <input name="ExitValueAtClosing" type="number" class="form-control" placeholder="ExitValueAtClosing" value="{{ .Investment.ExitValueAtClosing }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="FundOwnershipPercentage">Fund Ownership %</label>
-         <input name="FundOwnershipPercentage" type="text" class="form-control" placeholder="1%" value="{{ .Investment.FundOwnershipPercentage }}"  autofocus>
+         <input name="FundOwnershipPercentage" type="number" class="form-control" placeholder="1%" value="{{ .Investment.FundOwnershipPercentage }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="InvestorGroupPercentage">Investor Group %</label>
-         <input name="InvestorGroupPercentage" type="text" class="form-control" placeholder="18%" value="{{ .Investment.InvestorGroupPercentage }}"  autofocus>
+         <input name="InvestorGroupPercentage" type="number" class="form-control" placeholder="18%" value="{{ .Investment.InvestorGroupPercentage }}"  autofocus>
          </div> 
          <div class="form-group">
          <label for="ManagementOwnership">Management Ownership %</label>
-         <input name="ManagementOwnership" type="text" class="form-control" placeholder="20%" value="{{ .Investment.ManagementOwnership }}"  autofocus>
+         <input name="ManagementOwnership" type="number" class="form-control" placeholder="20%" value="{{ .Investment.ManagementOwnership }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="InvestmentCommittment">Investment Committment</label>
-         <input name="InvestmentCommittment" type="text" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestmentCommittment }}"  autofocus>
+         <input name="InvestmentCommittment" type="number" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestmentCommittment }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="InvestedCapital">Invested Capital</label>
-         <input name="InvestedCapital" type="text" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestedCapital }}"  autofocus>
+         <input name="InvestedCapital" type="number" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestedCapital }}"  autofocus>
          </div>
          </div>
          <div class="col-lg-4">
          <div class="form-group">
          <label for="RealizedProceeds">Realized Proceeds</label>
-         <input name="RealizedProceeds" type="text" class="form-control" placeholder="0" value="{{ .Investment.RealizedProceeds }}"  autofocus>
+         <input name="RealizedProceeds" type="number" class="form-control" placeholder="0" value="{{ .Investment.RealizedProceeds }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="ReportedValue">Reported Value</label>
-         <input name="ReportedValue" type="text" class="form-control" placeholder="$65000" value="{{ .Investment.ReportedValue }}"  autofocus>
+         <input name="ReportedValue" type="number" class="form-control" placeholder="$65000" value="{{ .Investment.ReportedValue }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="InvestmentMultiple">Investment Multiple ( number of times)</label>
-         <input name="InvestmentMultiple" type="text" class="form-control" placeholder="1.2" value="{{ .Investment.InvestmentMultiple }}"  autofocus>
+         <input name="InvestmentMultiple" type="number" class="form-control" placeholder="1.2" value="{{ .Investment.InvestmentMultiple }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="GrossIRR">Gross Internal Rate of Return (tool tip, link chart)</label>
-         <input name="GrossIRR" type="text" class="form-control" placeholder="60%" value="{{ .Investment.GrossIRR }}"  autofocus>
+         <input name="GrossIRR" type="number" class="form-control" placeholder="60%" value="{{ .Investment.GrossIRR }}"  autofocus>
          </div>
          </div>
       </div>

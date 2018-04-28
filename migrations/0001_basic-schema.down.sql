@@ -1,4 +1,5 @@
 drop table if exists users cascade;
+drop table if exists roles cascade;
 drop table if exists investments cascade;
 drop table if exists news cascade;
 drop table if exists investment_structure cascade;

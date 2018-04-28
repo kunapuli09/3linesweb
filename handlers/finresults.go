@@ -17,16 +17,16 @@ import (
 func NewFinancials(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
 	if !ok {
 		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
 		return
 	}
 	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
@@ -35,6 +35,10 @@ func NewFinancials(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	AllFinancialResults, err := models.NewFinancialResults(db).GetAllByInvestmentId(nil, Investment_ID)
+
+	for _, v := range AllFinancialResults {
+		fmt.Printf("Revenue %v", v.Revenue)
+	}
 	//create empty investmentstructure
 	FinancialResults := models.FinancialResultsRow{}
 	//create session date for page rendering
@@ -62,6 +66,13 @@ func AddFinancialResults(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	var i models.FinancialResultsRow
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	_, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)

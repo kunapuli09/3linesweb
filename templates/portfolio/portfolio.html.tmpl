@@ -1,11 +1,14 @@
 {{define "content"}}
-
+      
+      
       <section class="jumbotron text-center">
         <div class="container">
           <h1 class="jumbotron-heading">Multi-Region fund strategy</h1>
-          <p class="lead text-muted">Yeah, do something here</p>
+          <p class="lead text-muted">3Lines multi-region fund is strategically investing 70% directly in USA and 30% in India through a customized education program. 3Lines has identified investment growth opportunities in the Artificial Intelligence, IoT, and SaaS Software sectors for USA, and Agricultural and Food Processing Technology investments in India.</p>
           <p>
+            {{if .CurrentUser.Admin }}
             <a href="/newinvestment" class="btn btn-success my-2">Add New Investment</a>
+            {{end}}
             <a href="/logout" class="btn btn-primary my-2">Back to Home</a>
             <!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
           </p>
@@ -42,4 +45,4 @@
           </div>
         </div>
       </div>
-    {{end}}
+      {{end}}

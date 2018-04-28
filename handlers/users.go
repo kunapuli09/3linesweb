@@ -37,14 +37,12 @@ func GetSignup(w http.ResponseWriter, r *http.Request) {
 
 func PostSignup(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-
 	db := r.Context().Value("db").(*sqlx.DB)
-
 	email := r.FormValue("Email")
+	phone := r.FormValue("Phone")
 	password := r.FormValue("Password")
 	passwordAgain := r.FormValue("PasswordAgain")
-
-	_, err := models.NewUser(db).Signup(nil, email, password, passwordAgain)
+	_, err := models.NewUser(db).Signup(nil, email, password, passwordAgain, phone)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -161,10 +159,11 @@ func PutUsersID(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("Email")
 	password := r.FormValue("Password")
 	passwordAgain := r.FormValue("PasswordAgain")
+	phone := r.FormValue("Phone")
 
 	u := models.NewUser(db)
 
-	currentUser, err = u.UpdateEmailAndPasswordById(nil, currentUser.ID, email, password, passwordAgain)
+	currentUser, err = u.UpdateEmailAndPasswordById(nil, currentUser.ID, email, password, passwordAgain, phone)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

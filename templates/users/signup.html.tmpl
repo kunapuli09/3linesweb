@@ -1,5 +1,5 @@
 {{define "content"}}
-<section id="contact">
+<section class="bg-light" id="signup">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 text-center">
@@ -9,7 +9,8 @@
         <div class="row">
           <div class="col-lg-6">
           <form class="form-signup-login form-signup" method="post" action="/signup">
-          <input name="Email" type="text" class="form-control" placeholder="Email" required autofocus>
+          <input name="Email" type="email" class="form-control" placeholder="Email" required autofocus>
+          <input name ="Phone" class="form-control tel" pattern="^\d{3}-\d{3}-\d{4}$" type="tel" value="555-555-5555" id="Phone">
           <input name="Password" type="password" class="form-control password" placeholder="Password" required>
           <input name="PasswordAgain" type="password" class="form-control password-again" placeholder="Password Again" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>

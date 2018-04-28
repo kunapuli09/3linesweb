@@ -1,5 +1,5 @@
 {{define "content"}}
-<section class="bg-light" id="team">
+<section class="bg-light" id="newinvestmentstructure">
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center">
@@ -42,19 +42,19 @@
                </div>
                <div class="form-group">
                   <label for="Units">Number of Units Par</label>
-                  <input name="Units" type="text" class="form-control" placeholder="500" value="{{ .InvestmentStructure.Units }}"  required autofocus>
+                  <input name="Units" type="number" class="form-control" placeholder="500" value="{{ .InvestmentStructure.Units }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="TotalInvested">Total Invested</label>
-                  <input name="TotalInvested" type="text" class="form-control" placeholder="2,500,000" value="{{ .InvestmentStructure.TotalInvested }}"  required autofocus>
+                  <input name="TotalInvested" type="number" class="form-control" placeholder="2,500,000" value="{{ .InvestmentStructure.TotalInvested }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="ReportedValue">Reported Value</label>
-                  <input name="ReportedValue" type="text" class="form-control" placeholder="$2,500,000" value="{{ .InvestmentStructure.ReportedValue }}"  required autofocus>
+                  <input name="ReportedValue" type="number" class="form-control" placeholder="$2,500,000" value="{{ .InvestmentStructure.ReportedValue }}"  required autofocus>
                </div>
                <div class="form-group">
                   <label for="RealizedProceeds">Realized Proceeds</label>
-                  <input name="RealizedProceeds" type="text" class="form-control" placeholder="0" value="{{ .InvestmentStructure.RealizedProceeds }}"  required autofocus>
+                  <input name="RealizedProceeds" type="number" class="form-control" placeholder="0" value="{{ .InvestmentStructure.RealizedProceeds }}"  required autofocus>
                </div> 
                <button class="btn btn-lg btn-primary btn-block" type="submit">Add Investment Structure</button>
                <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>

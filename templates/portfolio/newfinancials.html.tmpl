@@ -1,5 +1,5 @@
 {{define "content"}}
-<section class="bg-light" id="team">
+<section class="bg-light" id="newfinancials">
    <div class="container">
       <div class="row">
          <div class="col-lg-8 text-center">
@@ -25,7 +25,7 @@
                <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <div class="form-group">
                   <label for="Revenue">Revenue</label>
-                  <input name="Revenue" type="text" class="form-control" placeholder="$50,000,000" value="{{ .FinancialResults.Revenue }}"  required >
+                  <input name="Revenue" type="number" class="form-control" placeholder="$50,000,000" value="{{ .FinancialResults.Revenue }}"  required >
                </div>
                <label for="ReportingDate">Reporting Date</label>
                <div class="input-group date" data-provide="datepicker-inline">
@@ -37,19 +37,19 @@
                
                <div class="form-group">
                   <label for="YoYGrowthPercentage1">Year over Year Growth (%)</label>
-                  <input name="YoYGrowthPercentage1" type="text" class="form-control" placeholder="100%" value="{{ .FinancialResults.YoYGrowthPercentage1 }}" autofocus>
+                  <input name="YoYGrowthPercentage1" type="number" class="form-control" placeholder="100%" value="{{ .FinancialResults.YoYGrowthPercentage1 }}" autofocus>
                </div>
                <div class="form-group">
                   <label for="LTMEBITDA">Last Twelve Months Earnings Before Interest, Taxes, Depreciation, and Amortization</label>
-                  <input type="text" class="form-control" name="LTMEBITDA" id="LTMEBITDA" placeholder="$50,000,000" value="{{ .FinancialResults.LTMEBITDA }}">
+                  <input type="number" class="form-control" name="LTMEBITDA" id="LTMEBITDA" placeholder="$50,000,000" value="{{ .FinancialResults.LTMEBITDA }}">
                </div>
                <div class="form-group">
                   <label for="YoYGrowthPercentage2">Year over Year Growth TBD (%)</label>
-                  <input name="YoYGrowthPercentage2" type="text" class="form-control" placeholder="100%" value="{{ .FinancialResults.YoYGrowthPercentage2 }}"  autofocus>
+                  <input name="YoYGrowthPercentage2" type="number" class="form-control" placeholder="100%" value="{{ .FinancialResults.YoYGrowthPercentage2 }}"  autofocus>
                </div>
                <div class="form-group">
                   <label for="EBITDAMargin">Earnings Before Interest, Taxes, Depreciation, and Amortization Margin</label>
-                  <input name="EBITDAMargin" type="text" class="form-control" placeholder="13%" value="{{ .FinancialResults.EBITDAMargin }}"  autofocus>
+                  <input name="EBITDAMargin" type="number" class="form-control" placeholder="13%" value="{{ .FinancialResults.EBITDAMargin }}"  autofocus>
                </div>
          </div>
          <div class="col-lg-4">
@@ -75,19 +75,19 @@
                </div> -->
          <div class="form-group">
          <label for="TotalExitValue">Total Exit Value</label>
-         <input name="TotalExitValue" type="text" class="form-control" placeholder="$50,000,000" value="{{ .FinancialResults.TotalExitValue }}"  autofocus>
+         <input name="TotalExitValue" type="number" class="form-control" placeholder="$50,000,000" value="{{ .FinancialResults.TotalExitValue }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="TotalExitValueMultiple">Total Exit Value Multiple</label>
-         <input name="TotalExitValueMultiple" type="text" class="form-control" placeholder="1.2x" value="{{ .FinancialResults.TotalExitValueMultiple }}"  autofocus>
+         <input name="TotalExitValueMultiple" type="number" class="form-control" placeholder="1.2x" value="{{ .FinancialResults.TotalExitValueMultiple }}"  autofocus>
          </div>
          <div class="form-group">
          <label for="TotalLeverage">Total Leverage (%)</label>
-         <input name="TotalLeverage" type="text" class="form-control" placeholder="18%" value="{{ .FinancialResults.TotalLeverage }}"  autofocus>
+         <input name="TotalLeverage" type="number" class="form-control" placeholder="18%" value="{{ .FinancialResults.TotalLeverage }}"  autofocus>
          </div> 
          <div class="form-group">
          <label for="TotalLeverageMultiple">Total Leverage Multiple</label>
-         <input name="TotalLeverageMultiple" type="text" class="form-control" placeholder="1.2x" value="{{ .FinancialResults.TotalLeverageMultiple }}"  autofocus>
+         <input name="TotalLeverageMultiple" type="number" class="form-control" placeholder="1.2x" value="{{ .FinancialResults.TotalLeverageMultiple }}"  autofocus>
          </div>
          
       </div>

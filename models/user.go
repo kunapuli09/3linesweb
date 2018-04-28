@@ -20,8 +20,12 @@ func NewUser(db *sqlx.DB) *User {
 type UserRow struct {
 	ID       int64  `db:"id"`
 	Email    string `db:"email"`
+	Phone    string `db:"phone"`
 	Password string `db:"password"`
+	Admin    bool   `db:"admin"`
+
 }
+
 
 type User struct {
 	Base
@@ -57,7 +61,7 @@ func (u *User) GetById(tx *sqlx.Tx, id int64) (*UserRow, error) {
 // GetByEmail returns record by email.
 func (u *User) GetByEmail(tx *sqlx.Tx, email string) (*UserRow, error) {
 	user := &UserRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE email=?", u.table)
+	query := fmt.Sprintf("SELECT *  FROM %v WHERE email=?", u.table)
 	err := u.db.Get(user, query, email)
 
 	return user, err
@@ -79,9 +83,12 @@ func (u *User) GetUserByEmailAndPassword(tx *sqlx.Tx, email, password string) (*
 }
 
 // Signup create a new record of user.
-func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string) (*UserRow, error) {
+func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string, phone string) (*UserRow, error) {
 	if email == "" {
 		return nil, errors.New("Email cannot be blank.")
+	}
+	if phone == "" {
+		return nil, errors.New("Phone is invalid.")
 	}
 	if password == "" {
 		return nil, errors.New("Password cannot be blank.")
@@ -89,6 +96,7 @@ func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string) (*User
 	if password != passwordAgain {
 		return nil, errors.New("Password is invalid.")
 	}
+
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 5)
 	if err != nil {
@@ -98,6 +106,8 @@ func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string) (*User
 	data := make(map[string]interface{})
 	data["email"] = email
 	data["password"] = hashedPassword
+	data["phone"] = phone
+	data["admin"] = 0
 
 	sqlResult, err := u.InsertIntoTable(tx, data)
 	if err != nil {
@@ -108,11 +118,14 @@ func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string) (*User
 }
 
 // UpdateEmailAndPasswordById updates user email and password.
-func (u *User) UpdateEmailAndPasswordById(tx *sqlx.Tx, userId int64, email, password, passwordAgain string) (*UserRow, error) {
+func (u *User) UpdateEmailAndPasswordById(tx *sqlx.Tx, userId int64, email, password, passwordAgain string, phone string) (*UserRow, error) {
 	data := make(map[string]interface{})
 
 	if email != "" {
 		data["email"] = email
+	}
+	if phone != "" {
+		data["phone"] = phone
 	}
 
 	if password != "" && passwordAgain != "" && password == passwordAgain {

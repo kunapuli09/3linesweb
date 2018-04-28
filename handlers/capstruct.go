@@ -17,16 +17,16 @@ import (
 func NewCapitalStructure(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
 	if !ok {
 		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
 		return
 	}
 	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
@@ -62,6 +62,13 @@ func AddCapitalStructure(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	var i models.CapitalizationStructure
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	_, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -90,6 +97,13 @@ func AddCapitalStructure(w http.ResponseWriter, r *http.Request) {
 //db call to update
 func RemoveCapitalStructure(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	_, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	db := r.Context().Value("db").(*sqlx.DB)
 	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
 	if e != nil {

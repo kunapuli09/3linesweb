@@ -55,8 +55,20 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
+            {{if .CurrentUser }}
+            <li class="nav-item">
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+            </li>
+            {{else}}
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+            </li>
+            {{end}}
           </ul>
-          {{if .CurrentUser }}
+          <!-- {{if .CurrentUser }}
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ .CurrentUser.Email }} <span class="caret"></span></a>
@@ -70,7 +82,7 @@
               </ul>
             </li>
           </ul>
-          {{end}}
+          {{end}} -->
         </div>
       </div>
     </nav>
@@ -87,8 +99,6 @@
         </div>
       </div>
    </header> 
-
-
    
     <!-- About Us -->
     <section class="bg-light" id="about">

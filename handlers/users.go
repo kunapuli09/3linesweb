@@ -26,7 +26,7 @@ func GetHome(w http.ResponseWriter, r *http.Request) {
 func GetSignup(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	tmpl, err := template.ParseFiles("templates/users/users-external.html.tmpl", "templates/users/signup.html.tmpl")
+	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/signup.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -55,7 +55,7 @@ func PostSignup(w http.ResponseWriter, r *http.Request) {
 func GetLoginWithoutSession(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	tmpl, err := template.ParseFiles("templates/users/users-external.html.tmpl", "templates/users/login.html.tmpl")
+	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/login.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

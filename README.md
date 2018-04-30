@@ -83,3 +83,6 @@ There are two potential gotchas you need to know when running in Vagrant:
 ```
 GOPATH=/go DSN=mysql://$(whoami)@tcp($(netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10):5432)/$PROJECT_NAME?parseTime=true go run main.go
 ```
+
+How to kill server
+sudo netstat -nlp | grep :8888

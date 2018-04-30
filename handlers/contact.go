@@ -9,6 +9,7 @@ import (
 	"net/smtp"
 	"os"
 	"strings"
+	"github.com/go-gomail/gomail"
 )
 
 type Mail struct {
@@ -129,6 +130,25 @@ func PostEmail(w http.ResponseWriter, r *http.Request) {
 
 	client.Quit()
 
+	log.Println("Mail sent successfully")
+	http.Redirect(w, r, "/", 302)
+}
+func PostEmailThroughLocalSmtp(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	name := r.FormValue("name")
+	email := r.FormValue("email")
+	phone := r.FormValue("phone")
+	message := r.FormValue("message")
+	m := gomail.NewMessage()
+	m.SetHeader("From", os.Getenv("EMAIL_SENDER_ID"))
+	m.SetHeader("To", strings.Split(os.Getenv("EMAIL_RECEIVER_ID"), ","))
+	m.SetHeader("Subject", "New Contact is trying to reach you")
+	m.SetBody("text/plain", fmt.Sprintf("%s \n %s \n %s \n %s", message, name, phone, email))
+	d := gomail.Dialer{Host: "3lines.vc", Port: 25}
+		if err := d.DialAndSend(m); err != nil {
+    	log.Panic(err)
+    	return
+	}
 	log.Println("Mail sent successfully")
 	http.Redirect(w, r, "/", 302)
 }

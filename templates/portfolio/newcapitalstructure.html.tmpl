@@ -1,9 +1,10 @@
 {{define "content"}}
-<section class="bg-light" id="newcapitalstructure">
-   <div class="container">
+<section class="bg-light" id="newcapitalstructure">    
+   <div class="container">  
+      <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
       <div class="row">
          <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Add Capital Structure for {{.Investment.StartupName}} </h3>
+            <h3 class="section-heading text-uppercase">Capital Structure</h3> for {{.Investment.StartupName}} 
          </div>
          <table class="table">
           <tbody>
@@ -49,7 +50,6 @@
                </div>
                
                <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
-               <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>
                </form>
          </div>
       </div>

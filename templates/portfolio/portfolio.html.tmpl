@@ -1,26 +1,22 @@
 {{define "content"}}
-      
-      
+      {{if .CurrentUser.Admin }}
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">Multi-Region fund strategy</h1>
-          <p class="lead text-muted">3Lines multi-region fund is strategically investing 70% directly in USA and 30% in India through a customized education program. 3Lines has identified investment growth opportunities in the Artificial Intelligence, IoT, and SaaS Software sectors for USA, and Agricultural and Food Processing Technology investments in India.</p>
+          <h1 class="jumbotron-heading">Investment Portfolio</h1>
+          <p class="lead text-muted">Access to Investment Reports</p>
           <p>
-            {{if .CurrentUser.Admin }}
-            <a href="/newinvestment" class="btn btn-success my-2">Add New Investment</a>
-            {{end}}
-            <a href="/logout" class="btn btn-primary my-2">Back to Home</a>
-            <!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
+            <a href="/newinvestment" class="btn btn-primary my-2">Add New Investment</a>
           </p>
         </div>
       </section>
+      {{end}}
 
       <div class="album py-5 bg-light">
         <div class="container">
 
           <div class="row">
             {{range .Investments }}
-            <div class="col-md-4">
+            <div class="row-md-4">
               <div class="card mb-4 box-shadow">
                 <a href="{{ .Website }}" ><img class="card-img-top" src="{{.LogoPath}}" alt="{{.StartupName}}"></a>
                 <div class="card-body">

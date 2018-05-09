@@ -1,9 +1,10 @@
 {{define "content"}}
 <section class="bg-light" id="newinvestmentstructure">
    <div class="container">
+    <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
       <div class="row">
          <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Add Investment Structure for {{.Investment.StartupName}} </h3>
+            <h3 class="section-heading text-uppercase">Investment Structure </h3>for {{.Investment.StartupName}} 
          </div>
          <table class="table">
           <tbody>
@@ -57,7 +58,6 @@
                   <input name="RealizedProceeds" type="number" class="form-control" placeholder="0" value="{{ .InvestmentStructure.RealizedProceeds }}"  required autofocus>
                </div> 
                <button class="btn btn-lg btn-primary btn-block" type="submit">Add Investment Structure</button>
-               <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>
                </form>
          </div>
       </div>

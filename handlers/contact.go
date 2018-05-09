@@ -141,7 +141,7 @@ func PostEmailThroughLocalSmtp(w http.ResponseWriter, r *http.Request) {
 	message := r.FormValue("message")
 	m := gomail.NewMessage()
 	m.SetHeader("From", os.Getenv("EMAIL_SENDER_ID"))
-	m.SetHeader("To", strings.Split(os.Getenv("EMAIL_RECEIVER_ID"), ","))
+	m.SetHeader("To", os.Getenv("EMAIL_RECEIVER_ID"))
 	m.SetHeader("Subject", "New Contact is trying to reach you")
 	m.SetBody("text/plain", fmt.Sprintf("%s \n %s \n %s \n %s", message, name, phone, email))
 	d := gomail.Dialer{Host: "3lines.vc", Port: 25}

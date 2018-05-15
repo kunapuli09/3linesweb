@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"time"
+	"github.com/shopspring/decimal"
 )
 
 func NewCapitalStructure(db *sqlx.DB) *CapitalStructure {
@@ -24,8 +25,8 @@ type CapitalizationStructure struct {
 	Investment_ID int64     `db:"investment_id"`
 	ReportingDate time.Time `db:"ReportingDate"`
 	//MaturityDate   time.Time `db:"maturity_date"`
-	ClosingValue   float64 `db:"ClosingValue"`
-	YearEndValue   float64 `db:"YearEndValue"`
+	ClosingValue   decimal.Decimal `db:"ClosingValue"`
+	YearEndValue   decimal.Decimal `db:"YearEndValue"`
 	Capitalization string  `db:"Capitalization"`
 }
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"time"
+	"github.com/shopspring/decimal"
 )
 
 func NewFinancialResults(db *sqlx.DB) *FinancialResults {
@@ -23,15 +24,15 @@ type FinancialResultsRow struct {
 	ID                     int64     `db:"id"`
 	Investment_ID          int64     `db:"investment_id"`
 	ReportingDate          time.Time `db:"ReportingDate"`
-	Revenue                float64   `db:"Revenue"`
-	YoYGrowthPercentage1   float64   `db:"YoYGrowthPercentage1"`
-	LTMEBITDA              float64   `db:"LTMEBITDA"`
-	YoYGrowthPercentage2   float64   `db:"YoYGrowthPercentage2"`
-	EBITDAMargin           float64   `db:"EBITDAMargin"`
-	TotalExitValue         float64   `db:"TotalExitValue"`
-	TotalExitValueMultiple float64   `db:"TotalExitValueMultiple"`
-	TotalLeverage          float64   `db:"TotalLeverage"`
-	TotalLeverageMultiple  float64   `db:"TotalLeverageMultiple"`
+	Revenue                decimal.Decimal   `db:"Revenue"`
+	YoYGrowthPercentage1   decimal.Decimal   `db:"YoYGrowthPercentage1"`
+	LTMEBITDA              decimal.Decimal   `db:"LTMEBITDA"`
+	YoYGrowthPercentage2   decimal.Decimal   `db:"YoYGrowthPercentage2"`
+	EBITDAMargin           decimal.Decimal   `db:"EBITDAMargin"`
+	TotalExitValue         decimal.Decimal   `db:"TotalExitValue"`
+	TotalExitValueMultiple decimal.Decimal   `db:"TotalExitValueMultiple"`
+	TotalLeverage          decimal.Decimal   `db:"TotalLeverage"`
+	TotalLeverageMultiple  decimal.Decimal   `db:"TotalLeverageMultiple"`
 	Assessment             string    `db:"Assessment"`
 }
 

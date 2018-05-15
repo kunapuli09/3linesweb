@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"time"
+	"github.com/shopspring/decimal"
 )
 
 func NewInvestmentStructure(db *sqlx.DB) *InvestmentStructure {
@@ -23,10 +24,10 @@ type InvestmentStructureRow struct {
 	ID               int64     `db:"id"`
 	Investment_ID    int64     `db:"investment_id"`
 	ReportingDate    time.Time `db:"ReportingDate"`
-	Units            float64   `db:"Units"`
-	TotalInvested    float64   `db:"TotalInvested"`
-	ReportedValue    float64   `db:"ReportedValue"`
-	RealizedProceeds float64   `db:"RealizedProceeds"`
+	Units            decimal.Decimal   `db:"Units"`
+	TotalInvested    decimal.Decimal   `db:"TotalInvested"`
+	ReportedValue    decimal.Decimal   `db:"ReportedValue"`
+	RealizedProceeds decimal.Decimal   `db:"RealizedProceeds"`
 	Structure        string    `db:"Structure"`
 }
 

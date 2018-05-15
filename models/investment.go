@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"time"
+	"github.com/shopspring/decimal"
 )
 
 func NewInvestment(db *sqlx.DB) *Investment {
@@ -36,16 +37,16 @@ type InvestmentRow struct {
 	InvestmentThesis        string    `db:"InvestmentThesis"`
 	ValuationMethodology    string    `db:"ValuationMethodology"`
 	RiskAssessment          string    `db:"RiskAssessment"`
-	ExitValueAtClosing      float64   `db:"ExitValueAtClosing"`
-	FundOwnershipPercentage float64   `db:"FundOwnershipPercentage"`
-	InvestorGroupPercentage float64   `db:"InvestorGroupPercentage"`
-	ManagementOwnership     float64   `db:"ManagementOwnership"`
-	InvestmentCommittment   float64   `db:"InvestmentCommittment"`
-	InvestedCapital         float64   `db:"InvestedCapital"`
-	RealizedProceeds        float64   `db:"RealizedProceeds"`
-	ReportedValue           float64   `db:"ReportedValue"`
-	InvestmentMultiple      float64   `db:"InvestmentMultiple"`
-	GrossIRR                float64   `db:"GrossIRR"`
+	ExitValueAtClosing      decimal.Decimal   `db:"ExitValueAtClosing"`
+	FundOwnershipPercentage decimal.Decimal   `db:"FundOwnershipPercentage"`
+	InvestorGroupPercentage decimal.Decimal   `db:"InvestorGroupPercentage"`
+	ManagementOwnership     decimal.Decimal   `db:"ManagementOwnership"`
+	InvestmentCommittment   decimal.Decimal   `db:"InvestmentCommittment"`
+	InvestedCapital         decimal.Decimal   `db:"InvestedCapital"`
+	RealizedProceeds        decimal.Decimal   `db:"RealizedProceeds"`
+	ReportedValue           decimal.Decimal   `db:"ReportedValue"`
+	InvestmentMultiple      decimal.Decimal   `db:"InvestmentMultiple"`
+	GrossIRR                decimal.Decimal   `db:"GrossIRR"`
 }
 
 func (i *Investment) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentRow, error) {

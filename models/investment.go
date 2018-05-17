@@ -49,6 +49,11 @@ type InvestmentRow struct {
 	GrossIRR                decimal.Decimal   `db:"GrossIRR"`
 }
 
+func (i *InvestmentRow) FormattedInvestmentDate() string {
+	return i.InvestmentDate.Format("01/02/2006")
+}
+
+
 func (i *Investment) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentRow, error) {
 	investmentId, err := sqlResult.LastInsertId()
 	if err != nil {

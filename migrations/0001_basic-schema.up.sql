@@ -53,7 +53,7 @@ CREATE TABLE investments (
 CREATE TABLE news (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
-    NewsDate timestamp,
+    NewsDate DATE,
     News VARCHAR(255),
     INDEX news_ind (investment_id),
     FOREIGN KEY (investment_id)

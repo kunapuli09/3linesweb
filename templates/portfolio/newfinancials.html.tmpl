@@ -11,7 +11,7 @@
             {{range .Existing }}
             <tr>
              <th scope="row">{{.ID}}</th>
-             <td>{{.ReportingDate}}</td>
+             <td>{{.FormattedReportingDate}}</td>
              <td>{{.Revenue }}</td>
              <td>{{.Assessment}}</td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removefinancialresults?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>

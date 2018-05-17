@@ -36,6 +36,11 @@ type FinancialResultsRow struct {
 	Assessment             string    `db:"Assessment"`
 }
 
+
+func (f *FinancialResultsRow) FormattedReportingDate() string {
+	return f.ReportingDate.Format("01/02/2006")
+}
+
 func (i *FinancialResults) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*FinancialResultsRow, error) {
 	frId, err := sqlResult.LastInsertId()
 	if err != nil {

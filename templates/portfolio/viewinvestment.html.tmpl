@@ -26,7 +26,7 @@
                            <tr>
                               <th scope="row"></th>
                               <td>Investment Date</td>
-                              <td>{{.Investment.InvestmentDate}}</td>
+                              <td>{{.Investment.FormattedInvestmentDate}}</td>
                            </tr>
                            <tr>
                               <th scope="row"></th>
@@ -204,7 +204,7 @@
                      <tbody>
                         {{range .Existing }}
                         <tr>
-                           <td>{{.ReportingDate}}</td>
+                           <td>{{.FormattedReportingDate}}</td>
                            <td>{{.Revenue}}</td>
                            <td>{{.YoYGrowthPercentage1}}</td>
                            <td>{{.LTMEBITDA}}</td>
@@ -239,7 +239,7 @@
                         </tr>
                         {{range .ExistingNews}}
                         <tr>
-                           <th scope="row">{{.NewsDate}}</th>
+                           <th scope="row">{{.FormattedNewsDate}}</th>
                            <td>{{.News}}</td>
                         </tr>
                         {{end}}
@@ -275,7 +275,7 @@
                      <tbody>
                         {{range .ExistingInvestmentStructures}}
                         <tr>
-                           <th scope="row">{{.ReportingDate}}</th>
+                           <th scope="row">{{.FormattedReportingDate}}</th>
                            <td>{{.Structure}}</td>
                            <td>{{.Units}}</td>
                            <td>{{.TotalInvested}}</td>
@@ -311,7 +311,7 @@
                      <tbody>
                         {{range .ExistingCapitalStructures}}
                         <tr>
-                           <th scope="row">{{.ReportingDate}}</th>
+                           <th scope="row">{{.FormattedReportingDate}}</th>
                            <td>{{.Capitalization}}</td>
                            <td>{{.ClosingValue}}</td>
                            <td>{{.YearEndValue}}</td>

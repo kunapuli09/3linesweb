@@ -26,6 +26,10 @@ type NewsRow struct {
 	News          string    `db:"News"`
 }
 
+func (n *NewsRow) FormattedNewsDate() string {
+	return n.NewsDate.Format("01/02/2006")
+}
+
 func (i *News) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*NewsRow, error) {
 	nId, err := sqlResult.LastInsertId()
 	if err != nil {

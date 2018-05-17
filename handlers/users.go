@@ -74,7 +74,7 @@ func GetLogin(w http.ResponseWriter, r *http.Request) {
 
 	currentUserInterface := session.Values["user"]
 	if currentUserInterface != nil {
-		http.Redirect(w, r, "/", 302)
+		http.Redirect(w, r, "/portfolio", 302)
 		return
 	}
 

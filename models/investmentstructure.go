@@ -31,6 +31,10 @@ type InvestmentStructureRow struct {
 	Structure        string    `db:"Structure"`
 }
 
+func (i *InvestmentStructureRow) FormattedReportingDate() string {
+	return i.ReportingDate.Format("01/02/2006")
+}
+
 func (i *InvestmentStructure) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentStructureRow, error) {
 	isId, err := sqlResult.LastInsertId()
 	if err != nil {

@@ -30,6 +30,12 @@ type CapitalizationStructure struct {
 	Capitalization string  `db:"Capitalization"`
 }
 
+func (c *CapitalizationStructure) FormattedReportingDate() string {
+	// if c.ReportingDate.IsZero() {
+	//  	return time.Now().Format("01/02/2006")
+	// }	
+	return c.ReportingDate.Format("01/02/2006")
+}
 func (i *CapitalStructure) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*CapitalizationStructure, error) {
 	csId, err := sqlResult.LastInsertId()
 	if err != nil {

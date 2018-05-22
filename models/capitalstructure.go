@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"time"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func NewCapitalStructure(db *sqlx.DB) *CapitalStructure {
@@ -27,13 +27,13 @@ type CapitalizationStructure struct {
 	//MaturityDate   time.Time `db:"maturity_date"`
 	ClosingValue   decimal.Decimal `db:"ClosingValue"`
 	YearEndValue   decimal.Decimal `db:"YearEndValue"`
-	Capitalization string  `db:"Capitalization"`
+	Capitalization string          `db:"Capitalization"`
 }
 
 func (c *CapitalizationStructure) FormattedReportingDate() string {
 	// if c.ReportingDate.IsZero() {
 	//  	return time.Now().Format("01/02/2006")
-	// }	
+	// }
 	return c.ReportingDate.Format("01/02/2006")
 }
 func (i *CapitalStructure) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*CapitalizationStructure, error) {
@@ -62,7 +62,6 @@ func (i *CapitalStructure) GetById(tx *sqlx.Tx, id int64) (*CapitalizationStruct
 
 	return cs, err
 }
-
 
 // create a new record of user.
 func (i *CapitalStructure) Create(tx *sqlx.Tx, m map[string]interface{}) (*CapitalizationStructure, error) {

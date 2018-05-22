@@ -47,7 +47,6 @@ func PostSignup(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-
 	// Perform login
 	PostLogin(w, r)
 }

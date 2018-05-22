@@ -39,10 +39,10 @@ func News(w http.ResponseWriter, r *http.Request) {
 	news := models.NewsRow{}
 	//create session date for page rendering
 	data := struct {
-		CurrentUser             *models.UserRow
-		Investment              *models.InvestmentRow
-		News 					 models.NewsRow
-		Existing                []*models.NewsRow
+		CurrentUser *models.UserRow
+		Investment  *models.InvestmentRow
+		News        models.NewsRow
+		Existing    []*models.NewsRow
 	}{
 		currentUser,
 		investment,

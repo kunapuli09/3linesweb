@@ -80,11 +80,11 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
 	//create session date for page rendering
 	data := struct {
-		CurrentUser         *models.UserRow
-		Investment          *models.InvestmentRow
-		Existing            []*models.FinancialResultsRow
-		ExistingNews        []*models.NewsRow
-		ExistingCapitalStructures []*models.CapitalizationStructure
+		CurrentUser                  *models.UserRow
+		Investment                   *models.InvestmentRow
+		Existing                     []*models.FinancialResultsRow
+		ExistingNews                 []*models.NewsRow
+		ExistingCapitalStructures    []*models.CapitalizationStructure
 		ExistingInvestmentStructures []*models.InvestmentStructureRow
 	}{
 		currentUser,
@@ -153,6 +153,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	}
 	GetPortfolio(w, r)
 }
+
 //presentation edit view
 func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")

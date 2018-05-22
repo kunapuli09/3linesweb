@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"time"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func NewInvestment(db *sqlx.DB) *Investment {
@@ -21,38 +21,37 @@ type Investment struct {
 }
 
 type InvestmentRow struct {
-	ID                      int64     `db:"id"`
-	StartupName             string    `db:"StartupName"`
-	LogoPath                string    `db:"LogoPath"`
-	Website                 string    `db:"Website"`
-	Description             string    `db:"Description"`
-	Team                    string    `db:"Team"`
-	Industry                string    `db:"Industry"`
-	InvestmentDate          time.Time `db:"InvestmentDate"`
-	Headquarters            string    `db:"Headquarters"`
-	BoardRepresentation     string    `db:"BoardRepresentation"`
-	BoardMembers            string    `db:"BoardMembers"`
-	CapTable                string    `db:"CapTable"`
-	InvestmentBackground    string    `db:"InvestmentBackground"`
-	InvestmentThesis        string    `db:"InvestmentThesis"`
-	ValuationMethodology    string    `db:"ValuationMethodology"`
-	RiskAssessment          string    `db:"RiskAssessment"`
-	ExitValueAtClosing      decimal.Decimal   `db:"ExitValueAtClosing"`
-	FundOwnershipPercentage decimal.Decimal   `db:"FundOwnershipPercentage"`
-	InvestorGroupPercentage decimal.Decimal   `db:"InvestorGroupPercentage"`
-	ManagementOwnership     decimal.Decimal   `db:"ManagementOwnership"`
-	InvestmentCommittment   decimal.Decimal   `db:"InvestmentCommittment"`
-	InvestedCapital         decimal.Decimal   `db:"InvestedCapital"`
-	RealizedProceeds        decimal.Decimal   `db:"RealizedProceeds"`
-	ReportedValue           decimal.Decimal   `db:"ReportedValue"`
-	InvestmentMultiple      decimal.Decimal   `db:"InvestmentMultiple"`
-	GrossIRR                decimal.Decimal   `db:"GrossIRR"`
+	ID                      int64           `db:"id"`
+	StartupName             string          `db:"StartupName"`
+	LogoPath                string          `db:"LogoPath"`
+	Website                 string          `db:"Website"`
+	Description             string          `db:"Description"`
+	Team                    string          `db:"Team"`
+	Industry                string          `db:"Industry"`
+	InvestmentDate          time.Time       `db:"InvestmentDate"`
+	Headquarters            string          `db:"Headquarters"`
+	BoardRepresentation     string          `db:"BoardRepresentation"`
+	BoardMembers            string          `db:"BoardMembers"`
+	CapTable                string          `db:"CapTable"`
+	InvestmentBackground    string          `db:"InvestmentBackground"`
+	InvestmentThesis        string          `db:"InvestmentThesis"`
+	ValuationMethodology    string          `db:"ValuationMethodology"`
+	RiskAssessment          string          `db:"RiskAssessment"`
+	ExitValueAtClosing      decimal.Decimal `db:"ExitValueAtClosing"`
+	FundOwnershipPercentage decimal.Decimal `db:"FundOwnershipPercentage"`
+	InvestorGroupPercentage decimal.Decimal `db:"InvestorGroupPercentage"`
+	ManagementOwnership     decimal.Decimal `db:"ManagementOwnership"`
+	InvestmentCommittment   decimal.Decimal `db:"InvestmentCommittment"`
+	InvestedCapital         decimal.Decimal `db:"InvestedCapital"`
+	RealizedProceeds        decimal.Decimal `db:"RealizedProceeds"`
+	ReportedValue           decimal.Decimal `db:"ReportedValue"`
+	InvestmentMultiple      decimal.Decimal `db:"InvestmentMultiple"`
+	GrossIRR                decimal.Decimal `db:"GrossIRR"`
 }
 
 func (i *InvestmentRow) FormattedInvestmentDate() string {
 	return i.InvestmentDate.Format("01/02/2006")
 }
-
 
 func (i *Investment) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentRow, error) {
 	investmentId, err := sqlResult.LastInsertId()

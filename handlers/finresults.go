@@ -43,10 +43,10 @@ func NewFinancials(w http.ResponseWriter, r *http.Request) {
 	FinancialResults := models.FinancialResultsRow{}
 	//create session date for page rendering
 	data := struct {
-		CurrentUser         *models.UserRow
-		Investment          *models.InvestmentRow
-		FinancialResults    models.FinancialResultsRow
-		Existing            []*models.FinancialResultsRow
+		CurrentUser      *models.UserRow
+		Investment       *models.InvestmentRow
+		FinancialResults models.FinancialResultsRow
+		Existing         []*models.FinancialResultsRow
 	}{
 		currentUser,
 		investment,

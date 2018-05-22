@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"time"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func NewFinancialResults(db *sqlx.DB) *FinancialResults {
@@ -21,21 +21,20 @@ type FinancialResults struct {
 }
 
 type FinancialResultsRow struct {
-	ID                     int64     `db:"id"`
-	Investment_ID          int64     `db:"investment_id"`
-	ReportingDate          time.Time `db:"ReportingDate"`
-	Revenue                decimal.Decimal   `db:"Revenue"`
-	YoYGrowthPercentage1   decimal.Decimal   `db:"YoYGrowthPercentage1"`
-	LTMEBITDA              decimal.Decimal   `db:"LTMEBITDA"`
-	YoYGrowthPercentage2   decimal.Decimal   `db:"YoYGrowthPercentage2"`
-	EBITDAMargin           decimal.Decimal   `db:"EBITDAMargin"`
-	TotalExitValue         decimal.Decimal   `db:"TotalExitValue"`
-	TotalExitValueMultiple decimal.Decimal   `db:"TotalExitValueMultiple"`
-	TotalLeverage          decimal.Decimal   `db:"TotalLeverage"`
-	TotalLeverageMultiple  decimal.Decimal   `db:"TotalLeverageMultiple"`
-	Assessment             string    `db:"Assessment"`
+	ID                     int64           `db:"id"`
+	Investment_ID          int64           `db:"investment_id"`
+	ReportingDate          time.Time       `db:"ReportingDate"`
+	Revenue                decimal.Decimal `db:"Revenue"`
+	YoYGrowthPercentage1   decimal.Decimal `db:"YoYGrowthPercentage1"`
+	LTMEBITDA              decimal.Decimal `db:"LTMEBITDA"`
+	YoYGrowthPercentage2   decimal.Decimal `db:"YoYGrowthPercentage2"`
+	EBITDAMargin           decimal.Decimal `db:"EBITDAMargin"`
+	TotalExitValue         decimal.Decimal `db:"TotalExitValue"`
+	TotalExitValueMultiple decimal.Decimal `db:"TotalExitValueMultiple"`
+	TotalLeverage          decimal.Decimal `db:"TotalLeverage"`
+	TotalLeverageMultiple  decimal.Decimal `db:"TotalLeverageMultiple"`
+	Assessment             string          `db:"Assessment"`
 }
-
 
 func (f *FinancialResultsRow) FormattedReportingDate() string {
 	return f.ReportingDate.Format("01/02/2006")
@@ -119,4 +118,3 @@ func (i *FinancialResults) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, erro
 
 	return sqlResult, nil
 }
-

@@ -108,5 +108,3 @@ func (i *News) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 
 	return sqlResult, nil
 }
-
-

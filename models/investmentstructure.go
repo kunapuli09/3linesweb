@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"time"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func NewInvestmentStructure(db *sqlx.DB) *InvestmentStructure {
@@ -21,14 +21,14 @@ type InvestmentStructure struct {
 }
 
 type InvestmentStructureRow struct {
-	ID               int64     `db:"id"`
-	Investment_ID    int64     `db:"investment_id"`
-	ReportingDate    time.Time `db:"ReportingDate"`
-	Units            decimal.Decimal   `db:"Units"`
-	TotalInvested    decimal.Decimal   `db:"TotalInvested"`
-	ReportedValue    decimal.Decimal   `db:"ReportedValue"`
-	RealizedProceeds decimal.Decimal   `db:"RealizedProceeds"`
-	Structure        string    `db:"Structure"`
+	ID               int64           `db:"id"`
+	Investment_ID    int64           `db:"investment_id"`
+	ReportingDate    time.Time       `db:"ReportingDate"`
+	Units            decimal.Decimal `db:"Units"`
+	TotalInvested    decimal.Decimal `db:"TotalInvested"`
+	ReportedValue    decimal.Decimal `db:"ReportedValue"`
+	RealizedProceeds decimal.Decimal `db:"RealizedProceeds"`
+	Structure        string          `db:"Structure"`
 }
 
 func (i *InvestmentStructureRow) FormattedReportingDate() string {
@@ -113,4 +113,3 @@ func (i *InvestmentStructure) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, e
 
 	return sqlResult, nil
 }
-

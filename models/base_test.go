@@ -110,16 +110,16 @@ func TestCreateDeleteInvestment(t *testing.T) {
 	data["CapTable"] = "ths"
 	data["BoardRepresentation"] = "0 of 3"
 	data["BoardMembers"] = "a,b"
-	data["ExitValueAtClosing"]=0.0
-	data["FundOwnershipPercentage"]=0.0
-	data["InvestorGroupPercentage"]=0.0
-	data["ManagementOwnership"]=0.0
-	data["InvestmentCommittment"]=0.0
-	data["InvestedCapital"]=0.0
-	data["RealizedProceeds"]=0.0
-	data["ReportedValue"]=0.0
-	data["InvestmentMultiple"]=0.0
-	data["GrossIRR"]=0.0
+	data["ExitValueAtClosing"] = 0.0
+	data["FundOwnershipPercentage"] = 0.0
+	data["InvestorGroupPercentage"] = 0.0
+	data["ManagementOwnership"] = 0.0
+	data["InvestmentCommittment"] = 0.0
+	data["InvestedCapital"] = 0.0
+	data["RealizedProceeds"] = 0.0
+	data["ReportedValue"] = 0.0
+	data["InvestmentMultiple"] = 0.0
+	data["GrossIRR"] = 0.0
 
 	result, err := base.InsertIntoTable(nil, data)
 	if err != nil {
@@ -132,7 +132,7 @@ func TestCreateDeleteInvestment(t *testing.T) {
 	}
 
 	i := NewInvestment(base.db)
-	investment, err1:= i.GetById(nil,lastInsertedId)
+	investment, err1 := i.GetById(nil, lastInsertedId)
 	if err1 != nil {
 		t.Fatalf("Retrieving row should not fail. Error: %v", err1)
 	}

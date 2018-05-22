@@ -23,9 +23,7 @@ type UserRow struct {
 	Phone    string `db:"phone"`
 	Password string `db:"password"`
 	Admin    bool   `db:"admin"`
-
 }
-
 
 type User struct {
 	Base
@@ -96,7 +94,6 @@ func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string, phone 
 	if password != passwordAgain {
 		return nil, errors.New("Password is invalid.")
 	}
-
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 5)
 	if err != nil {

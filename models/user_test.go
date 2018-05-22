@@ -2,9 +2,9 @@ package models
 
 import (
 	//_ "github.com/go-sql-driver/mysql"
-	"testing"
-	"github.com/shopspring/decimal"
 	"fmt"
+	"github.com/shopspring/decimal"
+	"testing"
 )
 
 // func newUserForTest(t *testing.T) *User {
@@ -34,7 +34,7 @@ import (
 
 // }
 
-func TestFloatToDecimal(t *testing.T){
+func TestFloatToDecimal(t *testing.T) {
 	d1 := decimal.NewFromFloat(10000024.00)
 	fmt.Printf("%v", d1)
 }

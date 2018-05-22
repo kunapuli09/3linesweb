@@ -81,6 +81,9 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/removeinvestmentstructure", handlers.RemoveInvestmentStructure).Methods("GET")
 	router.HandleFunc("/removefinancialresults", handlers.RemoveFinancialResults).Methods("GET")
 	router.HandleFunc("/removenews", handlers.RemoveNews).Methods("GET")
+	router.HandleFunc("/docs", handlers.Docs).Methods("GET")
+	router.HandleFunc("/addDoc", handlers.AddDoc).Methods("POST")
+	router.HandleFunc("/removeDoc", handlers.RemoveDoc).Methods("GET")
 	router.HandleFunc("/update", handlers.Update).Methods("POST")
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 

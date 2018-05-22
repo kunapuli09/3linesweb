@@ -1,0 +1,48 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+      <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
+      <div class="row">
+         <div class="col-lg-8 text-center">
+            <h3 class="section-heading text-uppercase">Upload Docs for {{.Investment.StartupName}} </h3>
+         </div>
+         <table class="table">
+          <tbody>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td>{{.FormattedUploadDate}}</td>
+             <td>{{ .DocPath }}</td>
+             <td><a class="btn btn-sm btn-outline-danger" href="/removeDoc?id={{.ID}}&Investment_ID={{ $.Investment.ID }}&DocPath={{ .DocPath }}" role="button"> Remove </a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+         <div class="col-lg-4">
+            <form enctype="multipart/form-data" class="form-signup-login form-investment" method="post" action="/addDoc">
+               <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
+               <input type="hidden" name="Hash" id="Hash" value="{{.Doc.Hash}}"/>
+               <label for="UploadDate">Upload Date</label>
+               <div class="input-group date" data-provide="datepicker-inline">
+                  <input type="text" id="UploadDate" name="UploadDate" value="{{ .Doc.UploadDate }}" class="form-control" required autofocus>
+                  <div class="input-group-addon">
+                     <span class="glyphicon glyphicon-th"></span>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+      <div class="form-group">
+        <label for="Doc">Choose File</label>
+        <input type="file" class="form-control-file" name= "Doc" id="Doc">
+      </div>
+      </div> 
+      <button class="btn btn-md btn-primary btn-block" type="submit">Add</button>
+      </form>
+      </div>
+   </div>
+</section>
+{{end}}

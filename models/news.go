@@ -93,7 +93,6 @@ func (i *News) GetAllByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*NewsRo
 	css := []*NewsRow{}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
 	err := i.db.Select(&css, query)
-
 	return css, err
 }
 

@@ -10,20 +10,18 @@
         </div>
       </section>
       {{end}}
-
       <div class="album py-5 bg-light">
         <div class="container">
-
           <div class="row">
             {{range .Investments }}
-            <div class="row-md-4">
+            <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <a href="{{ .Website }}" ><img class="card-img-top" src="{{.LogoPath}}" alt="{{.StartupName}}"></a>
+                <a onclick='newTab("{{.Website}}")'><img class="card-img-top" src="{{.LogoPath}}" alt="{{.StartupName}}"></a>
                 <div class="card-body">
-                  <p class="card-text">{{.Description}}</p>
+                  <p class="card-text">{{.Description | safeHTML}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="/viewinvestment?id={{.ID}}" role="button">Dashboard</a>
+                      <a class="btn btn-sm btn-info" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
                     </div>
                     <small class="text-muted">{{.Industry}}</small>
                   </div>

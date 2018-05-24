@@ -176,7 +176,7 @@ func PutUsersID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/", 302)
+	http.Redirect(w, r, "/portfolio", 302)
 }
 
 func DeleteUsersID(w http.ResponseWriter, r *http.Request) {

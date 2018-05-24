@@ -54,7 +54,7 @@ CREATE TABLE news (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
     NewsDate DATE,
-    News VARCHAR(255),
+    News TEXT,
     INDEX news_ind (investment_id),
     FOREIGN KEY (investment_id)
     REFERENCES investments(id)
@@ -66,6 +66,7 @@ CREATE TABLE docs (
     investment_id bigint(20) unsigned NOT NULL,
     UploadDate DATE,
     DocPath VARCHAR(255),
+    DocName VARCHAR(255),
     Hash VARCHAR(255), 
     INDEX docs_ind (investment_id),
     FOREIGN KEY (investment_id)

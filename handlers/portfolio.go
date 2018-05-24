@@ -14,6 +14,13 @@ import (
 	"time"
 )
 
+// type NewsHtmlRow struct {
+// 	ID            int64
+// 	Investment_ID int64
+// 	NewsDate      time.Time
+// 	News          template.HTML 
+// }
+
 func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
@@ -29,6 +36,7 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
+
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
@@ -37,7 +45,13 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		currentUser,
 		investments,
 	}
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/portfolio.html.tmpl")
+	funcMap := template.FuncMap{
+    		"safeHTML": func(b string) template.HTML {
+        	 return template.HTML(b)
+    		},
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/portfolio.html.tmpl")
+	
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -56,7 +70,13 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
+	funcMap := template.FuncMap{
+    		"safeHTML": func(b string) template.HTML {
+        	 return template.HTML(b)
+    		},
+	}
+	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
+	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)
 		return
@@ -78,6 +98,21 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	AllNews, err := models.NewNews(db).GetAllByInvestmentId(nil, ID)
 	AllCapitalStructures, err := models.NewCapitalStructure(db).GetAllByInvestmentId(nil, ID)
 	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
+	AllDocs, err := models.NewDoc(db).GetAllByInvestmentId(nil, ID)
+
+	// AllHtmlNews := make([]*NewsHtmlRow, len(AllNews))
+	// for i, element := range AllNews {
+	// 	AllHtmlNews[i] = &NewsHtmlRow{
+ //     		ID: element.ID, 
+ //     		Investment_ID: element.Investment_ID, 
+ //     		NewsDate: element.NewsDate, 
+ //     		News: template.HTML(element.News),
+ //     	}
+	// }
+	// for _, element := range AllHtmlNews {
+	// 	fmt.Println(element.News)
+	// }
+
 	//create session date for page rendering
 	data := struct {
 		CurrentUser                  *models.UserRow
@@ -86,6 +121,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingNews                 []*models.NewsRow
 		ExistingCapitalStructures    []*models.CapitalizationStructure
 		ExistingInvestmentStructures []*models.InvestmentStructureRow
+		ExistingDocs				 []*models.DocRow
 	}{
 		currentUser,
 		investment,
@@ -93,6 +129,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		AllNews,
 		AllCapitalStructures,
 		AllInvestmentStructures,
+		AllDocs,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
@@ -184,7 +221,12 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 		currentUser,
 		investment,
 	}
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editinvestment.html.tmpl")
+	funcMap := template.FuncMap{
+    		"safeHTML": func(b string) template.HTML {
+        	 return template.HTML(b)
+    		},
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editinvestment.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

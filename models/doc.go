@@ -25,6 +25,7 @@ type DocRow struct {
 	UploadDate    time.Time `db:"UploadDate"`
 	DocPath       string    `db:"DocPath"`
 	Hash          string    `db:"Hash"`
+	DocName       string    `db:"DocName"`
 }
 
 func (n *DocRow) FormattedUploadDate() string {

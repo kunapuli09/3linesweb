@@ -84,6 +84,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/docs", handlers.Docs).Methods("GET")
 	router.HandleFunc("/addDoc", handlers.AddDoc).Methods("POST")
 	router.HandleFunc("/removeDoc", handlers.RemoveDoc).Methods("GET")
+	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("./docs"))))
 	router.HandleFunc("/update", handlers.Update).Methods("POST")
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 

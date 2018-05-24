@@ -106,7 +106,8 @@ func AddDoc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m := structs.Map(i)
-	m["DocPath"] = docPath
+	m["DocPath"] = "/files/" + handler.Filename
+	m["DocName"] = handler.Filename
 	fmt.Printf("map %v", m)
 	_, err4 := models.NewDoc(db).Create(nil, m)
 	if err4 != nil {

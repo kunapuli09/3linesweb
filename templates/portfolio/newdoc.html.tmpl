@@ -12,7 +12,7 @@
             <tr>
              <th scope="row">{{.ID}}</th>
              <td>{{.FormattedUploadDate}}</td>
-             <td>{{ .DocPath }}</td>
+             <td><a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removeDoc?id={{.ID}}&Investment_ID={{ $.Investment.ID }}&DocPath={{ .DocPath }}" role="button"> Remove </a></td>
             </tr>
             {{end}}

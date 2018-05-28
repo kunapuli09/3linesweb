@@ -1,4 +1,12 @@
 {{define "content"}}
+<!-- {{if .Error}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <strong>Login Error</strong> {{.Error}}
+</div>
+{{end}} -->
 <section class="bg-light" id="login">
       <div class="container">
         <div class="row">
@@ -8,16 +16,55 @@
         </div>
         <div class="row">
           <div class="col-lg-6">
-          <form class="form-signup-login form-login" method="post" action="/login">
-          <input name="Email" type="text" class="form-control" placeholder="Email" required autofocus>
-          <input name="Password" type="password" class="form-control" placeholder="Password" required>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-
+          <form id="loginForm" class="form-signup-login form-login" method="post" action="/login">
+          <input id="Email" name="Email" type="text" class="form-control" placeholder="Email" required autofocus>
+          <input id="Password" name="Password" type="password" class="form-control" placeholder="Password" required>
+          <div id="success"></div>
+          <button id="loginButton" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+          <a href="#" data-target="#pwdModal" data-toggle="modal">Forgot password</a>
           <!-- <a href="/signup" class="other-form text-center">Create an account</a> -->
         </form>
           </div>
         </div>
       </div>
     </section>
+<!--modal-->
+<div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h1 class="text-center">Forgot Password?</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+          <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="text-center">
+                          <p>If you have forgotten your password you can reset it here.</p>
+                            <div class="panel-body">
+                              <form id="resetForm" class="form-signup-login form-login" method="post" action="/resetEmail">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control input-lg" placeholder="E-mail Address" id="ResetEmail" name="ResetEmail" type="email">
+                                    </div>
+                                    <div id="result"></div>
+                                    <input id="resetButton" class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">
+                                </fieldset>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>  
+      </div>
+  </div>
+  </div>
+</div>
 
 {{end}}

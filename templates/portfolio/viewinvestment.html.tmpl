@@ -61,9 +61,34 @@
                      </tr>
                      <tr>
                         <th scope="row"></th>
+                        <td>Investment Commitment</td>
+                        <td>${{.Investment.InvestmentCommittment}}</td>
+                     </tr>
+                     <tr>
+                        <th scope="row"></th>
+                        <td>Invested Capital</td>
+                        <td>${{.Investment.InvestedCapital}}</td>
+                     </tr>
+                     <tr>
+                        <th scope="row"></th>
+                        <td>Board Representation</td>
+                        <td>{{.Investment.BoardRepresentation}}</td>
+                     </tr>
+                     <tr>
+                        <th scope="row"></th>
+                        <td>Board Members</td>
+                        <td>{{.Investment.BoardMembers}}</td>
+                     </tr>
+                     <!-- <tr>
+                        <th scope="row"></th>
                         <td>Exit Value at Closing</td>
                         <td>{{.Investment.ExitValueAtClosing}}</td>
-                     </tr>
+                     </tr> -->
+                     <!--  <tr>
+                        <th scope="row"></th>
+                        <td>Realized Proceeds</td>
+                        <td>{{.Investment.RealizedProceeds}}</td>
+                     </tr> -->
                   </tbody>
                </table>
             </div>
@@ -80,70 +105,32 @@
                      <tr>
                         <th scope="row"></th>
                         <td>Fund Ownership</td>
-                        <td>{{.Investment.FundOwnershipPercentage}}</td>
+                        <td>{{.Investment.FundOwnershipPercentage}}%</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Investor Group Ownership</td>
-                        <td>{{.Investment.InvestorGroupPercentage}}</td>
+                        <td>{{.Investment.InvestorGroupPercentage}}%</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Management Ownership</td>
-                        <td>{{.Investment.ManagementOwnership}}</td>
-                     </tr>
-                     <tr>
-                        <th scope="row"></th>
-                        <td>Board Representation</td>
-                        <td>{{.Investment.BoardRepresentation}}</td>
-                     </tr>
-                     <tr>
-                        <th scope="row"></th>
-                        <td>Board Members</td>
-                        <td>{{.Investment.BoardMembers}}</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-            </p>
-         </div>
-      </div>
-      <div class="card text-info mb-3" style="max-width: 100rem;">
-         <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text">
-            <div class="table-responsive-md">
-               <table class="table table-striped">
-                  <tbody>
-                     <tr>
-                        <th scope="row"></th>
-                        <td>Investment Commitment</td>
-                        <td>{{.Investment.InvestmentCommittment}}</td>
-                     </tr>
-                     <tr>
-                        <th scope="row"></th>
-                        <td>Invested Capital</td>
-                        <td>{{.Investment.InvestedCapital}}</td>
-                     </tr>
-                     <tr>
-                        <th scope="row"></th>
-                        <td>Realized Proceeds</td>
-                        <td>{{.Investment.RealizedProceeds}}</td>
+                        <td>{{.Investment.ManagementOwnership}}%</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Reported Value</td>
-                        <td>{{.Investment.ReportedValue}}</td>
+                        <td>${{.Investment.ReportedValue}}</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Investment Multiple</td>
-                        <td>{{.Investment.InvestmentMultiple}}</td>
+                        <td>{{.Investment.InvestmentMultiple}}x</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Gross IRR(All Security Types)</td>
-                        <td>{{.Investment.GrossIRR}}</td>
+                        <td>{{.Investment.GrossIRR}}%</td>
                      </tr>
                   </tbody>
                </table>
@@ -167,10 +154,10 @@
                   <tr>
                      <th scope="col">Reporting Date</th>
                      <th scope="col">Investment Structure</th>
-                     <th scope="col">Units/Par</th>
+                     <!-- <th scope="col">Units/Par</th> -->
                      <th scope="col">Total Invested</th>
                      <th scope="col">Reported Value</th>
-                     <th scope="col">Realized Proceeds</th>
+                    <!--  <th scope="col">Realized Proceeds</th> -->
                   </tr>
                </thead>
                <tbody>
@@ -178,10 +165,10 @@
                   <tr>
                      <th scope="row">{{.FormattedReportingDate}}</th>
                      <td>{{.Structure}}</td>
-                     <td>{{.Units}}</td>
-                     <td>{{.TotalInvested}}</td>
+                     <!-- <td>{{.Units}}</td> -->
+                     <td>${{.TotalInvested}}</td>
                      <td>{{.ReportedValue}}</td>
-                     <td>{{.RealizedProceeds}}</td>
+                     <!-- <td>{{.RealizedProceeds}}</td> -->
                   </tr>
                   {{end}}
                </tbody>
@@ -203,37 +190,37 @@
       </div>
    </div>
    {{end}}
-   {{if .Investment.InvestmentBackground | safeHTML}}
+   {{if .Investment.InvestmentBackground }}
    <div class="card-group">
       <div class="card text-info mb-3" style="max-width: 100rem;">
          <div class="card-body">
             <h5 class="card-title">INVESTMENT BACKGROUND</h5>
             <p class="card-text">
-               {{.Investment.InvestmentBackground}}
+               {{.Investment.InvestmentBackground | safeHTML}}
             </p>
          </div>
       </div>
    </div>
    {{end}}
-   {{if .Investment.ValuationMethodology | safeHTML }}
+   {{if .Investment.ValuationMethodology }}
    <div class="card-group">
       <div class="card text-info mb-3" style="max-width: 100rem;">
          <div class="card-body">
             <h5 class="card-title">VALUATION METHODOLOGY</h5>
             <p class="card-text">
-               {{.Investment.ValuationMethodology}}
+               {{.Investment.ValuationMethodology | safeHTML}}
             </p>
          </div>
       </div>
    </div>
    {{end}}
-   {{if .Investment.RiskAssessment | safeHTML}}
+   {{if .Investment.RiskAssessment }}
    <div class="card-group">
       <div class="card text-info mb-3" style="max-width: 100rem;">
          <div class="card-body">
             <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
             <p class="card-text">
-               {{.Investment.RiskAssessment}}
+               {{.Investment.RiskAssessment | safeHTML}}
             </p>
          </div>
       </div>
@@ -245,7 +232,7 @@
          <div class="card-body">
             <h5 class="card-title">INVESTMENT THESIS</h5>
             <p class="card-text">
-               {{.Investment.InvestmentThesis}}
+               {{.Investment.InvestmentThesis | safeHTML}}
             </p>
          </div>
       </div>

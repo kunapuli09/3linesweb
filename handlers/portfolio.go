@@ -18,7 +18,7 @@ import (
 // 	ID            int64
 // 	Investment_ID int64
 // 	NewsDate      time.Time
-// 	News          template.HTML 
+// 	News          template.HTML
 // }
 
 func GetPortfolio(w http.ResponseWriter, r *http.Request) {
@@ -46,12 +46,12 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		investments,
 	}
 	funcMap := template.FuncMap{
-    		"safeHTML": func(b string) template.HTML {
-        	 return template.HTML(b)
-    		},
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/portfolio.html.tmpl")
-	
+
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -71,9 +71,9 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	funcMap := template.FuncMap{
-    		"safeHTML": func(b string) template.HTML {
-        	 return template.HTML(b)
-    		},
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
 	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
@@ -103,11 +103,11 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	// AllHtmlNews := make([]*NewsHtmlRow, len(AllNews))
 	// for i, element := range AllNews {
 	// 	AllHtmlNews[i] = &NewsHtmlRow{
- //     		ID: element.ID, 
- //     		Investment_ID: element.Investment_ID, 
- //     		NewsDate: element.NewsDate, 
- //     		News: template.HTML(element.News),
- //     	}
+	//     		ID: element.ID,
+	//     		Investment_ID: element.Investment_ID,
+	//     		NewsDate: element.NewsDate,
+	//     		News: template.HTML(element.News),
+	//     	}
 	// }
 	// for _, element := range AllHtmlNews {
 	// 	fmt.Println(element.News)
@@ -121,7 +121,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingNews                 []*models.NewsRow
 		ExistingCapitalStructures    []*models.CapitalizationStructure
 		ExistingInvestmentStructures []*models.InvestmentStructureRow
-		ExistingDocs				 []*models.DocRow
+		ExistingDocs                 []*models.DocRow
 	}{
 		currentUser,
 		investment,
@@ -222,9 +222,9 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 		investment,
 	}
 	funcMap := template.FuncMap{
-    		"safeHTML": func(b string) template.HTML {
-        	 return template.HTML(b)
-    		},
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editinvestment.html.tmpl")
 	if err != nil {

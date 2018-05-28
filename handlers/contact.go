@@ -2,19 +2,20 @@ package handlers
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"github.com/dchest/passwordreset"
+	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
+	"golang.org/x/crypto/bcrypt"
+	"html/template"
 	"log"
 	"net/http"
 	"net/smtp"
 	"os"
 	"time"
-	"html/template"
-	"errors"
-	"github.com/gorilla/sessions"
 )
 
 func PostEmail(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +44,7 @@ func PostEmail(w http.ResponseWriter, r *http.Request) {
 	if _, err = buf.WriteTo(wc); err != nil {
 		log.Fatal(err)
 	}
-	log.Println("Mail sent successfully")
+	log.Println("Mail sent successfully to", email)
 	http.Redirect(w, r, "/", 302)
 }
 
@@ -62,7 +63,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 		PasswordSecret := []byte(os.Getenv("PASSWORD_SECRET"))
 		log.Println("Email", user.Email)
 		log.Println("Password Secret", PasswordSecret)
-		pwdVal, _ := getPwdVal(user.Password)
+		pwdVal, _ := getPwdVal(user.Email)
 		log.Println("Password", pwdVal)
 		token := passwordreset.NewToken(user.Email, 100*time.Second, pwdVal, PasswordSecret)
 		//passwordResetLink := fmt.Sprintf("http://localhost:8888/reset?token=%s", token)
@@ -96,7 +97,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 func GetReset(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	token := r.URL.Query().Get("token")
-	log.Println(token)
+	//log.Println(token)
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, _ := session.Values["user"].(*models.UserRow)
@@ -108,11 +109,11 @@ func GetReset(w http.ResponseWriter, r *http.Request) {
 		}
 		data := struct {
 			CurrentUser *models.UserRow
-			Token string
-			}{
+			Token       string
+		}{
 			currentUser,
 			token,
-			}
+		}
 		tmpl.ExecuteTemplate(w, "layout", data)
 	} else {
 		libhttp.HandleErrorJson(w, errors.New("invalid token"))
@@ -133,37 +134,40 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if user.Email != "" {
-	PasswordSecret := []byte(os.Getenv("PASSWORD_SECRET"))
-	log.Println("Email", user.Email)
-	log.Println("Password Secret", PasswordSecret)
-	pwdVal, _ := getPwdVal(user.Password)
-	log.Println("Password", pwdVal)
-	//useless call..bug in passwordreset package
-	login, err := passwordreset.VerifyToken(token, getPwdVal, PasswordSecret)
-	if err != nil {
-		// verification failed, don't allow password reset
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	if login != email{
-		// verification failed, don't allow password reset
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	session.Values["user"] = user
-	err = session.Save(r, w)
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
+		PasswordSecret := []byte(os.Getenv("PASSWORD_SECRET"))
+		//log.Println("Email", user.Email)
+		//log.Println("Password Secret", PasswordSecret)
+		pwdVal, _ := getPwdVal(user.Email)
+		log.Println("Password", pwdVal)
+		//..bug in passwordreset package
+		login, _ := passwordreset.VerifyToken(token, getPwdVal, PasswordSecret)
+		log.Println("Verified Token Login",login)
+		//TODO****fix why the signature fails
+		// if err != nil {
+		// 	// signature verification failed, don't allow password reset
+		// 	libhttp.HandleErrorJson(w, err)
+		// 	return
+		// }
+		if login != email {
+			// verification failed, don't allow password reset
+			libhttp.HandleErrorJson(w, err)
+			return
+		}
+		sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+		session, _ := sessionStore.Get(r, "3linesweb-session")
+		session.Values["user"] = user
+		err = session.Save(r, w)
+		if err != nil {
+			libhttp.HandleErrorJson(w, err)
+			return
+		}
+
+		http.Redirect(w, r, "/portfolio", 302)
 	}
 
-	http.Redirect(w, r, "/portfolio", 302)
 }
 
-}
-
-func getPwdVal(password string) ([]byte, error) {
-	return []byte(password), nil
+func getPwdVal(login string) ([]byte, error) {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(login), 5)
+	return []byte(hashedPassword), err
 }

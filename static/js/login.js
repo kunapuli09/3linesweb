@@ -26,7 +26,7 @@ $(function() {
           $('#success').html("<div class='alert alert-danger'>");
           $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
             .append("</button>");
-          $('#success > .alert-danger').append($("<strong>").text("Password didn't match or email not registered. Pls contact system administrator."));
+          $('#success > .alert-danger').append($("<strong>").text("Password didn't match or email not registered. Please contact system administrator."));
           $('#success > .alert-danger').append('</div>');
           //clear all fields
           $('#loginForm').trigger("reset");

@@ -65,7 +65,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 		log.Println("Password Secret", PasswordSecret)
 		pwdVal, _ := getPwdVal(user.Email)
 		log.Println("Password", pwdVal)
-		token := passwordreset.NewToken(user.Email, 100*time.Second, pwdVal, PasswordSecret)
+		token := passwordreset.NewToken(user.Email, 12*time.Hour, pwdVal, PasswordSecret)
 		//passwordResetLink := fmt.Sprintf("http://localhost:8888/reset?token=%s", token)
 		passwordResetLink := fmt.Sprintf("https://3lines.vc/reset?token=%s", token)
 		// Connect to the remote SMTP server.
@@ -84,7 +84,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 		defer wc.Close()
-		buf := bytes.NewBufferString(fmt.Sprintf("\n Here is the password reset link that expires in the next 90 seconds \n %s", passwordResetLink))
+		buf := bytes.NewBufferString(fmt.Sprintf("\n You have requested password reset link to 3lines investor dashboard. This link expires in the next 12 hours \n %s", passwordResetLink))
 		if _, err = buf.WriteTo(wc); err != nil {
 			log.Fatal(err)
 		}

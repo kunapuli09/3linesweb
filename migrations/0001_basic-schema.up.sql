@@ -134,7 +134,7 @@ CREATE TABLE applications (
     State VARCHAR(255) NOT NULL,
     Industries VARCHAR(255) NOT NULL,
     Locations VARCHAR(255) NOT NULL,
-    CapitalRaised VARCHAR(255) NOT NULL,
+    CapitalRaised DECIMAL(20,2),
     Comments VARCHAR(255) NOT NULL,
     UNIQUE KEY (email)
 )ENGINE=INNODB;

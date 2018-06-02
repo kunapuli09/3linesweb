@@ -1,18 +1,16 @@
 package models
 
 import (
-	"database/sql"
-	"errors"
+	"database/sql"	
 	"fmt"
 	"github.com/jmoiron/sqlx"
-	"golang.org/x/crypto/bcrypt"
 	"github.com/shopspring/decimal"
 )
 
 func NewAppl(db *sqlx.DB) *Appl {
 	Appl := &Appl{}
 	Appl.db = db
-	Appl.table = "Appls"
+	Appl.table = "applications"
 	Appl.hasID = true
 
 	return Appl
@@ -24,22 +22,18 @@ type ApplRow struct {
 	FirstName    string `db:"FirstName"`
 	LastName string `db:"LastName"`
 	CompanyName    string `db:"CompanyName"`
-	Phone    string `db:"phone"`
+	Phone    string `db:"Phone"`
 	Website string `db:"Website"`
 	Title    string `db:"Title"`
 	State    string `db:"State"`
 	Industries string `db:"Industries"`
 	Locations    string `db:"Locations"`
 	Comments string `db:"Comments"`
-	CapitalRaised  decimal.Decimal string `db:"CapitalRaised"`
+	CapitalRaised  decimal.Decimal `db:"CapitalRaised"`
 }
 
 type Appl struct {
 	Base
-}
-
-func (i *ApplRow) FormattedReportingDate() string {
-	return i.ReportingDate.Format("01/02/2006")
 }
 
 func (i *Appl) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*ApplRow, error) {
@@ -70,9 +64,9 @@ func (i *Appl) GetById(tx *sqlx.Tx, id int64) (*ApplRow, error) {
 }
 
 // GetByName returns record by name.
-func (i *Appl) GetByName(tx *sqlx.Tx, name string) (*ApplRow, error) {
+func (i *Appl) GetByLastName(tx *sqlx.Tx, name string) (*ApplRow, error) {
 	isr := &ApplRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE name=?", i.table)
+	query := fmt.Sprintf("SELECT * FROM %v WHERE LastName=?", i.table)
 	err := i.db.Get(isr, query, name)
 
 	return isr, err
@@ -98,15 +92,6 @@ func (i *Appl) UpdateById(tx *sqlx.Tx, isId int64, data map[string]interface{}) 
 	}
 
 	return i.GetById(tx, isId)
-}
-
-// Get All by Investment ID.
-func (i *Appl) GetAllByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*ApplRow, error) {
-	css := []*ApplRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
-	err := i.db.Select(&css, query)
-
-	return css, err
 }
 
 // UpdateEmailAndPasswordById updates user email and password.

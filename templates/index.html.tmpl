@@ -90,7 +90,7 @@
             <div class="intro-text">
                <div class="intro-lead-in">3Lines Venture Capital</div>
                <div class="intro-heading text-uppercase">International Venture Fund</div>
-               <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#contact">Apply for seed funding</a>
+               <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#applicationForm">Apply for seed funding</a>
             </div>
          </div>
       </header>
@@ -492,6 +492,7 @@
       </div>
       </div>
       </section>
+      <!-- Application Form -->
       <section id="contact">
          <div class="container">
          <div class="row">
@@ -505,106 +506,114 @@
                   <div class="row">
                      <div class="col-md-6">
                         <div class="form-group">
-                           <input class="form-control" id="firstName" type="text" placeholder="First Name *" required data-validation-required-message="Please enter your first name.">
+                           <input class="form-control" id="FirstName" type="text" placeholder="First Name *" required data-validation-required-message="Please enter your first name.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="lastName" type="text" placeholder="Last Name *" required data-validation-required-message="Please enter your last name.">
+                           <input class="form-control" id="LastName" type="text" placeholder="Last Name *" required data-validation-required-message="Please enter your last name.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+                           <input class="form-control" id="Email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="companyName" type="text" placeholder="Company Name *" required data-validation-required-message="Please enter your company name.">
+                           <input class="form-control" id="CompanyName" type="text" placeholder="Company Name *" required data-validation-required-message="Please enter your company name.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="website" type="text" placeholder="Website *" required data-validation-required-message="Please enter your website link.">
+                           <input class="form-control" id="Website" type="text" placeholder="Website *" required data-validation-required-message="Please enter your website link.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
+                           <input class="form-control" id="Phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="title" type="tel" placeholder="Your Title *" required data-validation-required-message="Please enter your title in the company.">
+                           <input class="form-control" id="Title" type="tel" placeholder="Your Title *" required data-validation-required-message="Please enter your title in the company.">
                            <p class="help-block text-danger"></p>
                         </div>
                      </div>
                      <div class="col-md-6">
                         <div class="form-group">
-                           <input class="form-control" id="state" type="tel" placeholder="State *" required data-validation-required-message="Please enter the state in which your company is located.">
+                           <input class="form-control" id="State" type="tel" placeholder="State *" required data-validation-required-message="Please enter the state in which your company is located.">
                            <p class="help-block text-danger"></p>
                         </div>
-                        <div class="form-group">
-                           <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
+                        <div class="form-group" id="Industries">
                            <div class="row">
+                              <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
+                           </div>
+                           <div class="row">
+                              <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" class="custom-control-input" id="AgriTech">
+                                 <label class="custom-control-label text-white" for="AgriTech">Agricultural Technology</label>
+                              </div>
+                              <div class="custom-control custom-checkbox ml-3">
+                                 <input type="checkbox" class="custom-control-input" id="CyberSecurity">
+                                 <label class="custom-control-label text-white" for="CyberSecurity">Cyber Security</label>
+                              </div>
+                              <div class="custom-control custom-checkbox ml-3">
+                                 <input type="checkbox" class="custom-control-input" id="IoT">
+                                 <label class="custom-control-label text-white" for="IoT">Internet of Things</label>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" class="custom-control-input" id="ArtificialIntelligence">
+                                 <label class="custom-control-label text-white" for="ArtificialIntelligence">Artificial Intelligence</label>
+                              </div>
+                              <div class="custom-control custom-checkbox ml-3">
+                                 <input type="checkbox" class="custom-control-input" id="SaaS">
+                                 <label class="custom-control-label text-white" for="SaaS">SaaS</label>
+                              </div>
+                              <div class="custom-control custom-checkbox ml-3">
+                                 <input type="checkbox" class="custom-control-input" id="MedicalTechnology">
+                                 <label class="custom-control-label text-white" for="MedicalTechnology">Medical Technology</label>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" class="custom-control-input" id="InsurTech">
+                                 <label class="custom-control-label text-white" for="InsurTech">Insurance Technology</label>
+                              </div>
+                              <div class="custom-control custom-checkbox ml-3">
+                                 <input type="checkbox" class="custom-control-input" id="SupplyChain">
+                                 <label class="custom-control-label text-white" for="SupplyChain">Supply Chain</label>
+                              </div>
+                           </div>
+                           <div class="form-group" id="Locations">
+                              <div class="row">
+                                 <h6 style="color:White;">Please choose one of our locations:</h6>
+                              </div>
+                              <div class="row">
                                  <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="AgriTech">
-                                    <label class="custom-control-label text-white" for="customCheck1">Agricultural Technology</label>
+                                    <input type="checkbox" class="custom-control-input" id="Delhi">
+                                    <label class="custom-control-label text-white" for="Delhi">Delhi</label>
                                  </div>
-                                 <div class="custom-control custom-checkbox ml-auto">
-                                    <input type="checkbox" class="custom-control-input" id="CyberSecurity">
-                                    <label class="custom-control-label text-white" for="customCheck1">Cyber Security</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox ml-auto">
-                                    <input type="checkbox" class="custom-control-input" id="IoT">
-                                    <label class="custom-control-label text-white" for="customCheck1">Internet of Things</label>
+                                 <div class="custom-control custom-checkbox ml-3">
+                                    <input type="checkbox" class="custom-control-input" id="Hyderabad">
+                                    <label class="custom-control-label text-white" for="Hyderabad">Hyderabad</label>
                                  </div>
                               </div>
-                           <div class="row">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="ArtificialIntelligence">
-                                    <label class="custom-control-label text-white" for="customCheck1">Artificial Intelligence</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox ml-auto">
-                                    <input type="checkbox" class="custom-control-input" id="MedicalTechnology">
-                                    <label class="custom-control-label text-white" for="customCheck1">Medical Technology</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox ml-auto">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                    <label class="custom-control-label text-white" for="customCheck1">SaaS</label>
-                                 </div>
-                          </div>
-                          <div class="row">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="InsurTech">
-                                    <label class="custom-control-label text-white" for="customCheck1">Insurance Technology</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox ml-auto">
-                                    <input type="checkbox" class="custom-control-input" id="SupplyChain">
-                                    <label class="custom-control-label text-white" for="customCheck1">Supply Chain</label>
-                                 </div>
-                          </div>
-                           <div class="form-group">
-                            <div class="row">
-                              <h6 style="color:White;">Please choose one of our locations:</h6>
-                              <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Delhi">
-                                    <label class="custom-control-label text-white" for="customCheck1">Delhi</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Hyderabad">
-                                    <label class="custom-control-label text-white" for="customCheck1">Hyderabad</label>
-                                 </div>
                            </div>
+                           <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="100,000.00"  required autofocus>
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
                          </div>
-
-                           <div class="form-group">
-                              <input class="form-control" id="capitalRaised" type="tel" placeholder="Capital Raised *" required data-validation-required-message="Please enter the amount of capital your company has raised thus far.">
-                              <p class="help-block text-danger"></p>
-                           </div>
-                           <div class="form-group">
-                              <textarea class="form-control" id="comments" placeholder="Additional Comments *" required data-validation-required-message="Please enter a message."></textarea>
+                           <div class="input-group">
+                              <textarea class="form-control" id="Comments" placeholder="Additional Comments *" required data-validation-required-message="Please enter a message."></textarea>
                               <p class="help-block text-danger"></p>
                            </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-lg-12 text-center">
-                           <div id="success"></div>
-                           <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Send Message</button>
+                           <div id="successApplication"></div>
+                           <button id="sendApplicationButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit Application</button>
                         </div>
                      </div>
                </form>
@@ -612,6 +621,7 @@
             </div>
          </div>
       </section>
+
       <!-- Footer -->
       <footer>
          <div class="container">
@@ -645,6 +655,7 @@
       <!-- Contact form JavaScript -->
       <script src="js/jqBootstrapValidation.js"></script>
       <script src="js/contact_me.js"></script>
+       <script src="js/appl.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>\
       <!-- date picker start  -->

@@ -121,3 +121,20 @@ CREATE TABLE financial_results (
         REFERENCES investments(id)
         ON DELETE CASCADE
 )ENGINE=INNODB;
+
+CREATE TABLE applications (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    CompanyName VARCHAR(255) NOT NULL,
+    Website VARCHAR(255) NOT NULL,
+    Phone VARCHAR(12) NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    State VARCHAR(255) NOT NULL,
+    Industries VARCHAR(255),
+    Locations VARCHAR(255),
+    CapitalRaised DECIMAL(20,2),
+    Comments VARCHAR(255) NOT NULL,
+    UNIQUE KEY (email)
+)ENGINE=INNODB;

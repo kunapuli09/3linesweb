@@ -25,7 +25,6 @@ type ApplRow struct {
 	Phone    string `db:"Phone"`
 	Website string `db:"Website"`
 	Title    string `db:"Title"`
-	State    string `db:"State"`
 	Industries string `db:"Industries"`
 	Locations    string `db:"Locations"`
 	Comments string `db:"Comments"`

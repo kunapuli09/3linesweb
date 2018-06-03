@@ -26,7 +26,6 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	m["CompanyName"] = r.FormValue("CompanyName")
 	m["Website"] = r.FormValue("Website")
 	m["Title"] = r.FormValue("Title")
-	m["State"] = r.FormValue("State")
 	m["Industries"] = r.FormValue("Industries")
 	m["Locations"] = r.FormValue("Locations")
 	m["Comments"] = r.FormValue("Comments")

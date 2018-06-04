@@ -124,6 +124,7 @@ CREATE TABLE financial_results (
 
 CREATE TABLE applications (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ApplicationDate timestamp,
     FirstName VARCHAR(255) NOT NULL,
     LastName VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL,

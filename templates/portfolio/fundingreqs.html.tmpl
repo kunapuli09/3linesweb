@@ -1,0 +1,54 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+      <a href="/portfolio" class="btn btn-primary my-2">Back to Portfolio</a>
+      <div class="row">
+         <div class="col-lg-8 text-center">
+            <h3 class="section-heading text-uppercase">Funding Requests Received</h3>
+         </div>
+        <div class="table-responsive">
+         <table class="table table-striped">
+          <thead>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">ID</th>
+             <td>Application Date</td>
+             <td>FirstName</td>
+             <td>LastName</td>
+             <td>Email</td>
+             <td>Phone</td>
+             <td>Title</td>
+             <td>CompanyName</td>
+             <td>Website</td>
+             <td>Industries</td>
+             <td>Locations</td>
+             <td>CapitalRaised</td>
+             <td>Comments</td>
+            </tr>
+            {{end}}
+          </thead>
+          <tbody>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td>{{.FormattedApplicationDate}}</td>
+             <td>{{ .FirstName }}</td>
+             <td>{{ .LastName }}</td>
+             <td>{{ .Email }}</td>
+             <td>{{ .Phone }}</td>
+             <td>{{ .Title }}</td>
+             <td>{{ .CompanyName }}</td>
+             <td>{{ .Website }}</td>
+             <td>{{ .Industries }}</td>
+             <td>{{ .Locations }}</td>
+             <td>{{ .CapitalRaised }}</td>
+             <td>{{ .Comments }}</td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+   </div>
+ </div>
+</section>
+{{end}}

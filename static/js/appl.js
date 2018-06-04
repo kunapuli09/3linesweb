@@ -24,11 +24,11 @@ $(function() {
         industriesArray.push($(this).val());
       });
       industries = industriesArray.join(',') ;
-      if(industries.length > 0){
-        alert("You have selected " + industries); 
-      }else{
-        alert("Please at least check one of the checkbox"); 
-      }
+      // if(industries.length > 0){
+      //   alert("You have selected " + industries); 
+      // }else{
+      //   alert("Please at least check one of the checkbox"); 
+      // }
       /* declare an checkbox array */
       /* we join the array separated by the comma */
       var locationsArray = [];
@@ -39,11 +39,11 @@ $(function() {
         locationsArray.push($(this).val());
       });
       locations = locationsArray.join(',') ;
-      if(locations.length > 0){
-        alert("You have selected " + locations); 
-      }else{
-        alert("Please at least check one of the checkbox"); 
-      }
+      // if(locations.length > 0){
+      //   alert("You have selected " + locations); 
+      // }else{
+      //   alert("Please at least check one of the checkbox"); 
+      // }
       var Industries = industries;
       var Locations = locations;
       var CapitalRaised = $("input#CapitalRaised").val();

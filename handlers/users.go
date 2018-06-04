@@ -180,7 +180,18 @@ func PutUsersID(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteUsersID(w http.ResponseWriter, r *http.Request) {
-	err := errors.New("DELETE method is not implemented.")
-	libhttp.HandleErrorJson(w, err)
-	return
+	userId, err := getIdFromPath(w, r)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+	db := r.Context().Value("db").(*sqlx.DB)
+	u := models.NewUser(db)
+	_, err1 := u.DeleteByID(nil, userId)
+	if err1 != nil {
+		libhttp.HandleErrorJson(w, err1)
+		return
+	}
+	http.Redirect(w, r, "/portfolio", 302)
 }

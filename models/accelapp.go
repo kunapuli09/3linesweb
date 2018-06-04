@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 func NewAppl(db *sqlx.DB) *Appl {
@@ -18,6 +19,7 @@ func NewAppl(db *sqlx.DB) *Appl {
 
 type ApplRow struct {
 	ID       int64  `db:"id"`
+	ApplicationDate time.Time `db:"ApplicationDate"`
 	Email    string `db:"Email"`
 	FirstName    string `db:"FirstName"`
 	LastName string `db:"LastName"`
@@ -25,7 +27,6 @@ type ApplRow struct {
 	Phone    string `db:"Phone"`
 	Website string `db:"Website"`
 	Title    string `db:"Title"`
-	State    string `db:"State"`
 	Industries string `db:"Industries"`
 	Locations    string `db:"Locations"`
 	Comments string `db:"Comments"`
@@ -34,6 +35,10 @@ type ApplRow struct {
 
 type Appl struct {
 	Base
+}
+
+func (ar*ApplRow) FormattedApplicationDate() string {
+	return ar.ApplicationDate.Format("01/02/2006")
 }
 
 func (i *Appl) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*ApplRow, error) {

@@ -535,81 +535,88 @@
                         </div>
                      </div>
                      <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control" id="State" type="tel" placeholder="State *" required data-validation-required-message="Please enter the state in which your company is located.">
-                           <p class="help-block text-danger"></p>
-                        </div>
                         <div class="form-group" id="Industries">
                            <div class="row">
                               <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
                            </div>
-                           <div class="row">
-                              <div class="custom-control custom-checkbox">
-                                 <input type="checkbox" class="custom-control-input" id="AgriTech">
-                                 <label class="custom-control-label text-white" for="AgriTech">Agricultural Technology</label>
-                              </div>
-                              <div class="custom-control custom-checkbox ml-3">
-                                 <input type="checkbox" class="custom-control-input" id="CyberSecurity">
-                                 <label class="custom-control-label text-white" for="CyberSecurity">Cyber Security</label>
-                              </div>
-                              <div class="custom-control custom-checkbox ml-3">
-                                 <input type="checkbox" class="custom-control-input" id="IoT">
-                                 <label class="custom-control-label text-white" for="IoT">Internet of Things</label>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="custom-control custom-checkbox">
-                                 <input type="checkbox" class="custom-control-input" id="ArtificialIntelligence">
-                                 <label class="custom-control-label text-white" for="ArtificialIntelligence">Artificial Intelligence</label>
-                              </div>
-                              <div class="custom-control custom-checkbox ml-3">
-                                 <input type="checkbox" class="custom-control-input" id="SaaS">
-                                 <label class="custom-control-label text-white" for="SaaS">SaaS</label>
-                              </div>
-                              <div class="custom-control custom-checkbox ml-3">
-                                 <input type="checkbox" class="custom-control-input" id="MedicalTechnology">
-                                 <label class="custom-control-label text-white" for="MedicalTechnology">Medical Technology</label>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="custom-control custom-checkbox">
-                                 <input type="checkbox" class="custom-control-input" id="InsurTech">
-                                 <label class="custom-control-label text-white" for="InsurTech">Insurance Technology</label>
-                              </div>
-                              <div class="custom-control custom-checkbox ml-3">
-                                 <input type="checkbox" class="custom-control-input" id="SupplyChain">
-                                 <label class="custom-control-label text-white" for="SupplyChain">Supply Chain</label>
-                              </div>
-                           </div>
-                           <div class="form-group" id="Locations">
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check1">
+                              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check2">
+                              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check3">
+                              <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
+                            </label>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check4">
+                              <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check5">
+                              <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check6">
+                              <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Healthcare">Healthcare
+                            </label>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check7">
+                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="InsuranceTechnology">Insurance Technology
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label text-white" for="check8">
+                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="SupplyChain">Agriculture
+                            </label>
+                          </div>
+                          </div>
+                          <div class="form-group" id="Locations">
                               <div class="row">
                                  <h6 style="color:White;">Please choose one of our locations:</h6>
                               </div>
-                              <div class="row">
-                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="Delhi">
-                                    <label class="custom-control-label text-white" for="Delhi">Delhi</label>
-                                 </div>
-                                 <div class="custom-control custom-checkbox ml-3">
-                                    <input type="checkbox" class="custom-control-input" id="Hyderabad">
-                                    <label class="custom-control-label text-white" for="Hyderabad">Hyderabad</label>
-                                 </div>
+                              <div class="row" id="locations">
+                              <div class="form-check form-check-inline">
+                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US">
+                              <label class="form-check-label text-white" for="inlineRadio1">United States</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
+                              <label class="form-check-label text-white" for="inlineRadio2">India</label>
+                            </div>
                               </div>
                            </div>
+                           <div class="clearfix"></div>
                            <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
-                            <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="100,000.00"  required autofocus>
+                            <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised"  required autofocus>
                             <div class="input-group-append">
                                 <span class="input-group-text">.00</span>
                             </div>
                          </div>
                            <div class="input-group">
-                              <textarea class="form-control" id="Comments" placeholder="Additional Comments *" required data-validation-required-message="Please enter a message."></textarea>
+                              <textarea class="form-control" id="Comments" placeholder="Additional Comments *"></textarea>
                               <p class="help-block text-danger"></p>
                            </div>
                         </div>
+                           
+                         
                         <div class="clearfix"></div>
                         <div class="col-lg-12 text-center">
                            <div id="successApplication"></div>

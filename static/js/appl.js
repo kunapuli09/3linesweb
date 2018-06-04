@@ -15,9 +15,37 @@ $(function() {
       var Website = $("input#Website").val();
       var Phone = $("input#Phone").val();
       var Title = $("input#Title").val();
-      var State = $("input#State").val();
-      var Industries = $("input#Industries").val();
-      var Locations = $("input#Locations").val();
+      /* declare an checkbox array */
+      /* we join the array separated by the comma */
+      var industriesArray = [];
+      var industries;
+      /* look for all checkboes that have a class 'Industries' attached to it and check if it was checked */
+      $(".form-check-input:checked").each(function() {
+        industriesArray.push($(this).val());
+      });
+      industries = industriesArray.join(',') ;
+      // if(industries.length > 0){
+      //   alert("You have selected " + industries); 
+      // }else{
+      //   alert("Please at least check one of the checkbox"); 
+      // }
+      /* declare an checkbox array */
+      /* we join the array separated by the comma */
+      var locationsArray = [];
+      var locations;
+      
+      /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+      $(".form-check-input1:checked").each(function() {
+        locationsArray.push($(this).val());
+      });
+      locations = locationsArray.join(',') ;
+      // if(locations.length > 0){
+      //   alert("You have selected " + locations); 
+      // }else{
+      //   alert("Please at least check one of the checkbox"); 
+      // }
+      var Industries = industries;
+      var Locations = locations;
       var CapitalRaised = $("input#CapitalRaised").val();
       var Comments = $("textarea#Comments").val();
       
@@ -39,7 +67,6 @@ $(function() {
           Website: Website,
           Phone: Phone,
           Title: Title,
-          State: State,
           Industries: Industries,
           Locations: Locations,
           CapitalRaised: CapitalRaised,

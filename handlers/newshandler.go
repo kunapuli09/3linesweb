@@ -119,7 +119,6 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/notifications.html.tmpl")
-	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)
 		return

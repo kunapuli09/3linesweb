@@ -1,0 +1,136 @@
+{{define "content"}}
+      <section class="contact" id="accelapp">
+         <div class="container">
+         <div class="row">
+            <div class="col-lg-12 text-center">
+               <h2 class="section-heading text-uppercase">Application for Seed Funding</h2>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-12">
+               <form id="applicationForm" name="sentForm" method="post" action="/application">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <input class="form-control" id="FirstName" type="text" placeholder="First Name *" required data-validation-required-message="Please enter your first name.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="LastName" type="text" placeholder="Last Name *" required data-validation-required-message="Please enter your last name.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="Email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="CompanyName" type="text" placeholder="Company Name *" required data-validation-required-message="Please enter your company name.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="Website" type="text" placeholder="Website *" required data-validation-required-message="Please enter your website link.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="Phone" type="tel" placeholder="Your Phone *" required data-validation-required-message="Please enter your phone number.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <input class="form-control" id="Title" type="tel" placeholder="Your Title *" required data-validation-required-message="Please enter your title in the company.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group" id="Industries">
+                           <div class="row">
+                              <h6>Please check the industries most closely related to your company:</h6>
+                           </div>
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check1">
+                              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check2">
+                              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check3">
+                              <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
+                            </label>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check4">
+                              <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check5">
+                              <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check6">
+                              <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Healthcare">Healthcare
+                            </label>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check7">
+                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="InsuranceTechnology">Insurance Technology
+                            </label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label" for="check8">
+                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="SupplyChain">Agriculture
+                            </label>
+                          </div>
+                          </div>
+                          <div class="form-group" id="Locations">
+                              <div class="row">
+                                 <h6>Please choose one of our locations:</h6>
+                              </div>
+                              <div class="row" id="locations">
+                              <div class="form-check form-check-inline">
+                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US">
+                              <label class="form-check-label" for="inlineRadio1">United States</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
+                              <label class="form-check-label" for="inlineRadio2">India</label>
+                            </div>
+                              </div>
+                           </div>
+                           <div class="clearfix"></div>
+                           <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised"  required autofocus>
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                            </div>
+                         </div>
+                           <div class="input-group">
+                              <textarea class="form-control" id="Comments" placeholder="Additional Comments *"></textarea>
+                              <p class="help-block text-danger"></p>
+                           </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        
+                           <div id="successApplication"></div>
+                           <button id="sendApplicationButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit Application</button>
+                        
+                     </div>
+               </form>
+               </div>
+            </div>
+         </div>
+      </section>
+
+{{end}}

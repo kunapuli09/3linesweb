@@ -137,4 +137,5 @@ CREATE TABLE applications (
     CapitalRaised DECIMAL(20,2),
     Comments VARCHAR(255),
     UNIQUE KEY (email)
+    UNIQUE KEY (Website)
 )ENGINE=INNODB;

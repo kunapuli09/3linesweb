@@ -12,6 +12,17 @@ import (
 	"time"
 )
 
+func NewApplication(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	//create empty investmentstructure
+	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/appl.html.tmpl")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", nil)
+}
+
 func FundingRequests(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)

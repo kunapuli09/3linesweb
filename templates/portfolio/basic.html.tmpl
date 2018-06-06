@@ -41,6 +41,9 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav text-uppercase ml-auto">
             {{if .CurrentUser}}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/notifications"><i class="fa fa-bell"></i>Notifications</a>
+            </li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
             </li>
              <li class="nav-item">
@@ -133,6 +136,7 @@
     <!-- <script src="js/contact_me.js"></script> -->
     <script src="js/login.js"></script>
     <script src="js/resetpassword.js"></script>
+    <script src="js/appl.js"></script>
 
     <!-- Custom scripts for this template -->
     <!-- <script src="js/agency.min.js"></script> -->

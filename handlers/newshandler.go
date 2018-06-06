@@ -109,3 +109,40 @@ func RemoveNews(w http.ResponseWriter, r *http.Request) {
 	address := fmt.Sprintf("/news?Investment_ID=%v", Investment_ID)
 	http.Redirect(w, r, address, 302)
 }
+
+func Notifications(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+	}
+	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/notifications.html.tmpl")
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	//hack to re-use news functionality to 3lines investor udpates
+	allnotifications, err := models.NewNews(db).AllNotifications(nil)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	//create session date for page rendering
+	data := struct {
+		CurrentUser *models.UserRow
+		Existing    []*models.Notification
+	}{
+		currentUser,
+		allnotifications,
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}

@@ -1,0 +1,41 @@
+{{define "content"}}
+<div class="container">
+   <div class="text-center">
+      <h3><i class="fa fa-bell fa-4x"></i></h3>
+      <h2 class="text-center">Notifications</h2>
+      <p>Please check latest notification messages</p>
+   </div>
+   {{if .Existing}}
+   <table class="table">
+      <tbody>
+        <thead>
+            <tr>
+             <td>StartupName</td>
+             <td>Industry</td>
+             <td>Publish Date</td>
+            </tr>
+          </thead>
+         {{range .Existing }}
+
+         <tr>
+            <td>{{ .StartupName }}</td>
+            <td>{{ .Industry }}</td>
+            <td>
+               <h5 class="mb-0"><a class="btn btn-info btn-lg" data-toggle="collapse" href="#collapse{{ .ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">{{.FormattedNewsDate}}</a></h5>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               <div id="collapse{{.ID}}" class="collapse">
+                  <div class="text-left">
+                     {{ .News | safeHTML }}
+                  </div>
+               </div>
+            </td>
+         </tr>
+         {{end}}
+      </tbody>
+   </table>
+   {{end}}
+</div>
+{{end}}

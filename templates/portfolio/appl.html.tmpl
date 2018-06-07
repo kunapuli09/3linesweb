@@ -1,4 +1,5 @@
 {{define "content"}}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Application for Seed Funding</title>
+    <title>3Lines Venture Capital</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
@@ -14,22 +15,22 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">5
-    <!-- date picker start  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
     <!-- date picker end  -->
     <!-- Custom styles for this template -->
     <link href="css/agency.min.css" rel="stylesheet">
-    <!-- Custom styles for portf-->
-    <link href="css/album.css" rel="stylesheet">
 </head>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>    
-</nav>
-
+<body id="page-top">
+   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/"><img src="img/logo.png" alt="3Lines"></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 <section id="contact">
          <div class="container">
          <div class="row">
@@ -76,7 +77,7 @@
                            <div class="row">
                               <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
                            </div>
-                          <div class="row">
+                          
                           <div class="form-check form-check-inline">
                             <label class="form-check-label text-white" for="check1">
                               <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
@@ -92,8 +93,7 @@
                               <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
                             </label>
                           </div>
-                          </div>
-                          <div class="row">
+                          
                           <div class="form-check form-check-inline">
                             <label class="form-check-label text-white" for="check4">
                               <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
@@ -109,8 +109,7 @@
                               <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Healthcare">Healthcare
                             </label>
                           </div>
-                          </div>
-                          <div class="row">
+                         
                           <div class="form-check form-check-inline">
                             <label class="form-check-label text-white" for="check7">
                               <input type="checkbox" class="form-check-input" id="check7" name="option7" value="InsuranceTechnology">Insurance Technology
@@ -118,36 +117,32 @@
                           </div>
                           <div class="form-check form-check-inline">
                             <label class="form-check-label text-white" for="check8">
-                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="SupplyChain">Agriculture
+                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="Agriculture">Agriculture
                             </label>
-                          </div>
                           </div>
                           <div class="form-group" id="Locations">
                               <div class="row">
                                  <h6 style="color:White;">Please choose one of our locations:</h6>
                               </div>
-                              <div class="row" id="locations">
                               <div class="form-check form-check-inline">
+                                <label class="form-check-label text-white" for="inlineRadio1"> 
                               <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US">
-                              <label class="form-check-label text-white" for="inlineRadio1">United States</label>
+                              United States</label>
                             </div>
                             <div class="form-check form-check-inline">
+                               <label class="form-check-label text-white" for="inlineRadio2"> 
                               <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
-                              <label class="form-check-label text-white" for="inlineRadio2">India</label>
+                             India
+                           </label>
                             </div>
-                              </div>
                            </div>
                            <div class="clearfix"></div>
-                           <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">$</span>
-                            </div>
+                           <div class="form-group">
+                            
                             <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised"  required autofocus>
-                            <div class="input-group-append">
-                                <span class="input-group-text">.00</span>
-                            </div>
+                            
                          </div>
-                           <div class="input-group">
+                           <div class="form-group">
                               <textarea class="form-control" id="Comments" placeholder="Brief Summary of Funding Needs *"></textarea>
                               <p class="help-block text-danger"></p>
                            </div>
@@ -163,5 +158,53 @@
             </div>
          </div>
 </section>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; 3Lines 2018</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                            <a href="http://twitter.com/threelinesus">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="http://facebook.com/threelinesus">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
+    <!-- date picker start  -->
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-77741671-1');
+    </script>
+</body>
+
 </html>
 {{end}}

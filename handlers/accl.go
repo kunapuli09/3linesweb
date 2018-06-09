@@ -3,6 +3,8 @@ package handlers
 import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
+	"github.com/gorilla/schema"
+	"github.com/fatih/structs"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"github.com/gorilla/sessions"
@@ -53,24 +55,21 @@ func FundingRequests(w http.ResponseWriter, r *http.Request) {
 //database call to add new
 func AddApplication(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	var i models.ApplRow
 	db := r.Context().Value("db").(*sqlx.DB)
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	m := make(map[string]interface{})
-	m["FirstName"] = r.FormValue("FirstName")
-	m["LastName"] = r.FormValue("LastName")
-	m["Email"] = r.FormValue("Email")
-	m["Phone"] = r.FormValue("Phone")
-	m["CompanyName"] = r.FormValue("CompanyName")
-	m["Website"] = r.FormValue("Website")
-	m["Title"] = r.FormValue("Title")
-	m["Industries"] = r.FormValue("Industries")
-	m["Locations"] = r.FormValue("Locations")
-	m["Comments"] = r.FormValue("Comments")
-	m["CapitalRaised"] = r.FormValue("CapitalRaised")
+	decoder := schema.NewDecoder()
+	err1 := decoder.Decode(&i, r.PostForm)
+	if err1 != nil {
+		fmt.Println("decoding error")
+		libhttp.HandleErrorJson(w, err1)
+		return
+	}
+	m := structs.Map(i)
 	m["ApplicationDate"] = time.Now()
 	fmt.Printf("map %v", m)
 	_, err2 := models.NewAppl(db).Create(nil, m)

@@ -86,3 +86,14 @@ GOPATH=/go DSN=mysql://$(whoami)@tcp($(netstat -rn | grep "^0.0.0.0 " | cut -d "
 
 How to kill server
 sudo netstat -nlp | grep :8888
+
+
+Copy authcookie.go source from github.com
+sudo netstat -nlp | grep :8888
+nohup /usr/local/go/bin/go run main.go &
+export COOKIE_SECRET=copy from Dashlane
+export PASSWORD_SECRET=copy from Dashlane
+nohup /usr/local/go/bin/go run main.go > cluster1.log &
+export HTTP_ADDR=:8889
+nohup /usr/local/go/bin/go run main.go > cluster2.log &
+

@@ -46,6 +46,7 @@ CREATE TABLE investments (
     ReportedValue DECIMAL(20,2),
     InvestmentMultiple DECIMAL(20,2),
     GrossIRR DECIMAL(20,2),
+    Status VARCHAR(255),
     UNIQUE KEY (StartupName)
 )ENGINE=INNODB;
 

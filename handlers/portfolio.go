@@ -38,7 +38,6 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	//if not admin, then show complete investments
 	//else, show all investments
 	for i, v := range investments {
-		fmt.Printf("Status%s \n", v.Status)
 		if currentUser.Admin == false {
 			if v.Status == PENDING_STATUS {
 				//removing pending elements from investments for investors

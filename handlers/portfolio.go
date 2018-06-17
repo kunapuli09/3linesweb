@@ -33,19 +33,18 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
+	var pending []*models.InvestmentRow
+	var complete []*models.InvestmentRow
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
 	//TODO loop through investments for status
 	//if not admin, then show complete investments
 	//else, show all investments
-	for i, v := range investments {
-		if currentUser.Admin == false {
+	for _, v := range investments {
 			if v.Status == PENDING_STATUS {
-				//removing pending elements from investments for investors
-			 	copy(investments[i:], investments[i+1:])
-				investments[len(investments)-1] = nil // or the zero value of T
-				investments = investments[:len(investments)-1]
+				pending = append(pending, v)
+			}else{
+				complete = append(complete, v)
 			}
-		}
 	}
 
 	if err != nil {
@@ -57,9 +56,11 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		CurrentUser *models.UserRow
 		Investments []*models.InvestmentRow
+		Pending []*models.InvestmentRow
 	}{
 		currentUser,
-		investments,
+		complete,
+		pending,
 	}
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {

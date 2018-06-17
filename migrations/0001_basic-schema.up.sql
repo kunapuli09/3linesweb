@@ -3,6 +3,8 @@
 SET SESSION time_zone = "+0:00";
 ALTER DATABASE CHARACTER SET "utf8";
 
+
+
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS financial_results;
 DROP TABLE IF EXISTS capital_structure;
@@ -140,3 +142,6 @@ CREATE TABLE applications (
     UNIQUE KEY (email),
     UNIQUE KEY (Website)
 )ENGINE=INNODB;
+
+#alter table investments ADD  Status VARCHAR(255);
+#update investments set Status = "COMPLETE";

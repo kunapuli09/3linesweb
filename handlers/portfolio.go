@@ -21,6 +21,8 @@ import (
 // 	News          template.HTML
 // }
 
+const PENDING_STATUS = "PENDING"
+
 func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
@@ -31,7 +33,20 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
+	var pending []*models.InvestmentRow
+	var complete []*models.InvestmentRow
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
+	//TODO loop through investments for status
+	//if not admin, then show complete investments
+	//else, show all investments
+	for _, v := range investments {
+			if v.Status == PENDING_STATUS {
+				pending = append(pending, v)
+			}else{
+				complete = append(complete, v)
+			}
+	}
+
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -41,9 +56,11 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		CurrentUser *models.UserRow
 		Investments []*models.InvestmentRow
+		Pending []*models.InvestmentRow
 	}{
 		currentUser,
-		investments,
+		complete,
+		pending,
 	}
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {

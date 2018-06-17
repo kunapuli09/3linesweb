@@ -47,6 +47,7 @@ type InvestmentRow struct {
 	ReportedValue           decimal.Decimal `db:"ReportedValue"`
 	InvestmentMultiple      decimal.Decimal `db:"InvestmentMultiple"`
 	GrossIRR                decimal.Decimal `db:"GrossIRR"`
+	Status                  string          `db:"Status"`
 }
 
 func (i *InvestmentRow) FormattedInvestmentDate() string {

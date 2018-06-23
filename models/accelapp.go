@@ -1,7 +1,7 @@
 package models
 
 import (
-	"database/sql"	
+	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
@@ -18,26 +18,26 @@ func NewAppl(db *sqlx.DB) *Appl {
 }
 
 type ApplRow struct {
-	ID       int64  `db:"id"`
-	ApplicationDate time.Time `db:"ApplicationDate"`
-	Email    string `db:"Email"`
-	FirstName    string `db:"FirstName"`
-	LastName string `db:"LastName"`
-	CompanyName    string `db:"CompanyName"`
-	Phone    string `db:"Phone"`
-	Website string `db:"Website"`
-	Title    string `db:"Title"`
-	Industries string `db:"Industries"`
-	Locations    string `db:"Locations"`
-	Comments string `db:"Comments"`
-	CapitalRaised  decimal.Decimal `db:"CapitalRaised"`
+	ID              int64           `db:"id"`
+	ApplicationDate time.Time       `db:"ApplicationDate"`
+	Email           string          `db:"Email"`
+	FirstName       string          `db:"FirstName"`
+	LastName        string          `db:"LastName"`
+	CompanyName     string          `db:"CompanyName"`
+	Phone           string          `db:"Phone"`
+	Website         string          `db:"Website"`
+	Title           string          `db:"Title"`
+	Industries      string          `db:"Industries"`
+	Locations       string          `db:"Locations"`
+	Comments        string          `db:"Comments"`
+	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
 }
 
 type Appl struct {
 	Base
 }
 
-func (ar*ApplRow) FormattedApplicationDate() string {
+func (ar *ApplRow) FormattedApplicationDate() string {
 	return ar.ApplicationDate.Format("01/02/2006")
 }
 

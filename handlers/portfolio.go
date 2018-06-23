@@ -21,7 +21,9 @@ import (
 // 	News          template.HTML
 // }
 
-const PENDING_STATUS = "PENDING"
+const PENDING = "PENDING"
+const COMPLETE = "COMPLETE"
+const ARCHIVE = "ARCHIVE"
 
 func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -33,20 +35,8 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	var pending []*models.InvestmentRow
-	var complete []*models.InvestmentRow
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
-	//TODO loop through investments for status
-	//if not admin, then show complete investments
-	//else, show all investments
-	for _, v := range investments {
-			if v.Status == PENDING_STATUS {
-				pending = append(pending, v)
-			}else{
-				complete = append(complete, v)
-			}
-	}
-
+	archive, pending, complete := SplitByStatus(investments)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -56,11 +46,13 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		CurrentUser *models.UserRow
 		Investments []*models.InvestmentRow
-		Pending []*models.InvestmentRow
+		Pending     []*models.InvestmentRow
+		Archive     []*models.InvestmentRow
 	}{
 		currentUser,
 		complete,
 		pending,
+		archive,
 	}
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {
@@ -284,4 +276,23 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	address := fmt.Sprintf("/viewinvestment?id=%v", ID)
 	http.Redirect(w, r, address, 302)
+}
+func SplitByStatus(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow, []*models.InvestmentRow) {
+	var pending []*models.InvestmentRow
+	var complete []*models.InvestmentRow
+	var archive []*models.InvestmentRow
+
+	for _, investment := range investments {
+		switch status := investment.Status; status {
+		case PENDING:
+			pending = append(pending, investment)
+		case COMPLETE:
+			complete = append(complete, investment)
+		case ARCHIVE:
+			archive = append(archive, investment)
+		default:
+			fmt.Printf("%s. is unknown status", status)
+		}
+	}
+	return archive, pending, complete
 }

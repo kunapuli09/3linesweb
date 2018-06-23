@@ -141,7 +141,7 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		log.Println("Password", pwdVal)
 		//..bug in passwordreset package
 		login, _ := passwordreset.VerifyToken(token, getPwdVal, PasswordSecret)
-		log.Println("Verified Token Login",login)
+		log.Println("Verified Token Login", login)
 		//TODO****fix why the signature fails
 		// if err != nil {
 		// 	// signature verification failed, don't allow password reset

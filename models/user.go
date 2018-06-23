@@ -143,6 +143,7 @@ func (u *User) UpdateEmailAndPasswordById(tx *sqlx.Tx, userId int64, email, pass
 
 	return u.GetById(tx, userId)
 }
+
 // UpdateEmailAndPasswordById updates user email and password.
 func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 

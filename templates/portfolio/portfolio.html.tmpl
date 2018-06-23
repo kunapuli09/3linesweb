@@ -77,7 +77,7 @@
         <div class="container">
           {{if .CurrentUser.Admin }}
           <div class="row">
-            {{if .Pending}}
+            {{if .Pending }}
             <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase">Pending Investments</h2>
@@ -102,7 +102,34 @@
             {{end}}
             {{end}}
           </div>
+          <div class="row">
+            {{if .Archive }}
+            <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Archived Investments</h2>
+            </div>
+            </div>
+          <div class="row">
+            {{range .Archive }}
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                <a onclick='newTab("{{.Website}}")'><img class="card-img-top" src="{{.LogoPath}}" alt="{{.StartupName}}"></a>
+                <div class="card-body">
+                  <p class="card-text">{{.Description | safeHTML}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-info" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
+                    </div>
+                    <small class="text-muted">{{.Industry}}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{end}}
+            {{end}}
+          </div>
           {{end}}
+
           {{if .Investments}}
           <div class="row">
             <div class="col-lg-12 text-center">

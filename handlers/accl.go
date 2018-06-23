@@ -2,12 +2,12 @@ package handlers
 
 import (
 	"fmt"
-	"github.com/jmoiron/sqlx"
-	"github.com/gorilla/schema"
 	"github.com/fatih/structs"
+	"github.com/gorilla/schema"
+	"github.com/gorilla/sessions"
+	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
-	"github.com/gorilla/sessions"
 	"html/template"
 	"net/http"
 	"strconv"

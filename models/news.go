@@ -29,10 +29,10 @@ type NewsRow struct {
 type Notification struct {
 	ID            int64     `db:"id"`
 	Investment_ID int64     `db:"investment_id"`
-	StartupName   string     `db:"StartupName"`
-	Industry      string     `db:"Industry"`
-	NewsDate      time.Time  `db:"NewsDate"`
-	News          string     `db:"News"`
+	StartupName   string    `db:"StartupName"`
+	Industry      string    `db:"Industry"`
+	NewsDate      time.Time `db:"NewsDate"`
+	News          string    `db:"News"`
 }
 
 func (n *Notification) FormattedNewsDate() string {
@@ -61,7 +61,7 @@ func (i *News) AllNews(tx *sqlx.Tx) ([]*NewsRow, error) {
 	return nrs, err
 }
 
-func (n *News) AllNotifications(tx *sqlx.Tx)([]*Notification, error){
+func (n *News) AllNotifications(tx *sqlx.Tx) ([]*Notification, error) {
 	notifications := []*Notification{}
 	q := `SELECT investments.id, 
 		investments.StartupName, 
@@ -72,7 +72,7 @@ func (n *News) AllNotifications(tx *sqlx.Tx)([]*Notification, error){
     	ON LOWER(investments.id) = LOWER(news.investment_id)`
 	query := fmt.Sprintf(q, n.table)
 	err := n.db.Select(&notifications, query)
-	return notifications, err 
+	return notifications, err
 }
 
 // GetById returns record by id.

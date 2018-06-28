@@ -62,6 +62,13 @@ func AddNews(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	var i models.NewsRow
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	_, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -233,9 +240,11 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		CurrentUser *models.UserRow
 		Existing    []*models.NotificationRow
+		Count       int
 	}{
 		currentUser,
 		allnotifications,
+		getCount(w,r, currentUser.Email),
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 }

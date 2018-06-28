@@ -1,9 +1,11 @@
 {{define "content"}}
 <div class="container">
    <div class="text-center">
-      <h3><i class="fa fa-bell fa-4x"></i></h3>
-      <h2 class="text-center">Notifications</h2>
-      <p>Please check latest notification messages</p>
+      <span class="fa-stack fa-5x has-badge" data-count="{{.Count}}">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+      </span>
+      <h2 class="text-center">Your Notifications</h2>
    </div>
    {{if .Existing}}
    <table class="table table-hover">

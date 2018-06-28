@@ -44,19 +44,6 @@ func (i *Notification) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (
 	return i.GetById(tx, nId)
 }
 
-// func (n *Notification) AllNotifications(tx *sqlx.Tx) ([]*NotificationRow, error) {
-// 	notifications := []*NotificationRow{}
-// 	q := `SELECT investments.id, 
-// 		investments.StartupName, 
-// 		news.investment_id, news.id, news.NewsDate, news.Status, news.Title
-//   		FROM %v
-//   		INNER JOIN investments
-//     	ON LOWER(investments.id) = LOWER(news.investment_id)`
-// 	query := fmt.Sprintf(q, "news")
-// 	err := n.db.Select(&notifications, query)
-// 	return notifications, err
-// }
-
 func (n *Notification) AllNotifications(tx *sqlx.Tx, email string) ([]*NotificationRow, error) {
 	notifications := []*NotificationRow{}
 	query := fmt.Sprintf("SELECT * FROM %v where Email='%v' and Status='%v'", n.table, email, "UNREAD")
@@ -71,6 +58,14 @@ func (i *Notification) GetById(tx *sqlx.Tx, id int64) (*NotificationRow, error) 
 	err := i.db.Get(n, query, id)
 
 	return n, err
+}
+
+// GetByName returns record by name.
+func (i *Notification) CountByEmail(tx *sqlx.Tx, email string) (int, error) {
+	var count int
+	query := fmt.Sprintf("SELECT count(*) FROM %v where Email=? and Status=?", i.table)
+	err := i.db.Get(&count, query, email, "UNREAD")
+	return count, err
 }
 
 // GetByName returns record by name.

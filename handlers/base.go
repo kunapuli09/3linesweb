@@ -4,6 +4,9 @@ package handlers
 import (
 	"errors"
 	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
+	"github.com/kunapuli09/3linesweb/models"
+	"log"
 	"net/http"
 	"reflect"
 	"strconv"
@@ -33,4 +36,14 @@ func ConvertFormDate(value string) reflect.Value {
 		return reflect.ValueOf(v)
 	}
 	return reflect.Value{} // this is the same as the private const invalidType
+}
+
+func getCount(w http.ResponseWriter, r *http.Request, email string) int {
+	db := r.Context().Value("db").(*sqlx.DB)
+	count, err1 := models.NewNotification(db).CountByEmail(nil, email)
+	if err1 != nil {
+		log.Println("Unable to retrieve Notification count")
+		return 0
+	}
+	return count
 }

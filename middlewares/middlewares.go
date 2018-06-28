@@ -40,7 +40,6 @@ func MustLogin(next http.Handler) http.Handler {
 			http.Redirect(res, req, "/login", 302)
 			return
 		}
-
 		next.ServeHTTP(res, req)
 	})
 }

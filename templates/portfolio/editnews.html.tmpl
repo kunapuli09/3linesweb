@@ -1,40 +1,22 @@
 {{define "content"}}
 <section class="bg-light" id="news">
    <div class="container">
-      <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
-      {{if .Existing }}
-      <div class="row">
+    <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
+    <div class="row">
          <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Add News for {{.Investment.StartupName}} </h3>
+            <h3 class="section-heading text-uppercase">Edit News with ID {{.News.ID}}</h3>
          </div>
-         <table class="table">
-          <tbody>
-            {{range .Existing }}
-            <tr>
-             <th scope="row">{{.ID}}</th>
-             <td>{{.FormattedNewsDate}}</td>
-             <td>{{ .Title }}</td>
-             <td>{{ .Status }}</td>
-             <td><a class="btn btn-sm btn-outline-danger" href="/removenews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a>
-             <a class="btn btn-sm btn-outline-primary" href="/editNews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Update </a>
-              <a class="btn btn-sm btn-outline-warning" href="/publishNews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Publish </a>           
-            </td>
-           </td>
-            </tr>
-            {{end}}
-          </tbody>
-        </table>
-      </div>
-      {{end}}
+       </div>
       <div class="row">
          <div class="col-lg-4">
-              <form class="form-signup-login form-investment" method="post" action="/addNews">
+              <form class="form-signup-login form-investment" method="post" action="/updateNews">
               <input type="hidden" name="id" id="id" value="{{.News.ID}}">
                <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <div class="form-group">
                 <label for="Status">Status</label>
                  <select class="form-control" id="Status" name="Status">
                    <option value="PENDING">Pending</option>
+                   <option value="PUBLISH">Publish</option>
                    <option value="ARCHIVE">Archive</option>
                   </select>
                </div>
@@ -53,9 +35,9 @@
       </div>
       <div class="row">
       <div class="col-lg-12">
-      <textarea id="summernote" name="News">{{ .News.News }}</textarea>
+      <textarea id="summernote" name="News">{{.News.News}}</textarea>
       </div> 
-      <button class="btn btn-md btn-primary btn-block" type="submit">Add</button>
+      <button class="btn btn-md btn-primary btn-block" type="submit">Update</button>
       </form>
       </div>
    </div>

@@ -45,7 +45,11 @@
               <a class="nav-link js-scroll-trigger" href="/portfolio"><i class="fa fa-briefcase"></i>Portfolio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/notifications"><i class="fa fa-bell"></i>Notifications</a>
+              <a class="nav-link js-scroll-trigger" href="/notifications">
+                <span class="fa-stack has-badge" data-count="{{.Count}}">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                </span>Notifications</a>
             </li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
             </li>
@@ -256,6 +260,15 @@
       function newTab(t) {
       window.open(t);
       }
+    </script>
+    <script>
+      $('.js-clickable').on('click', function() {
+        var ID = $(this).attr("id"); 
+        var URL = '/updateNotification?id=' + ID
+        //alert(URL);
+        window.document.location = URL;
+    
+});
     </script>
   </body>
 </html>

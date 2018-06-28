@@ -40,11 +40,13 @@ func News(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count int
 		Investment  *models.InvestmentRow
 		News        models.NewsRow
 		Existing    []*models.NewsRow
 	}{
 		currentUser,
+		getCount(w,r, currentUser.Email),
 		investment,
 		news,
 		allnews,
@@ -151,10 +153,12 @@ func EditNews(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count int
 		Investment  *models.InvestmentRow
 		News        *models.NewsRow
 	}{
 		currentUser,
+		getCount(w,r, currentUser.Email),
 		investment,
 		news,
 	}
@@ -239,12 +243,12 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count int
 		Existing    []*models.NotificationRow
-		Count       int
 	}{
 		currentUser,
-		allnotifications,
 		getCount(w,r, currentUser.Email),
+		allnotifications,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
@@ -331,9 +335,11 @@ func UpdateNotification(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count int
 		News        *models.NewsRow
 	}{
 		currentUser,
+		getCount(w,r, currentUser.Email),
 		news,
 	}
 	funcMap := template.FuncMap{

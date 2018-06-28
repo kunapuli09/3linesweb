@@ -153,7 +153,9 @@ func (i *Notification) BatchPublish(tx *sqlx.Tx, emails []string, StartupName st
 	sqlStr = sqlStr[0:len(sqlStr)-1]
 	//prepare the statement
 	stmt, err := i.db.Prepare(sqlStr)
-	fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//format all vals at once
 	sqlResult, err := stmt.Exec(vals...)

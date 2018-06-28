@@ -217,9 +217,11 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count int
 		Investment  *models.InvestmentRow
 	}{
 		currentUser,
+		getCount(w,r, currentUser.Email),
 		investment,
 	}
 	funcMap := template.FuncMap{

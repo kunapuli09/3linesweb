@@ -44,11 +44,13 @@ func NewFinancials(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser      *models.UserRow
+		Count int
 		Investment       *models.InvestmentRow
 		FinancialResults models.FinancialResultsRow
 		Existing         []*models.FinancialResultsRow
 	}{
 		currentUser,
+		getCount(w,r, currentUser.Email),
 		investment,
 		FinancialResults,
 		AllFinancialResults,

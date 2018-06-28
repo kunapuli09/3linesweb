@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"sort"
 )
 
 func News(w http.ResponseWriter, r *http.Request) {
@@ -239,6 +240,10 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
+	//sort by date descending
+	sort.Slice(allnotifications, func(i, j int) bool {
+		return allnotifications[i].NewsDate.After(allnotifications[j].NewsDate)
+	})
 
 	//create session date for page rendering
 	data := struct {

@@ -39,11 +39,11 @@ func FundingRequests(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Existing    []*models.ApplRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		allreqs,
 	}
 	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/fundingreqs.html.tmpl")

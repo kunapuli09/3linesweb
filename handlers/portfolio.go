@@ -50,7 +50,7 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		Archive     []*models.InvestmentRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		complete,
 		pending,
 		archive,
@@ -122,7 +122,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingDocs                 []*models.DocRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		investment,
 		AllFinancialResults,
 		AllNews,
@@ -148,11 +148,11 @@ func NewInvestment(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Investment  *models.InvestmentRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		investment,
 	}
 	tmpl, err := template.ParseFiles("templates/portfolio/newinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
@@ -217,11 +217,11 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Investment  *models.InvestmentRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		investment,
 	}
 	funcMap := template.FuncMap{

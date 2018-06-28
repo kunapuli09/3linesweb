@@ -146,11 +146,11 @@ func (i *Notification) BatchPublish(tx *sqlx.Tx, emails []string, StartupName st
 	sqlStr := "INSERT INTO notifications(investment_id, news_id, NotificationDate, StartupName, Status, Email, Title, NewsDate) VALUES "
 	vals := []interface{}{}
 	for _, email := range emails {
-	    sqlStr += "(?, ?, ?, ?, ?, ?, ?, ?),"
-	    vals = append(vals, news.Investment_ID, news.ID, time.Now(), StartupName, "UNREAD", email, news.Title, news.NewsDate)
+		sqlStr += "(?, ?, ?, ?, ?, ?, ?, ?),"
+		vals = append(vals, news.Investment_ID, news.ID, time.Now(), StartupName, "UNREAD", email, news.Title, news.NewsDate)
 	}
 	//trim the last ,
-	sqlStr = sqlStr[0:len(sqlStr)-1]
+	sqlStr = sqlStr[0 : len(sqlStr)-1]
 	//prepare the statement
 	stmt, err := i.db.Prepare(sqlStr)
 	if err != nil {

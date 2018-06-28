@@ -40,13 +40,13 @@ func News(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Investment  *models.InvestmentRow
 		News        models.NewsRow
 		Existing    []*models.NewsRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		investment,
 		news,
 		allnews,
@@ -153,12 +153,12 @@ func EditNews(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Investment  *models.InvestmentRow
 		News        *models.NewsRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		investment,
 		news,
 	}
@@ -243,11 +243,11 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		Existing    []*models.NotificationRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		allnotifications,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
@@ -289,10 +289,10 @@ func PublishNotification(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err3)
 		return
 	}
-	
+
 	//option 1: send  an email
 	//NotifyUsers(w, r, emails, news.News, news.Title)
-	
+
 	//option 2: create a notification record for each user with UNREAD status
 	_, err4 := models.NewNotification(db).BatchPublish(nil, emails, investment.StartupName, news)
 	if err4 != nil {
@@ -335,11 +335,11 @@ func UpdateNotification(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Count int
+		Count       int
 		News        *models.NewsRow
 	}{
 		currentUser,
-		getCount(w,r, currentUser.Email),
+		getCount(w, r, currentUser.Email),
 		news,
 	}
 	funcMap := template.FuncMap{

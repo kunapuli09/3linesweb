@@ -20,8 +20,6 @@ import (
 	"time"
 )
 
-
-
 func PostEmail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	name := r.FormValue("name")

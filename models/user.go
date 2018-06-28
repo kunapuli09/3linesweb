@@ -144,6 +144,15 @@ func (u *User) UpdateEmailAndPasswordById(tx *sqlx.Tx, userId int64, email, pass
 	return u.GetById(tx, userId)
 }
 
+// AllUsers returns all user rows.
+func (u *User) AllEmails(tx *sqlx.Tx) ([]string, error) {
+	emails := []string{}
+	query := fmt.Sprintf("SELECT email FROM %v", u.table)
+	err := u.db.Select(&emails, query)
+
+	return emails, err
+}
+
 // UpdateEmailAndPasswordById updates user email and password.
 func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 

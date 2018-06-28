@@ -41,15 +41,16 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count       int
 		Investments []*models.InvestmentRow
 		Pending     []*models.InvestmentRow
 		Archive     []*models.InvestmentRow
 	}{
 		currentUser,
+		getCount(w, r, currentUser.Email),
 		complete,
 		pending,
 		archive,
@@ -109,22 +110,10 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
 	AllDocs, err := models.NewDoc(db).GetAllByInvestmentId(nil, ID)
 
-	// AllHtmlNews := make([]*NewsHtmlRow, len(AllNews))
-	// for i, element := range AllNews {
-	// 	AllHtmlNews[i] = &NewsHtmlRow{
-	//     		ID: element.ID,
-	//     		Investment_ID: element.Investment_ID,
-	//     		NewsDate: element.NewsDate,
-	//     		News: template.HTML(element.News),
-	//     	}
-	// }
-	// for _, element := range AllHtmlNews {
-	// 	fmt.Println(element.News)
-	// }
-
 	//create session date for page rendering
 	data := struct {
 		CurrentUser                  *models.UserRow
+		Count                        int
 		Investment                   *models.InvestmentRow
 		Existing                     []*models.FinancialResultsRow
 		ExistingNews                 []*models.NewsRow
@@ -133,6 +122,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingDocs                 []*models.DocRow
 	}{
 		currentUser,
+		getCount(w, r, currentUser.Email),
 		investment,
 		AllFinancialResults,
 		AllNews,
@@ -158,9 +148,11 @@ func NewInvestment(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count       int
 		Investment  *models.InvestmentRow
 	}{
 		currentUser,
+		getCount(w, r, currentUser.Email),
 		investment,
 	}
 	tmpl, err := template.ParseFiles("templates/portfolio/newinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
@@ -225,9 +217,11 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	//create session data for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count       int
 		Investment  *models.InvestmentRow
 	}{
 		currentUser,
+		getCount(w, r, currentUser.Email),
 		investment,
 	}
 	funcMap := template.FuncMap{

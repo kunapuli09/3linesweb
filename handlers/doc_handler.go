@@ -49,11 +49,13 @@ func Docs(w http.ResponseWriter, r *http.Request) {
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
+		Count       int
 		Investment  *models.InvestmentRow
 		Doc         models.DocRow
 		Existing    []*models.DocRow
 	}{
 		currentUser,
+		getCount(w, r, currentUser.Email),
 		investment,
 		doc,
 		alldocs,

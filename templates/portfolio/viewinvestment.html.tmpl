@@ -288,12 +288,12 @@
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
-         <a class="btn btn-info" data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="false" aria-controls="collapseOne">
+         <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapseOne">
          {{.FormattedNewsDate}} News
          </a>
       </h5>
     </div>
-    <div id="collapseOne" class="collapse">
+    <div id="collapse{{.ID}}" class="collapse">
       <div class="card card-body">
          {{ .News | safeHTML }}
       </div>

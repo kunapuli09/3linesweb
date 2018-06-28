@@ -257,6 +257,15 @@
       window.open(t);
       }
     </script>
+    <script>
+      $('.js-clickable').on('click', function() {
+        var ID = $(this).attr("id"); 
+        var URL = '/updateNotification?id=' + ID
+        //alert(URL);
+        window.document.location = URL;
+    
+});
+    </script>
   </body>
 </html>
 {{end}}

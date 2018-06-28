@@ -52,11 +52,12 @@ CREATE TABLE investments (
     UNIQUE KEY (StartupName)
 )ENGINE=INNODB;
 
-
 CREATE TABLE news (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,
     NewsDate DATE,
+    Title VARCHAR(255),
+    Status VARCHAR(255),
     News TEXT,
     INDEX news_ind (investment_id),
     FOREIGN KEY (investment_id)
@@ -143,5 +144,23 @@ CREATE TABLE applications (
     UNIQUE KEY (Website)
 )ENGINE=INNODB;
 
+CREATE TABLE notifications (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    investment_id bigint(20) unsigned NOT NULL,
+    news_id bigint(20) unsigned NOT NULL,
+    NotificationDate timestamp DEFAULT CURRENT_TIMESTAMP,
+    StartupName VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    NewsDate timestamp DEFAULT CURRENT_TIMESTAMP
+)ENGINE=INNODB;
+
+
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
+
+#alter table news ADD  Status VARCHAR(255);
+#update news set Status = "PUBLISHED";
+#alter table news ADD  Title VARCHAR(255);
+#update news set Title = "Title 1";

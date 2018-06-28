@@ -6,31 +6,21 @@
       <p>Please check latest notification messages</p>
    </div>
    {{if .Existing}}
-   <table class="table">
+   <table class="table table-hover">
       <tbody>
         <thead>
             <tr>
              <td>StartupName</td>
-             <td>Industry</td>
+             <td>Title</td>
              <td>Publish Date</td>
             </tr>
           </thead>
          {{range .Existing }}
-
-         <tr>
+         <tr id="{{.ID}}" class="js-clickable">
             <td>{{ .StartupName }}</td>
-            <td>{{ .Industry }}</td>
+            <td>{{ .Title }}</td>
             <td>
-               <h5 class="mb-0"><a class="btn btn-info btn-lg" data-toggle="collapse" href="#collapse{{ .ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">{{.FormattedNewsDate}}</a></h5>
-            </td>
-         </tr>
-         <tr>
-            <td>
-               <div id="collapse{{.ID}}" class="collapse">
-                  <div class="text-left">
-                     {{ .News | safeHTML }}
-                  </div>
-               </div>
+               {{.FormattedNewsDate}}
             </td>
          </tr>
          {{end}}

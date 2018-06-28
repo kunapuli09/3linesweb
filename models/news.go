@@ -24,19 +24,8 @@ type NewsRow struct {
 	Investment_ID int64     `db:"investment_id"`
 	NewsDate      time.Time `db:"NewsDate"`
 	News          string    `db:"News"`
-}
-
-type Notification struct {
-	ID            int64     `db:"id"`
-	Investment_ID int64     `db:"investment_id"`
-	StartupName   string    `db:"StartupName"`
-	Industry      string    `db:"Industry"`
-	NewsDate      time.Time `db:"NewsDate"`
-	News          string    `db:"News"`
-}
-
-func (n *Notification) FormattedNewsDate() string {
-	return n.NewsDate.Format("01/02/2006")
+	Title         string    `db:"Title"`
+	Status        string    `db:"Status"`
 }
 
 func (n *NewsRow) FormattedNewsDate() string {
@@ -59,20 +48,6 @@ func (i *News) AllNews(tx *sqlx.Tx) ([]*NewsRow, error) {
 	err := i.db.Select(&nrs, query)
 
 	return nrs, err
-}
-
-func (n *News) AllNotifications(tx *sqlx.Tx) ([]*Notification, error) {
-	notifications := []*Notification{}
-	q := `SELECT investments.id, 
-		investments.StartupName, 
-		investments.Industry, 
-		news.investment_id, news.NewsDate, news.News
-  		FROM %v
-  		INNER JOIN investments
-    	ON LOWER(investments.id) = LOWER(news.investment_id)`
-	query := fmt.Sprintf(q, n.table)
-	err := n.db.Select(&notifications, query)
-	return notifications, err
 }
 
 // GetById returns record by id.
@@ -113,6 +88,29 @@ func (i *News) UpdateById(tx *sqlx.Tx, nId int64, data map[string]interface{}) (
 	}
 
 	return i.GetById(tx, nId)
+}
+
+// UpdateStatusById updates user email and password.
+func (n *News) UpdateStatusById(tx *sqlx.Tx, newsId int64) (*NewsRow, error) {
+	data := make(map[string]interface{})
+	data["Status"] = "PUBLISH"
+
+	if len(data) > 0 {
+		_, err := n.UpdateByID(tx, data, newsId)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return n.GetById(nil, newsId)
+}
+
+// Get All by Investment ID.
+func (i *News) GetPendingByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*NewsRow, error) {
+	css := []*NewsRow{}
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v and Status in ('%v', '%v')", i.table, Investment_ID, "PENDING", "ARCHIVE")
+	err := i.db.Select(&css, query)
+	return css, err
 }
 
 // Get All by Investment ID.

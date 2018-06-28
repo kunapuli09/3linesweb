@@ -34,7 +34,7 @@ func News(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	allnews, err := models.NewNews(db).GetAllByInvestmentId(nil, Investment_ID)
+	allnews, err := models.NewNews(db).GetPendingByInvestmentId(nil, Investment_ID)
 	//create empty investmentstructure
 	news := models.NewsRow{}
 	//create session date for page rendering
@@ -110,6 +110,99 @@ func RemoveNews(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, address, 302)
 }
 
+//presentation edit view
+func EditNews(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	News_ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	news, err := models.NewNews(db).GetById(nil, News_ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	//create session data for page rendering
+	data := struct {
+		CurrentUser *models.UserRow
+		Investment  *models.InvestmentRow
+		News        *models.NewsRow
+	}{
+		currentUser,
+		investment,
+		news,
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editnews.html.tmpl")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+//db call to update
+func UpdateNews(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	var i models.NewsRow
+	err := r.ParseForm()
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	News_ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	Investment_ID, e := strconv.ParseInt(r.FormValue("Investment_ID"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	// r.PostForm is a map of our POST form values
+	decoder := schema.NewDecoder()
+	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
+	err1 := decoder.Decode(&i, r.PostForm)
+	if err1 != nil {
+		libhttp.HandleErrorJson(w, err1)
+		return
+	}
+	m := structs.Map(i)
+	//fmt.Printf("map %v", m)
+	_, err2 := models.NewNews(db).UpdateById(nil, News_ID, m)
+	if err2 != nil {
+		libhttp.HandleErrorJson(w, err2)
+		return
+	}
+	address := fmt.Sprintf("/news?Investment_ID=%v", Investment_ID)
+	http.Redirect(w, r, address, 302)
+}
+
 func Notifications(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
@@ -130,19 +223,120 @@ func Notifications(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	//hack to re-use news functionality to 3lines investor udpates
-	allnotifications, err := models.NewNews(db).AllNotifications(nil)
+	allnotifications, err := models.NewNotification(db).AllNotifications(nil, currentUser.Email)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
+
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
-		Existing    []*models.Notification
+		Existing    []*models.NotificationRow
 	}{
 		currentUser,
 		allnotifications,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+//db call to publish
+//create a notifiction record for each user
+func PublishNotification(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	err := r.ParseForm()
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	News_ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	Investment_ID, e := strconv.ParseInt(r.FormValue("Investment_ID"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	news, err2 := models.NewNews(db).UpdateStatusById(nil, News_ID)
+	if err2 != nil {
+		libhttp.HandleErrorJson(w, err2)
+		return
+	}
+	investment, err3 := models.NewInvestment(db).GetById(nil, Investment_ID)
+	if err3 != nil {
+		libhttp.HandleErrorJson(w, err3)
+		return
+	}
+	//get all emails from database
+	emails, err3 := models.NewUser(db).AllEmails(nil)
+	if err3 != nil {
+		libhttp.HandleErrorJson(w, err3)
+		return
+	}
+	
+	//option 1: send  an email
+	//NotifyUsers(w, r, emails, news.News, news.Title)
+	
+	//option 2: create a notification record for each user with UNREAD status
+	_, err4 := models.NewNotification(db).BatchPublish(nil, emails, investment.StartupName, news)
+	if err4 != nil {
+		libhttp.HandleErrorJson(w, err3)
+		return
+	}
+	address := fmt.Sprintf("/news?Investment_ID=%v", Investment_ID)
+	http.Redirect(w, r, address, 302)
+}
+
+//db call to update
+//update status of notification to READ
+func UpdateNotification(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	NotificationId, e := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	notification, err2 := models.NewNotification(db).UpdateStatusById(nil, NotificationId)
+	if err2 != nil {
+		fmt.Println("database error")
+		libhttp.HandleErrorJson(w, err2)
+		return
+	}
+	news, err2 := models.NewNews(db).GetById(nil, notification.News_ID)
+	if err2 != nil {
+		libhttp.HandleErrorJson(w, err2)
+		return
+	}
+
+	//create session data for page rendering
+	data := struct {
+		CurrentUser *models.UserRow
+		News        *models.NewsRow
+	}{
+		currentUser,
+		news,
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+	}
+	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/displaynews.html.tmpl")
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+
 }

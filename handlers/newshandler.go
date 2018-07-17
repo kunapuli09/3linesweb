@@ -10,9 +10,9 @@ import (
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
 	"net/http"
+	"sort"
 	"strconv"
 	"time"
-	"sort"
 )
 
 func News(w http.ResponseWriter, r *http.Request) {

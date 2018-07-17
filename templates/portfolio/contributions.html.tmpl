@@ -1,0 +1,55 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+      <a href="/portfolio" class="btn btn-primary my-2">Back to Portfolio</a>
+
+      <a href="/newcontribution" class="btn btn-primary my-2">Add Contribution</a>
+      <div class="row">
+         <div class="col-lg-8 text-center">
+            <h3 class="section-heading text-uppercase">Investors</h3>
+         </div>
+        <div class="table-responsive">
+         <table class="table table-striped">
+          <thead>
+            {{range .Contributions }}
+            <tr>
+             <th scope="row">ID</th>
+             <td>FundLegalName</td>
+             <td>InvestorLegalName</td>
+              <td>InvestmentAmount</td>
+             <td>InvestorAddress</td>
+             <td>InvestorType</td>
+             <td>GroupContact</td>
+             <td>InvestmentGroupName</td>
+             <td>CommitmentDate</td>
+             <td>OwnershipPercentage</td>
+             <td>Comments</td>
+             <td>Status</td>
+            </tr>
+            {{end}}
+          </thead>
+          <tbody>
+            {{range .Contributions }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td>{{ .FundLegalName }}</td>
+             <td>{{ .InvestorLegalName }}</td>
+             <td>${{ .InvestmentAmount }}</td>
+             <td>{{ .InvestorAddress }}</td>
+             <td>{{ .InvestorType }}</td>
+             <td>{{ .GroupContact }}</td>
+             <td>{{ .InvestmentGroupName }}</td>
+             <td>{{.FormattedCommitmentDate}}</td>
+             <td>{{ .OwnershipPercentage }}</td>
+             <td>{{ .Comments }}</td>
+             <td>{{ .Status }}</td>
+             <td><a href="/editcontribution?id={{.ID}}" class="btn btn-primary my-2">Edit</a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+   </div>
+ </div>
+</section>
+{{end}}

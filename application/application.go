@@ -75,6 +75,17 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/portfolio", handlers.GetPortfolio).Methods("GET")
 	router.HandleFunc("/viewinvestment", handlers.ViewInvestment).Methods("GET")
 	router.HandleFunc("/newinvestment", handlers.NewInvestment).Methods("GET")
+	router.HandleFunc("/editinvestment", handlers.EditInvestment).Methods("GET")
+	router.HandleFunc("/update", handlers.Update).Methods("POST")
+	router.HandleFunc("/add", handlers.Add).Methods("POST")
+
+	//investor contribution details
+	router.HandleFunc("/contributions", handlers.GetContributions).Methods("GET")
+	router.HandleFunc("/newcontribution", handlers.NewContribution).Methods("GET")
+	router.HandleFunc("/editcontribution", handlers.EditContribution).Methods("GET")
+	router.HandleFunc("/updatecontribution", handlers.UpdateContribution).Methods("POST")
+	router.HandleFunc("/addcontribution", handlers.AddContribution).Methods("POST")
+
 	router.HandleFunc("/newfinancials", handlers.NewFinancials).Methods("GET")
 	router.HandleFunc("/newinvestmentstructure", handlers.NewInvestmentStructure).Methods("GET")
 	router.HandleFunc("/newcapitalstructure", handlers.NewCapitalStructure).Methods("GET")
@@ -82,14 +93,13 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/addInvestmentStructure", handlers.AddInvestmentStructure).Methods("POST")
 	router.HandleFunc("/addFinancialResults", handlers.AddFinancialResults).Methods("POST")
 	router.HandleFunc("/news", handlers.News).Methods("GET")
-	router.HandleFunc("/add", handlers.Add).Methods("POST")
+
 	router.HandleFunc("/addNews", handlers.AddNews).Methods("POST")
 	router.HandleFunc("/editNews", handlers.EditNews).Methods("GET")
 	router.HandleFunc("/updateNews", handlers.UpdateNews).Methods("POST")
 	router.HandleFunc("/removenews", handlers.RemoveNews).Methods("GET")
 	router.HandleFunc("/publishNews", handlers.PublishNotification).Methods("GET")
 	router.HandleFunc("/updateNotification", handlers.UpdateNotification).Methods("GET")
-	router.HandleFunc("/editinvestment", handlers.EditInvestment).Methods("GET")
 	router.HandleFunc("/removecapitalstructure", handlers.RemoveCapitalStructure).Methods("GET")
 	router.HandleFunc("/removeinvestmentstructure", handlers.RemoveInvestmentStructure).Methods("GET")
 	router.HandleFunc("/removefinancialresults", handlers.RemoveFinancialResults).Methods("GET")
@@ -97,7 +107,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/addDoc", handlers.AddDoc).Methods("POST")
 	router.HandleFunc("/removeDoc", handlers.RemoveDoc).Methods("GET")
 	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("./docs"))))
-	router.HandleFunc("/update", handlers.Update).Methods("POST")
+
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 
 	// Path of static files must be last!

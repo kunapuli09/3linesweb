@@ -156,6 +156,22 @@ CREATE TABLE notifications (
     NewsDate timestamp DEFAULT CURRENT_TIMESTAMP
 )ENGINE=INNODB;
 
+CREATE TABLE contributions (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    FundLegalName VARCHAR(255) NOT NULL,
+    InvestorLegalName VARCHAR(255) NOT NULL,
+    InvestorAddress VARCHAR(255) NOT NULL,
+    InvestorType VARCHAR(255) NOT NULL,
+    GroupContact VARCHAR(255),
+    InvestmentGroupName VARCHAR(255) NOT NULL,
+    CommitmentDate timestamp,
+    OwnershipPercentage DECIMAL(20,2),
+    InvestmentAmount DECIMAL(20,2),
+    Comments VARCHAR(255),
+    Status VARCHAR(255),
+    UNIQUE KEY (FundLegalName)
+)ENGINE=INNODB;
+
 
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";

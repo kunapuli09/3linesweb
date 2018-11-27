@@ -27,9 +27,12 @@ type ApplRow struct {
 	Phone           string          `db:"Phone"`
 	Website         string          `db:"Website"`
 	Title           string          `db:"Title"`
+	Referrer        string          `db:"Referrer"`
 	Industries      string          `db:"Industries"`
 	Locations       string          `db:"Locations"`
+	Revenue         string          `db:"Revenue"`
 	Comments        string          `db:"Comments"`
+	ElevatorPitch   string			`db:"ElevatorPitch"`
 	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
 }
 

@@ -14,7 +14,7 @@ $(function() {
       var CompanyName = $("input#CompanyName").val();
       var Website = $("input#Website").val();
       var Phone = $("input#Phone").val();
-      var Title = $("input#Title").val();
+      var Referrer = $("input#Referrer").val();
       /* declare an checkbox array */
       /* we join the array separated by the comma */
       var industriesArray = [];
@@ -39,6 +39,14 @@ $(function() {
         locationsArray.push($(this).val());
       });
       locations = locationsArray.join(',') ;
+      var revenueArray = [];
+      var revenue;
+      
+      /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
+      $(".form-check-input2:checked").each(function() {
+        revenueArray.push($(this).val());
+      });
+      revenue = revenueArray.join(',') ;
       // if(locations.length > 0){
       //   alert("You have selected " + locations); 
       // }else{
@@ -46,9 +54,10 @@ $(function() {
       // }
       var Industries = industries;
       var Locations = locations;
+      var Revenue = revenue;
       var CapitalRaised = $("input#CapitalRaised").val();
       var Comments = $("textarea#Comments").val();
-      
+      var ElevatorPitch = $("textarea#ElevatorPitch").val();
       var firstName = FirstName; // For Success/Failure Message
       // Check for white space in name for Success/Fail message
       if (firstName.indexOf(' ') >= 0) {
@@ -66,11 +75,13 @@ $(function() {
           CompanyName: CompanyName,
           Website: Website,
           Phone: Phone,
-          Title: Title,
+          Referrer: Referrer,
           Industries: Industries,
           Locations: Locations,
+          Revenue: Revenue,
           CapitalRaised: CapitalRaised,
-          Comments: Comments
+          Comments: Comments,
+          ElevatorPitch: ElevatorPitch
         },
         cache: false,
         success: function() {

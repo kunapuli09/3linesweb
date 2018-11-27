@@ -1,37 +1,35 @@
 {{define "content"}}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>3Lines Venture Capital</title>
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
-    <!-- date picker end  -->
-    <!-- Custom styles for this template -->
-    <link href="css/agency.min.css" rel="stylesheet">
-</head>
-
-<body id="page-top">
-   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>3Lines Venture Capital</title>
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom fonts for this template -->
+      <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
+      <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
+      <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
+      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
+      <!-- date picker end  -->
+      <!-- Custom styles for this template -->
+      <link href="css/agency.min.css" rel="stylesheet">
+   </head>
+   <body id="page-top">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="/"><img src="img/logo.png" alt="3Lines"></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                <i class="fa fa-bars"></i>
+            Menu
+            <i class="fa fa-bars"></i>
             </button>
-        </div>
-    </nav>
-<section id="contact">
+         </div>
+      </nav>
+      <section id="contact">
          <div class="container">
          <div class="row">
             <div class="col-lg-12 text-center">
@@ -56,156 +54,190 @@
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="CompanyName" type="text" placeholder="Company Name *" required data-validation-required-message="Please enter your company name.">
+                           <input class="form-control" id="Phone" type="tel" pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' placeholder="Your Phone * 555-555-5555" required data-validation-required-message="Please enter your phone number.">
                            <p class="help-block text-danger"></p>
                         </div>
+                        <div class="form-group">
+                           <input class="form-control" id="CompanyName" type="text" placeholder="Company Legal Name *" required data-validation-required-message="Please enter your company name.">
+                           <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                           <textarea class="form-control" id="ElevatorPitch" placeholder="Elevator pitch in 30 words or less *" required data-validation-required-message="Please enter Elevator pitch in 30 words or less."></textarea>
+                           <p class="help-block text-danger"></p>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
                         <div class="form-group">
                            <input class="form-control" type="text" pattern="https?://.+" id="Website" placeholder="Website * https://example.com" required data-validation-required-message="Please enter your website link.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="Phone" type="tel" pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' placeholder="Your Phone * 555-555-5555" required data-validation-required-message="Please enter your phone number.">
+                           <input class="form-control" id="Referrer" type="text" placeholder="Who Referred You? *" required data-validation-required-message="Please enter the referrer's name.">
                            <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                           <input class="form-control" id="Title" type="tel" placeholder="Your Title *" required data-validation-required-message="Please enter your title in the company.">
-                           <p class="help-block text-danger"></p>
+                           <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised in USD"  required autofocus>
                         </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group" id="Industries">
-                           <div class="row">
-                              <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
+                        <div class="form-group" id="Revenue">
+                              <div class="row">
+                                 <h6 style="color:White;">Revenue Status:</h6>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <label class="form-check-label text-white" for="inlineRadio4"> 
+                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio4" value="Pre-Revenue" required>
+                                 Pre Revenue</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <label class="form-check-label text-white" for="inlineRadio5"> 
+                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio5" value="Revenue Positive">
+                                 Revenue Positive
+                                 </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <label class="form-check-label text-white" for="inlineRadio6"> 
+                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio6" value="Profitable">
+                                 Profitable
+                                 </label>
+                              </div>
                            </div>
-                          
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check1">
-                              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check2">
-                              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check3">
-                              <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
-                            </label>
-                          </div>
-                          
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check4">
-                              <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check5">
-                              <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check6">
-                              <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Healthcare">Healthcare
-                            </label>
-                          </div>
-                         
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check7">
-                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="InsuranceTechnology">Insurance Technology
-                            </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <label class="form-check-label text-white" for="check8">
-                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="Agriculture">Agriculture
-                            </label>
-                          </div>
-                          <div class="form-group" id="Locations">
+                           <div class="form-group" id="Locations">
                               <div class="row">
                                  <h6 style="color:White;">Please choose one of our locations:</h6>
                               </div>
                               <div class="form-check form-check-inline">
-                                <label class="form-check-label text-white" for="inlineRadio1"> 
-                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US">
-                              United States</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                               <label class="form-check-label text-white" for="inlineRadio2"> 
-                              <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
-                             India
-                           </label>
-                            </div>
+                                 <label class="form-check-label text-white" for="inlineRadio1"> 
+                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US" required>
+                                 United States</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <label class="form-check-label text-white" for="inlineRadio2"> 
+                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
+                                 India
+                                 </label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                 <label class="form-check-label text-white" for="inlineRadio3"> 
+                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Australia">
+                                 Australia
+                                 </label>
+                              </div>
+                           </div>
+                        <div class="form-group" id="Industries">
+                           <div class="row">
+                              <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check1">
+                              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check2">
+                              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check3">
+                              <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check4">
+                              <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check5">
+                              <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check6">
+                              <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Enterprise">Enterprise Software
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check7">
+                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="Mobility">Mobility
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check7">
+                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="FinTech">FinTech
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check8">
+                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="Agriculture">Agriculture
+                              </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <label class="form-check-label text-white" for="check8">
+                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="Logistics">Supply Chain Logistics
+                              </label>
                            </div>
                            <div class="clearfix"></div>
-                           <div class="form-group">
-                            
-                            <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised"  required autofocus>
-                            
-                         </div>
                            <div class="form-group">
                               <textarea class="form-control" id="Comments" placeholder="Brief Summary of Funding Needs *"></textarea>
                               <p class="help-block text-danger"></p>
                            </div>
                         </div>
                         <div class="clearfix"></div>
-                        
+                        <div class="clearfix"></div>
                         <div id="successApplication"></div>
                         <button id="sendApplicationButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit Application</button>
-                        
                      </div>
                </form>
                </div>
             </div>
          </div>
-</section>
-<!-- Footer -->
-    <footer>
-        <div class="container">
+      </section>
+      <!-- Footer -->
+      <footer>
+         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <span class="copyright">Copyright &copy; 3Lines 2018</span>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-inline social-buttons">
-                        <li class="list-inline-item">
-                            <a href="http://twitter.com/threelinesus">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="http://facebook.com/threelinesus">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+               <div class="col-md-4">
+                  <span class="copyright">Copyright &copy; 3Lines 2018</span>
+               </div>
+               <div class="col-md-4">
+                  <ul class="list-inline social-buttons">
+                     <li class="list-inline-item">
+                        <a href="http://twitter.com/threelinesus">
+                        <i class="fa fa-twitter"></i>
+                        </a>
+                     </li>
+                     <li class="list-inline-item">
+                        <a href="http://facebook.com/threelinesus">
+                        <i class="fa fa-facebook"></i>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
             </div>
-        </div>
-    </footer>
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-    <!-- Custom scripts for this template -->
-    <script src="js/agency.min.js"></script>
-    <script src="js/appl.js"></script>
-    <!-- date picker start  -->
-  
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-77741671-1');
-    </script>
-</body>
-
+         </div>
+      </footer>
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/popper.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <script src="js/contact_me.js"></script>
+      <!-- Custom scripts for this template -->
+      <script src="js/agency.min.js"></script>
+      <script src="js/appl.js"></script>
+      <!-- date picker start  -->
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         
+         gtag('config', 'UA-77741671-1');
+      </script>
+   </body>
 </html>
 {{end}}

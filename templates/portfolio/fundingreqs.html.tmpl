@@ -16,13 +16,15 @@
              <td>LastName</td>
              <td>Email</td>
              <td>Phone</td>
-             <td>Title</td>
+             <td>Referrer</td>
              <td>CompanyName</td>
              <td>Website</td>
              <td>Industries</td>
              <td>Locations</td>
+             <td>Revenue</td>
              <td>CapitalRaised</td>
              <td>Comments</td>
+             <td>ElevatorPitch</td>
             </tr>
           </thead>
           <tbody>
@@ -34,13 +36,15 @@
              <td>{{ .LastName }}</td>
              <td>{{ .Email }}</td>
              <td>{{ .Phone }}</td>
-             <td>{{ .Title }}</td>
+             <td>{{ .Referrer.Value }}</td>
              <td>{{ .CompanyName }}</td>
              <td>{{ .Website }}</td>
              <td>{{ .Industries }}</td>
              <td>{{ .Locations }}</td>
+             <td>{{ .Revenue.Value }}</td>
              <td>{{ .CapitalRaised }}</td>
              <td>{{ .Comments }}</td>
+             <td>{{ .ElevatorPitch.Value }}</td>
             </tr>
             {{end}}
           </tbody>

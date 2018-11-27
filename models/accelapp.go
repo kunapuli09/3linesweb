@@ -26,13 +26,13 @@ type ApplRow struct {
 	CompanyName     string          `db:"CompanyName"`
 	Phone           string          `db:"Phone"`
 	Website         string          `db:"Website"`
-	Title           string          `db:"Title"`
-	Referrer        string          `db:"Referrer"`
-	Industries      string          `db:"Industries"`
-	Locations       string          `db:"Locations"`
-	Revenue         string          `db:"Revenue"`
+	Title           sql.NullString  `db:"Title"`
+	Referrer        sql.NullString  `db:"Referrer"`
+	Industries      sql.NullString  `db:"Industries"`
+	Locations       sql.NullString  `db:"Locations"`
+	Revenue         sql.NullString  `db:"Revenue"`
 	Comments        string          `db:"Comments"`
-	ElevatorPitch   string			`db:"ElevatorPitch"`
+	ElevatorPitch   sql.NullString  `db:"ElevatorPitch"`
 	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
 }
 
@@ -58,7 +58,9 @@ func (i *Appl) AllAppls(tx *sqlx.Tx) ([]*ApplRow, error) {
 	isrs := []*ApplRow{}
 	query := fmt.Sprintf("SELECT * FROM %v", i.table)
 	err := i.db.Select(&isrs, query)
-
+	if err != nil {
+		fmt.Println(err)
+	}
 	return isrs, err
 }
 

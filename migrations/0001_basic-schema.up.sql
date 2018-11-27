@@ -136,10 +136,13 @@ CREATE TABLE applications (
     Website VARCHAR(255) NOT NULL,
     Phone VARCHAR(12) NOT NULL,
     Title VARCHAR(255) NOT NULL,
+    Referrer VARCHAR(255) NOT NULL,
     Industries VARCHAR(255),
     Locations VARCHAR(255),
+    Revenue VARCHAR(255),
     CapitalRaised DECIMAL(20,2),
     Comments VARCHAR(255),
+    ElevatorPitch VARCHAR(255),
     UNIQUE KEY (email),
     UNIQUE KEY (Website)
 )ENGINE=INNODB;
@@ -172,7 +175,9 @@ CREATE TABLE contributions (
     UNIQUE KEY (FundLegalName)
 )ENGINE=INNODB;
 
-
+alter table applications ADD  Referrer VARCHAR(255);
+alter table applications ADD  ElevatorPitch VARCHAR(255);
+alter table applications ADD  Revenue VARCHAR(255);
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
 

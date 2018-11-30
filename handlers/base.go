@@ -11,6 +11,7 @@ import (
 	"reflect"
 	"strconv"
 	"time"
+	"database/sql"
 )
 
 func getIdFromPath(w http.ResponseWriter, r *http.Request) (int64, error) {
@@ -36,6 +37,15 @@ func ConvertFormDate(value string) reflect.Value {
 		return reflect.ValueOf(v)
 	}
 	return reflect.Value{} // this is the same as the private const invalidType
+}
+
+func ConvertSQLNullString(value string) reflect.Value {
+    v := sql.NullString{}
+    if err := v.Scan(value); err != nil {
+        return reflect.Value{}
+    }
+
+    return reflect.ValueOf(v)
 }
 
 func getCount(w http.ResponseWriter, r *http.Request, email string) int {

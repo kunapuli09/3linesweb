@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"database/sql"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -65,6 +66,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	decoder := schema.NewDecoder()
+	decoder.RegisterConverter(sql.NullString{}, ConvertSQLNullString)
 	err1 := decoder.Decode(&i, r.PostForm)
 	if err1 != nil {
 		fmt.Println("decoding error")
@@ -73,6 +75,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	m["ApplicationDate"] = time.Now()
+	m["Title"] = "Removed"
 	fmt.Printf("map %v", m)
 	_, err2 := models.NewAppl(db).Create(nil, m)
 	if err2 != nil {

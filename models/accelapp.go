@@ -27,12 +27,12 @@ type ApplRow struct {
 	Phone           string          `db:"Phone"`
 	Website         string          `db:"Website"`
 	Title           sql.NullString  `db:"Title"`
-	Referrer        sql.NullString  `db:"Referrer"`
-	Industries      sql.NullString  `db:"Industries"`
-	Locations       sql.NullString  `db:"Locations"`
-	Revenue         sql.NullString  `db:"Revenue"`
+	Referrer        string  `db:"Referrer"`
+	Industries      string  `db:"Industries"`
+	Locations       string  `db:"Locations"`
+	Revenue         string  `db:"Revenue"`
 	Comments        string          `db:"Comments"`
-	ElevatorPitch   sql.NullString  `db:"ElevatorPitch"`
+	ElevatorPitch   string  `db:"ElevatorPitch"`
 	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
 }
 

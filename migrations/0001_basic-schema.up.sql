@@ -141,8 +141,8 @@ CREATE TABLE applications (
     Locations VARCHAR(255),
     Revenue VARCHAR(255),
     CapitalRaised DECIMAL(20,2),
-    Comments VARCHAR(255),
-    ElevatorPitch VARCHAR(255),
+    Comments TEXT,
+    ElevatorPitch TEXT(255),
     UNIQUE KEY (email),
     UNIQUE KEY (Website)
 )ENGINE=INNODB;

@@ -38,7 +38,7 @@
    </div>
    {{end}}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card mb-3" style="max-width: 100rem;">
          <div class="card-body">
             <p class="card-text">
             <div class="table-responsive-md">
@@ -95,9 +95,9 @@
             </p>
          </div>
       </div>
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card  mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title"></h5>
+            <h5 class="card-title text-info"></h5>
             <p class="card-text">
             <div class="table-responsive-md">
                <table class="table table-striped">
@@ -142,9 +142,9 @@
 </div>
 {{if .ExistingInvestmentStructures}}
 <div class="card-group">
-   <div class="card text-info mb-3" style="max-width: 100rem;">
+   <div class="card mb-3" style="max-width: 100rem;">
       <div class="card-body">
-         <h5 class="card-title">
+         <h5 class="card-title text-info">
             INVESTMENT STRUCTURE
          </h5>
          <p class="card-text">
@@ -167,7 +167,7 @@
                      <td>{{.Structure}}</td>
                      <!-- <td>{{.Units}}</td> -->
                      <td>${{.TotalInvested}}</td>
-                     <td>{{.ReportedValue}}</td>
+                     <td>${{.ReportedValue}}</td>
                      <!-- <td>{{.RealizedProceeds}}</td> -->
                   </tr>
                   {{end}}
@@ -180,9 +180,9 @@
    {{end}}
    {{if .Investment.Description }}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">INVESTMENT DESCRIPTION</h5>
+            <h5 class="card-title text-info">INVESTMENT DESCRIPTION</h5>
             <p class="card-text">
                {{ .Investment.Description | safeHTML}}
             </p>
@@ -192,9 +192,9 @@
    {{end}}
    {{if .Investment.InvestmentBackground }}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card  mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">INVESTMENT BACKGROUND</h5>
+            <h5 class="card-title text-info">INVESTMENT BACKGROUND</h5>
             <p class="card-text">
                {{.Investment.InvestmentBackground | safeHTML}}
             </p>
@@ -204,9 +204,9 @@
    {{end}}
    {{if .Investment.ValuationMethodology }}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card  mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">VALUATION METHODOLOGY</h5>
+            <h5 class="card-title text-info">VALUATION METHODOLOGY</h5>
             <p class="card-text">
                {{.Investment.ValuationMethodology | safeHTML}}
             </p>
@@ -216,9 +216,9 @@
    {{end}}
    {{if .Investment.RiskAssessment }}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
+            <h5 class="card-title text-info">RISK ASSESSMENT/UPDATE</h5>
             <p class="card-text">
                {{.Investment.RiskAssessment | safeHTML}}
             </p>
@@ -228,9 +228,9 @@
    {{end}}
    {{if .Investment.InvestmentThesis}}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">INVESTMENT THESIS</h5>
+            <h5 class="card-title text-info">INVESTMENT THESIS</h5>
             <p class="card-text">
                {{.Investment.InvestmentThesis | safeHTML}}
             </p>
@@ -240,12 +240,12 @@
    {{end}}
    {{if .Existing}}
    <div class="card-group">
-      <div class="card text-info mb-3" style="max-width: 100rem;">
+      <div class="card mb-3" style="max-width: 100rem;">
          <div class="card-body">
-            <h5 class="card-title">FINANCIAL RESULTS</h5>
+            <h5 class="card-title text-info">FINANCIAL RESULTS</h5>
             <p class="card-text">
             <div class="table-responsive-md">
-               <table class="table table-sm table-dark">
+               <table class="table table-sm">
                   <thead>
                      <tr>
                         <th scope="col">Reporting Date</th>
@@ -264,14 +264,14 @@
                      {{range .Existing }}
                      <tr>
                         <td>{{.FormattedReportingDate}}</td>
-                        <td>{{.Revenue}}</td>
-                        <td>{{.YoYGrowthPercentage1}}</td>
-                        <td>{{.LTMEBITDA}}</td>
-                        <td>{{.YoYGrowthPercentage2}}</td>
-                        <td>{{.EBITDAMargin}}</td>
-                        <td>{{.TotalExitValue}}</td>
+                        <td>${{.Revenue}}</td>
+                        <td>{{.YoYGrowthPercentage1}}%</td>
+                        <td>${{.LTMEBITDA}}</td>
+                        <td>{{.YoYGrowthPercentage2}}%</td>
+                        <td>{{.EBITDAMargin}}%</td>
+                        <td>${{.TotalExitValue}}</td>
                         <td>{{.TotalExitValueMultiple}}</td>
-                        <td>{{.TotalLeverage}}</td>
+                        <td>${{.TotalLeverage}}</td>
                         <td>{{.TotalLeverageMultiple}}</td>
                      </tr>
                      {{end}}
@@ -285,27 +285,29 @@
    {{end}}
 {{if .ExistingNews}}
 {{range .ExistingNews }}
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-         <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapseOne">
-         {{.FormattedNewsDate}} News
-         </a>
-      </h5>
-    </div>
-    <div id="collapse{{.ID}}" class="collapse">
-      <div class="card card-body">
-         {{ .News | safeHTML }}
+<div class="card-group">
+      <div class="card mb-3" style="max-width: 100rem;">
+         <div class="card-body">
+            <h5 class="card-title text-info">
+            <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">
+            {{.FormattedNewsDate}} News
+            </a></h5>
+            <div id="collapse{{.ID}}" class="collapse">
+               <p class="card-text">
+               {{ .News | safeHTML }}
+               </p>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
+</div>
 {{end}}
+
 {{end}}
    
    {{if .ExistingCapitalStructures}}
-   <div class="card text-info mb-3" style="max-width: 100rem;">
+   <div class="card  mb-3" style="max-width: 100rem;">
       <div class="card-body">
-         <h5 class="card-title">
+         <h5 class="card-title text-info">
             CAPITALIZATION STRUCTURE
          </h5>
          <p class="card-text">
@@ -324,8 +326,8 @@
                   <tr>
                      <th scope="row">{{.FormattedReportingDate}}</th>
                      <td>{{.Capitalization}}</td>
-                     <td>{{.ClosingValue}}</td>
-                     <td>{{.YearEndValue}}</td>
+                     <td>${{.ClosingValue}}</td>
+                     <td>${{.YearEndValue}}</td>
                   </tr>
                   {{end}}
                </tbody>

@@ -140,44 +140,6 @@
       </div>
    </div>
 </div>
-{{if .ExistingInvestmentStructures}}
-<div class="card-group">
-   <div class="card mb-3" style="max-width: 100rem;">
-      <div class="card-body">
-         <h5 class="card-title text-info">
-            INVESTMENT STRUCTURE
-         </h5>
-         <p class="card-text">
-         <div class="table-responsive-md">
-            <table class="table table-sm">
-               <thead>
-                  <tr>
-                     <th scope="col">Reporting Date</th>
-                     <th scope="col">Investment Structure</th>
-                     <!-- <th scope="col">Units/Par</th> -->
-                     <th scope="col">Total Invested</th>
-                     <th scope="col">Reported Value</th>
-                    <!--  <th scope="col">Realized Proceeds</th> -->
-                  </tr>
-               </thead>
-               <tbody>
-                  {{range .ExistingInvestmentStructures}}
-                  <tr>
-                     <th scope="row">{{.FormattedReportingDate}}</th>
-                     <td>{{.Structure}}</td>
-                     <!-- <td>{{.Units}}</td> -->
-                     <td>${{.TotalInvested}}</td>
-                     <td>${{.ReportedValue}}</td>
-                     <!-- <td>{{.RealizedProceeds}}</td> -->
-                  </tr>
-                  {{end}}
-               </tbody>
-            </table>
-         </div>
-         </p>
-      </div>
-   </div>
-   {{end}}
    {{if .Investment.Description }}
    <div class="card-group">
       <div class="card mb-3" style="max-width: 100rem;">
@@ -238,6 +200,45 @@
       </div>
    </div>
    {{end}}
+{{if .ExistingInvestmentStructures}}
+<div class="card-group">
+   <div class="card mb-3" style="max-width: 100rem;">
+      <div class="card-body">
+         <h5 class="card-title text-info">
+            INVESTMENT STRUCTURE
+         </h5>
+         <p class="card-text">
+         <div class="table-responsive-md">
+            <table class="table table-sm">
+               <thead>
+                  <tr>
+                     <th scope="col">Reporting Date</th>
+                     <th scope="col">Investment Structure</th>
+                     <!-- <th scope="col">Units/Par</th> -->
+                     <th scope="col">Total Invested</th>
+                     <th scope="col">Reported Value</th>
+                    <!--  <th scope="col">Realized Proceeds</th> -->
+                  </tr>
+               </thead>
+               <tbody>
+                  {{range .ExistingInvestmentStructures}}
+                  <tr>
+                     <th scope="row">{{.FormattedReportingDate}}</th>
+                     <td>{{.Structure}}</td>
+                     <!-- <td>{{.Units}}</td> -->
+                     <td>${{.TotalInvested}}</td>
+                     <td>${{.ReportedValue}}</td>
+                     <!-- <td>{{.RealizedProceeds}}</td> -->
+                  </tr>
+                  {{end}}
+               </tbody>
+            </table>
+         </div>
+         </p>
+      </div>
+   </div>
+</div>
+   {{end}}
    {{if .Existing}}
    <div class="card-group">
       <div class="card mb-3" style="max-width: 100rem;">
@@ -283,27 +284,6 @@
       </div>
    </div>
    {{end}}
-{{if .ExistingNews}}
-{{range .ExistingNews }}
-<div class="card-group">
-      <div class="card mb-3" style="max-width: 100rem;">
-         <div class="card-body">
-            <h5 class="card-title text-info">
-            <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">
-            {{.FormattedNewsDate}} News
-            </a></h5>
-            <div id="collapse{{.ID}}" class="collapse">
-               <p class="card-text">
-               {{ .News | safeHTML }}
-               </p>
-            </div>
-         </div>
-      </div>
-</div>
-{{end}}
-
-{{end}}
-   
    {{if .ExistingCapitalStructures}}
    <div class="card  mb-3" style="max-width: 100rem;">
       <div class="card-body">
@@ -334,9 +314,29 @@
             </table>
          </div>
          </p>
-         {{end}}
       </div>
    </div>
+   {{end}}
+{{if .ExistingNews}}
+{{range .ExistingNews }}
+<div class="card-group">
+      <div class="card mb-3" style="max-width: 100rem;">
+         <div class="card-body">
+            <h5 class="card-title text-info">
+            <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">
+            {{.FormattedNewsDate}} News
+            </a></h5>
+            <div id="collapse{{.ID}}" class="collapse">
+               <p class="card-text">
+               {{ .News | safeHTML }}
+               </p>
+            </div>
+         </div>
+      </div>
+</div>
+{{end}}
+
+{{end}}
 </div>
 </div>
 </div>

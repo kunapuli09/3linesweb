@@ -214,10 +214,10 @@
                   <tr>
                      <th scope="col">Reporting Date</th>
                      <th scope="col">Investment Structure</th>
-                     <!-- <th scope="col">Units/Par</th> -->
+                     <th scope="col">Units/Par</th>
                      <th scope="col">Total Invested</th>
                      <th scope="col">Reported Value</th>
-                    <!--  <th scope="col">Realized Proceeds</th> -->
+                     <th scope="col">Realized Proceeds</th> 
                   </tr>
                </thead>
                <tbody>
@@ -225,10 +225,10 @@
                   <tr>
                      <th scope="row">{{.FormattedReportingDate}}</th>
                      <td>{{.Structure}}</td>
-                     <!-- <td>{{.Units}}</td> -->
+                     <td>{{.Units}}</td>
                      <td>${{.TotalInvested}}</td>
                      <td>${{.ReportedValue}}</td>
-                     <!-- <td>{{.RealizedProceeds}}</td> -->
+                     <td>{{.RealizedProceeds}}</td> 
                   </tr>
                   {{end}}
                </tbody>

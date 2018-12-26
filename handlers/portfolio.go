@@ -12,6 +12,8 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"github.com/shopspring/decimal"
+	"github.com/leekchan/accounting"
 )
 
 // type NewsHtmlRow struct {
@@ -75,6 +77,7 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	ac := accounting.Accounting{Symbol: "$", Precision: 2}
 	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -83,6 +86,10 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {
 			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
 		},
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")

@@ -62,12 +62,12 @@
                      <tr>
                         <th scope="row"></th>
                         <td>Investment Commitment</td>
-                        <td>${{.Investment.InvestmentCommittment}}</td>
+                        <td>{{.Investment.InvestmentCommittment | currencyFormat}}</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
                         <td>Invested Capital</td>
-                        <td>${{.Investment.InvestedCapital}}</td>
+                        <td>{{.Investment.InvestedCapital | currencyFormat}}</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
@@ -100,7 +100,7 @@
                      <tr>
                         <th scope="row"></th>
                         <td>Exit Value at Closing</td>
-                        <td>{{.Investment.ExitValueAtClosing}}</td>
+                        <td>{{.Investment.ExitValueAtClosing | currencyFormat}}</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
@@ -120,7 +120,7 @@
                      <tr>
                         <th scope="row"></th>
                         <td>Reported Value</td>
-                        <td>${{.Investment.ReportedValue}}</td>
+                        <td>{{.Investment.ReportedValue | currencyFormat}}</td>
                      </tr>
                      <tr>
                         <th scope="row"></th>
@@ -226,9 +226,9 @@
                      <th scope="row">{{.FormattedReportingDate}}</th>
                      <td>{{.Structure}}</td>
                      <td>{{.Units}}</td>
-                     <td>${{.TotalInvested}}</td>
-                     <td>${{.ReportedValue}}</td>
-                     <td>{{.RealizedProceeds}}</td> 
+                     <td>{{.TotalInvested | currencyFormat}}</td>
+                     <td>{{.ReportedValue | currencyFormat}}</td>
+                     <td>{{.RealizedProceeds | currencyFormat}}</td> 
                   </tr>
                   {{end}}
                </tbody>
@@ -265,14 +265,14 @@
                      {{range .Existing }}
                      <tr>
                         <td>{{.FormattedReportingDate}}</td>
-                        <td>${{.Revenue}}</td>
+                        <td>{{.Revenue | currencyFormat}}</td>
                         <td>{{.YoYGrowthPercentage1}}%</td>
-                        <td>${{.LTMEBITDA}}</td>
+                        <td>{{.LTMEBITDA | currencyFormat}}</td>
                         <td>{{.YoYGrowthPercentage2}}%</td>
                         <td>{{.EBITDAMargin}}%</td>
-                        <td>${{.TotalExitValue}}</td>
+                        <td>{{.TotalExitValue | currencyFormat}}</td>
                         <td>{{.TotalExitValueMultiple}}</td>
-                        <td>${{.TotalLeverage}}</td>
+                        <td>{{.TotalLeverage | currencyFormat}}</td>
                         <td>{{.TotalLeverageMultiple}}</td>
                      </tr>
                      {{end}}
@@ -306,8 +306,8 @@
                   <tr>
                      <th scope="row">{{.FormattedReportingDate}}</th>
                      <td>{{.Capitalization}}</td>
-                     <td>${{.ClosingValue}}</td>
-                     <td>${{.YearEndValue}}</td>
+                     <td>{{.ClosingValue | currencyFormat}}</td>
+                     <td>{{.YearEndValue | currencyFormat}}</td>
                   </tr>
                   {{end}}
                </tbody>

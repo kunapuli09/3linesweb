@@ -9,15 +9,15 @@
          <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">{{.Investment.StartupName}} Investment Dashboard </h2>
          </div>
-         <a href="/portfolio" class="btn btn-info my-2">Back to Portfolio</a>
+         <a href="/portfolio" class="au-btn au-btn--small au-btn--green">Back to Portfolio</a>
       </div>
       {{if .CurrentUser.Admin }}
-      <a class="btn btn-sm btn-outline-secondary" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
-      <a class="btn btn-sm btn-outline-secondary" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Investment Structure</a>
-      <a class="btn btn-sm btn-outline-secondary" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
-      <a class="btn btn-sm btn-outline-secondary" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
-      <a class="btn btn-sm btn-outline-secondary" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
-      <a class="btn btn-sm btn-outline-secondary" href="/docs?Investment_ID={{.Investment.ID}}" role="button">Upload Docs</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Investment Structure</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
+      <a class="au-btn au-btn--small au-btn--blue2" href="/docs?Investment_ID={{.Investment.ID}}" role="button">Upload Docs</a>
       {{end}}
       {{if .ExistingDocs}}
       <div class="card-group">
@@ -29,7 +29,7 @@
                      <tbody>
                         {{range .ExistingDocs }}
                         <tr>
-                           <td><a class="btn btn-sm btn-info" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
+                           <td><a class="au-btn au-btn--small au-btn--blue" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
                         </tr>
                         {{end}}
                      </tbody>
@@ -148,7 +148,7 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">INVESTMENT DESCRIPTION</h5>
+                  <h5 class="card-title">INVESTMENT DESCRIPTION</h5>
                   <p class="card-text">
                      {{ .Investment.Description | safeHTML}}
                   </p>
@@ -160,7 +160,7 @@
          <div class="card-group">
             <div class="card  mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">INVESTMENT BACKGROUND</h5>
+                  <h5 class="card-title">INVESTMENT BACKGROUND</h5>
                   <p class="card-text">
                      {{.Investment.InvestmentBackground | safeHTML}}
                   </p>
@@ -172,7 +172,7 @@
          <div class="card-group">
             <div class="card  mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">VALUATION METHODOLOGY</h5>
+                  <h5 class="card-title">VALUATION METHODOLOGY</h5>
                   <p class="card-text">
                      {{.Investment.ValuationMethodology | safeHTML}}
                   </p>
@@ -184,7 +184,7 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">RISK ASSESSMENT/UPDATE</h5>
+                  <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
                   <p class="card-text">
                      {{.Investment.RiskAssessment | safeHTML}}
                   </p>
@@ -196,7 +196,7 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">INVESTMENT THESIS</h5>
+                  <h5 class="card-title">INVESTMENT THESIS</h5>
                   <p class="card-text">
                      {{.Investment.InvestmentThesis | safeHTML}}
                   </p>
@@ -208,7 +208,7 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">
+                  <h5 class="card-title">
                      INVESTMENT STRUCTURE
                   </h5>
                   <p class="card-text">
@@ -247,7 +247,7 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">FINANCIAL RESULTS</h5>
+                  <h5 class="card-title">FINANCIAL RESULTS</h5>
                   <p class="card-text">
                   <div class="table-responsive-md">
                      <table class="table table-sm">
@@ -291,7 +291,7 @@
          {{if .ExistingCapitalStructures}}
          <div class="card  mb-3" style="max-width: 100rem;">
             <div class="card-body">
-               <h5 class="card-title text-info">
+               <h5 class="card-title">
                   CAPITALIZATION STRUCTURE
                </h5>
                <p class="card-text">
@@ -326,8 +326,8 @@
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
                <div class="card-body">
-                  <h5 class="card-title text-info">
-                     <a class="btn btn-info" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">
+                  <h5 class="card-title">
+                     <a class="au-btn au-btn-icon au-btn--green" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}">
                      {{.FormattedNewsDate}} News
                      </a>
                   </h5>

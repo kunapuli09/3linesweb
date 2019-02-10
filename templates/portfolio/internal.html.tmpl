@@ -112,10 +112,20 @@
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+   <!--  <script src="js2/main.js"></script> -->
+    
 
 </body>
-
+    
+<script>
+      $('.detail').on('click', function() {
+        var ID = $(this).attr("id"); 
+        var URL = '/fundingappl?id=' + ID
+        //alert(URL);
+        window.document.location = URL;
+    
+});
+    </script>
 </html>
 <!-- end document-->
 {{end}}

@@ -1,30 +1,304 @@
 {{define "content"}}
-<!--  -->
-{{if .Error }}
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-  <strong>Error!</strong> {{.Error}}
-</div>
-{{end}}
-
-<section class="bg-light" id="signup">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>3Lines Venture Capital</title>
+      <!-- Bootstrap core CSS -->
+      <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Custom fonts for this template -->
+      <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
+      <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
+      <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
+      <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
+      <!-- Custom styles for this template -->
+      <link href="css/agency.min.css" rel="stylesheet">
+   </head>
+   <body id="page-top" onload="javascript:window.location.href='#start';">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
+         <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/logo.png" alt="3Lines"></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+               <ul class="navbar-nav text-uppercase ml-auto">
+                  <!-- <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                     </li> -->
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#about">About</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#team">Team</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#blog">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </nav>
+      <!-- Header -->
+      <header class="masthead">
+        <div class="container">
+            <div class="intro-text">
+              <div class="intro-lead-in">Three Lines (Capital, Time and Growth) </div>
+                <div class="intro-heading">Investments
+                Beyond Rockies</div>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="appl">Apply for Seed Funding Here!</a>
+            </div>
+        </div>
+    </header>
+<section class="py-5" id="start">
       <div class="container">
         <div class="row">
-          <div class="col-lg-6 text-center">
-            <h2 class="section-heading text-uppercase">Seminar Signup</h2>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-          <form class="form-signup-login form-signup" method="post" action="/seminar">
-          <input name="Email" type="email" class="form-control" pattern='/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/' placeholder="Email" required autofocus>
-          <input name ="Phone" class="form-control tel" pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' type="tel" value="555-555-5555" id="Phone">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-        </form>
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase text-left">Investor Meetings & Seminar Events</h2>
           </div>
         </div>
       </div>
+
+      <div class="agenda">
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered ">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Invite Only Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Single event in a single day -->
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">20</div>
+                            <div class="dayofweek">Saturday</div>
+                            <div class="shortdate text-muted">April, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Portland Investor Meet & Seminar Event<br>
+                                DOUBLETREE BY HILTON PORTLAND<br>
+                                15402 NW CORNELL RD - BEAVERTON, OR 97006<br>
+                                <a href="https://docsend.com/view/wgtzpji"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">21</div>
+                            <div class="dayofweek">Sunday</div>
+                            <div class="shortdate text-muted">April, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            4:00 PM - 7:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Dallas Investor Meet & Seminar Event</br>
+                                BIRYANI POT @HILLTOP</br>
+                                8350 N MACARTHUR BLVD #190, IRVING, TX 75063</br>
+                                <a href="https://docsend.com/view/ugm8twy"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">27</div>
+                            <div class="dayofweek">Saturday</div>
+                            <div class="shortdate text-muted">April, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Irvine, Los Angeles Investor Meet & Seminar Event</br>
+                                SAGAR INDIAN CUISINE</br>
+                                4241 MacArthur Blvd, Newport Beach, CA 92660</br>
+                                <a href="https://docsend.com/view/ps33mgh"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">4</div>
+                            <div class="dayofweek">Saturday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Seminar Event</br>
+                                FANUM AMG Trust Bank</br>
+                                6295 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
+                                <a href="https://docsend.com/view/84i7eu3"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">9</div>
+                            <div class="dayofweek">Thursday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            7:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Private Dinner</br>
+                                Garnish Indian Cuisine</br>
+                                6585 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
+                                <a href="https://docsend.com/view/jtr986t"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">10</div>
+                            <div class="dayofweek">Friday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>NewYork Investor Meet & Private Dinner</br>
+                                Midtown Manhattan
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">18</div>
+                            <div class="dayofweek">Saturday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Atlanta Investor Meet & Seminar Event</br>
+                                Sankranthi Banquet Hall</br>
+                                <a href="https://docsend.com/view/hsfw47a"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">22nd & 23rd</div>
+                            <div class="dayofweek">Wednesday & Thursday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            3:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>New York Family Office Event</br>
+                                </br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">25th & 26th</div>
+                            <div class="dayofweek">Sunday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event" disabled></i>Dallas NATS Investor Private Party</br>
+                                Irving Convention Center</br>
+                                <a href=""><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">1st</div>
+                            <div class="dayofweek">Saturday</div>
+                            <div class="shortdate text-muted">June, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            6:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Investor Meet</br>
+                                4201 Wallis Ranch Drive, Dublin, CA 94568</br>
+                                <a href="https://docsend.com/view/kvgkgsp"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
     </section>
+
+<!-- Footer -->
+      <footer>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                  <span class="copyright">Copyright &copy; 3Lines 2018</span>
+               </div>
+               <div class="col-md-4">
+                  <ul class="list-inline social-buttons">
+                     <li class="list-inline-item">
+                        <a href="http://twitter.com/threelinesus">
+                        <i class="fa fa-twitter"></i>
+                        </a>
+                     </li>
+                     <li class="list-inline-item">
+                        <a href="http://facebook.com/threelinesus">
+                        <i class="fa fa-facebook"></i>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <script src="js/contact_me.js"></script>
+      <!-- Custom scripts for this template -->
+      <script src="js/agency.min.js"></script>
+   </body>
+</html>
 {{end}}

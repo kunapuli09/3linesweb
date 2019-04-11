@@ -1,3 +1,4 @@
+{{define "content"}}
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -61,29 +62,25 @@
             </div>
         </div>
     </header>
-      <div id="start" class="container">
-         <div class="row">
-            <div class="col-lg-8 mx-auto">
-               <div class="modal-body">
-                  <!-- Project Details Go Here -->
-                  <h2 class="text-uppercase">Clusters of Innovations in Rural India Food Processing</h2>
-                  <p class="item-intro text-muted"></p>
-                  <p class="item-intro text-muted">I have traveled to India on my quest to understand rural innovations. The Atal Incubation Center operated by Sri Krishna Devaraya University in Anantapur, Andhra Pradesh gracefully hosted a 3-day Hyper Accelerator program. It’s a small town located 3 hours from Bangalore but a very interesting region to understand rural agriculture in India, because this region has the least amount of rainfall unlike many other districts in Andhra Pradesh state. The big opportunity in the region lies in Millets/Quinoa crop: they don't need much water or pesticides and are very easy to grow in that region. Members from the town’s Chambers of Commerce also attended and supported the program.</p>
-                  <p class="item-intro text-muted">3Lines’ latest seed stage investment in USA is RoadBotics, based out of Carnegie Mellon research. Our latest Indian investment is into an Agri-Startup founded by IIM alumni: Our Food Pvt. Ltd. Thus, I was not sure what to expect of the quality of research or innovations in the rural India setting. I was pleasantly surprised by the eight teams from all across south India. I also had a great opportunity to talk to many budding entrepreneurs who traveled from the Chittoor region, which is 8 hours away by road. I have also visited Adarana farms where the founder is trying to promote natural organic farming techniques. I could write at least five blogs to describe the overall enthusiasm.</p>
-                  <p class="item-intro text-muted">
-                     The hard work and effort of these rural entrepreneurs totally surprised me. Most of these startups are in the trade of coming up with creative products from millets and trying to create new markets on top of existing sales channels—more food processing and brand marketing companies. The motivation for every startup is same, which is to bring awareness to quality, nutrition, pest residue removal, and healthy food. All of them are creating products/services that are very different from traditional market players. One thing that kept me thinking was how these startups can build barriers for new competitors and protect their intellectual property, as the competition is ever-increasing with many new startups coming in all the time.
-                  </p>
-                  <p class="item-intro text-muted">In Venture Capital, we love to invest in hard research problems and think about $1B unicorns but here I am seeing a trend of hundreds of these startups across India that serve very fragmented markets and are going to be profitable businesses with a $10-20M market capture. There are a few factors like execution skills on the ground, quality supply from their farmer base, existing distribution channel adoption that determine the success. It’s very difficult to disrupt and dominate the entire industry by one or two companies. Each segment is going to require two dozen companies to capture the whole market. I have observed a very interesting trend here at a real macro level. I have talked to a few corporate bankers and they have expressed enthusiasm to support agri-tech but they are hesitant in providing working capital to these businesses. Traditional lending may need to be re-invented or may be we need new types of risk capital and terms and conditions that fit to the needs of these trail blazers. To solve some foundational problems, clusters of innovations needs to be developed with regional venture capital that supports farmer adoption and engagement models. I definitely see a many positive supporting trends from universities, government, local passionate entrepreneurs, service providers, R&D centers, private capital to build these clusters. The element that is still developing is corporate/strategic investors and potential acquirers. These acquirers would complete the piece of puzzle to create strong clusters of innovations. </p>
-                  <ul class="list-inline">
-                     <li>Date: August 2018</li>
-                     <li>Krishna Kunapuli, General Partner, 3Lines Venture Fund</li>
-                     <li>Category: AgriTech Investments</li>
-                  </ul>
-               </div>
-            </div>
-         </div>
+<section class="py-5" id="start">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">3Lines Performance</h2>
+          </div>
+        </div>
       </div>
-      <!-- Footer -->
+      <div class="col-lg-12 text-center">
+        <div class="card-body">
+         <canvas id="lineChart"></canvas>
+      </div>
+      <div class="card-body">
+         <canvas id="pieChart"></canvas>
+      </div>
+       
+  </div>
+    </section>
+<!-- Footer -->
       <footer>
          <div class="container">
             <div class="row">
@@ -117,5 +114,8 @@
       <script src="js/contact_me.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
+      <script src="vendor/chart.js/Chart.min.js"></script>
+      <script src="js/FundI_Investment_Pie.js"></script>
    </body>
 </html>
+{{end}}

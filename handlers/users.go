@@ -51,32 +51,28 @@ func PostSignup(w http.ResponseWriter, r *http.Request) {
 	PostLogin(w, r)
 }
 
-func GetSeminar(w http.ResponseWriter, r *http.Request) {
+func GetEvents(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/seminar.html.tmpl")
+	tmpl, err := template.ParseFiles("templates/portfolio/seminar.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
 
-	tmpl.ExecuteTemplate(w, "layout", nil)
+	tmpl.ExecuteTemplate(w, "content", nil)
 }
 
-func PostSeminar(w http.ResponseWriter, r *http.Request) {
+func GetPerformance(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	db := r.Context().Value("db").(*sqlx.DB)
-	email := r.FormValue("Email")
-	phone := r.FormValue("Phone")
-	password := "SeminarAttendee@Fund2"
-	passwordAgain := password
-	_, err := models.NewUser(db).Signup(nil, email, password, passwordAgain, phone)
+
+	tmpl, err := template.ParseFiles("templates/portfolio/performance.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	// Perform login
-	http.Redirect(w, r, "/", 302)
+
+	tmpl.ExecuteTemplate(w, "content", nil)
 }
 
 func GetLoginWithoutSession(w http.ResponseWriter, r *http.Request) {

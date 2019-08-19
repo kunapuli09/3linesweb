@@ -745,3 +745,17 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 @media (max-width: 767px) {
     
 }
+
+.map-container{
+overflow:hidden;
+padding-bottom:56.25%;
+position:relative;
+height:0;
+}
+.map-container iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}

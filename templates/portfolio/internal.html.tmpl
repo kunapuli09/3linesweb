@@ -1,0 +1,131 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>3Lines Venture Capital</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="css2/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor2/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor2/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- vendor2 CSS-->
+    <link href="vendor2/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor2/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor2/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor2/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css2/theme.css" rel="stylesheet" media="all">
+
+    </head>
+    <body id="page-top">
+    {{if .CurrentUser}}
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <img src="img/logo.png" alt="3Lines">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/portfolio"><i class="fa fa-briefcase"></i>Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/notifications">
+                <span class="fa-stack has-badge" data-count="{{.Count}}">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                </span>Notifications</a>
+            </li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+            </li>
+           
+          </ul>
+      </div>
+    </nav>
+     {{end}}
+    {{template "content" .}}
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; 3Lines 2018</span>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="http://twitter.com/threelinesus">
+                  <i class="zmdi zmdi-twitter-box"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="http://facebook.com/threelinesus">
+                  <i class="zmdi zmdi-facebook-box"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>       
+    <!-- Jquery JS-->
+    <script src="vendor2/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor2/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor2/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- vendor2 JS       -->
+    <script src="vendor2/slick/slick.min.js">
+    </script>
+    <script src="vendor2/wow/wow.min.js"></script>
+    <script src="vendor2/animsition/animsition.min.js"></script>
+    <script src="vendor2/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="vendor2/counter-up/jquery.waypoints.min.js"></script>
+    <script src="vendor2/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="vendor2/circle-progress/circle-progress.min.js"></script>
+    <script src="vendor2/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="vendor2/chartjs/Chart.bundle.min.js"></script>
+    <script src="vendor2/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+   <!--  <script src="js2/main.js"></script> -->
+    
+
+</body>
+    
+<script>
+      $('.detail').on('click', function() {
+        var ID = $(this).attr("id"); 
+        var URL = '/fundingappl?id=' + ID
+        //alert(URL);
+        window.document.location = URL;
+    
+});
+    </script>
+</html>
+<!-- end document-->
+{{end}}

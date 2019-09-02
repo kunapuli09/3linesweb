@@ -92,7 +92,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 			return ac.FormatMoney(f)
 		},
 	}
-	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
+	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
 	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)

@@ -1,56 +1,45 @@
 {{define "content"}}
 <section class="bg-light" id="news">
-   <div class="container">
-      <a href="/portfolio" class="btn btn-primary my-2">Back to Portfolio</a>
-      <div class="row">
-         <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Funding Requests Received</h3>
+   <!-- MAIN CONTENT-->
+   <div class="main-content">
+      <div class="section__content section__content--p30">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12">
+                  <a href="/portfolio" class="au-btn au-btn--small au-btn--green">Back to Portfolio</a>
+                  <h2 class="title-1 m-b-25">Applications</h2>
+                  <div class="table-responsive table--no-card m-b-40">
+                     <table class="table table-hover">
+                        <thead>
+                           <tr>
+                              <th scope="row">ID</th>
+                              <th>Application Date</th>
+                              <th>Founder Name</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Referrer</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {{range .Existing }}
+                           <tr id="{{.ID}}" class="detail">
+                              <th scope="row"><i class="zmdi zmdi-eye"></i></th>
+                              <td>{{.FormattedApplicationDate}}</td>
+                              <td>{{ .FirstName }} {{ .LastName }}</td>
+                              <td>{{ .Email }}</td>
+                              <td>{{ .Phone }}</td>
+                              <td>{{ .Referrer}}</td>
+                           </tr>
+                           {{end}}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
          </div>
-        <div class="table-responsive">
-         <table class="table table-striped">
-          <thead>
-            <tr>
-             <th scope="row">ID</th>
-             <td>Application Date</td>
-             <td>FirstName</td>
-             <td>LastName</td>
-             <td>Email</td>
-             <td>Phone</td>
-             <td>Referrer</td>
-             <td>CompanyName</td>
-             <td>Website</td>
-             <td>Industries</td>
-             <td>Locations</td>
-             <td>Revenue</td>
-             <td>CapitalRaised</td>
-             <td>Comments</td>
-             <td>ElevatorPitch</td>
-            </tr>
-          </thead>
-          <tbody>
-            {{range .Existing }}
-            <tr>
-             <th scope="row">{{.ID}}</th>
-             <td>{{.FormattedApplicationDate}}</td>
-             <td>{{ .FirstName }}</td>
-             <td>{{ .LastName }}</td>
-             <td>{{ .Email }}</td>
-             <td>{{ .Phone }}</td>
-             <td>{{ .Referrer}}</td>
-             <td>{{ .CompanyName }}</td>
-             <td>{{ .Website }}</td>
-             <td>{{ .Industries }}</td>
-             <td>{{ .Locations }}</td>
-             <td>{{ .Revenue}}</td>
-             <td>{{ .CapitalRaised }}</td>
-             <td>{{ .Comments }}</td>
-             <td>{{ .ElevatorPitch}}</td>
-            </tr>
-            {{end}}
-          </tbody>
-        </table>
       </div>
    </div>
- </div>
+   </div>
+   <!-- END MAIN CONTENT-->
 </section>
 {{end}}

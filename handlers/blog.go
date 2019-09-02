@@ -15,6 +15,11 @@ var m = map[int]string{
 	4: "templates/blog/blog4.html.tmpl",
 	5: "templates/blog/blog5.html.tmpl",
 	6: "templates/blog/blog6.html.tmpl",
+	7: "templates/blog/blog7.html.tmpl",
+	8: "templates/blog/blog8.html.tmpl",
+	9: "templates/blog/blog9.html.tmpl",
+	10: "templates/blog/blog10.html.tmpl",
+	11: "templates/blog/blog11.html.tmpl",
 }
 
 func GetBlog(w http.ResponseWriter, r *http.Request) {

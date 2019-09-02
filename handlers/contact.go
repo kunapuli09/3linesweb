@@ -223,7 +223,8 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 		defer wc.Close()
-		buf := bytes.NewBufferString(fmt.Sprintf("\n You have requested password reset link to 3lines investor dashboard. This link expires in the next 12 hours \n %s", passwordResetLink))
+		buf := bytes.NewBufferString(fmt.Sprintf("Subject: 3Lines Dashboard Password Reset!\r\n" +
+		"\r\n" + "\n You have requested password reset link to 3lines investor dashboard. This link expires in the next 12 hours \n %s", passwordResetLink))
 		if _, err = buf.WriteTo(wc); err != nil {
 			log.Fatal(err)
 		}

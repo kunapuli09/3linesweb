@@ -18,14 +18,14 @@
       <!-- date picker end  -->
       <!-- Custom styles for this template -->
       <link href="css/agency.min.css" rel="stylesheet">
-         <!-- Favicon.ico -->
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#00a300">
-    <meta name="theme-color" content="#ffffff">
+      <!-- Favicon.ico -->
+      <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+      <link rel="manifest" href="img/favicon/site.webmanifest">
+      <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#00a300">
+      <meta name="theme-color" content="#ffffff">
    </head>
    <body id="page-top">
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -37,173 +37,233 @@
             </button>
          </div>
       </nav>
-      <section id="contact">
-         <div class="container">
-         <div class="row">
-            <div class="col-lg-12 text-center">
-               <h2 class="section-heading text-uppercase">Application for Seed Funding</h2>
+      <form id="applicationForm" name="sentForm" method="post" action="/application">
+         <section id="contact">
+            <div class="container">
+            <div class="row">
+               <div class="col-lg-12 text-center">
+                  <h2 class="section-heading text-uppercase">Application for Seed Funding</h2>
+               </div>
+               <div class="intro-lead-in text-primary">Artificial Intelligence, Internet of Things, Cyber Security, Distributed Ledger Technologies, Cloud Edge, Enterprise Software and Other Startups Apply Here</div>
+               <div class="intro-lead-in"></div>
+               <div class="intro-lead-in"></div>
             </div>
-         </div>
-         <div class="row">
-            <div class="col-lg-12">
-               <form id="applicationForm" name="sentForm" method="post" action="/application">
-                  <div class="row">
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control" id="FirstName" type="text" placeholder="First Name *" required data-validation-required-message="Please enter your first name.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" id="LastName" type="text" placeholder="Last Name *" required data-validation-required-message="Please enter your last name.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" id="Email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" id="Phone" type="tel" pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' placeholder="Your Phone * 555-555-5555" required data-validation-required-message="Please enter your phone number.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" id="CompanyName" type="text" placeholder="Company Legal Name *" required data-validation-required-message="Please enter your company name.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <textarea class="form-control" id="ElevatorPitch" placeholder="Elevator pitch in 30 words or less *" required data-validation-required-message="Please enter Elevator pitch in 30 words or less."></textarea>
-                           <p class="help-block text-danger"></p>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <input class="form-control" type="text" pattern="https?://.+" id="Website" placeholder="Website * https://example.com" required data-validation-required-message="Please enter your website link.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input class="form-control" id="Referrer" type="text" placeholder="Who Referred You? *" required data-validation-required-message="Please enter the referrer's name.">
-                           <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="form-group">
-                           <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised in USD"  required autofocus>
-                        </div>
-                        <div class="form-group" id="Revenue">
-                              <div class="row">
-                                 <h6 style="color:White;">Revenue Status:</h6>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio4"> 
-                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio4" value="Pre-Revenue" required>
-                                 Pre Revenue</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio5"> 
-                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio5" value="Revenue Positive">
-                                 Revenue Positive
-                                 </label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio6"> 
-                                 <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio6" value="Profitable">
-                                 Profitable
-                                 </label>
-                              </div>
-                           </div>
-                           <div class="form-group" id="Locations">
-                              <div class="row">
-                                 <h6 style="color:White;">Please choose one of our locations:</h6>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio1"> 
-                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="US" required>
-                                 United States</label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio2"> 
-                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="India">
-                                 India
-                                 </label>
-                              </div>
-                              <div class="form-check form-check-inline">
-                                 <label class="form-check-label text-white" for="inlineRadio3"> 
-                                 <input class="form-check-input1" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Australia">
-                                 Australia
-                                 </label>
-                              </div>
-                           </div>
-                        <div class="form-group" id="Industries">
-                           <div class="row">
-                              <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check1">
-                              <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check2">
-                              <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check3">
-                              <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check4">
-                              <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check5">
-                              <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check6">
-                              <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Enterprise">Enterprise Software
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check7">
-                              <input type="checkbox" class="form-check-input" id="check7" name="option7" value="Mobility">Mobility
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check8">
-                              <input type="checkbox" class="form-check-input" id="check8" name="option8" value="FinTech">FinTech
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check9">
-                              <input type="checkbox" class="form-check-input" id="check9" name="option9" value="Agriculture">Agriculture
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check10">
-                              <input type="checkbox" class="form-check-input" id="check10" name="option10" value="Logistics">Supply Chain Logistics
-                              </label>
-                           </div>
-                           <div class="form-check form-check-inline">
-                              <label class="form-check-label text-white" for="check11">
-                              <input type="checkbox" class="form-check-input" id="check11" name="option11" value="Other">Other
-                              </label>
-                           </div>
-                           <div class="clearfix"></div>
-                           <div class="form-group">
-                              <textarea class="form-control" id="Comments" placeholder="Brief Summary of Funding Needs *"></textarea>
-                              <p class="help-block text-danger"></p>
-                           </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="clearfix"></div>
-                        <div id="successApplication"></div>
-                        <button id="sendApplicationButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit Application</button>
-                     </div>
-               </form>
+            <div class="row">
+               <div class="col-md-6 text-center">
+                  <span class="fa-stack fa-4x" >
+                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                  <i class="fa fa-usd fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <h4 style="color:White;">All Pre-Seed India Startups will be accepted for mentoring on mentorBaba platform and Top 3 winners will be awarded</h4> <h2 style="color:White;">Rs. 51,000</h2>
+               </div>
+               <div class="col-md-6 text-center">
+                  <span class="fa-stack fa-4x">
+                  <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                  <i class="fa fa-handshake-o fa-stack-1x fa-inverse"></i>
+                  </span>
+                  <h4 style="color:White;">All Seed through Series B Startup winners will be accepted into 3Lines due diligence and Top 2 winners will qualify for investment of upto <h2 style="color:White;">$1 Million</h2> USD</h6>
                </div>
             </div>
-         </div>
+            <div class="row">
+               <div class="col-md-6 text-center">
+                  <h4 class="service-heading">
+                     <h6 style="color:White;">
+                        <p>Day 1 (All Locations) : Pitch Competition</p>
+                     </h6>
+                  </h4>
+                  <h6 style="color:White;">Morning </h6>
+                  <p class="text-primary">
+                  Pre-Seed and Seed - Startups</br> Pitch Session : 
+                  9am - 12pm, 10 Startups </br> 
+                  Pitch Duration: 15 minutes</br>
+                  </p>
+                  <h6 style="color:White;">Afternoon </h6>
+                  <p class="text-primary">
+                  Seed+ ,  Series-A, and Series-B Startups </br>
+                  Pitch Session :  1:15PM - 4:15PM, 8 Startups </br> 
+                  Pitch Duration: 20 minutes</br>
+                  </p>
+               </div>
+               <div class="col-md-6 text-center">
+                  <h4 class="service-heading">
+                     <h6 style="color:White;">
+                        <p>Day 2 - Workshop by 3Lines General Partners from USA</p>
+                     </h6>
+                  </h4>
+                  <h6 style="color:White;">Morning </h6>
+                  <p class="text-primary">
+                  Pre-Seed and Seed - Startups</br> Venture Capital Awareness : 
+                  9am - 12pm</br>
+                  Topics : Valuations, and Team Building</p>
+                  <h6 style="color:White;">Afternoon </h6>
+                  <p class="text-primary">
+                  Seed+ and Series-A, Series-B Startups </br>
+                  Due Diligence Session :  1:15PM - 4:15PM</br></p>
+                  </p>
+                  <h6 style="color:White;">Evening</h6>
+                  <p class="text-primary">Awards and Networking Event with Special Guests</p>
+               </div>
+            </div>
+      <form id="applicationForm" name="sentForm" method="post" action="/application">
+      <div class="row">
+      <div class="col-md-12">
+      <div class="form-group" id="Program">
+      <h6 style="color:White;">Choose a location nearest to you</h6>
+      </label>
+      <div class="form-select form-select-inline">
+      <select id="Program" name="Program">
+      <option value="Adelaide, Australia">Adelaide, Australia: Feb 2020</option>
+      <option value="Bangalore, India">Bangalore: Dec 2nd – Dec 3rd (Monday-Tuesday)</option>
+      <option value="Denver, US">Denver: Oct 5th (Saturday)</option>
+      <option value="Delhi, India">JSL Delhi: Dec 16th (Monday)</option>
+      <option value="Gandhinagar, India">IIT Gandhinagar: Dec 9th – Dec 10th  (Monday-Tuesday)</option>
+      <option value="Hyderabad, India">Hyderabad: Dec 5th –  Dec 6th (Thursday-Friday)</option>
+      <option value="Kanpur, India">IIT Kanpur: Dec 12th (Thursday)</option>
+      <option value="NewYork, US">New York : Nov 2nd (Saturday)</option>
+      <option value="SanFrancisco, US">San Francisco: Sept 28th (Saturday)</option>
+      <option value="Web">Online Anywhere</option>
+      </select>
+      </div>
+      </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+      <div class="row">
+      <div class="col-md-6">
+      <div class="form-group">
+      <input class="form-control" id="FirstName" type="text" placeholder="First Name *" required data-validation-required-message="Please enter your first name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="LastName" type="text" placeholder="Last Name *" required data-validation-required-message="Please enter your last name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="Email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="Phone" type="tel" pattern='^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$' placeholder="Your Phone * 555-555-5555" required data-validation-required-message="Please enter your phone number.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="CompanyName" type="text" placeholder="Company Legal Name *" required data-validation-required-message="Please enter your company name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <textarea class="form-control" id="ElevatorPitch" placeholder="Elevator pitch in 30 words or less *" required data-validation-required-message="Please enter Elevator pitch in 30 words or less."></textarea>
+      <p class="help-block text-danger"></p>
+      </div>
+      </div>
+      <div class="col-md-6">
+      <div class="form-group">
+      <input class="form-control" type="text" pattern="https?://.+" id="Website" placeholder="Website * https://example.com" required data-validation-required-message="Please enter your website link.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="Referrer" type="text" placeholder="Who Referred You? *" required data-validation-required-message="Please enter the referrer's name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input id="CapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="Capital Raised in USD"  required autofocus>
+      </div>
+      <div class="form-group" id="Revenue">
+      <div class="row">
+      <h6 style="color:White;">Revenue Status:</h6>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="inlineRadio4"> 
+      <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio4" value="Pre-Revenue" required>
+      Pre Revenue</label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="inlineRadio5"> 
+      <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio5" value="Revenue Positive">
+      Revenue Positive
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="inlineRadio6"> 
+      <input class="form-check-input2" type="radio" name="inlineRadioOptions1" id="inlineRadio6" value="Profitable">
+      Profitable
+      </label>
+      </div>
+      </div>
+      <div class="form-group" id="Industries">
+      <div class="row">
+      <h6 style="color:White;">Please check the industries most closely related to your company:</h6>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check1">
+      <input type="checkbox" class="form-check-input" id="check1" name="option1" value="ArtificialIntelligence">Artificial Intelligence
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check2">
+      <input type="checkbox" class="form-check-input" id="check2" name="option2" value="SaaS">SaaS
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check3">
+      <input type="checkbox" class="form-check-input" id="check3" name="option3" value="Healthcare">Healthcare
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check4">
+      <input type="checkbox" class="form-check-input" id="check4" name="option4" value="CyberSecurity">Cyber Security
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check5">
+      <input type="checkbox" class="form-check-input" id="check5" name="option5" value="InternetofThings">Internet of Things
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check6">
+      <input type="checkbox" class="form-check-input" id="check6" name="option6" value="Enterprise">Enterprise Software
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check7">
+      <input type="checkbox" class="form-check-input" id="check7" name="option7" value="Mobility">Mobility
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check8">
+      <input type="checkbox" class="form-check-input" id="check8" name="option8" value="FinTech">FinTech
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check9">
+      <input type="checkbox" class="form-check-input" id="check9" name="option9" value="Agriculture">Agriculture
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check10">
+      <input type="checkbox" class="form-check-input" id="check10" name="option10" value="Logistics">Supply Chain Logistics
+      </label>
+      </div>
+      <div class="form-check form-check-inline">
+      <label class="form-check-label text-white" for="check11">
+      <input type="checkbox" class="form-check-input" id="check11" name="option11" value="Other">Other
+      </label>
+      </div>
+      <div class="clearfix"></div>
+      <div class="form-group">
+      <textarea class="form-control" id="Comments" placeholder="Brief Summary of Funding Needs *"></textarea>
+      <p class="help-block text-danger"></p>
+      </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="clearfix"></div>
+      <div id="successApplication"></div>
+      <button id="sendApplicationButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit Application</button>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>
       </section>
       <!-- Footer -->
       <footer>
@@ -251,7 +311,6 @@
          
          gtag('config', 'UA-77741671-1');
       </script>
-      
    </body>
 </html>
 {{end}}

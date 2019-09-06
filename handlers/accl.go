@@ -102,6 +102,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	decoder := schema.NewDecoder()
 	decoder.RegisterConverter(sql.NullString{}, ConvertSQLNullString)
 	err1 := decoder.Decode(&i, r.PostForm)
+	fmt.Printf("Form %v", r.PostForm)
 	if err1 != nil {
 		fmt.Println("decoding error")
 		libhttp.HandleErrorJson(w, err1)

@@ -24,21 +24,14 @@ $(function() {
         industriesArray.push($(this).val());
       });
       industries = industriesArray.join(',') ;
-      // if(industries.length > 0){
-      //   alert("You have selected " + industries); 
-      // }else{
-      //   alert("Please at least check one of the checkbox"); 
-      // }
       /* declare an checkbox array */
       /* we join the array separated by the comma */
       var locationsArray = [];
       var locations;
-      
-      /* look for all checkboes that have a class 'chk' attached to it and check if it was checked */
-      $(".form-check-input1:checked").each(function() {
-        locationsArray.push($(this).val());
-      });
+      locationsArray.push($( "#Program option:selected" ).val());
       locations = locationsArray.join(',') ;
+
+       
       var revenueArray = [];
       var revenue;
       
@@ -47,11 +40,6 @@ $(function() {
         revenueArray.push($(this).val());
       });
       revenue = revenueArray.join(',') ;
-      // if(locations.length > 0){
-      //   alert("You have selected " + locations); 
-      // }else{
-      //   alert("Please at least check one of the checkbox"); 
-      // }
       var Industries = industries;
       var Locations = locations;
       var Revenue = revenue;

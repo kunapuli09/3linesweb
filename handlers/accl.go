@@ -47,7 +47,41 @@ func FundingRequests(w http.ResponseWriter, r *http.Request) {
 		getCount(w, r, currentUser.Email),
 		allreqs,
 	}
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/fundingreqs.html.tmpl")
+	tmpl, err := template.ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingreqs.html.tmpl")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+func FundingAppl(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	appl, err := models.NewAppl(db).GetById(nil, ID)
+	//create session date for page rendering
+	data := struct {
+		CurrentUser *models.UserRow
+		Count       int
+		Existing    *models.ApplRow
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		appl,
+	}
+	tmpl, err := template.ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
@@ -68,6 +102,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	decoder := schema.NewDecoder()
 	decoder.RegisterConverter(sql.NullString{}, ConvertSQLNullString)
 	err1 := decoder.Decode(&i, r.PostForm)
+	fmt.Printf("Form %v", r.PostForm)
 	if err1 != nil {
 		fmt.Println("decoding error")
 		libhttp.HandleErrorJson(w, err1)

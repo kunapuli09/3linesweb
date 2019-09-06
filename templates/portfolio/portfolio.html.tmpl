@@ -5,74 +5,126 @@
           <h1 class="jumbotron-heading">Investment Portfolio</h1>
           <p class="lead text-muted">Access to Investment Reports</p>
           <p>
-            <a href="/newinvestment" class="btn btn-primary my-2">Add New Investment</a> <a href="/fundingreqs" class="btn btn-primary my-2">Funding Requests</a>  <a href="/contributions" class="btn btn-primary my-2">Investor Contributions</a>
+            <a href="/newinvestment" class="au-btn au-btn-icon au-btn--blue">Add New Investment</a> <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--green">Funding Requests</a> <a href="/contributions" class="au-btn au-btn-icon au-btn--blue2">Investor Contributions</a>
           </p>
         </div>
       </section>
       {{end}}
-      <div class="album py-5 bg-light">
-        <div class="row">
-          <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body bg-primary" >
-                  <h1 class="jumbotron-heading">Total Raised</h1>
-                  <p class="card-text"><h5><i class="fa fa-dollar fa-4x ">1,480,000</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body bg-success">
-                  <h1 class="jumbotron-heading">Total Committed</h1>
-                  <p class="card-text"><h5><i class="fa fa-dollar fa-4x ">1,025,000</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow" >
-                <div class="card-body bg-warning">
-                  <h1 class="jumbotron-heading">Follow-on Reserve</h1>
-                  <p class="card-text"><h5><i class="fa fa-dollar fa-4x ">175,000</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body bg-success">
-                  <p class="card-text"><h5><i class="fa fa-tachometer fa-4x ">Portfolio</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    Artificial Intelligence 4, Cyber Security 2, SaaS 2, Medical Device 1, India 1, App 1, Agriculture 2 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body bg-info">
-                  <h1 class="jumbotron-heading">Total Invested</h1>
-                  <p class="card-text"><h5><i class="fa fa-dollar fa-4x ">875,000</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <div class="card-body bg-primary">
-                  <h1 class="jumbotron-heading">Expense Reserve</h1>
-                  <p class="card-text"><h5><i class="fa fa-dollar fa-4x ">59,233.28</i></h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                  </div>
-                </div>
-              </div>
-            </div>
-        </div>
+      <div class="row m-t-25">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c3">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>1,480,000</h2>
+                                                <span>Total Raised</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <!-- <canvas id="widgetChart1"></canvas> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>1,025,000</h2>
+                                                <span>Total Committed</span>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>175,000</h2>
+                                                <span>Follow-on Reserve</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart3"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-t-25">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>875,000</h2>
+                                                <span>Total Invested</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c1">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-apps"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>Portfolio</h2>
+                                                <span>Artificial Intelligence 4, Cyber Security 2, SaaS 2, Medical Device 1, India 1, App 1, Agriculture 2 </span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="widgetChart4"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>59,233.28</h2>
+                                                <span>Expense Reserve</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <!-- <canvas id="widgetChart1"></canvas> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
         <div class="album py-5 bg-white">
         <div class="container">
           {{if .CurrentUser.Admin }}
@@ -91,9 +143,7 @@
                 <div class="card-body">
                   <p class="card-text">{{.Description | safeHTML}}</p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
                       <a class="btn btn-sm btn-info" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
-                    </div>
                     <small class="text-muted">{{.Industry}}</small>
                   </div>
                 </div>
@@ -117,9 +167,7 @@
                 <div class="card-body">
                   <p class="card-text">{{.Description | safeHTML}}</p>
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-info" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
-                    </div>
+                    <a class="au-btn au-btn--small au-btn--blue" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
                     <small class="text-muted">{{.Industry}}</small>
                   </div>
                 </div>
@@ -142,13 +190,9 @@
               <div class="card mb-4 box-shadow">
                 <a onclick='newTab("{{.Website}}")'><img class="card-img-top" src="{{.LogoPath}}" alt="{{.StartupName}}"></a>
                 <div class="card-body">
-                  <p class="card-text">{{.Description | safeHTML}}</p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-info" href="/viewinvestment?id={{.ID}}" role="button">Investor Dashboard</a>
-                    </div>
+                  <p class="text">{{.Description | safeHTML}}</p>
+                 <a class="au-btn au-btn--small au-btn--blue2" href="/viewinvestment?id={{.ID}}" role="button">Investor <i class="zmdi zmdi-eye zmdi-hc-2x"></i> Dashboard</a>
                     <small class="text-muted">{{.Industry}}</small>
-                  </div>
                 </div>
               </div>
             </div>

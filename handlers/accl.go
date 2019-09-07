@@ -36,7 +36,9 @@ func FundingRequests(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	allreqs, err := models.NewAppl(db).AllAppls(nil)
+	location := r.FormValue("Location")
+	companyName := r.FormValue("CompanyName")
+	allreqs, err := models.NewAppl(db).Search(nil, companyName, location)
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow

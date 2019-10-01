@@ -92,11 +92,11 @@ func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, e)
 		return
 	}
-	ScreenerEmail := r.FormValue("ScreenerEmail")
-	if e != nil {
-		libhttp.HandleErrorJson(w, e)
-		return
-	}
+	// ScreenerEmail := r.FormValue("ScreenerEmail")
+	// if e != nil {
+	// 	libhttp.HandleErrorJson(w, e)
+	// 	return
+	// }
 	// r.PostForm is a map of our POST form values
 	decoder := schema.NewDecoder()
 	decoder.RegisterConverter(time.Time{}, ConvertFormDate)

@@ -1,5 +1,5 @@
 {{define "content"}}
-<section class="bg-light" id="news">
+<section class="bg-light" id="fundingreqs">
     <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
@@ -9,9 +9,11 @@
                                 <div class="overview-wrap">
                                     <!-- <h2 class="title-1">Application Details</h2> -->
                                     <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a> 
+                                   <a href="/screeningNotes?Application_ID={{.Existing.ID}}" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-plus"></i>Add/Edit Deal Screening Notes</a>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row m-t-25">
                             <div class="col-sm-6 col-lg-3">
                                 <div class="overview-item overview-item--c1">
@@ -22,7 +24,9 @@
                                             </div>
                                             <div class="text">
                                                 <h2>{{ .Existing.CompanyName }}</h2>
-                                                <span>Startup Name</span>
+                                                <span>{{ .Existing.Email }}</span></br>
+                                                <span>Phone: {{ .Existing.Phone }}</span></br>
+                                                <span>Referrer: {{ .Existing.Referrer }}</span></br>
                                             </div>
                                         </div>
                                         <div class="overview-chart">
@@ -112,8 +116,60 @@
                                     </div>
                                     {{ .Existing.ElevatorPitch}}
                                 </div>
+                                {{range .AllNotes }}
+                                <div class="au-card chart-percent-card">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 tm-b-5">Screening Comments</h3> {{.Status}}ED By {{.ScreenerEmail}}
+                                    </div>
+                                    {{.Comments}}
+                                </div>
+                                {{end}}
                             </div>
+                            
                         </div>
+                         {{if .AllNotes }}
+                        <div class="row">
+                        <h3 class="title-2">Screening Interview Notes (Risk Scores: Low Scores are good.)</h3>
+                        <div class="table-responsive table--no-card m-b-40">
+                                         <table class="table">
+                                            <thead>
+                                               <tr>
+                                                  <th scope="row">Interviewer</th>
+                                                  <th>Need</th>
+                                                  <th>Date</th>
+                                                  <th>Exit</th>
+                                                  <th>Team</th>
+                                                  <th>Barrier To Entry</th>
+                                                  <th>Tech</th>
+                                                  <th>Political</th>
+                                                  <th>Supplier</th>
+                                                  <th>Execution</th>
+                                                  <th>Market</th>
+                                                  <th>Scaling</th>
+                                               </tr>
+                                            </thead>
+                                            <tbody>
+                                               {{range .AllNotes }}
+                                               <tr>
+                                                  <td>{{.ScreenerEmail}}</td>
+                                                  <td>{{.Need}}</td>
+                                                  <td>{{.FormattedScreeningDate}}</td>
+                                                  <td>{{ .ExitRisk }}</td>
+                                                  <td>{{ .TeamRisk }} </td>
+                                                  <td>{{ .BarrierToEntry }}</td>
+                                                  <td>{{ .TechRisk }}</td>
+                                                  <td>{{ .PoliticalRisk }}</td>
+                                                  <td>{{ .SupplierRisk }}</td>
+                                                  <td>{{ .ExecutionRisk }}</td>
+                                                  <td>{{ .MarketRisk }}</td>
+                                                  <td>{{ .ScalingRisk }}</td>
+                                               </tr>
+                                               {{end}}
+                                            </tbody>
+                                         </table>
+                                      </div>
+                                  </div>
+                                  {{end}}
                         </div>
                         </div>
                     </div>

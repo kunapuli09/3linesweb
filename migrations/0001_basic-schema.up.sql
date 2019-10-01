@@ -147,6 +147,31 @@ CREATE TABLE applications (
     UNIQUE KEY (Website)
 )ENGINE=INNODB;
 
+CREATE TABLE screeningnotes (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    application_id bigint(20) unsigned NOT NULL,
+    ScreeningDate timestamp,
+    ScreenerEmail VARCHAR(255) NOT NULL,
+    Need VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) NOT NULL,
+    TeamRisk TINYINT NOT NULL DEFAULT '5',
+    BarrierToEntry TINYINT NOT NULL DEFAULT '5',
+    TechRisk TINYINT NOT NULL DEFAULT '5',
+    CompetitionRisk TINYINT NOT NULL DEFAULT '5',
+    PoliticalRisk TINYINT NOT NULL DEFAULT '5',
+    SupplierRisk TINYINT NOT NULL DEFAULT '5',
+    ExecutionRisk TINYINT NOT NULL DEFAULT '5',
+    MarketRisk TINYINT NOT NULL DEFAULT '5',
+    ScalingRisk TINYINT NOT NULL DEFAULT '5',
+    ExitRisk TINYINT NOT NULL DEFAULT '5',
+    Comments TEXT(255),
+    INDEX scr_ind (application_id),
+        FOREIGN KEY (application_id)
+        REFERENCES applications(id)
+        ON DELETE CASCADE
+)ENGINE=INNODB;
+
+
 CREATE TABLE notifications (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,

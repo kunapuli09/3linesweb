@@ -27,12 +27,12 @@ type ApplRow struct {
 	Phone           string          `db:"Phone"`
 	Website         string          `db:"Website"`
 	Title           sql.NullString  `db:"Title"`
-	Referrer        string  `db:"Referrer"`
-	Industries      string  `db:"Industries"`
-	Locations       string  `db:"Locations"`
-	Revenue         string  `db:"Revenue"`
+	Referrer        string          `db:"Referrer"`
+	Industries      string          `db:"Industries"`
+	Locations       string          `db:"Locations"`
+	Revenue         string          `db:"Revenue"`
 	Comments        string          `db:"Comments"`
-	ElevatorPitch   string  `db:"ElevatorPitch"`
+	ElevatorPitch   string          `db:"ElevatorPitch"`
 	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
 }
 
@@ -52,6 +52,7 @@ func (i *Appl) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*ApplRow
 
 	return i.GetById(tx, isId)
 }
+
 // GetById returns record by id.
 func (i *Appl) GetById(tx *sqlx.Tx, id int64) (*ApplRow, error) {
 	isr := &ApplRow{}
@@ -72,27 +73,27 @@ func (i *Appl) AllAppls(tx *sqlx.Tx) ([]*ApplRow, error) {
 }
 
 // Search By CompanyName or Location returns records query.
-func (i *Appl) Search(tx *sqlx.Tx, companyName string, location string) ([]*ApplRow, error)  {
+func (i *Appl) Search(tx *sqlx.Tx, companyName string, location string) ([]*ApplRow, error) {
 	var query string
 	var err error
 	isrs := []*ApplRow{}
-	if (len(companyName) > 0 && len(location) > 0){
+	if len(companyName) > 0 && len(location) > 0 {
 		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ?", i.table)
 		err = i.db.Select(&isrs, query, location+"%", companyName+"%")
 		return isrs, err
-	} 
-	if (len(companyName) > 0 && len(location) == 0){
+	}
+	if len(companyName) > 0 && len(location) == 0 {
 		query = fmt.Sprintf("SELECT * FROM %v WHERE CompanyName Like ?", i.table)
 		err = i.db.Select(&isrs, query, companyName+"%")
 		return isrs, err
 	}
-	if (len(companyName) == 0 && len(location) > 0){
+	if len(companyName) == 0 && len(location) > 0 {
 		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ?", i.table)
 		err = i.db.Select(&isrs, query, location+"%")
 		return isrs, err
 	}
 	return i.AllAppls(tx)
-	
+
 }
 
 // GetByName returns record by name.

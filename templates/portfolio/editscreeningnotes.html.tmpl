@@ -1,0 +1,138 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+   <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a> 
+   <div class="row">
+      <div class="col-lg-12 text-center">
+         <h3 class="section-heading text-uppercase">Add or Change Screening Notes for Startup {{.Application.CompanyName}}</h3>
+      </div>
+   </div>
+   <div class="row">
+    <div class="col-md-3">
+        <form method="post" class="range-field" action="/updateScreeningNotes"/>
+      <input type="hidden" name="id" id="id" value="{{.ScreeningNotes.ID}}"/>
+      <input type="hidden" name="Application_ID" id="Application_ID" value="{{.Application.ID}}"/>
+      <input type="hidden" name="ScreenerEmail" id="ScreenerEmail" value="{{.CurrentUser.Email}}"/>
+     
+         <div class="form-group">
+            <label for="Need">Customer Need for the Startup Solution</label>
+            <select class="form-control" id="Need" name="Need">
+               <option value="RealNeed" {{ if eq "RealNeed" .ScreeningNotes.Need }}selected="selected"{{ end }}>Compelling Need</option>
+               <option value="NiceToHave" {{ if eq "NiceToHave" .ScreeningNotes.Need }}selected="selected"{{ end }}>Nice to Have</option>
+               <option value="NotConvinced" {{ if eq "NotConvinced" .ScreeningNotes.Need }}selected="selected"{{ end }}>Not Convinced</option>
+            </select>
+         </div>
+         <div class="form-group">
+            <label for="Status">Screening Status</label>
+            <select class="form-control" id="Status" name="Status">
+               <option value="RECOMMEND" {{ if eq "RECOMMEND" .ScreeningNotes.Status }}selected="selected"{{ end }}>Recommend</option>
+               <option value="TRACK" {{ if eq "TRACK" .ScreeningNotes.Status }}selected="selected"{{ end }}>Track</option>
+               <option value="ARCHIVE" {{ if eq "ARCHIVE" .ScreeningNotes.Status }}selected="selected"{{ end }}>Archive</option>
+            </select>
+         </div>
+         <label for="ScreeningDate">Screening Date</label>
+         <div class="input-group date" data-provide="datepicker-inline">
+            <input type="text" id="ScreeningDate" name="ScreeningDate" value="{{ .ScreeningNotes.ScreeningDate }}" class="form-control" required autofocus>
+            <div class="input-group-addon">
+               <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
+            </div>
+         </div>
+         <label for="ExitRisk">
+            <h4 class="display-6" style="color:#0d47a1">Exit Risk <span id="ExitRiskValLabel">Score: <span id="ExitRiskVal">5</span></span></h4>
+         </label>
+         <small id="exitHelp" class="form-text text-muted">Zero(0) is Low Risk and Ten(10) is Very High Risk. High Risk Factors: Businesses with low market cap are not acquirable. Tech innovations alone with no revenues are not acquirable. Very limited acquisition potential in industries like Agriculture. 
+         </small>
+         <div class="form-group">
+            <input id="ExitRisk" name="ExitRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.ExitRisk }}"/>
+         </div>
+      </div>
+      <div class="col-md-3">
+         <label for="TeamRisk">
+            <h4 class="display-6" style="color:#0d47a1">Team Risk <span id="TeamRiskValLabel">Score: <span id="TeamRiskVal">5</span></span></h4>
+         </label>
+         <small id="teamHelp" class="form-text text-muted">High Risk Factors: First startup for the founder, part time commitment, lack of experience in the startup problem domain, no team or single member, team with no complementary skill or no advisors
+         </small>
+         <div class="form-group">
+            <input id="TeamRisk" name="TeamRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.TeamRisk }}" />
+         </div>
+         <label for="BarrierToEntry">
+            <h4 class="display-6" style="color:#0d47a1">Barrier To Entry Risk <span id="BarrierToEntryValLabel">Score: <span id="BarrierToEntryVal">5</span></span></h4>
+         </label>
+         <small id="barrierHelp" class="form-text text-muted">High Risk Factors: A business model that can be easily copied or replaced is with low barrier to entry and a very high risk. Intellectual property like many customers and patents..etc create some barrier and are relatively low risk. 
+         </small>
+         <div class="form-group">
+            <input id="BarrierToEntry" name="BarrierToEntry" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.BarrierToEntry }}"/>
+         </div>
+         <label for="TechRisk">
+            <h4 class="display-6" style="color:#0d47a1">Technology Or Product Risk <span id="TechRiskValLabel">Score: <span id="TechRiskVal">5</span></span></h4>
+         </label>
+         <small id="techHelp" class="form-text text-muted"> High Risk Factors: Large capital need to mitigate technical risks or incomplete MVPs or lack of tech resources to complete the MVP are very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="TechRisk" name="TechRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.TechRisk }}"/>
+         </div>
+      </div>
+      <div class="col-md-3">
+         <label for="CompetitionRisk">
+            <h4 class="display-6" style="color:#0d47a1">Competition Risk <span id="CompetitionRiskValLabel">Score: <span id="CompetitionRiskVal">5</span></span></h4>
+         </label>
+         <small id="competitionHelp" class="form-text text-muted"> High Risk Factors: Eastblished market players selling similar products/services lead to very high competitive risk. Product or Service Offering with low price strategy or very limited feature set that differentiates established players is very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="CompetitionRisk" name="CompetitionRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.CompetitionRisk }}"/>
+         </div>
+         <label for="PoliticalRisk">
+            <h4 class="display-6" style="color:#0d47a1">Political Or Regulatory Or Legal Risk <span id="PoliticalRiskValLabel">Score: <span id="PoliticalRiskVal">5</span></span></h4>
+         </label>
+         <small id="politicalHelp" class="form-text text-muted">High Risk Factors: Businesses tied to industries like Cannibas or Alcohal can fail due to regulatory or legal changes. Businesses in emerging markets like India are very high political risk.  
+         </small>
+         <div class="form-group">
+            <input id="PoliticalRisk" name="PoliticalRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.PoliticalRisk }}"/>
+         </div>
+         <label for="SupplierRisk">
+            <h4 class="display-6" style="color:#0d47a1">Partners Or Suppliers Risk <span id="SupplierRiskValLabel">Score: <span id="SupplierRiskVal">5</span></span></h4>
+         </label>
+         <small id="supplierHelp" class="form-text text-muted">High Risk Factors: Limited supply of dependendent parts/services or an API from 3rd party are very High Risk. Lack of right partners critical to business is a very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="SupplierRisk" name="SupplierRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.SupplierRisk }}"/>
+         </div>
+      </div>
+      <div class="col-md-3">
+         <label for="ExecutionRisk">
+            <h4 class="display-6" style="color:#0d47a1">Execution Risk <span id="ExecutionRiskValLabel">Score: <span id="ExecutionRiskVal">5</span></span></h4>
+         </label>
+         <small id="executionHelp" class="form-text text-muted">High Risk Factors: Businesses that need high growth to establish a strong market presence prior to competition need strong growth experience from the founding team. A team without proven growth or market experience is very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="ExecutionRisk" name="ExecutionRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.ExecutionRisk }}"/>
+         </div>
+         <label for="MarketRisk">
+            <h4 class="display-6" style="color:#0d47a1">Market Risk <span id="MarketRiskValLabel">Score: <span id="MarketRiskVal">5</span></span></h4>
+         </label>
+         <small id="marketHelp" class="form-text text-muted">High Risk Factors: Slow growing markets like Agriculture or energy markets are very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="MarketRisk" name="MarketRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.MarketRisk }}"/>
+         </div>
+         <label for="ScalingRisk">
+            <h4 class="display-6" style="color:#0d47a1">Scaling Risk <span id="ScalingRiskValLabel">Score: <span id="ScalingRiskVal">5</span></span></h4>
+         </label>
+         <small id="scalingHelp" class="form-text text-muted">High Risk Factors: Business with a non-linear capital requirement for growth are very high risk. Ex: A sales person can sell to 10 customers and the expectation is that 10 sales people will sell to 100. If the model needs 20 sales people to sell to 100 customers it's non-linear and very high risk. 
+         </small>
+         <div class="form-group">
+            <input id="ScalingRisk" name="ScalingRisk" type="range" min="0" max="10" class="custom-range" value="{{ .ScreeningNotes.ScalingRisk }}"/>
+         </div>
+       </div>
+       <div class="col-md-6">
+       <div class="form-group">
+      <textarea id="Comments" class="form-control" rows="5" name="Comments" PlaceHolder="Additional Screening Comments">{{ .ScreeningNotes.Comments | safeHTML }}</textarea>
+      <button class="btn btn-md btn-primary btn-block" type="submit">Update Screening Notes</button>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+      
+</section>
+{{end}}

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/fatih/structs"
 	"github.com/gorilla/schema"
@@ -12,7 +13,6 @@ import (
 	"net/http"
 	"strconv"
 	"time"
-	"database/sql"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -73,15 +73,18 @@ func FundingAppl(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	appl, err := models.NewAppl(db).GetById(nil, ID)
+	allNotes, err := models.NewScreeningNotes(db).AllScreeningNotesByApplicationId(nil, ID)
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
 		Count       int
 		Existing    *models.ApplRow
+		AllNotes     []*models.ScreeningNotesRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		appl,
+		allNotes,
 	}
 	tmpl, err := template.ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")
 	if err != nil {

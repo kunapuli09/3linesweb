@@ -8,6 +8,9 @@
           <div class="col-lg-6 text-center">
             <h2 class="section-heading text-uppercase">Search Applications</h2>
           </div>
+          <div class="col-lg-6 text-center">
+            <a href="/portfolio" class="au-btn au-btn--small au-btn--green">Back to Portfolio</a>
+          </div>
         </div>
             <div class="row">
                <div class="col-md-12">
@@ -18,11 +21,25 @@
                      </div>
                   </div>
                      <div class="col-md-6">
-                     <div class="form-group">
-                        <input name="Location" type="text" class="form-control" placeholder="Search by a Location, Ex: Den" value=""  autofocus/>
+                      <div class="form-group">
+                       <input name="Location" type="text" class="form-control" placeholder="Search by a Location,  Ex: Den" value=""  autofocus/>
+                       </div>
+                          
+                       <div class="form-check form-check-inline">
+                     <input type="checkbox" name="Status" value="RECOMMEND">Recommended</input>
+                     
+                     </div>
+                     <div class="form-check form-check-inline">
+                     <input type="checkbox" name="Status" value="TRACK">Tracking</input>
+                     </div>
+                     <div class="form-check form-check-inline">
+                     <input type="checkbox" name="Status" value="ARCHIVE">Archived</input>
+                     </div>
+                     <div class="form-check form-check-inline">
+                     <input type="checkbox" name="Status" value="FASTTRACK">Fast Track</input>
                      </div>
                         <button class="au-btn au-btn--small au-btn--blue" type="submit">Search</button>
-                        <a href="/portfolio" class="au-btn au-btn--small au-btn--green">Back to Portfolio</a>
+                        
                      </div>
                   </form>
                   </div>

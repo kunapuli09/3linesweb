@@ -28,6 +28,7 @@
                <option value="RECOMMEND" {{ if eq "RECOMMEND" .ScreeningNotes.Status }}selected="selected"{{ end }}>Recommend</option>
                <option value="TRACK" {{ if eq "TRACK" .ScreeningNotes.Status }}selected="selected"{{ end }}>Track</option>
                <option value="ARCHIVE" {{ if eq "ARCHIVE" .ScreeningNotes.Status }}selected="selected"{{ end }}>Archive</option>
+               <option value="FASTTRACK" {{ if eq "FASTTRACK" .ScreeningNotes.Status }}selected="selected"{{ end }}>Fast Track</option>
             </select>
          </div>
          <label for="ScreeningDate">Screening Date</label>

@@ -6,6 +6,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
 	"time"
+	"strings"
 )
 
 func NewAppl(db *sqlx.DB) *Appl {
@@ -40,6 +41,13 @@ type Appl struct {
 	Base
 }
 
+type Search struct {
+	CompanyName string
+	Location string
+	Status   []string
+}
+
+
 func (ar *ApplRow) FormattedApplicationDate() string {
 	return ar.ApplicationDate.Format("01/02/2006")
 }
@@ -73,23 +81,29 @@ func (i *Appl) AllAppls(tx *sqlx.Tx) ([]*ApplRow, error) {
 }
 
 // Search By CompanyName or Location returns records query.
-func (i *Appl) Search(tx *sqlx.Tx, companyName string, location string) ([]*ApplRow, error) {
+func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 	var query string
 	var err error
 	isrs := []*ApplRow{}
-	if len(companyName) > 0 && len(location) > 0 {
+	companyName := data.CompanyName
+	location := data.Location
+	statuses := strings.Join(data.Status, ",")
+
+	if len(data.Status) > 0 {
+		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN screeningnotes s ON a.id=s.application_id WHERE a.CompanyName Like ? AND a.Locations Like ? AND s.Status in (?)", i.table)
+    	err = i.db.Select(&isrs, query, location+"%", companyName+"%", statuses)
+    	if err != nil {
+    		fmt.Println("Search1 Error %v", err)
+			return nil, err
+		}
+		return isrs, err
+	}else{
 		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ?", i.table)
 		err = i.db.Select(&isrs, query, location+"%", companyName+"%")
-		return isrs, err
-	}
-	if len(companyName) > 0 && len(location) == 0 {
-		query = fmt.Sprintf("SELECT * FROM %v WHERE CompanyName Like ?", i.table)
-		err = i.db.Select(&isrs, query, companyName+"%")
-		return isrs, err
-	}
-	if len(companyName) == 0 && len(location) > 0 {
-		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ?", i.table)
-		err = i.db.Select(&isrs, query, location+"%")
+		if err != nil {
+    		fmt.Println("Search2 Error %v", err)
+			return nil, err
+		}
 		return isrs, err
 	}
 	return i.AllAppls(tx)

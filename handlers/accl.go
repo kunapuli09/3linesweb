@@ -27,6 +27,7 @@ func NewApplication(w http.ResponseWriter, r *http.Request) {
 }
 
 func FundingRequests(w http.ResponseWriter, r *http.Request) {
+	var i models.Search
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
@@ -36,9 +37,20 @@ func FundingRequests(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	location := r.FormValue("Location")
-	companyName := r.FormValue("CompanyName")
-	allreqs, err := models.NewAppl(db).Search(nil, companyName, location)
+	err := r.ParseForm()
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	// r.PostForm is a map of our POST form values
+	decoder := schema.NewDecoder()
+	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
+	err1 := decoder.Decode(&i, r.PostForm)
+	if err1 != nil {
+		libhttp.HandleErrorJson(w, err1)
+		return
+	}
+	allreqs, err := models.NewAppl(db).Search(nil, i)
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow

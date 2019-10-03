@@ -9,11 +9,9 @@
                                 <div class="overview-wrap">
                                     <!-- <h2 class="title-1">Application Details</h2> -->
                                     <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a> 
-                                   <a href="/screeningNotes?Application_ID={{.Existing.ID}}" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-plus"></i>Add/Edit Deal Screening Notes</a>
+                                   <a href="/screeningNotes?Application_ID={{.Existing.ID}}" class="au-btn au-btn-icon au-btn--blue"><i class="zmdi zmdi-plus"></i>Screening Notes</a>
                                 </div>
-                            </div>
-                        </div>
-
+                                <div class="form-group" id="Industries">
                         <div class="row m-t-25">
                             <div class="col-sm-6 col-lg-3">
                                 <div class="overview-item overview-item--c1">
@@ -117,12 +115,15 @@
                                     {{ .Existing.ElevatorPitch}}
                                 </div>
                                 {{range .AllNotes }}
+                         
+                                <div class="overview-item overview-item--c4">
                                 <div class="au-card chart-percent-card">
                                     <div class="au-card-inner">
                                         <h3 class="title-2 tm-b-5">Screening Comments</h3> {{.Status}}ED By {{.ScreenerEmail}}
                                     </div>
                                     {{.Comments}}
                                 </div>
+                              </div>
                                 {{end}}
                             </div>
                             
@@ -170,8 +171,8 @@
                                       </div>
                                   </div>
                                   {{end}}
-                        </div>
-                        </div>
+                      </div>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -407,6 +407,12 @@
     output11.innerHTML = this.value;
     }
    </script>
+   <script>
+    $(document).ready(function() {
+    $('#ScreeningDate').datepicker();
+    $('#ScreeningDate').datepicker('setDate', 'today');
+    });
+   </script>
   </body>
 </html>
 {{end}}

@@ -125,7 +125,7 @@ func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	}
-	address := fmt.Sprintf("/screeningNotes?Application_ID=%v&id=%v", Application_ID, ScreeningNotes_ID)
+	address := fmt.Sprintf("/fundingappl?id=%v", Application_ID)
 	http.Redirect(w, r, address, 302)
 }
 

@@ -203,8 +203,11 @@ CREATE TABLE contributions (
 alter table applications ADD  Referrer VARCHAR(255);
 alter table applications ADD  ElevatorPitch VARCHAR(255);
 alter table applications ADD  Revenue VARCHAR(255);
-ALTER TABLE 3linesweb.applications ADD INDEX  CompanyName_Index (CompanyName);
-ALTER TABLE 3linesweb.applications ADD INDEX  Locations_Index (Locations);
+ALTER TABLE applications ADD INDEX  CompanyName_Index (CompanyName);
+ALTER TABLE applications ADD INDEX  Locations_Index (Locations);
+ALTER TABLE investments ADD Investor VARCHAR(255);
+SET SQL_SAFE_UPDATES = 0;
+UPDATE  investments SET Investor="3Lines 2016 Discretionary Fund, LLC";
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
 

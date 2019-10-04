@@ -48,10 +48,10 @@ func ScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	//fmt.Printf("screeningnotes%v", screeningNotes)
 	//create session date for page rendering
 	data := struct {
-		CurrentUser *models.UserRow
-		Count       int
-		Application  *models.ApplRow
-		ScreeningNotes    *models.ScreeningNotesRow
+		CurrentUser    *models.UserRow
+		Count          int
+		Application    *models.ApplRow
+		ScreeningNotes *models.ScreeningNotesRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -76,7 +76,7 @@ func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
 	var i models.ScreeningNotesRow
-	
+
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -111,19 +111,19 @@ func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 		//fmt.Printf("Creating New Notes with ApplicationID%v, ScreenerEmail%v", Application_ID, ScreenerEmail)
 		notes, err2 := models.NewScreeningNotes(db).Create(nil, m)
 		if err2 != nil {
-		libhttp.HandleErrorJson(w, err2)
-		return
+			libhttp.HandleErrorJson(w, err2)
+			return
 		}
 		ScreeningNotes_ID = notes.ID
 
-	}else{
+	} else {
 		//fmt.Printf("Updating Notes with ApplicationID%v, ScreeningNotes_ID%v", Application_ID, ScreeningNotes_ID)
-		
-	    _, err3 := models.NewScreeningNotes(db).UpdateById(nil, ScreeningNotes_ID, m)
-	    if err3 != nil {
-		libhttp.HandleErrorJson(w, err3)
-		return
-	}
+
+		_, err3 := models.NewScreeningNotes(db).UpdateById(nil, ScreeningNotes_ID, m)
+		if err3 != nil {
+			libhttp.HandleErrorJson(w, err3)
+			return
+		}
 	}
 	address := fmt.Sprintf("/fundingappl?id=%v", Application_ID)
 	http.Redirect(w, r, address, 302)

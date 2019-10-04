@@ -91,14 +91,19 @@ func FundingAppl(w http.ResponseWriter, r *http.Request) {
 		CurrentUser *models.UserRow
 		Count       int
 		Existing    *models.ApplRow
-		AllNotes     []*models.ScreeningNotesRow
+		AllNotes    []*models.ScreeningNotesRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		appl,
 		allNotes,
 	}
-	tmpl, err := template.ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

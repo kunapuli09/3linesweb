@@ -26,6 +26,8 @@ import (
 const PENDING = "PENDING"
 const COMPLETE = "COMPLETE"
 const ARCHIVE = "ARCHIVE"
+const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
+const FUNDII = "3Lines Rocket Fund, L.P"
 
 func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -38,22 +40,25 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
-	archive, pending, complete := SplitByStatus(investments)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
+	archive, pending, complete := SplitByStatus(investments)
+	fundone, fundtwo := SplitByFund(complete)
 	//create session date for page rendering
 	data := struct {
-		CurrentUser *models.UserRow
-		Count       int
-		Investments []*models.InvestmentRow
-		Pending     []*models.InvestmentRow
-		Archive     []*models.InvestmentRow
+		CurrentUser       *models.UserRow
+		Count             int
+		FundIInvestments  []*models.InvestmentRow
+		FundIIInvestments []*models.InvestmentRow
+		Pending           []*models.InvestmentRow
+		Archive           []*models.InvestmentRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
-		complete,
+		fundone,
+		fundtwo,
 		pending,
 		archive,
 	}
@@ -279,21 +284,40 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, address, 302)
 }
 func SplitByStatus(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow, []*models.InvestmentRow) {
+	var archive []*models.InvestmentRow
 	var pending []*models.InvestmentRow
 	var complete []*models.InvestmentRow
-	var archive []*models.InvestmentRow
 
 	for _, investment := range investments {
 		switch status := investment.Status; status {
+		case ARCHIVE:
+			archive = append(archive, investment)
 		case PENDING:
 			pending = append(pending, investment)
 		case COMPLETE:
 			complete = append(complete, investment)
-		case ARCHIVE:
-			archive = append(archive, investment)
+
 		default:
 			fmt.Printf("%s. is unknown status", status)
 		}
 	}
 	return archive, pending, complete
+}
+
+func SplitByFund(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow) {
+	var fundone []*models.InvestmentRow
+	var fundtwo []*models.InvestmentRow
+
+	for _, investment := range investments {
+		switch investor := investment.Investor; investor {
+		case FUNDI:
+			fundone = append(fundone, investment)
+		case FUNDII:
+			fundtwo = append(fundtwo, investment)
+
+		default:
+			fmt.Printf("%s. is unknown investor type", investor)
+		}
+	}
+	return fundone, fundtwo
 }

@@ -22,6 +22,7 @@ type Investment struct {
 
 type InvestmentRow struct {
 	ID                      int64           `db:"id"`
+	Investor                string          `db:"Investor"`
 	StartupName             string          `db:"StartupName"`
 	LogoPath                string          `db:"LogoPath"`
 	Website                 string          `db:"Website"`

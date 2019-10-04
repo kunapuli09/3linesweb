@@ -121,7 +121,7 @@
                                     <div class="au-card-inner">
                                         <h3 class="title-2 tm-b-5">Screening Comments</h3> {{.Status}}ED By {{.ScreenerEmail}}
                                     </div>
-                                    {{.Comments}}
+                                    {{.Comments | safeHTML}}
                                 </div>
                               </div>
                                 {{end}}

@@ -12,6 +12,18 @@
       <div class="row">
       <div class="col-lg-4">
       <div class="form-group">
+           <label for="Status">Invested From</label>
+           <select class="form-control" id="Investor" name="Investor" multiple>
+             <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "FundI" .Investment.Investor }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
+             <option value="3Lines Rocket Fund, L.P" {{ if eq "FundII" .Investment.Investor }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
+           </select>
+         </div>
+      </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-4">
+      <div class="form-group">
       <div class="form-group">
       <label for="StartupName">Startup Name</label>
       <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .Investment.StartupName }}" readonly>
@@ -118,9 +130,9 @@
       <div class="form-group">
            <label for="Status">Status</label>
            <select class="form-control" id="Status" name="Status">
-             <option value="PENDING">Pending</option>
-             <option value="COMPLETE" default>Complete</option>
-             <option value="ARCHIVE">Archive</option>
+             <option value="PENDING" {{ if eq "PENDING" .Investment.Status }}selected="selected"{{ end }}>Pending</option>
+             <option value="COMPLETE" {{ if eq "COMPLETE" .Investment.Status }}selected="selected"{{ end }}>Complete</option>
+             <option value="ARCHIVE" {{ if eq "ARCHIVE" .Investment.Status }}selected="selected"{{ end }}>Archive</option>
             </select>
       </div>
       </div>

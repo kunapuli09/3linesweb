@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
-	"time"
 	"strings"
+	"time"
 )
 
 func NewAppl(db *sqlx.DB) *Appl {
@@ -43,10 +43,9 @@ type Appl struct {
 
 type Search struct {
 	CompanyName string
-	Location string
-	Status   []string
+	Location    string
+	Status      []string
 }
-
 
 func (ar *ApplRow) FormattedApplicationDate() string {
 	return ar.ApplicationDate.Format("01/02/2006")
@@ -91,17 +90,17 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 
 	if len(data.Status) > 0 {
 		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN screeningnotes s ON a.id=s.application_id WHERE a.CompanyName Like ? AND a.Locations Like ? AND s.Status in (?)", i.table)
-    	err = i.db.Select(&isrs, query, location+"%", companyName+"%", statuses)
-    	if err != nil {
-    		fmt.Println("Search1 Error %v", err)
+		err = i.db.Select(&isrs, query, location+"%", companyName+"%", statuses)
+		if err != nil {
+			fmt.Println("Search1 Error %v", err)
 			return nil, err
 		}
 		return isrs, err
-	}else{
+	} else {
 		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ?", i.table)
 		err = i.db.Select(&isrs, query, location+"%", companyName+"%")
 		if err != nil {
-    		fmt.Println("Search2 Error %v", err)
+			fmt.Println("Search2 Error %v", err)
 			return nil, err
 		}
 		return isrs, err

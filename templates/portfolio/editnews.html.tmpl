@@ -15,9 +15,9 @@
                <div class="form-group">
                 <label for="Status">Status</label>
                  <select class="form-control" id="Status" name="Status">
-                   <option value="PENDING">Pending</option>
-                   <option value="PUBLISH">Publish</option>
-                   <option value="ARCHIVE">Archive</option>
+                   <option value="PENDING" {{ if eq "PENDING" .Investment.Status }}selected="selected"{{ end }}>Pending</option>
+                   <option value="PUBLISH" {{ if eq "PUBLISH" .Investment.Status }}selected="selected"{{ end }}>Publish</option>
+                   <option value="ARCHIVE" {{ if eq "ARCHIVE" .Investment.Status }}selected="selected"{{ end }}>Archive</option>
                   </select>
                </div>
                <label for="NewsDate">News Date</label>

@@ -117,8 +117,8 @@ func (i *ScreeningNotes) GetByApplicationIdAndScreener(tx *sqlx.Tx, ScreeningNot
 	if ScreeningNotes_ID == 0 {
 		query = fmt.Sprintf("SELECT * FROM %v WHERE Application_ID=%v AND ScreenerEmail='%v'", i.table, Application_ID, ScreenerEmail)
 		//fmt.Printf("Executing Query %v", query)
-	}else{
-		query = fmt.Sprintf("SELECT * FROM %v WHERE ID=%v AND Application_ID=%v AND ScreenerEmail='%v'", i.table, ScreeningNotes_ID, Application_ID, ScreenerEmail)	
+	} else {
+		query = fmt.Sprintf("SELECT * FROM %v WHERE ID=%v AND Application_ID=%v AND ScreenerEmail='%v'", i.table, ScreeningNotes_ID, Application_ID, ScreenerEmail)
 		//fmt.Printf("Executing Query for Existing Notes %v", query)
 	}
 	err := i.db.Get(isr, query)

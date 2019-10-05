@@ -15,11 +15,13 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/all.css" rel="stylesheet" type="text/css">
+    <!-- <link href="vendor/font-awesome/css/all.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
+       --><link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+          <!-- <link href="css2/font-face.css" rel="stylesheet" media="all"> -->
     <!-- date picker start  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.min.css">
     <!-- date picker end  -->
@@ -31,7 +33,7 @@
 
 
     <!-- ******** Dashboard ThemeFontfaces CSS-->
-    <link href="css2/font-face.css" rel="stylesheet" media="all">
+
     <link href="vendor2/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor2/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor2/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -193,7 +195,7 @@
     <script src="js/resetpassword.js"></script>
     <script src="js/appl.js"></script>
     <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="js/FundI_Investment_Pie.js"></script>
+    <!-- <script src="js/FundI_Investment_Pie.js"></script> -->
 
     <!-- Custom scripts for this template -->
     <!-- <script src="js/agency.min.js"></script> -->
@@ -298,6 +300,12 @@
     });
     </script>
     <script>
+    $(document).ready(function() {
+    $('#ScreeningDate').datepicker();
+    $('#ScreeningDate').datepicker('setDate', 'today');
+    });
+   </script>
+    <script>
       function newTab(t) {
       window.open(t);
       }
@@ -311,108 +319,6 @@
     
 });
     </script>
-   <script>
-    var slider = document.getElementById("TeamRisk");
-    var output = document.getElementById("TeamRiskVal");
-    output.innerHTML = slider.value;
-    slider.oninput = function() {
-    output.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider1 = document.getElementById("BarrierToEntry");
-    var output1 = document.getElementById("BarrierToEntryVal");
-    output1.innerHTML = slider1.value;
-    slider1.oninput = function() {
-    output1.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider2 = document.getElementById("TechRisk");
-    var output2 = document.getElementById("TechRiskVal");
-    output2.innerHTML = slider2.value;
-    slider2.oninput = function() {
-    output2.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider3 = document.getElementById("TeamRisk");
-    var output3 = document.getElementById("TeamRiskVal");
-    output3.innerHTML = slider3.value;
-    slider3.oninput = function() {
-    output3.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider4 = document.getElementById("CompetitionRisk");
-    var output4 = document.getElementById("CompetitionRiskVal");
-    output4.innerHTML = slider4.value;
-    slider4.oninput = function() {
-    output4.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider5 = document.getElementById("PoliticalRisk");
-    var output5 = document.getElementById("PoliticalRiskVal");
-    output5.innerHTML = slider5.value;
-    slider5.oninput = function() {
-    output5.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider6 = document.getElementById("SupplierRisk");
-    var output6 = document.getElementById("SupplierRiskVal");
-    output6.innerHTML = slider6.value;
-    slider6.oninput = function() {
-    output6.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider7 = document.getElementById("TeamRisk");
-    var output7 = document.getElementById("TeamRiskVal");
-    output7.innerHTML = slider7.value;
-    slider7.oninput = function() {
-    output7.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider8 = document.getElementById("ExecutionRisk");
-    var output8 = document.getElementById("ExecutionRiskVal");
-    output8.innerHTML = slider8.value;
-    slider8.oninput = function() {
-    output8.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider9 = document.getElementById("MarketRisk");
-    var output9 = document.getElementById("MarketRiskVal");
-    output9.innerHTML = slider9.value;
-    slider9.oninput = function() {
-    output9.innerHTML = this.value;
-    }
-   </script>
-    <script>
-    var slider10 = document.getElementById("ScalingRisk");
-    var output10 = document.getElementById("ScalingRiskVal");
-    output10.innerHTML = slider10.value;
-    slider10.oninput = function() {
-    output10.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    var slider11 = document.getElementById("ExitRisk");
-    var output11 = document.getElementById("ExitRiskVal");
-    output11.innerHTML = slider11.value;
-    slider11.oninput = function() {
-    output11.innerHTML = this.value;
-    }
-   </script>
-   <script>
-    $(document).ready(function() {
-    $('#ScreeningDate').datepicker();
-    $('#ScreeningDate').datepicker('setDate', 'today');
-    });
-   </script>
   </body>
 </html>
 {{end}}

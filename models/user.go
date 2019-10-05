@@ -176,7 +176,7 @@ func isDsc(a string) bool {
 		"rmaddhi@gmail.com",
 		"roy.rajiv@gmail.com",
 		"arun.taman@gmail.com",
-		"sogsala99@gmail.com",
+		"sgosala99@gmail.com",
 		"dsc@3lines.vc",
 	}
 	for _, b := range dsc_team {

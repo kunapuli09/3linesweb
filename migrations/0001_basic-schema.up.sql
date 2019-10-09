@@ -164,7 +164,7 @@ CREATE TABLE screeningnotes (
     MarketRisk TINYINT NOT NULL DEFAULT '5',
     ScalingRisk TINYINT NOT NULL DEFAULT '5',
     ExitRisk TINYINT NOT NULL DEFAULT '5',
-    Comments TEXT(255),
+    Comments TEXT,
     INDEX scr_ind (application_id),
         FOREIGN KEY (application_id)
         REFERENCES applications(id)

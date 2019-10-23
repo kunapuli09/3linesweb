@@ -37,34 +37,60 @@
     </head>
     <body id="page-top">
     {{if .CurrentUser}}
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <img src="img/logo.png" alt="3Lines">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/portfolio"><i class="fa fa-briefcase"></i>Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/notifications">
-                <span class="fa-stack has-badge" data-count="{{.Count}}">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-                </span>Notifications</a>
-            </li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
-            </li>
-           
-          </ul>
-      </div>
-    </nav>
-     {{end}}
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+         <img src="img/logo.png" alt="3Lines">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav text-uppercase ml-auto">
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-tachometer-alt"></i>Dashboard
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     {{if or (.CurrentUser.FundOne) (.CurrentUser.Admin)}}
+                     <a class="dropdown-item" href="/Fund1Dashboard">3Lines 2016 Discretionary Fund</a>
+                     {{end}}
+                     <div class="dropdown-divider"></div>
+                     {{if or (.CurrentUser.FundTwo) (.CurrentUser.Admin)}}
+                     <a class="dropdown-item" href="/Fund2Dashboard">3Lines Rocket Fund</a>
+                     {{end}}
+                  </div>
+               </li>
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-briefcase"></i>Fund Management
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     {{if .CurrentUser.Admin }}
+                     <a href="/entryaccess" class="dropdown-item">Investments</a> 
+                     <div class="dropdown-divider"></div>
+                     <a href="/contributions" class="dropdown-item">Investors</a>
+                     {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin)  }}
+                     <div class="dropdown-divider"></div>
+                     <a href="/fundingreqs" class="dropdown-item">Deals</a>
+                     {{end}}
+                     {{end}}
+                  </div>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/notifications">
+                  <span class="fa-stack has-badge" data-count="{{.Count}}">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                  </span>Notifications</a>
+               </li>
+               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+               </li>
+            </ul>
+         </div>
+      </nav>
+      {{end}}
     {{template "content" .}}
     <!-- Footer -->
     <footer>

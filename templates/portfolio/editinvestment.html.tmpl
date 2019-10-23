@@ -3,19 +3,18 @@
    <div class="container">
       <div class="row">
          <form class="form-signup-login form-investment" method="post" action="/update">
-            <input type="hidden" name="id" value="{{ .Investment.ID }}">
+            <input type="hidden" name="id" id="id" value="{{ .Investment.ID }}">
             <div class="col-lg-12 text-center">
-               <h2 class="section-heading text-uppercase">Update Investment </h2>
+               <h2 class="section-heading text-uppercase">Add Or Edit Investment</h2>
             </div>
-            <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
       </div>
       <div class="row">
       <div class="col-lg-4">
       <div class="form-group">
-           <label for="Status">Invested From</label>
-           <select class="form-control" id="Investor" name="Investor" multiple>
-             <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "FundI" .Investment.Investor }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
-             <option value="3Lines Rocket Fund, L.P" {{ if eq "FundII" .Investment.Investor }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
+           <label for="Status">Fund Legal Name</label>
+           <select class="form-control" id="FundLegalName" name="FundLegalName" multiple>
+             <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "3Lines 2016 Discretionary Fund, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
+             <option value="3Lines Rocket Fund, L.P" {{ if eq "3Lines Rocket Fund, L.P" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
            </select>
          </div>
       </div>
@@ -26,7 +25,7 @@
       <div class="form-group">
       <div class="form-group">
       <label for="StartupName">Startup Name</label>
-      <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .Investment.StartupName }}" readonly>
+      <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .Investment.StartupName }}" >
       </div>
       <div class="form-group">
       <label for="Team">Team</label>
@@ -62,9 +61,10 @@
       </div>
       <label for="InvestmentDate">Investment Date</label>
       <div class="input-group date" data-provide="datepicker-inline">
+
       <input type="text" id="InvestmentDate" name="InvestmentDate" value="{{.Investment.FormattedInvestmentDate}}" class="form-control">
       <div class="input-group-addon">
-      <span class="glyphicon glyphicon-th"></span>
+         <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
       </div>
       </div>
       <div class="form-group">
@@ -130,9 +130,11 @@
       <div class="form-group">
            <label for="Status">Status</label>
            <select class="form-control" id="Status" name="Status">
-             <option value="PENDING" {{ if eq "PENDING" .Investment.Status }}selected="selected"{{ end }}>Pending</option>
-             <option value="COMPLETE" {{ if eq "COMPLETE" .Investment.Status }}selected="selected"{{ end }}>Complete</option>
-             <option value="ARCHIVE" {{ if eq "ARCHIVE" .Investment.Status }}selected="selected"{{ end }}>Archive</option>
+               <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Below Target</option>
+               <option value="PERFORMANCE_ON_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance On Target</option>
+               <option value="PERFORMANCE_ABOVE_TARGET" {{ if eq "PERFORMANCE_ABOVE_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Above Target</option>
+               <option value="POOR_PERFORMANCE" {{ if eq "POOR_PERFORMANCE" .Investment.Status }}selected="selected"{{ end }}>Poor Performance</option>
+               <option value="ACQUIRED_OR_SOLD" {{ if eq "ACQUIRED_OR_SOLD" .Investment.Status }}selected="selected"{{ end }}>Acquired Or Sold</option>
             </select>
       </div>
       </div>
@@ -165,8 +167,8 @@
       </div> 
       </div>   
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
-      <a href="/viewinvestment?id={{.Investment.ID}}" class="other-form text-center">Back to Dashboard</a>
+      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
+      <a class="au-btn au-btn-icon au-btn--blue2" href="/entryaccess" class="other-form text-center">Cancel</a>
       </form>
    </div>
 </section>

@@ -8,22 +8,20 @@
           <div class="col-lg-6 text-center">
             <h2 class="section-heading text-uppercase">Search Applications</h2>
           </div>
-          <div class="col-lg-6 text-center">
-            <a href="/portfolio" class="au-btn au-btn--small au-btn--green">Back to Portfolio</a>
-          </div>
         </div>
             <div class="row">
                <div class="col-md-12">
                   <form class="form-signup-login form-signup" method="post" action="/searchAppl">
-                  <div class="col-md-6">
+                  <div class="col-md-4">
                      <div class="form-group">
                         <input name="CompanyName" type="text" class="form-control" placeholder="Search by a Startup Name, Ex: Smiley" value=""/>
                      </div>
-                  </div>
-                     <div class="col-md-6">
-                      <div class="form-group">
+                     <div class="form-group">
                        <input name="Location" type="text" class="form-control" placeholder="Search by a Location,  Ex: Den" value=""  autofocus/>
                        </div>
+                  </div>
+                     <div class="col-md-8">
+                      
                           
                        <div class="form-check form-check-inline">
                      <input type="checkbox" name="Status" value="RECOMMEND">Recommended</input>
@@ -38,8 +36,8 @@
                      <div class="form-check form-check-inline">
                      <input type="checkbox" name="Status" value="FASTTRACK">Fast Track</input>
                      </div>
-                        <button class="au-btn au-btn--small au-btn--blue" type="submit">Search</button>
-                        
+                        <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Search</button>
+                        <a href="/entryaccess" class="au-btn au-btn-icon au-btn--blue2" role="button">Cancel</a>
                      </div>
                   </form>
                   </div>

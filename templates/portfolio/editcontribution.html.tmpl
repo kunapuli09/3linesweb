@@ -3,87 +3,103 @@
    <div class="container">
       <div class="row">
          <form class="form-signup-login form-Contribution" method="post" action="/updatecontribution">
-           <input type="hidden" name="id" value="{{ .Contribution.ID }}">
-         <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Edit Contribution</h2>
-         </div>
-         <a href="/portfolio" class="btn btn-primary my-2">Back to Portfolio</a>
+            <input type="hidden" name="id" value="{{ .Contribution.ID }}">
+            <div class="col-lg-12 text-center">
+               <h2 class="section-heading text-uppercase">Add/Edit Investor Contribution</h2>
+            </div>
       </div>
       <div class="row">
       <div class="col-lg-4">
       <div class="form-group">
-        <div class="form-group">
-                  <label for="FundLegalName">Fund Legal Name</label>
-                  <input name="FundLegalName" type="text" class="form-control" placeholder="FundLegalName" value="{{ .Contribution.FundLegalName }}" autofocus>
-               </div>
-               <div class="form-group">
-                  <label for="InvestorLegalName">Investor Legal Name</label>
-                  <input name="InvestorLegalName" type="text" class="form-control" placeholder="InvestorLegalName" value="{{ .Contribution.InvestorLegalName }}" autofocus>
-               </div>
+      <div class="form-group">
+      <label for="Status">Fund Legal Name</label>
+      <select class="form-control" id="FundLegalName" name="FundLegalName" multiple>
+      <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "3Lines 2016 Discretionary Fund, LLC" .Contribution.FundLegalName }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
+      <option value="3Lines Rocket Fund, L.P" {{ if eq "3Lines Rocket Fund, L.P" .Contribution.FundLegalName }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
+      </select>
+      </div>
+      <div class="form-group">
+      <label for="InvestorLegalName">Investor Legal Name</label>
+      <input name="InvestorLegalName" type="text" class="form-control" placeholder="InvestorLegalName" value="{{ .Contribution.InvestorLegalName }}" autofocus>
+      </div>
       </div> 
       </div> 
       <div class="col-lg-4">
       <div class="form-group">
-        <div class="form-group">
-                  <label for="InvestorAddress">Investor Address</label>
-                  <textarea name="InvestorAddress" class="form-control" id="InvestorAddress" placeholder="InvestorAddress" value="{{ .Contribution.InvestorAddress }}">{{ .Contribution.InvestorAddress }}</textarea>
-               </div>
-               <div class="form-group">
-                  <label for="InvestorType">Investor Type</label>
-                  <select class="form-control" id="InvestorType" name="InvestorType">
-                  <option value="INDIVIDUAL">Individual</option>
-                  <option value="LLC">Limited Liability Company</option>
-                  <option value="TRUST">Trust</option>
-                  </select>
-               </div>
+      <div class="form-group">
+      <label for="InvestorAddress">Investor Address</label>
+      <textarea name="InvestorAddress" class="form-control" id="InvestorAddress" placeholder="InvestorAddress" value="{{ .Contribution.InvestorAddress }}">{{ .Contribution.InvestorAddress }}</textarea>
+      </div>
+      {{if eq 0 .Contribution.ID}}
+      <div class="form-group">
+      <label for="User_ID">Web User Id </label>
+      <select class="form-control" id="User_ID" name="User_ID">
+      {{ range .Users}}
+      <option value="{{.ID}}">{{.Email}}
+      </option>
+      {{end}}
+      </select>
+      </div>
+      {{end}}
+      <div class="form-group">
+      <label for="InvestorType">Investor Type</label>
+      <select class="form-control" id="InvestorType" name="InvestorType">
+      <option value="INDIVIDUAL" {{ if eq "INDIVIDUAL" .Contribution.InvestorType }}selected="selected"{{ end }}>Individual</option>
+      <option value="LLC" {{ if eq "LLC" .Contribution.InvestorType }}selected="selected"{{ end }}>Limited Liability Company</option>
+      <option value="TRUST" {{ if eq "TRUST" .Contribution.InvestorType }}selected="selected"{{ end }}>Trust</option>
+      </select>
+      </div>
       </div> 
       </div>
-         <div class="col-lg-4">
-                <div class="form-group">
-                  <label for="GroupContact">GroupContact</label>
-                  <input name="GroupContact" type="text" class="form-control" placeholder="GroupContact" value="{{ .Contribution.GroupContact }}" autofocus>
-               </div>
-               <label for="CommitmentDate">Investment Commitment Date</label>
-               <div class="input-group date" data-provide="datepicker-inline">
-                  <input type="text" id="CommitmentDate" name="CommitmentDate" value="{{.Contribution.CommitmentDate}}" class="form-control">
-                  <div class="input-group-addon">
-                     <span class="glyphicon glyphicon-th"></span>
-                  </div>
-               </div>
-         </div>
-         <div class="col-lg-4">
-               <div class="form-group">
-                  <label for="InvestmentGroupName">Investment Group Name</label>
-                  <input name="InvestmentGroupName" type="text" class="form-control" placeholder="InvestmentGroupName" value="{{ .Contribution.InvestmentGroupName }}"  autofocus>
-               </div>
-               <div class="form-group">
-               <label for="InvestmentAmount">Investment Amount</label>
-               <input name="InvestmentAmount" type="text" class="form-control" placeholder="" value="{{ .Contribution.InvestmentAmount }}"  autofocus>
-               </div>
-               
-            </div>
-        <div class="col-lg-4">
-         <div class="form-group">
-           <label for="Status">Status</label>
-           <select class="form-control" id="Status" name="Status">
-             <option value="PENDING">Pending</option>
-             <option value="COMPLETE">Complete</option>
-              <option value="ARCHIVE">Archive</option>
-           </select>
-         </div>
-         <div class="form-group">
-                  <label for="OwnershipPercentage">Ownership Percentage</label>
-                  <input name="OwnershipPercentage" type="text" class="form-control" placeholder="OwnershipPercentage" value="{{ .Contribution.OwnershipPercentage }}"  autofocus>
-         </div>
+      <div class="col-lg-4">
+      <div class="form-group">
+      <label for="GroupContact">GroupContact</label>
+      <input name="GroupContact" type="text" class="form-control" placeholder="GroupContact" value="{{ .Contribution.GroupContact }}" autofocus>
+      </div>
+      <label for="CommitmentDate">Investment Commitment Date</label>
+      <div class="input-group date" data-provide="datepicker-inline">
+      <input type="text" id="CommitmentDate" name="CommitmentDate" value="{{.Contribution.FormattedCommitmentDate}}" class="form-control">
+      <div class="input-group-addon">
+      <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
+      </div>
+      </div>
       </div>
       <div class="col-lg-4">
-         <div class="form-group">
-              <textarea class="form-control" id="Comments" placeholder="Comments">{{ .Contribution.Comments }}</textarea>
-              <p class="help-block text-danger"></p>
-        </div>
+      <div class="form-group">
+      <label for="InvestmentGroupName">Investment Group Name</label>
+      <input name="InvestmentGroupName" type="text" class="form-control" placeholder="InvestmentGroupName" value="{{ .Contribution.InvestmentGroupName }}"  autofocus>
       </div>
-   </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Update</button>
+      <div class="form-group">
+      <label for="InvestmentAmount">Investment Amount</label>
+      <input name="InvestmentAmount" type="text" class="form-control" placeholder="" value="{{ .Contribution.InvestmentAmount }}"  autofocus>
+      </div>
+      </div>
+      <div class="col-lg-4">
+      <div class="form-group">
+      <label for="Status">Status</label>
+      <select class="form-control" id="Status" name="Status">
+      <option value="PENDING" {{ if eq "PENDING" .Contribution.Status }}selected="selected"{{ end }}>Pending</option>
+      <option value="COMPLETE" {{ if eq "COMPLETE" .Contribution.Status }}selected="selected"{{ end }} selected>Complete</option>
+      </select>
+      </div>
+      <div class="form-group">
+      <label for="OwnershipPercentage">Ownership Percentage</label>
+      <input name="OwnershipPercentage" type="text" class="form-control" placeholder="OwnershipPercentage" value="{{ .Contribution.OwnershipPercentage }}"  autofocus>
+      </div>
+      </div>
+      <div class="col-lg-4">
+      <div class="form-group">
+      <textarea class="form-control" id="Comments" placeholder="Comments">{{ .Contribution.Comments }}</textarea>
+      <p class="help-block text-danger"></p>
+      </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-4">
+        <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
+        <a href="/contributions" class="au-btn au-btn-icon au-btn--blue2" role="button">Cancel</a>
+      </div>
+      </div>
       </form>
    </div>
 </section>

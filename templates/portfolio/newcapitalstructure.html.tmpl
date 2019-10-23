@@ -1,7 +1,7 @@
 {{define "content"}}
 <section class="bg-light" id="newcapitalstructure">    
    <div class="container">  
-      <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
+      <a href="/viewinvestment?id={{.Investment.ID}}" class="au-btn au-btn-icon au-btn--blue2">Back to Investment</a>
       <div class="row">
          <div class="col-lg-8 text-center">
             <h3 class="section-heading text-uppercase">Capital Structure</h3> for {{.Investment.StartupName}} 
@@ -37,7 +37,7 @@
                <div class="input-group date" data-provide="datepicker-inline">
                   <input type="text" id="ReportingDate" name="ReportingDate" value="{{ .CapitalizationStructure.ReportingDate }}" class="form-control" required autofocus>
                   <div class="input-group-addon">
-                     <span class="glyphicon glyphicon-th"></span>
+                  <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
                   </div>
                </div>
                <label for="ClosingValue">Closing Value</label>
@@ -61,7 +61,7 @@
                   </div>
                </div>
                
-               <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+               <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Add</button>
                </form>
          </div>
       </div>

@@ -32,7 +32,7 @@ $(function() {
           $('#loginForm').trigger("reset");
         },
         success: function() {
-          window.location.href = '/portfolio'
+          window.location.href = '/entryaccess'
         },
         complete: function() {
           setTimeout(function() {

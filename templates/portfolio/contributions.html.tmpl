@@ -1,30 +1,54 @@
 {{define "content"}}
+<section class="jumbotron text-center">
+   <div class="container">
+      <h1 class="jumbotron-heading">
+         Investors - Capital Contributions
+      </h1>
+      <a href="/editcontribution?id=0" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-plus"></i>Add Investor Contribution</a>
+   </div>
+</section>
 <section class="bg-light" id="news">
    <div class="container">
-      <a href="/portfolio" class="btn btn-primary my-2">Back to Portfolio</a>
-
-      <a href="/newcontribution" class="btn btn-primary my-2">Add Contribution</a>
       <div class="row">
-         <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Investors</h3>
-         </div>
+               <div class="col-md-12">
+                  <form class="form-signup-login form-signup" method="post" action="/searchContributions">
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <input name="InvestorLegalName" type="text" class="form-control" placeholder="Search by a Investor Name, Ex: Krishna" value=""/>
+                     </div>
+                  </div>
+                     <div class="col-md-8">
+                          
+                       <div class="form-check form-check-inline">
+                     <input type="checkbox" name="FundLegalName" value="3Lines 2016 Discretionary Fund, LLC">Fund I</input>
+                     
+                     </div>
+                     <div class="form-check form-check-inline">
+                     <input type="checkbox" name="FundLegalName" value="3Lines Rocket Fund, L.P">Fund II</input>
+                     </div>
+                     <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Search</button>
+                     </div>
+                  </form>
+                  </div>
+               </div>
+      <div class="row">
         <div class="table-responsive">
          <table class="table table-striped">
           <thead>
-            {{range .Contributions }}
+            {{if .Contributions }}
             <tr>
              <th scope="row">ID</th>
              <td>FundLegalName</td>
              <td>InvestorLegalName</td>
               <td>InvestmentAmount</td>
              <td>InvestorAddress</td>
-             <td>InvestorType</td>
+             <td>OwnershipPercentage</td>
+             <!-- <td>InvestorType</td>
              <td>GroupContact</td>
              <td>InvestmentGroupName</td>
              <td>CommitmentDate</td>
-             <td>OwnershipPercentage</td>
              <td>Comments</td>
-             <td>Status</td>
+             <td>Status</td> -->
             </tr>
             {{end}}
           </thead>
@@ -36,14 +60,14 @@
              <td>{{ .InvestorLegalName }}</td>
              <td>${{ .InvestmentAmount }}</td>
              <td>{{ .InvestorAddress }}</td>
-             <td>{{ .InvestorType }}</td>
+             <td>{{ .OwnershipPercentage }}</td>
+             <!-- <td>{{ .InvestorType }}</td>
              <td>{{ .GroupContact }}</td>
              <td>{{ .InvestmentGroupName }}</td>
              <td>{{.FormattedCommitmentDate}}</td>
-             <td>{{ .OwnershipPercentage }}</td>
              <td>{{ .Comments }}</td>
-             <td>{{ .Status }}</td>
-             <td><a href="/editcontribution?id={{.ID}}" class="btn btn-primary my-2">Edit</a></td>
+             <td>{{ .Status }}</td> -->
+             <td><a href="/editcontribution?id={{.ID}}" class="au-btn au-btn--small au-btn--blue2">Update</a></td>
             </tr>
             {{end}}
           </tbody>

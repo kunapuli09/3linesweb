@@ -25,6 +25,7 @@ CREATE TABLE investments (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     InvestmentDate TIMESTAMP,
     StartupName VARCHAR(255) NOT NULL,
+    FundLegalName VARCHAR(255) NOT NULL,
     Website VARCHAR(255),
     LogoPath VARCHAR(255),
     Description TEXT,
@@ -49,6 +50,7 @@ CREATE TABLE investments (
     InvestmentMultiple DECIMAL(20,2),
     GrossIRR DECIMAL(20,2),
     Status VARCHAR(255),
+    Fund VARCHAR(255),
     UNIQUE KEY (StartupName)
 )ENGINE=INNODB;
 
@@ -186,6 +188,7 @@ CREATE TABLE notifications (
 
 CREATE TABLE contributions (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id bigint(20) unsigned NOT NULL,
     FundLegalName VARCHAR(255) NOT NULL,
     InvestorLegalName VARCHAR(255) NOT NULL,
     InvestorAddress VARCHAR(255) NOT NULL,
@@ -197,7 +200,10 @@ CREATE TABLE contributions (
     InvestmentAmount DECIMAL(20,2),
     Comments VARCHAR(255),
     Status VARCHAR(255),
-    UNIQUE KEY (FundLegalName)
+    INDEX user_ind (user_id),
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
 )ENGINE=INNODB;
 
 alter table applications ADD  Referrer VARCHAR(255);
@@ -205,9 +211,9 @@ alter table applications ADD  ElevatorPitch VARCHAR(255);
 alter table applications ADD  Revenue VARCHAR(255);
 ALTER TABLE applications ADD INDEX  CompanyName_Index (CompanyName);
 ALTER TABLE applications ADD INDEX  Locations_Index (Locations);
-ALTER TABLE investments ADD Investor VARCHAR(255);
+ALTER TABLE investments ADD FundLegalName VARCHAR(255);
 SET SQL_SAFE_UPDATES = 0;
-UPDATE  investments SET Investor="3Lines 2016 Discretionary Fund, LLC";
+UPDATE  investments SET FundLegalName="3Lines 2016 Discretionary Fund, LLC";
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
 

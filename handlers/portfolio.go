@@ -16,20 +16,95 @@ import (
 	"time"
 )
 
-// type NewsHtmlRow struct {
-// 	ID            int64
-// 	Investment_ID int64
-// 	NewsDate      time.Time
-// 	News          template.HTML
-// }
-
-const PENDING = "PENDING"
-const COMPLETE = "COMPLETE"
-const ARCHIVE = "ARCHIVE"
 const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
 const FUNDII = "3Lines Rocket Fund, L.P"
+const PERFORMANCE_BELOW_TARGET = "PERFORMANCE_BELOW_TARGET"
+const PERFORMANCE_ON_TARGET = "PERFORMANCE_ON_TARGET"
+const PERFORMANCE_ABOVE_TARGET = "PERFORMANCE_ABOVE_TARGET"
+const POOR_PERFORMANCE = "POOR_PERFORMANCE"
+const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 
-func GetPortfolio(w http.ResponseWriter, r *http.Request) {
+var ac = accounting.Accounting{Symbol: "$", Precision: 2}
+
+func EntryAccess(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	fmt.Printf("%s. Inside EntryAccess", currentUser.Email)
+	
+    switch defaultView := true; defaultView {
+		case currentUser.Admin:
+			GetAdminDashboard(w, r)
+		case currentUser.FundTwo:
+			//fmt.Printf("%s. privileges are FundTwo", currentUser.Email)
+			Fund2Dashboard(w,r)
+		case currentUser.FundOne:
+			//fmt.Printf("%s. privileges are FundOne", currentUser.Email)
+			Fund1Dashboard(w,r)
+		default:
+			//fmt.Printf("%s. privileges are unknown", currentUser.Email)
+			NoEntry(w,r)
+		}
+
+}
+
+func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !currentUser.Admin{
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	investments, err := models.NewInvestment(db).GetStartupNames(nil)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	startupnames, amounts := InvestmentSpreadData(investments)
+
+	//data for fund1dashboard.html.tmpl
+	data := struct {
+		CurrentUser          *models.UserRow
+		Count                int
+		Investments     	[]*models.InvestmentRow
+		StartupNames         []string
+		Amounts              []decimal.Decimal
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		investments,
+		startupnames,
+		amounts,
+	}
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/admindashboard.html.tmpl")
+
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+func Fund1Dashboard(w http.ResponseWriter, r *http.Request) {
+	var isFundII bool
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
@@ -39,50 +114,154 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	contributions, err := models.NewContribution(db).GetAllByFundNameAndUserId(nil, "", currentUser.ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	if len(contributions) > 1 {
+		isFundII = true
+	}
+	fundonecontribution, _ := SplitContributionsByFund(contributions)
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	archive, pending, complete := SplitByStatus(investments)
-	fundone, fundtwo := SplitByFund(complete)
-	//create session date for page rendering
+	fundone, _ := SplitByFund(investments)
+	fund1startupnames, fund1amounts := InvestmentSpreadData(fundone)
+
+	//data for fund1dashboard.html.tmpl
 	data := struct {
-		CurrentUser       *models.UserRow
-		Count             int
-		FundIInvestments  []*models.InvestmentRow
-		FundIIInvestments []*models.InvestmentRow
-		Pending           []*models.InvestmentRow
-		Archive           []*models.InvestmentRow
+		CurrentUser          *models.UserRow
+		Count                int
+		FundIInvestments     []*models.InvestmentRow
+		FundIContribution    *models.ContributionRow
+		StartupNames         []string
+		Amounts              []decimal.Decimal
+		FundIIInvestorAswell bool
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		fundone,
-		fundtwo,
-		pending,
-		archive,
+		fundonecontribution[0],
+		fund1startupnames,
+		fund1amounts,
+		isFundII,
 	}
-	funcMap := template.FuncMap{
-		"safeHTML": func(b string) template.HTML {
-			return template.HTML(b)
-		},
-	}
-	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/portfolio.html.tmpl")
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/fund1dashboard.html.tmpl")
 
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
+}
 
-	//tmpl.ExecuteTemplate(w, "layout", data)
+func Fund2Dashboard(w http.ResponseWriter, r *http.Request) {
+	var isFundI bool
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	contributions, err := models.NewContribution(db).GetAllByFundNameAndUserId(nil, "", currentUser.ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	if len(contributions) > 1 {
+		isFundI = true
+	}
+	_, fundtwocontribution := SplitContributionsByFund(contributions)
+	investments, err := models.NewInvestment(db).GetStartupNames(nil)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	_, fundtwo := SplitByFund(investments)
+	fund2startupnames, fund2amounts := InvestmentSpreadData(fundtwo)
+
+	//data for fund2dashboard.html.tmpl
+	data := struct {
+		CurrentUser         *models.UserRow
+		Count               int
+		FundIIInvestments   []*models.InvestmentRow
+		FundIIContribution  *models.ContributionRow
+		StartupNames        []string
+		Amounts             []decimal.Decimal
+		FundIInvestorAsWell bool
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		fundtwo,
+		fundtwocontribution[0],
+		fund2startupnames,
+		fund2amounts,
+		isFundI,
+	}
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/fund2dashboard.html.tmpl")
+
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+func NoEntry(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	data := struct {
+		CurrentUser         *models.UserRow
+		Count               int
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+	}
+	tmpl, err := template.New("main").ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/noentry.html.tmpl")
+
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
 //presentation view for new investment
 func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-	ac := accounting.Accounting{Symbol: "$", Precision: 2}
 	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -143,65 +322,6 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		AllDocs,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
-}
-
-//presentation view for new investment
-func NewInvestment(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
-		http.Redirect(w, r, "/logout", 302)
-		return
-	}
-
-	investment := &models.InvestmentRow{}
-	//create session data for page rendering
-	data := struct {
-		CurrentUser *models.UserRow
-		Count       int
-		Investment  *models.InvestmentRow
-	}{
-		currentUser,
-		getCount(w, r, currentUser.Email),
-		investment,
-	}
-	tmpl, err := template.ParseFiles("templates/portfolio/newinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	tmpl.ExecuteTemplate(w, "layout", data)
-}
-
-//database call to add new
-func Add(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	var i models.InvestmentRow
-	db := r.Context().Value("db").(*sqlx.DB)
-	err := r.ParseForm()
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	decoder := schema.NewDecoder()
-	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
-	err1 := decoder.Decode(&i, r.PostForm)
-	if err1 != nil {
-		fmt.Println("decoding error")
-		libhttp.HandleErrorJson(w, err1)
-		return
-	}
-	m := structs.Map(i)
-	//fmt.Printf("map %v", m)
-	_, err2 := models.NewInvestment(db).Create(nil, m)
-	if err2 != nil {
-		fmt.Println("database error")
-		libhttp.HandleErrorJson(w, err2)
-		return
-	}
-	GetPortfolio(w, r)
 }
 
 //presentation edit view
@@ -275,33 +395,26 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	//fmt.Printf("map %v", m)
-	_, err2 := models.NewInvestment(db).UpdateById(nil, ID, m)
-	if err2 != nil {
-		libhttp.HandleErrorJson(w, err2)
-		return
+	if ID == 0 {
+		//fmt.Printf("Creating New Notes with ApplicationID%v, ScreenerEmail%v", Application_ID, ScreenerEmail)
+		investment, err2 := models.NewInvestment(db).Create(nil, m)
+		if err2 != nil {
+			libhttp.HandleErrorJson(w, err2)
+			return
+		}
+		ID = investment.ID
+
+	} else {
+		//fmt.Printf("Updating Notes with ApplicationID%v, ScreeningNotes_ID%v", Application_ID, ScreeningNotes_ID)
+
+		_, err3 := models.NewInvestment(db).UpdateById(nil, ID, m)
+		if err3 != nil {
+			libhttp.HandleErrorJson(w, err3)
+			return
+		}
 	}
 	address := fmt.Sprintf("/viewinvestment?id=%v", ID)
 	http.Redirect(w, r, address, 302)
-}
-func SplitByStatus(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow, []*models.InvestmentRow) {
-	var archive []*models.InvestmentRow
-	var pending []*models.InvestmentRow
-	var complete []*models.InvestmentRow
-
-	for _, investment := range investments {
-		switch status := investment.Status; status {
-		case ARCHIVE:
-			archive = append(archive, investment)
-		case PENDING:
-			pending = append(pending, investment)
-		case COMPLETE:
-			complete = append(complete, investment)
-
-		default:
-			fmt.Printf("%s. is unknown status", status)
-		}
-	}
-	return archive, pending, complete
 }
 
 func SplitByFund(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow) {
@@ -309,15 +422,26 @@ func SplitByFund(investments []*models.InvestmentRow) ([]*models.InvestmentRow, 
 	var fundtwo []*models.InvestmentRow
 
 	for _, investment := range investments {
-		switch investor := investment.Investor; investor {
+		switch fundName := investment.FundLegalName; fundName {
 		case FUNDI:
 			fundone = append(fundone, investment)
 		case FUNDII:
 			fundtwo = append(fundtwo, investment)
 
 		default:
-			fmt.Printf("%s. is unknown investor type", investor)
+			fmt.Printf("%s. is unknown investor type", fundName)
 		}
 	}
 	return fundone, fundtwo
+}
+
+func InvestmentSpreadData(investments []*models.InvestmentRow) ([]string, []decimal.Decimal) {
+	var startupnames []string
+	var amounts []decimal.Decimal
+
+	for _, investment := range investments {
+		startupnames = append(startupnames, investment.StartupName)
+		amounts = append(amounts, investment.InvestedCapital)
+	}
+	return startupnames, amounts
 }

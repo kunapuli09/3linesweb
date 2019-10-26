@@ -1,0 +1,173 @@
+{{define "content"}}
+    <!-- Fund I-->
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">
+            {{.FundIIContribution.FundLegalName}} Investor Dashboard</h1>
+          <p class="lead text-muted"> {{.FundIIContribution.InvestorLegalName}}</p>
+        </div>
+      </section>
+      <p class="lead text-muted"></p>
+      <div class="row m-t-25">
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c4">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="text">
+                                                <h2>{{.FundIIContribution.OwnershipPercentage}}%</h2>
+                                                <span>Ownership Percentage</span>
+                                            </div>
+                                        </div/>
+                                        
+                                        <canvas id="portfoliovalue"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c1">
+                                    <div class="overview__inner">
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>4,485,000</h2>
+                                                <span>Fund II Total Raised</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>{{.FundIIContribution.InvestmentAmount}}</h2>
+                                                <span>Your Capital Contribution</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-chart">
+                                            <canvas id="individualspread"></canvas>
+                                        </div>
+                                    </div>
+                                </div> 
+                             </div>
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="overview-item overview-item--c2">
+                                    <div class="overview__inner">
+                                         <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>400,000</h2>
+                                                <span>Initial Capital Invested</span>
+                                            </div>
+                                        </div> 
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>0</h2>
+                                                <span>Follow-on Invested</span>
+                                            </div>
+                                        </div> 
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>2,500,000</h2>
+                                                <span>Follow-on Balance</span>
+                                            </div>
+                                        </div>
+                                        <div class="overview-box clearfix">
+                                            <div class="icon">
+                                                <i class="zmdi zmdi-money"></i>
+                                            </div>
+                                            <div class="text">
+                                                <h2>450,000</h2>
+                                                <span>Expense Reserve</span>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="overview-chart">
+                                            <canvas id="widgetChart3"></canvas>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+        <div class="album py-5 bg-white">
+            <!-- DATA TABLE-->
+            <section class="p-t-20">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="title-5 m-b-35">Performance Indicators:<i class="fa fa-circle" style="font-size:24px;color:#ffc107"></i>Below Target  <i class="fa fa-circle" style="font-size:24px;color:#6c757d"></i>On Target <i class="fa fa-circle" style="font-size:24px;color:#28a745"></i>Above Target <i class="fa fa-circle" style="font-size:24px;color:#dc3545"></i>Poor<i class="fa fa-circle" style="font-size:24px;color:#17a2b8"></i>Acquired Or Sold</h3> 
+                            {{if .FundIIInvestments}}
+                            <div class="table-responsive table-responsive-data2">
+                                <table class="table table-data2">
+                                    <thead>
+                                        <tr>
+                                            <th>Company Name</th>
+                                            <th>Invested Capital</th>
+                                            <th>Current Value</th>
+                                            <th>Realized Proceeds</th>
+                                            <th>Unrealized IRR</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{range .FundIIInvestments }}
+                                        <tr class="tr-shadow">
+                                            <td>{{.StartupName}}</td>
+                                            <td>
+                                                {{.InvestedCapital | currencyFormat}}
+                                            </td>
+                                            
+                                            <td class="desc">{{.ReportedValue | currencyFormat }}</td>
+                                            <td>{{.RealizedProceeds | currencyFormat}}</td>
+                                            <td>{{.GrossIRR}}%</td>
+                                            <td>
+                                                {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                                                <i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
+                                                {{ end }}
+                                                {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                                                <i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
+                                                {{ end }}
+                                                {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                                                <i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
+                                                {{ end }}
+                                                {{ if eq "POOR_PERFORMANCE" .Status }}
+                                                <i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
+                                                {{ end }}
+                                                {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                                                <i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
+                                                {{ end }}
+                                                
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="table-data-feature">
+                                                    <a href="/viewinvestment?id={{.ID}}" role="button"> <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                                                       <i class="zmdi zmdi-more"> </i></a>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="spacer"></tr>
+                                        {{end}}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{end}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END DATA TABLE-->
+            {{end}}
+        
+
+          

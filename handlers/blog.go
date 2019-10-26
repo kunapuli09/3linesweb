@@ -21,6 +21,7 @@ var m = map[int]string{
 	10: "templates/blog/blog10.html.tmpl",
 	11: "templates/blog/blog11.html.tmpl",
 	12: "templates/blog/blog12.html.tmpl",
+	13: "templates/blog/blog13.html.tmpl",
 }
 
 func GetBlog(w http.ResponseWriter, r *http.Request) {

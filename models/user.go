@@ -202,11 +202,13 @@ func SplitContributions(Contributions []*ContributionRow) ([]*ContributionRow, [
 			fundtwo = append(fundtwo, contribution)
 
 		default:
-			fmt.Printf("%s. is unknown investor type", fundName)
+			//fmt.Printf("%s. is unknown investor type", fundName)
 		}
 	}
 	return fundone, fundtwo
 }
+
+
 
 func isFundI(User_ID int64, db *sqlx.DB) bool {
 	contributions, _ := NewContribution(db).AllContributions(nil)

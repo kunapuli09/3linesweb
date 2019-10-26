@@ -18,10 +18,8 @@
                      </div>
                   </div>
                      <div class="col-md-8">
-                          
-                       <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline">
                      <input type="checkbox" name="FundLegalName" value="3Lines 2016 Discretionary Fund, LLC">Fund I</input>
-                     
                      </div>
                      <div class="form-check form-check-inline">
                      <input type="checkbox" name="FundLegalName" value="3Lines Rocket Fund, L.P">Fund II</input>
@@ -37,12 +35,12 @@
           <thead>
             {{if .Contributions }}
             <tr>
-             <th scope="row">ID</th>
-             <td>FundLegalName</td>
              <td>InvestorLegalName</td>
               <td>InvestmentAmount</td>
-             <td>InvestorAddress</td>
-             <td>OwnershipPercentage</td>
+              <td>FundLegalName</td>
+              <td>OwnershipPercentage</td>
+              <td>InvestorAddress</td>
+             
              <!-- <td>InvestorType</td>
              <td>GroupContact</td>
              <td>InvestmentGroupName</td>
@@ -55,12 +53,12 @@
           <tbody>
             {{range .Contributions }}
             <tr>
-             <th scope="row">{{.ID}}</th>
-             <td>{{ .FundLegalName }}</td>
              <td>{{ .InvestorLegalName }}</td>
-             <td>${{ .InvestmentAmount }}</td>
+             <td>{{ .InvestmentAmount | currencyFormat}}</td>
+             <td>{{ .FundLegalName }}</td>
+             <td>{{ .OwnershipPercentage }}%</td>
              <td>{{ .InvestorAddress }}</td>
-             <td>{{ .OwnershipPercentage }}</td>
+             
              <!-- <td>{{ .InvestorType }}</td>
              <td>{{ .GroupContact }}</td>
              <td>{{ .InvestmentGroupName }}</td>

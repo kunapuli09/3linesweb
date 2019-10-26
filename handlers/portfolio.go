@@ -36,19 +36,16 @@ func EntryAccess(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	fmt.Printf("%s. Inside EntryAccess", currentUser.Email)
+	//fmt.Printf("%s. Inside EntryAccess", currentUser.Email)
 	
     switch defaultView := true; defaultView {
 		case currentUser.Admin:
 			GetAdminDashboard(w, r)
 		case currentUser.FundTwo:
-			//fmt.Printf("%s. privileges are FundTwo", currentUser.Email)
 			Fund2Dashboard(w,r)
 		case currentUser.FundOne:
-			//fmt.Printf("%s. privileges are FundOne", currentUser.Email)
 			Fund1Dashboard(w,r)
 		default:
-			//fmt.Printf("%s. privileges are unknown", currentUser.Email)
 			NoEntry(w,r)
 		}
 
@@ -110,7 +107,8 @@ func Fund1Dashboard(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	//fmt.Println("User is FundOne %v", currentUser.FundOne)
+	if !ok || !(currentUser.FundOne || currentUser.Admin){
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -131,7 +129,7 @@ func Fund1Dashboard(w http.ResponseWriter, r *http.Request) {
 	if len(contributions) > 1 {
 		isFundII = true
 	}
-	fundonecontribution, _ := SplitContributionsByFund(contributions)
+	fundonecontributions, _ := SplitContributionsByFund(contributions)
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -145,7 +143,7 @@ func Fund1Dashboard(w http.ResponseWriter, r *http.Request) {
 		CurrentUser          *models.UserRow
 		Count                int
 		FundIInvestments     []*models.InvestmentRow
-		FundIContribution    *models.ContributionRow
+		FundIContributions    []*models.ContributionRow
 		StartupNames         []string
 		Amounts              []decimal.Decimal
 		FundIIInvestorAswell bool
@@ -153,7 +151,7 @@ func Fund1Dashboard(w http.ResponseWriter, r *http.Request) {
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		fundone,
-		fundonecontribution[0],
+		fundonecontributions,
 		fund1startupnames,
 		fund1amounts,
 		isFundII,
@@ -175,7 +173,7 @@ func Fund2Dashboard(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !(currentUser.FundTwo || currentUser.Admin){
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -196,7 +194,7 @@ func Fund2Dashboard(w http.ResponseWriter, r *http.Request) {
 	if len(contributions) > 1 {
 		isFundI = true
 	}
-	_, fundtwocontribution := SplitContributionsByFund(contributions)
+	_, fundtwocontributions := SplitContributionsByFund(contributions)
 	investments, err := models.NewInvestment(db).GetStartupNames(nil)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -210,7 +208,7 @@ func Fund2Dashboard(w http.ResponseWriter, r *http.Request) {
 		CurrentUser         *models.UserRow
 		Count               int
 		FundIIInvestments   []*models.InvestmentRow
-		FundIIContribution  *models.ContributionRow
+		FundIIContributions  []*models.ContributionRow
 		StartupNames        []string
 		Amounts             []decimal.Decimal
 		FundIInvestorAsWell bool
@@ -218,7 +216,7 @@ func Fund2Dashboard(w http.ResponseWriter, r *http.Request) {
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		fundtwo,
-		fundtwocontribution[0],
+		fundtwocontributions,
 		fund2startupnames,
 		fund2amounts,
 		isFundI,
@@ -285,7 +283,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !(currentUser.FundOne || currentUser.FundTwo || currentUser.Admin){
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -336,7 +334,7 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !currentUser.Admin{
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -429,7 +427,7 @@ func SplitByFund(investments []*models.InvestmentRow) ([]*models.InvestmentRow, 
 			fundtwo = append(fundtwo, investment)
 
 		default:
-			fmt.Printf("%s. is unknown investor type", fundName)
+			//fmt.Printf("%s. is unknown investor type", fundName)
 		}
 	}
 	return fundone, fundtwo

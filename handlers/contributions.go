@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
+	"github.com/shopspring/decimal"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -21,7 +22,7 @@ func GetContributions(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !currentUser.Admin{
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -58,6 +59,10 @@ func GetContributions(w http.ResponseWriter, r *http.Request) {
 		"safeHTML": func(b string) template.HTML {
 			return template.HTML(b)
 		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/contributions.html.tmpl")
 
@@ -80,7 +85,7 @@ func EditContribution(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !currentUser.Admin{
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}

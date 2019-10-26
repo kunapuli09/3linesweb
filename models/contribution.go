@@ -29,8 +29,8 @@ type ContributionRow struct {
 	InvestorLegalName   string          `db:"InvestorLegalName"`
 	InvestorAddress     string          `db:"InvestorAddress"`
 	InvestorType        string          `db:"InvestorType"`
-	GroupContact        string          `db:"GroupContact"`
-	InvestmentGroupName string          `db:"InvestmentGroupName"`
+	GroupContact        sql.NullString  `db:"GroupContact"`
+	InvestmentGroupName sql.NullString  `db:"InvestmentGroupName"`
 	CommitmentDate      time.Time       `db:"CommitmentDate"`
 	OwnershipPercentage decimal.Decimal `db:"OwnershipPercentage"`
 	InvestmentAmount    decimal.Decimal `db:"InvestmentAmount"`

@@ -194,7 +194,7 @@ CREATE TABLE contributions (
     InvestorAddress VARCHAR(255) NOT NULL,
     InvestorType VARCHAR(255) NOT NULL,
     GroupContact VARCHAR(255),
-    InvestmentGroupName VARCHAR(255) NOT NULL,
+    InvestmentGroupName VARCHAR(255),
     CommitmentDate timestamp,
     OwnershipPercentage DECIMAL(20,2),
     InvestmentAmount DECIMAL(20,2),

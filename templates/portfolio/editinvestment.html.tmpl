@@ -1,6 +1,7 @@
 {{define "content"}}
 <section class="bg-light" id="editinvestment">
    <div class="container">
+      <a class="au-btn au-btn-icon au-btn--blue2" href="/entryaccess" >Back to Investments</a>
       <div class="row">
          <form class="form-signup-login form-investment" method="post" action="/update">
             <input type="hidden" name="id" id="id" value="{{ .Investment.ID }}">
@@ -11,165 +12,170 @@
       <div class="row">
       <div class="col-lg-4">
       <div class="form-group">
-           <label for="Status">Fund Legal Name</label>
-           <select class="form-control" id="FundLegalName" name="FundLegalName" multiple>
-             <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "3Lines 2016 Discretionary Fund, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
-             <option value="3Lines Rocket Fund, L.P" {{ if eq "3Lines Rocket Fund, L.P" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
-           </select>
-         </div>
+      <label for="Status">Fund Legal Name</label>
+      <select class="form-control" id="FundLegalName" name="FundLegalName" multiple>
+      <option value="3Lines 2016 Discretionary Fund, LLC" {{ if eq "3Lines 2016 Discretionary Fund, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines 2016 Discretionary Fund, LLC</option>
+      <option value="3Lines Rocket Fund, L.P" {{ if eq "3Lines Rocket Fund, L.P" .Investment.FundLegalName }}selected="selected"{{ end }}>3Lines Rocket Fund, L.P</option>
+      <option value="PharmaJet 2018 Investment, LLC" {{ if eq "PharmaJet 2018 Investment, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>PharmaJet 2018 Investment, LLC</option>
+      <option value="Vetty 2018 Investment, LLC" {{ if eq "Vetty 2018 Investment, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>Vetty 2018 Investment, LLC</option>
+      <option value="P2BI 2018 Investment, LLC" {{ if eq "P2BI 2018 Investment, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>P2BI 2018 Investment, LLC</option>
+      <option value="Motiv Investment Group, LLC" {{ if eq "Motiv Investment Group, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>Motiv Investment Group, LLC</option>
+      <option value="Audvisor Investment Group, LLC" {{ if eq "Audvisor Investment Group, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>Audvisor Investment Group, LLC</option>
+      <option value="Presagen Investment Group, LLC" {{ if eq "Presagen Investment Group, LLC" .Investment.FundLegalName }}selected="selected"{{ end }}>Presagen Investment Group, LLC</option>
+      </select>
       </div>
       </div>
       </div>
-      <div class="row">
-      <div class="col-lg-4">
-      <div class="form-group">
-      <div class="form-group">
-      <label for="StartupName">Startup Name</label>
-      <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .Investment.StartupName }}" >
-      </div>
-      <div class="form-group">
-      <label for="Team">Team</label>
-      <input name="Team" type="text" class="form-control" placeholder="Team" value="{{ .Investment.Team }}" autofocus>
-      </div>
-      </div> 
-      </div> 
-      <div class="col-lg-4">
-      <div class="form-group">
-      <div class="form-group">
-      <label for="Website">Website</label>
-      <input name="Website" type="text" class="form-control" placeholder="Website" value="{{ .Investment.Website }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="LogoPath">Logo Name/Path</label>
-      <input name="LogoPath" type="text" class="form-control" placeholder="LogoPath" value="{{ .Investment.LogoPath }}" autofocus>
-      </div>
-      </div> 
-      </div>   
-      </div>
-      <div class="row">
-      <div class="col-lg-12">
-      <div class="form-group">
-      <textarea id="udescription" name="Description">{{ .Investment.Description | safeHTML }}</textarea>
-      </div> 
-      </div>   
-      </div>
-      <div class="row">
-      <div class="col-lg-4">
-      <div class="form-group">
-      <label for="Industry">Industry</label>
-      <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Investment.Industry }}" autofocus>
-      </div>
-      <label for="InvestmentDate">Investment Date</label>
-      <div class="input-group date" data-provide="datepicker-inline">
-
-      <input type="text" id="InvestmentDate" name="InvestmentDate" value="{{.Investment.FormattedInvestmentDate}}" class="form-control">
-      <div class="input-group-addon">
-         <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
-      </div>
-      </div>
-      <div class="form-group">
-      <label for="Headquarters">Headquarters</label>
-      <input name="Headquarters" type="text" class="form-control" placeholder="Headquarters" value="{{ .Investment.Headquarters }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="CapTable">Cap Table</label>
-      <input name="CapTable" type="text" class="form-control" placeholder="CapTable" value="{{ .Investment.CapTable }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="BoardRepresentation">Board Representation</label>
-      <input name="BoardRepresentation" type="text" class="form-control" placeholder=" 0 of 3" value="{{ .Investment.BoardRepresentation }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="BoardMembers">Board Members</label>
-      <input name="BoardMembers" type="text" class="form-control" placeholder="eg: Peter, Krishna" value="{{ .Investment.BoardMembers }}"  autofocus>
-      </div>
-      </div>
-      <div class="col-lg-4">
-      <div class="form-group">
-      <label for="ExitValueAtClosing">Enterprise Value At Closing</label>
-      <input name="ExitValueAtClosing" type="number" min="0.00" step="0.01" class="form-control" placeholder="EnterpriseValueAtClosing" value="{{ .Investment.ExitValueAtClosing }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="FundOwnershipPercentage">Fund Ownership %</label>
-      <input name="FundOwnershipPercentage" type="number" min="0.00" step="0.01" class="form-control" placeholder="1%" value="{{ .Investment.FundOwnershipPercentage }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="InvestorGroupPercentage">Investor Group %</label>
-      <input name="InvestorGroupPercentage" type="number" min="0.00" step="0.01" class="form-control" placeholder="18%" value="{{ .Investment.InvestorGroupPercentage }}"  autofocus>
-      </div> 
-      <div class="form-group">
-      <label for="ManagementOwnership">Management Ownership %</label>
-      <input name="ManagementOwnership" type="number" min="0.00" step="0.01" class="form-control" placeholder="20%" value="{{ .Investment.ManagementOwnership }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="InvestmentCommittment">Investment Committment</label>
-      <input name="InvestmentCommittment" type="number" min="0.00" step="0.01" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestmentCommittment }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="InvestedCapital">Invested Capital</label>
-      <input name="InvestedCapital" type="number" min="0.00" step="0.01" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestedCapital }}"  autofocus>
-      </div>
-      </div>
-      <div class="col-lg-4">
-      <div class="form-group">
-      <label for="RealizedProceeds">Realized Proceeds</label>
-      <input name="RealizedProceeds" type="number" min="0.00" step="0.01" class="form-control" placeholder="0" value="{{ .Investment.RealizedProceeds }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="ReportedValue">Reported Value</label>
-      <input name="ReportedValue" type="number" min="0.00" step="0.01" class="form-control" placeholder="$65000" value="{{ .Investment.ReportedValue }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="InvestmentMultiple">Investment Multiple ( number of times)</label>
-      <input name="InvestmentMultiple" type="number" min="0.00" step="0.01" class="form-control" placeholder="1.2" value="{{ .Investment.InvestmentMultiple }}"  autofocus>
-      </div>
-      <div class="form-group">
-      <label for="GrossIRR">Gross Internal Rate of Return (tool tip, link chart)</label>
-      <input name="GrossIRR" type="number" min="0.00" step="0.01" class="form-control" placeholder="60%" value="{{ .Investment.GrossIRR }}"  autofocus>
-      </div>
-      <div class="form-group">
-           <label for="Status">Status</label>
-           <select class="form-control" id="Status" name="Status">
-               <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Below Target</option>
-               <option value="PERFORMANCE_ON_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance On Target</option>
-               <option value="PERFORMANCE_ABOVE_TARGET" {{ if eq "PERFORMANCE_ABOVE_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Above Target</option>
-               <option value="POOR_PERFORMANCE" {{ if eq "POOR_PERFORMANCE" .Investment.Status }}selected="selected"{{ end }}>Poor Performance</option>
-               <option value="ACQUIRED_OR_SOLD" {{ if eq "ACQUIRED_OR_SOLD" .Investment.Status }}selected="selected"{{ end }}>Acquired Or Sold</option>
-            </select>
-      </div>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col-lg-12">
-      <div class="form-group">
-      <textarea id="uinvestmentbackground" name="InvestmentBackground">{{.Investment.InvestmentBackground | safeHTML}}</textarea>
-      </div> 
-      </div>   
-      </div>
-      <div class="row">
-      <div class="col-lg-12">
-      <div class="form-group">
-      <textarea id="uinvestmentthesis" name="InvestmentThesis">{{.Investment.InvestmentThesis | safeHTML }}</textarea>
-      </div>
-      </div>
-      </div>
-      <div class="row">
-      <div class="col-lg-12">
-      <div class="form-group">
-      <textarea id="uvaluationmethodology" name="ValuationMethodology">{{.Investment.ValuationMethodology | safeHTML}}</textarea>
-      </div> 
-      </div>   
-      </div>
-      <div class="row">
-      <div class="col-lg-12">
-      <div class="form-group">
-      <textarea id="uriskassessment" name="RiskAssessment">{{.Investment.RiskAssessment | safeHTML }}</textarea>
-      </div> 
-      </div>   
-      </div>
-      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
-      <a class="au-btn au-btn-icon au-btn--blue2" href="/entryaccess" class="other-form text-center">Cancel</a>
-      </form>
+   </div>
+   <div class="row">
+   <div class="col-lg-4">
+   <div class="form-group">
+   <div class="form-group">
+   <label for="StartupName">Startup Name</label>
+   <input name="StartupName" type="text" class="form-control" placeholder="StartupName" value="{{ .Investment.StartupName }}" >
+   </div>
+   <div class="form-group">
+   <label for="Team">Team</label>
+   <input name="Team" type="text" class="form-control" placeholder="Team" value="{{ .Investment.Team }}" autofocus>
+   </div>
+   </div> 
+   </div> 
+   <div class="col-lg-4">
+   <div class="form-group">
+   <div class="form-group">
+   <label for="Website">Website</label>
+   <input name="Website" type="text" class="form-control" placeholder="Website" value="{{ .Investment.Website }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="LogoPath">Logo Name/Path</label>
+   <input name="LogoPath" type="text" class="form-control" placeholder="LogoPath" value="{{ .Investment.LogoPath }}" autofocus>
+   </div>
+   </div> 
+   </div>   
+   </div>
+   <div class="row">
+   <div class="col-lg-12">
+   <div class="form-group">
+   <textarea id="udescription" name="Description">{{ .Investment.Description | safeHTML }}</textarea>
+   </div> 
+   </div>   
+   </div>
+   <div class="row">
+   <div class="col-lg-4">
+   <div class="form-group">
+   <label for="Industry">Industry</label>
+   <input name="Industry" type="text" class="form-control" placeholder="Industry" value="{{ .Investment.Industry }}" autofocus>
+   </div>
+   <label for="InvestmentDate">Investment Date</label>
+   <div class="input-group date" data-provide="datepicker-inline">
+   <input type="text" id="InvestmentDate" name="InvestmentDate" value="{{.Investment.FormattedInvestmentDate}}" class="form-control">
+   <div class="input-group-addon">
+   <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
+   </div>
+   </div>
+   <div class="form-group">
+   <label for="Headquarters">Headquarters</label>
+   <input name="Headquarters" type="text" class="form-control" placeholder="Headquarters" value="{{ .Investment.Headquarters }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="CapTable">Cap Table</label>
+   <input name="CapTable" type="text" class="form-control" placeholder="CapTable" value="{{ .Investment.CapTable }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="BoardRepresentation">Board Representation</label>
+   <input name="BoardRepresentation" type="text" class="form-control" placeholder=" 0 of 3" value="{{ .Investment.BoardRepresentation }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="BoardMembers">Board Members</label>
+   <input name="BoardMembers" type="text" class="form-control" placeholder="eg: Peter, Krishna" value="{{ .Investment.BoardMembers }}"  autofocus>
+   </div>
+   </div>
+   <div class="col-lg-4">
+   <div class="form-group">
+   <label for="ExitValueAtClosing">Enterprise Value At Closing</label>
+   <input name="ExitValueAtClosing" type="number" min="0.00" step="0.01" class="form-control" placeholder="EnterpriseValueAtClosing" value="{{ .Investment.ExitValueAtClosing }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="FundOwnershipPercentage">Fund Ownership %</label>
+   <input name="FundOwnershipPercentage" type="number" min="0.00" step="0.01" class="form-control" placeholder="1%" value="{{ .Investment.FundOwnershipPercentage }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="InvestorGroupPercentage">Investor Group %</label>
+   <input name="InvestorGroupPercentage" type="number" min="0.00" step="0.01" class="form-control" placeholder="18%" value="{{ .Investment.InvestorGroupPercentage }}"  autofocus>
+   </div> 
+   <div class="form-group">
+   <label for="ManagementOwnership">Management Ownership %</label>
+   <input name="ManagementOwnership" type="number" min="0.00" step="0.01" class="form-control" placeholder="20%" value="{{ .Investment.ManagementOwnership }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="InvestmentCommittment">Investment Committment</label>
+   <input name="InvestmentCommittment" type="number" min="0.00" step="0.01" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestmentCommittment }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="InvestedCapital">Invested Capital</label>
+   <input name="InvestedCapital" type="number" min="0.00" step="0.01" class="form-control" placeholder="$50,0000" value="{{ .Investment.InvestedCapital }}"  autofocus>
+   </div>
+   </div>
+   <div class="col-lg-4">
+   <div class="form-group">
+   <label for="RealizedProceeds">Realized Proceeds</label>
+   <input name="RealizedProceeds" type="number" min="0.00" step="0.01" class="form-control" placeholder="0" value="{{ .Investment.RealizedProceeds }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="ReportedValue">Reported Value</label>
+   <input name="ReportedValue" type="number" min="0.00" step="0.01" class="form-control" placeholder="$65000" value="{{ .Investment.ReportedValue }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="InvestmentMultiple">Investment Multiple ( number of times)</label>
+   <input name="InvestmentMultiple" type="number" min="0.00" step="0.01" class="form-control" placeholder="1.2" value="{{ .Investment.InvestmentMultiple }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="GrossIRR">Gross Internal Rate of Return (tool tip, link chart)</label>
+   <input name="GrossIRR" type="number" min="0.00" step="0.01" class="form-control" placeholder="60%" value="{{ .Investment.GrossIRR }}"  autofocus>
+   </div>
+   <div class="form-group">
+   <label for="Status">Status</label>
+   <select class="form-control" id="Status" name="Status">
+   <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Below Target</option>
+   <option value="PERFORMANCE_ON_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance On Target</option>
+   <option value="PERFORMANCE_ABOVE_TARGET" {{ if eq "PERFORMANCE_ABOVE_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Above Target</option>
+   <option value="POOR_PERFORMANCE" {{ if eq "POOR_PERFORMANCE" .Investment.Status }}selected="selected"{{ end }}>Poor Performance</option>
+   <option value="ACQUIRED_OR_SOLD" {{ if eq "ACQUIRED_OR_SOLD" .Investment.Status }}selected="selected"{{ end }}>Acquired Or Sold</option>
+   </select>
+   </div>
+   </div>
+   </div>
+   <div class="row">
+   <div class="col-lg-12">
+   <div class="form-group">
+   <textarea id="uinvestmentbackground" name="InvestmentBackground">{{.Investment.InvestmentBackground | safeHTML}}</textarea>
+   </div> 
+   </div>   
+   </div>
+   <div class="row">
+   <div class="col-lg-12">
+   <div class="form-group">
+   <textarea id="uinvestmentthesis" name="InvestmentThesis">{{.Investment.InvestmentThesis | safeHTML }}</textarea>
+   </div>
+   </div>
+   </div>
+   <div class="row">
+   <div class="col-lg-12">
+   <div class="form-group">
+   <textarea id="uvaluationmethodology" name="ValuationMethodology">{{.Investment.ValuationMethodology | safeHTML}}</textarea>
+   </div> 
+   </div>   
+   </div>
+   <div class="row">
+   <div class="col-lg-12">
+   <div class="form-group">
+   <textarea id="uriskassessment" name="RiskAssessment">{{.Investment.RiskAssessment | safeHTML }}</textarea>
+   </div> 
+   </div>   
+   </div>
+   <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
+   <a class="au-btn au-btn-icon au-btn--blue2" href="/entryaccess" class="other-form text-center">Cancel</a>
+   </form>
    </div>
 </section>
 {{end}}

@@ -4,6 +4,7 @@
       <div class="row">
          <form class="form-signup-login form-Contribution" method="post" action="/updatecontribution">
             <input type="hidden" name="id" value="{{ .Contribution.ID }}">
+            <input type="hidden" name="User_ID" value="{{ .Contribution.User_ID }}">
             <div class="col-lg-12 text-center">
                <h2 class="section-heading text-uppercase">Add/Edit Investor Contribution</h2>
             </div>

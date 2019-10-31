@@ -140,6 +140,11 @@ func UpdateContribution(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, e)
 		return
 	}
+	User_ID, e := strconv.ParseInt(r.FormValue("User_ID"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	_, ok := session.Values["user"].(*models.UserRow)
@@ -168,8 +173,8 @@ func UpdateContribution(w http.ResponseWriter, r *http.Request) {
 		ID = contribution.ID
 
 	} else {
-		//fmt.Printf("Updating Contribution with ApplicationID%v, ScreeningNotes_ID%v", Application_ID, ScreeningNotes_ID)
-
+		m["User_ID"] = User_ID
+		fmt.Printf("Updating Contribution with ContributionID=%v and DataMap \n %v", ID, m)
 		_, err3 := models.NewContribution(db).UpdateById(nil, ID, m)
 		if err3 != nil {
 			libhttp.HandleErrorJson(w, err3)

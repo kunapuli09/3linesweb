@@ -30,7 +30,7 @@ func New(config *viper.Viper) (*Application, error) {
 	app.db = db
 	store := sessions.NewCookieStore([]byte(cookieStoreSecret))
 	store.Options = &sessions.Options{
-		MaxAge:   60 * 60,
+		MaxAge:   60 * 30,
 		HttpOnly: true,
 	}
 	app.sessionStore = store
@@ -102,9 +102,10 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.HandleFunc("/newfinancials", handlers.NewFinancials).Methods("GET")
 	router.HandleFunc("/newinvestmentstructure", handlers.NewInvestmentStructure).Methods("GET")
+	router.HandleFunc("/editinvestmentstructure", handlers.NewInvestmentStructure).Methods("GET")
 	router.HandleFunc("/newcapitalstructure", handlers.NewCapitalStructure).Methods("GET")
 	router.HandleFunc("/addCapitalStructure", handlers.AddCapitalStructure).Methods("POST")
-	router.HandleFunc("/addInvestmentStructure", handlers.AddInvestmentStructure).Methods("POST")
+	router.HandleFunc("/updateInvestmentStructure", handlers.UpdateInvestmentStructure).Methods("POST")
 	router.HandleFunc("/addFinancialResults", handlers.AddFinancialResults).Methods("POST")
 	router.HandleFunc("/news", handlers.News).Methods("GET")
 

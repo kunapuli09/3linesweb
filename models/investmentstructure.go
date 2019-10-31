@@ -56,6 +56,10 @@ func (i *InvestmentStructure) AllInvestmentStructures(tx *sqlx.Tx) ([]*Investmen
 // GetById returns record by id.
 func (i *InvestmentStructure) GetById(tx *sqlx.Tx, id int64) (*InvestmentStructureRow, error) {
 	isr := &InvestmentStructureRow{}
+	if id == 0 {
+		isr.ReportingDate = time.Now().AddDate(0, 0, -3)
+		return isr, nil
+	}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", i.table)
 	err := i.db.Get(isr, query, id)
 

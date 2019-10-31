@@ -4,7 +4,7 @@
     <a href="/viewinvestment?id={{.Investment.ID}}" class="au-btn au-btn-icon au-btn--blue2">Back to Investment</a>
       <div class="row">
          <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Investment Structure </h3>for {{.Investment.StartupName}} 
+            <h3 class="section-heading text-uppercase">Existing Investment Structures </h3>for {{.Investment.StartupName}} 
          </div>
          <table class="table">
           <tbody>
@@ -15,23 +15,34 @@
               <td>{{.Structure}}</td>
              <td>{{ .Units }}</td>
              <td>{{.TotalInvested}}</td>
+             <td><a class="btn btn-sm btn-outline-primary" href="/editinvestmentstructure?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Update </a></td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removeinvestmentstructure?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>
             </tr>
             {{end}}
           </tbody>
         </table>
       </div>
+       <div class="row">
+      <h3 class="section-heading text-uppercase">Add or Edit Investment Structure </h3>
+      </div>
       <div class="row">
          <div class="col-lg-4">
-            <form class="form-signup-login form-investment" method="post" action="/addInvestmentStructure"> 
-               <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
+            <form class="form-signup-login form-investment" method="post" action="/updateInvestmentStructure">
+               <input type="hidden" name="id" id="id" value="{{.InvestmentStructure.ID}}"> 
+               <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{ $.Investment.ID }}">
+               
                <div class="form-group">
                  <label for="Structure">Type of Investment</label>
                  <select class="form-control" id="Structure" name="Structure">
-                   <option value="Common Units">Common Units</option>
-                   <option value="Series A Preferred">Series A Preferred</option>
-                   <option value="Seed Preferred">Seed Preferred</option>
-                   <option value="Note">Note</option>
+                   <option value="Seed Preferred" {{ if eq "Seed Preferred" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Seed Preferred</option>
+                   <option value="Pre-Series A Preferred" {{ if eq "Seed Preferred" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Pre-Series A Preferred</option>
+                   <option value="Series A Preferred" {{ if eq "Series A Preferred" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Series A Preferred</option>
+                   <option value="Series B Preferred" {{ if eq "Series B Preferred" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Series B Preferred</option>
+                   <option value="Other Preferred" {{ if eq "Other Preferred" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Other Preferred</option>
+                   <option value="Convertible Note" {{ if eq "Convertible Note" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Convertible Note</option>
+                   <option value="Safe Note" {{ if eq "Safe Note" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Safe Note</option>
+                   <option value="Common Units" {{ if eq "Common Units" .InvestmentStructure.Structure }}selected="selected"{{ end }}>Common Units</option>
+                   
                  </select>
                </div>
                <label for="ReportingDate">Reporting Date</label>
@@ -57,7 +68,7 @@
                   <label for="RealizedProceeds">Realized Proceeds</label>
                   <input name="RealizedProceeds" type="number" min="0.00" step="0.01" class="form-control" placeholder="0" value="{{ .InvestmentStructure.RealizedProceeds }}"  required autofocus>
                </div> 
-               <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Add Investment Structure</button>
+               <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Add/Update Investment Structure</button>
                </form>
          </div>
       </div>

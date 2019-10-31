@@ -8,6 +8,9 @@ import (
 	"time"
 )
 
+const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
+const FUNDII = "3Lines Rocket Fund, L.P"
+
 func NewContribution(db *sqlx.DB) *Contribution {
 	contribution := &Contribution{}
 	contribution.db = db
@@ -22,6 +25,7 @@ type Contribution struct {
 
 type ContributionRow struct {
 	ID                  int64           `db:"id"`
+	User_ID             int64           `db:"user_id"`
 	FundLegalName       string          `db:"FundLegalName"`
 	InvestorLegalName   string          `db:"InvestorLegalName"`
 	InvestorAddress     string          `db:"InvestorAddress"`
@@ -33,6 +37,11 @@ type ContributionRow struct {
 	InvestmentAmount    decimal.Decimal `db:"InvestmentAmount"`
 	Comments            string          `db:"Comments"`
 	Status              string          `db:"Status"`
+}
+
+type SearchContribution struct {
+	InvestorLegalName string
+	FundLegalNames    []string
 }
 
 func (i *ContributionRow) FormattedCommitmentDate() string {
@@ -60,17 +69,51 @@ func (i *Contribution) AllContributions(tx *sqlx.Tx) ([]*ContributionRow, error)
 // GetById returns record by id.
 func (i *Contribution) GetById(tx *sqlx.Tx, id int64) (*ContributionRow, error) {
 	contribution := &ContributionRow{}
+	if id == 0 {
+		contribution.CommitmentDate = time.Now().AddDate(0, 0, -3)
+		return contribution, nil
+	}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", i.table)
 	err := i.db.Get(contribution, query, id)
 
 	return contribution, err
 }
 
+// Get All by Application ID.
+func (i *Contribution) GetAllByContributionIdAndUserId(tx *sqlx.Tx, Contribution_ID int64, User_ID int64) (*ContributionRow, error) {
+	isr := &ContributionRow{}
+	var query string
+	if Contribution_ID == 0 {
+		query = fmt.Sprintf("SELECT * FROM %v WHERE User_ID=%v", i.table, User_ID)
+		//fmt.Printf("Executing Query %v", query)
+	} else {
+		query = fmt.Sprintf("SELECT * FROM %v WHERE ID=%v AND User_ID=%v", i.table, Contribution_ID, User_ID)
+		//fmt.Printf("Executing Query for Existing Notes %v", query)
+	}
+	err := i.db.Get(isr, query)
+	return isr, err
+}
+
+// Get All by Application ID.
+func (i *Contribution) GetAllByFundNameAndUserId(tx *sqlx.Tx, FundLegalName string, User_ID int64) ([]*ContributionRow, error) {
+	var query string
+	contributions := []*ContributionRow{}
+	if len(FundLegalName) == 0 || FundLegalName == "" {
+		query = fmt.Sprintf("SELECT * FROM %v WHERE User_ID=%v", i.table, User_ID)
+		//fmt.Printf("Executing Query %v", query)
+	} else {
+		query = fmt.Sprintf("SELECT * FROM %v WHERE FundLegalName=%v AND User_ID=%v", i.table, FundLegalName, User_ID)
+		//fmt.Printf("Executing Query for Existing Notes %v", query)
+	}
+	err := i.db.Select(&contributions, query)
+	return contributions, err
+}
+
 // GetByName returns record by name.
-func (i *Contribution) GetByName(tx *sqlx.Tx, name string) (*ContributionRow, error) {
+func (i *Contribution) GetByName(tx *sqlx.Tx, FundLegalName string) (*ContributionRow, error) {
 	contribution := &ContributionRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE name=?", i.table)
-	err := i.db.Get(contribution, query, name)
+	query := fmt.Sprintf("SELECT * FROM %v WHERE FundLegalName=?", i.table)
+	err := i.db.Get(contribution, query, FundLegalName)
 
 	return contribution, err
 }
@@ -103,4 +146,48 @@ func (i *Contribution) UpdateById(tx *sqlx.Tx, ContributionId int64, data map[st
 	}
 
 	return i.GetById(tx, ContributionId)
+}
+
+// Search By CompanyName or Location returns records query.
+func (i *Contribution) SearchContributions(tx *sqlx.Tx, data SearchContribution) ([]*ContributionRow, error) {
+	var query string
+	var err error
+	isrs := []*ContributionRow{}
+	investorName := data.InvestorLegalName
+	if len(data.FundLegalNames) > 0 {
+		if len(investorName) > 0 {
+			query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN users u ON a.user_id=u.id WHERE a.InvestorLegalName Like '%%%s%%' AND a.FundLegalName in (`, i.table, investorName)
+		} else {
+			query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN users u ON a.user_id=u.id WHERE a.FundLegalName in (`, i.table)
+		}
+		last := len(data.FundLegalNames) - 1
+		for index, fundName := range data.FundLegalNames {
+			if index == last {
+				query += `'` + fundName + `')`
+			} else {
+				query += `'` + fundName + `',`
+			}
+		}
+		fmt.Printf("input query %s", query)
+		err = i.db.Select(&isrs, query)
+		if err != nil {
+			fmt.Println("Search1 Error ", err)
+			return nil, err
+		}
+		return isrs, err
+	} else {
+		if len(investorName) > 0 {
+			query = fmt.Sprintf(`SELECT * FROM %s WHERE InvestorLegalName Like '%%%s%%'`, i.table, investorName)
+//			fmt.Printf("input query %s for investor %s", query, investorName)
+			err = i.db.Select(&isrs, query)
+			if err != nil {
+				fmt.Println("Search2 Error", err)
+				return nil, err
+			}
+			return isrs, err
+		}
+
+	}
+	return i.AllContributions(tx)
+
 }

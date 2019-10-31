@@ -1,326 +1,318 @@
 {{define "layout"}}
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>3Lines Venture Capital</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/all.css" rel="stylesheet" type="text/css">
-
-    <!-- Custom fonts for this template -->
-    <!-- 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" media="print">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
-       -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-          <!-- <link href="css2/font-face.css" rel="stylesheet" media="all"> -->
-    <!-- date picker start  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.min.css">
-    <!-- date picker end  -->
-    <!-- Custom styles for portf-->
-    <link href="css/album.css" rel="stylesheet">
-    <link href="css/navbar-top-fixed.css" rel="stylesheet">
-    <!--summer note rich text editor -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
-
-
-    <!-- ******** Dashboard ThemeFontfaces CSS-->
-
-    <link href="vendor2/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="vendor2/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- vendor2 CSS-->
-    <link href="vendor2/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor2/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor2/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor2/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="css2/theme.css" rel="stylesheet" media="all">
-    <!-- ******** End Dashboard Theme -->
-    
-
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>3Lines Venture Capital</title>
+      <!-- Bootstrap core CSS -->
+      <link href="vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="vendor2/font-awesome/css/all.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+      <!-- date picker start  -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.min.css">
+      <!-- date picker end  -->
+      <!-- Custom styles for portf-->
+      <link href="css/album.css" rel="stylesheet">
+      <link href="css/navbar-top-fixed.css" rel="stylesheet">
+      <!--summer note rich text editor -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+      <!-- ******** Dashboard ThemeFontfaces CSS-->
+      <link href="vendor2/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+      <!-- Bootstrap CSS-->
+      <link href="vendor2/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+      <!-- vendor2 CSS-->
+      <link href="vendor2/animsition/animsition.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/wow/animate.css" rel="stylesheet" media="all">
+      <link href="vendor2/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/slick/slick.css" rel="stylesheet" media="all">
+      <link href="vendor2/select2/select2.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+      <link href="css2/theme.css" rel="stylesheet" media="all">
+      <!-- ******** End Dashboard Theme -->
       <!-- Favicon.ico -->
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#00a300">
-    <meta name="theme-color" content="#ffffff">
-
-  </head>
-
-  <body id="page-top">
-    {{if .CurrentUser}}
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <img src="img/logo.png" alt="3Lines">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav text-uppercase ml-auto">
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/portfolio"><i class="fa fa-briefcase"></i>Portfolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/notifications">
-                <span class="fa-stack has-badge" data-count="{{.Count}}">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-                </span>Notifications</a>
-            </li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
-            </li>
-           
-          </ul>
-      </div>
-    </nav>
-     {{end}}
-    {{template "content" .}}
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <span class="copyright">Copyright &copy; 3Lines 2019</span>
-          </div>
-          <div class="col-md-4">
-            <ul class="list-inline social-buttons">
-              <li class="list-inline-item">
-                <a href="http://twitter.com/threelinesus">
-                  <i class="zmdi zmdi-twitter-box"></i>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="http://facebook.com/threelinesus">
-                  <i class="zmdi zmdi-facebook-box"></i>
-                </a>
-              </li>
+      <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+      <link rel="manifest" href="img/favicon/site.webmanifest">
+      <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#00a300">
+      <meta name="theme-color" content="#ffffff">
+   </head>
+   <body id="page-top">
+      {{if .CurrentUser}}
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+         <img src="img/logo.png" alt="3Lines">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav text-uppercase ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/entryaccess"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+               </li>
+               {{if .CurrentUser.Admin }}
+               <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-briefcase"></i>Fund Management
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                     
+                     <a href="/entryaccess" class="dropdown-item">Investments</a> 
+                     <div class="dropdown-divider"></div>
+                     <a href="/contributions" class="dropdown-item">Investors</a>
+                     {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin)  }}
+                     <div class="dropdown-divider"></div>
+                     <a href="/fundingreqs" class="dropdown-item">Deals</a>
+                     {{end}}
+                     
+                  </div>
+               </li>
+               {{end}}
+               <!-- <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/notifications">
+                  <span class="fa-stack has-badge" data-count="{{.Count}}">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                  </span>Notifications</a>
+               </li> -->
+               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-     
-    <!-- User Settings Modal -->
-    <div class="modal fade" id="user-settings-modal" tabindex="-1" role="dialog" aria-labelledby="user-settings-label" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="user-settings-label">User Settings</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-
-          <form method="post" action="/users/{{ .CurrentUser.ID }}">
-
-            <div class="modal-body">
-              <input type="hidden" name="_method" value="put">
-
-              <div class="form-group">
-                <label class="control-label" for="email">Email:</label>
-                <input type="text" name="Email" id="email" class="form-control" value="{{ .CurrentUser.Email }}">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="email">Phone:</label>
-                <input type="text" name="Phone" id="phone" class="form-control" value="{{ .CurrentUser.Phone }}">
-              </div>
-
-
-              <div class="form-group">
-                <label class="control-label" for="password">New Password:</label>
-                <input type="password" name="Password" id="password" class="form-control">
-              </div>
-
-              <div class="form-group">
-                <label class="control-label" for="password-again">New Password Again:</label>
-                <input type="password" name="PasswordAgain" id="password-again" class="form-control">
-              </div>
+         </div>
+      </nav>
+      {{end}}
+      {{template "content" .}}
+      <!-- Footer -->
+      <footer>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                  <span class="copyright">Copyright &copy; 3Lines 2019</span>
+               </div>
+               <div class="col-md-4">
+                  <ul class="list-inline social-buttons">
+                     <li class="list-inline-item">
+                        <a href="http://twitter.com/threelinesus">
+                        <i class="zmdi zmdi-twitter-box"></i>
+                        </a>
+                     </li>
+                     <li class="list-inline-item">
+                        <a href="http://facebook.com/threelinesus">
+                        <i class="zmdi zmdi-facebook-box"></i>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
             </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success" onclick="$(this).closest('form').submit()">Save changes</button>
+         </div>
+      </footer>
+      <!-- User Settings Modal -->
+      <div class="modal fade" id="user-settings-modal" tabindex="-1" role="dialog" aria-labelledby="user-settings-label" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title" id="user-settings-label">User Settings</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               </div>
+               <form method="post" action="/users/{{ .CurrentUser.ID }}">
+                  <div class="modal-body">
+                     <input type="hidden" name="_method" value="put">
+                     <div class="form-group">
+                        <label class="control-label" for="email">Email:</label>
+                        <input type="text" name="Email" id="email" class="form-control" value="{{ .CurrentUser.Email }}">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="email">Phone:</label>
+                        <input type="text" name="Phone" id="phone" class="form-control" value="{{ .CurrentUser.Phone }}">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="password">New Password:</label>
+                        <input type="password" name="Password" id="password" class="form-control">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="password-again">New Password Again:</label>
+                        <input type="password" name="PasswordAgain" id="password-again" class="form-control">
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-success" onclick="$(this).closest('form').submit()">Save changes</button>
+                  </div>
+               </form>
             </div>
-
-          </form>
-
-        </div>
+         </div>
       </div>
-    </div>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-77741671-1');
-    </script>
-    
-    <!-- Bootstrap core JavaScript -->
-
-    <script src="vendor/jquery/jquery.min.js"></script>
-<!--     <script src="vendor/bootstrap/js/popper.min.js"></script> -->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-    <!-- Contact form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <!-- <script src="js/contact_me.js"></script> -->
-    <script src="js/login.js"></script>
-    <script src="js/resetpassword.js"></script>
-    <script src="js/appl.js"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <!-- <script src="js/FundI_Investment_Pie.js"></script> -->
-
-    <!-- Custom scripts for this template -->
-    <!-- <script src="js/agency.min.js"></script> -->
-    <!-- date picker start  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/js/bootstrap-datepicker.js"></script>
-    <!-- <script>$('.collapse').collapse()</script> -->
-    <script>
-      $('#summernote').summernote({
-        placeholder: 'Report News',
-        tabsize: 2,
-        height: 100
-      });
-      $('#description').summernote({
-        placeholder: 'Description',
-        tabsize: 2,
-        height: 100
-      });
-      $('#investmentbackground').summernote({
-        placeholder: 'Investment Background',
-        tabsize: 2,
-        height: 100
-      });
-      $('#investmentthesis').summernote({
-        placeholder: 'Investment Thesis',
-        tabsize: 2,
-        height: 100
-      });
-      $('#riskassessment').summernote({
-        placeholder: 'Risk Assessment',
-        tabsize: 2,
-        height: 100
-      });
-      $('#valuationmethodology').summernote({
-        placeholder: 'Valuation Methodology',
-        tabsize: 2,
-        height: 100
-      });
-      $('#udescription').summernote({
-        tabsize: 2,
-        height: 100
-      });
-      $('#uinvestmentbackground').summernote({
-        placeholder: 'Investment Background',
-        tabsize: 2,
-        height: 100
-      });
-      $('#uinvestmentthesis').summernote({
-        placeholder: 'Investment Thesis',
-        tabsize: 2,
-        height: 100
-      });
-      $('#uriskassessment').summernote({
-        placeholder: 'Risk Assessment',
-        tabsize: 2,
-        height: 100
-      });
-      $('#uvaluationmethodology').summernote({
-        placeholder: 'Valuation Methodology',
-        tabsize: 2,
-        height: 100
-      });
-      $('#Comments').summernote({
-        placeholder: 'Screening Comments',
-        tabsize: 2,
-        height: 100
-      });
-    $(document).ready(function() {
-      $('#summernote').summernote();
-    });
-    $(document).ready(function() {
-      $('#description').summernote();
-    });
-    $(document).ready(function() {
-      $('#investmentbackground').summernote();
-    });
-    $(document).ready(function() {
-      $('#investmentthesis').summernote();
-    });
-    $(document).ready(function() {
-      $('#riskassessment').summernote();
-    });
-    $(document).ready(function() {
-      $('#valuationmethodology').summernote();
-    });
-    $(document).ready(function() {
-      $('#udescription').summernote();
-    });
-    $(document).ready(function() {
-      $('#uinvestmentbackground').summernote();
-    });
-    $(document).ready(function() {
-      $('#uinvestmentthesis').summernote();
-    });
-    $(document).ready(function() {
-      $('#uriskassessment').summernote();
-    });
-    $(document).ready(function() {
-      $('#uvaluationmethodology').summernote();
-    });
-    $(document).ready(function() {
-      $('#Comments').summernote();
-    });
-    </script>
-    <script>
-    $(document).ready(function() {
-    $('#ScreeningDate').datepicker();
-    $('#ScreeningDate').datepicker('setDate', 'today');
-    });
-   </script>
-    <script>
-      function newTab(t) {
-      window.open(t);
-      }
-    </script>
-    <script>
-      $('.js-clickable').on('click', function() {
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         
+         gtag('config', 'UA-77741671-1');
+      </script>
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <!--     <script src="vendor/bootstrap/js/popper.min.js"></script> -->
+      <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+      <!-- Contact form JavaScript -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <!-- <script src="js/contact_me.js"></script> -->
+      <script src="js/login.js"></script>
+      <script src="js/resetpassword.js"></script>
+      <script src="js/appl.js"></script>
+      <script src="vendor/chart.js/Chart.min.js"></script>
+      <!-- Custom scripts for this template -->
+      <script src="js/agency.min.js"></script>
+      <!-- <script>$('.collapse').collapse()</script> -->
+      <!-- date picker start  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/js/bootstrap-datepicker.js"></script>
+      <script>
+         $('#summernote').summernote({
+           placeholder: 'Report News',
+           tabsize: 2,
+           height: 100
+         });
+         $('#description').summernote({
+           placeholder: 'Description',
+           tabsize: 2,
+           height: 100
+         });
+         $('#investmentbackground').summernote({
+           placeholder: 'Investment Background',
+           tabsize: 2,
+           height: 100
+         });
+         $('#investmentthesis').summernote({
+           placeholder: 'Investment Thesis',
+           tabsize: 2,
+           height: 100
+         });
+         $('#riskassessment').summernote({
+           placeholder: 'Risk Assessment',
+           tabsize: 2,
+           height: 100
+         });
+         $('#valuationmethodology').summernote({
+           placeholder: 'Valuation Methodology',
+           tabsize: 2,
+           height: 100
+         });
+         $('#udescription').summernote({
+           tabsize: 2,
+           height: 100
+         });
+         $('#uinvestmentbackground').summernote({
+           placeholder: 'Investment Background',
+           tabsize: 2,
+           height: 100
+         });
+         $('#uinvestmentthesis').summernote({
+           placeholder: 'Investment Thesis',
+           tabsize: 2,
+           height: 100
+         });
+         $('#uriskassessment').summernote({
+           placeholder: 'Risk Assessment',
+           tabsize: 2,
+           height: 100
+         });
+         $('#uvaluationmethodology').summernote({
+           placeholder: 'Valuation Methodology',
+           tabsize: 2,
+           height: 100
+         });
+         $('#Comments').summernote({
+           placeholder: 'Screening Comments',
+           tabsize: 2,
+           height: 100
+         });
+         $(document).ready(function() {
+         $('#summernote').summernote();
+         });
+         $(document).ready(function() {
+         $('#description').summernote();
+         });
+         $(document).ready(function() {
+         $('#investmentbackground').summernote();
+         });
+         $(document).ready(function() {
+         $('#investmentthesis').summernote();
+         });
+         $(document).ready(function() {
+         $('#riskassessment').summernote();
+         });
+         $(document).ready(function() {
+         $('#valuationmethodology').summernote();
+         });
+         $(document).ready(function() {
+         $('#udescription').summernote();
+         });
+         $(document).ready(function() {
+         $('#uinvestmentbackground').summernote();
+         });
+         $(document).ready(function() {
+         $('#uinvestmentthesis').summernote();
+         });
+         $(document).ready(function() {
+         $('#uriskassessment').summernote();
+         });
+         $(document).ready(function() {
+         $('#uvaluationmethodology').summernote();
+         });
+         $(document).ready(function() {
+         $('#Comments').summernote();
+         });
+      </script>
+      <script>
+         $(document).ready(function() {
+         $('#ScreeningDate').datepicker();
+         $('#ScreeningDate').datepicker('setDate', 'today');
+         });
+      </script>
+      <script>
+         function newTab(t) {
+         window.open(t);
+         }
+      </script>
+      <script>
+         $('.js-clickable').on('click', function() {
+           var ID = $(this).attr("id"); 
+           var URL = '/updateNotification?id=' + ID
+           //alert(URL);
+           window.document.location = URL;
+         
+         });
+      </script>
+      <script>
+      $('.tr-shadow').on('click', function() {
         var ID = $(this).attr("id"); 
-        var URL = '/updateNotification?id=' + ID
-        //alert(URL);
+        var URL = '/viewinvestment?id=' + ID
         window.document.location = URL;
     
 });
     </script>
-  </body>
+      <script>
+         var startupnames = {{.StartupNames}};
+         var amounts = {{.Amounts}};
+         var fundnames = {{.FundNames}};
+         var capitalcontributions = {{.CapitalContributions}};
+      </script>
+      <script src="js/FundI_Investment_Pie.js"></script> 
+   </body>
 </html>
 {{end}}

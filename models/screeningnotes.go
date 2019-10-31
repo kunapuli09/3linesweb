@@ -110,7 +110,7 @@ func (i *ScreeningNotes) UpdateById(tx *sqlx.Tx, isId int64, data map[string]int
 	return i.GetById(tx, isId)
 }
 
-// Get All by Investment ID.
+// Get All by Application ID.
 func (i *ScreeningNotes) GetByApplicationIdAndScreener(tx *sqlx.Tx, ScreeningNotes_ID int64, Application_ID int64, ScreenerEmail string) (*ScreeningNotesRow, error) {
 	isr := &ScreeningNotesRow{}
 	var query string

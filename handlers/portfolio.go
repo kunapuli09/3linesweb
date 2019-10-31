@@ -16,20 +16,105 @@ import (
 	"time"
 )
 
-// type NewsHtmlRow struct {
-// 	ID            int64
-// 	Investment_ID int64
-// 	NewsDate      time.Time
-// 	News          template.HTML
-// }
-
-const PENDING = "PENDING"
-const COMPLETE = "COMPLETE"
-const ARCHIVE = "ARCHIVE"
 const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
 const FUNDII = "3Lines Rocket Fund, L.P"
+const PERFORMANCE_BELOW_TARGET = "PERFORMANCE_BELOW_TARGET"
+const PERFORMANCE_ON_TARGET = "PERFORMANCE_ON_TARGET"
+const PERFORMANCE_ABOVE_TARGET = "PERFORMANCE_ABOVE_TARGET"
+const POOR_PERFORMANCE = "POOR_PERFORMANCE"
+const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 
-func GetPortfolio(w http.ResponseWriter, r *http.Request) {
+var ac = accounting.Accounting{Symbol: "$", Precision: 2}
+
+func EntryAccess(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	//fmt.Printf("%s. Inside EntryAccess", currentUser.Email)
+
+	switch defaultView := true; defaultView {
+	case currentUser.Admin:
+		GetAdminDashboard(w, r)
+	default:
+		InvestorDashboard(w, r)
+	}
+
+}
+
+func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !currentUser.Admin {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	investments := []*models.InvestmentRow{}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	contributions, err := models.NewContribution(db).AllContributions(nil)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+	participatedFundNamesForBackend, participatedFundNamesForWeb, capitalcontributions := CapitalContributionDataForPieChart(contributions)
+
+	if len(participatedFundNamesForBackend) > 0 {
+		i, err := models.NewInvestment(db).GetUserInvestments(nil, unique(participatedFundNamesForBackend))
+		if err != nil {
+			libhttp.HandleErrorJson(w, err)
+			return
+		}
+		investments = append(investments, i...)
+	}
+	startupnames, amounts := CapitalSpreadDataForBarChart(investments)
+
+	//data for fund1dashboard.html.tmpl
+	data := struct {
+		CurrentUser          *models.UserRow
+		Count                int
+		Contributions        []*models.ContributionRow
+		Investments          []*models.InvestmentRow
+		StartupNames         []string
+		Amounts              []decimal.Decimal
+		FundNames            []string
+		CapitalContributions []decimal.Decimal
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		contributions,
+		investments,
+		startupnames,
+		amounts,
+		participatedFundNamesForWeb,
+		capitalcontributions,
+	}
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/admindashboard.html.tmpl")
+
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
@@ -39,50 +124,99 @@ func GetPortfolio(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	investments, err := models.NewInvestment(db).GetStartupNames(nil)
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	archive, pending, complete := SplitByStatus(investments)
-	fundone, fundtwo := SplitByFund(complete)
-	//create session date for page rendering
-	data := struct {
-		CurrentUser       *models.UserRow
-		Count             int
-		FundIInvestments  []*models.InvestmentRow
-		FundIIInvestments []*models.InvestmentRow
-		Pending           []*models.InvestmentRow
-		Archive           []*models.InvestmentRow
-	}{
-		currentUser,
-		getCount(w, r, currentUser.Email),
-		fundone,
-		fundtwo,
-		pending,
-		archive,
-	}
+	investments := []*models.InvestmentRow{}
+	var displayPieChart bool
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {
 			return template.HTML(b)
 		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
 	}
-	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/portfolio.html.tmpl")
+	contributions, err := models.NewContribution(db).GetAllByFundNameAndUserId(nil, "", currentUser.ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+
+	participatedFundNamesForBackend, participatedFundNamesForWeb, capitalcontributions := CapitalContributionDataForPieChart(contributions)
+
+	if len(participatedFundNamesForBackend) > 0 {
+		i, err := models.NewInvestment(db).GetUserInvestments(nil, participatedFundNamesForBackend)
+		if err != nil {
+			libhttp.HandleErrorJson(w, err)
+			return
+		}
+		investments = append(investments, i...)
+	}
+	startupnames, amounts := CapitalSpreadDataForBarChart(investments)
+	if len(contributions) > 1 {
+		displayPieChart = true
+	}
+	//data for fund1dashboard.html.tmpl
+	data := struct {
+		CurrentUser          *models.UserRow
+		Count                int
+		Contributions        []*models.ContributionRow
+		Investments          []*models.InvestmentRow
+		StartupNames         []string
+		Amounts              []decimal.Decimal
+		FundNames            []string
+		CapitalContributions []decimal.Decimal
+		DisplayPieChart      bool
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		contributions,
+		investments,
+		startupnames,
+		amounts,
+		participatedFundNamesForWeb,
+		capitalcontributions,
+		displayPieChart,
+	}
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/investordashboard.html.tmpl")
+
+	if err != nil {
+		fmt.Println(err)
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+func NoEntry(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	data := struct {
+		CurrentUser *models.UserRow
+		Count       int
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+	}
+	tmpl, err := template.New("main").ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/noentry.html.tmpl")
 
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
-
-	//tmpl.ExecuteTemplate(w, "layout", data)
 }
 
 //presentation view for new investment
 func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-	ac := accounting.Accounting{Symbol: "$", Precision: 2}
 	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -145,65 +279,6 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-//presentation view for new investment
-func NewInvestment(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
-		http.Redirect(w, r, "/logout", 302)
-		return
-	}
-
-	investment := &models.InvestmentRow{}
-	//create session data for page rendering
-	data := struct {
-		CurrentUser *models.UserRow
-		Count       int
-		Investment  *models.InvestmentRow
-	}{
-		currentUser,
-		getCount(w, r, currentUser.Email),
-		investment,
-	}
-	tmpl, err := template.ParseFiles("templates/portfolio/newinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	tmpl.ExecuteTemplate(w, "layout", data)
-}
-
-//database call to add new
-func Add(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	var i models.InvestmentRow
-	db := r.Context().Value("db").(*sqlx.DB)
-	err := r.ParseForm()
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	decoder := schema.NewDecoder()
-	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
-	err1 := decoder.Decode(&i, r.PostForm)
-	if err1 != nil {
-		fmt.Println("decoding error")
-		libhttp.HandleErrorJson(w, err1)
-		return
-	}
-	m := structs.Map(i)
-	//fmt.Printf("map %v", m)
-	_, err2 := models.NewInvestment(db).Create(nil, m)
-	if err2 != nil {
-		fmt.Println("database error")
-		libhttp.HandleErrorJson(w, err2)
-		return
-	}
-	GetPortfolio(w, r)
-}
-
 //presentation edit view
 func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -216,7 +291,7 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !currentUser.Admin {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -275,49 +350,61 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	//fmt.Printf("map %v", m)
-	_, err2 := models.NewInvestment(db).UpdateById(nil, ID, m)
-	if err2 != nil {
-		libhttp.HandleErrorJson(w, err2)
-		return
+	if ID == 0 {
+		//fmt.Printf("Creating New Notes with ApplicationID%v, ScreenerEmail%v", Application_ID, ScreenerEmail)
+		investment, err2 := models.NewInvestment(db).Create(nil, m)
+		if err2 != nil {
+			libhttp.HandleErrorJson(w, err2)
+			return
+		}
+		ID = investment.ID
+
+	} else {
+		//fmt.Printf("Updating Notes with ApplicationID%v, ScreeningNotes_ID%v", Application_ID, ScreeningNotes_ID)
+
+		_, err3 := models.NewInvestment(db).UpdateById(nil, ID, m)
+		if err3 != nil {
+			libhttp.HandleErrorJson(w, err3)
+			return
+		}
 	}
 	address := fmt.Sprintf("/viewinvestment?id=%v", ID)
 	http.Redirect(w, r, address, 302)
 }
-func SplitByStatus(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow, []*models.InvestmentRow) {
-	var archive []*models.InvestmentRow
-	var pending []*models.InvestmentRow
-	var complete []*models.InvestmentRow
+
+func CapitalSpreadDataForBarChart(investments []*models.InvestmentRow) ([]string, []decimal.Decimal) {
+	var startupnames []string
+	var amounts []decimal.Decimal
 
 	for _, investment := range investments {
-		switch status := investment.Status; status {
-		case ARCHIVE:
-			archive = append(archive, investment)
-		case PENDING:
-			pending = append(pending, investment)
-		case COMPLETE:
-			complete = append(complete, investment)
-
-		default:
-			fmt.Printf("%s. is unknown status", status)
-		}
+		startupnames = append(startupnames, investment.StartupName)
+		amounts = append(amounts, investment.InvestedCapital)
 	}
-	return archive, pending, complete
+	return startupnames, amounts
 }
 
-func SplitByFund(investments []*models.InvestmentRow) ([]*models.InvestmentRow, []*models.InvestmentRow) {
-	var fundone []*models.InvestmentRow
-	var fundtwo []*models.InvestmentRow
+func CapitalContributionDataForPieChart(contributions []*models.ContributionRow) ([]string, []string, []decimal.Decimal) {
+	var participatedFundNamesForBackend []string
+	var participatedFundNamesForWeb []string
+	var amounts []decimal.Decimal
+	for _, contribution := range contributions {
+		contributedCapitalWithOwnership := fmt.Sprintf("%s Ownership Precentage %s", contribution.FundLegalName, contribution.OwnershipPercentage.String())
+		participatedFundNamesForBackend = append(participatedFundNamesForBackend, contribution.FundLegalName)
+		participatedFundNamesForWeb = append(participatedFundNamesForWeb, contributedCapitalWithOwnership)
+		amounts = append(amounts, contribution.InvestmentAmount)
+	}
+	//fmt.Printf("%v \n %v",participatedFundNamesForWeb, amounts)
+	return participatedFundNamesForBackend, participatedFundNamesForWeb, amounts
+}
 
-	for _, investment := range investments {
-		switch investor := investment.Investor; investor {
-		case FUNDI:
-			fundone = append(fundone, investment)
-		case FUNDII:
-			fundtwo = append(fundtwo, investment)
-
-		default:
-			fmt.Printf("%s. is unknown investor type", investor)
+func unique(slice []string) []string {
+	keys := make(map[string]bool)
+	var participatedFundNamesForBackend []string
+	for _, entry := range slice {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			participatedFundNamesForBackend = append(participatedFundNamesForBackend, entry)
 		}
 	}
-	return fundone, fundtwo
+	return participatedFundNamesForBackend
 }

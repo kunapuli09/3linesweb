@@ -1,0 +1,151 @@
+{{define "content"}}
+<!-- Fund I-->
+<section class="jumbotron text-center">
+   <div class="container">
+      <h1 class="jumbotron-heading">
+         Investments - Capital Distribution
+      </h1>
+      <a href="/editinvestment?id=0" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-plus"></i>Add New Investment</a>
+   </div>
+</section>
+<!-- DATA TABLE-->
+<section class="p-t-20">
+   <div class="container">
+      <div class="row m-t-25">
+            <div class="col-sm-6 col-lg-8">
+               <div class="overview-item overview-item--c1">
+                  <div class="overview__inner">
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>8,665,000</h2>
+                           <span>Total Capital Under Management</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>OverWatchID Cyber Security</h2>
+                           <span>Exits</span>
+                        </div>
+                     </div>
+                     
+                     <div class="overview-chart">
+                        <canvas id="CapitalInvestmentBarChart"></canvas>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+               <div class="overview-item overview-item--c2">
+                  <div class="overview__inner">
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>4,485,000</h2>
+                           <span>New Fund II Total Raise</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>2,325,000</h2>
+                           <span>Special Purpose Vehicles</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>1,480,000</h2>
+                           <span>Fund I Total Raise</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>47,000</h2>
+                           <span>Fund I Distributed</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-12">
+            <h3 class="title-5 m-b-35">Admin View</h3>
+            <!-- <h3 class="title-5 m-b-35"><i class="fa fa-circle" style="font-size:24px;color:#ffc107"></i>Below Target  <i class="fa fa-circle" style="font-size:24px;color:#6c757d"></i>On Target <i class="fa fa-circle" style="font-size:24px;color:#28a745"></i>Above Target <i class="fa fa-circle" style="font-size:24px;color:#dc3545"></i>Poor<i class="fa fa-circle" style="font-size:24px;color:#17a2b8"></i>Acquired Or Sold</h3>  -->
+            {{if .Investments}}
+            <div class="table-responsive table-responsive-data2">
+               <table class="table table-data2">
+                  <thead>
+                     <tr>
+                        <th>Company Name</th>
+                        <th>Invested Capital</th>
+                        <th>Current Value</th>
+                        <th>Realized Proceeds</th>
+                        <th>Unrealized IRR</th>
+                        <th>Status</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {{range .Investments }}
+                     <tr id="{{.ID}}" class="tr-shadow">
+                        <td>{{.StartupName}}</td>
+                        <td>
+                                                {{.InvestedCapital | currencyFormat}}
+                                            </td>
+                                            
+                                            <td class="desc">{{.ReportedValue | currencyFormat }}</td>
+                                            <td>{{.RealizedProceeds | currencyFormat}}</td>
+                        <td>{{.GrossIRR}}%</td>
+                        <td>
+                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i></a>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance On Target"><i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i></a>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance Above Target"><i class="fa fa-circle" style="font-size:48px;color:#28a745"></i></a>
+                           {{ end }}
+                           {{ if eq "POOR_PERFORMANCE" .Status }}
+                           <button class="item" data-toggle="tooltip" data-placement="top" title="Poor Performance"><i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i></a>
+                           {{ end }}
+                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                           <button class="item" data-toggle="tooltip" data-placement="top" title="Acquired Or Sold"><i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i></a>
+                           {{ end }}
+                        </td>
+                        <!-- <td>
+                           <div class="table-data-feature">
+                              <a href="/viewinvestment?id={{.ID}}" role="button">  <button class="item" data-toggle="tooltip" data-placement="top" title="More">
+                              <i class="zmdi zmdi-more"> </i></a>
+                              </button>
+                           </div>
+                        </td> -->
+                     </tr>
+                     <tr class="spacer"></tr>
+                     {{end}}
+                  </tbody>
+               </table>
+            </div>
+            {{end}}
+         </div>
+      </div>
+   </div>
+</section>
+<!-- END DATA TABLE-->
+{{end}}

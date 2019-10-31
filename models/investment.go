@@ -22,7 +22,7 @@ type Investment struct {
 
 type InvestmentRow struct {
 	ID                      int64           `db:"id"`
-	Investor                string          `db:"Investor"`
+	FundLegalName           string          `db:"FundLegalName"`
 	StartupName             string          `db:"StartupName"`
 	LogoPath                string          `db:"LogoPath"`
 	Website                 string          `db:"Website"`
@@ -76,6 +76,10 @@ func (i *Investment) AllInvestments(tx *sqlx.Tx) ([]*InvestmentRow, error) {
 // GetById returns record by id.
 func (i *Investment) GetById(tx *sqlx.Tx, id int64) (*InvestmentRow, error) {
 	investment := &InvestmentRow{}
+	if id == 0 {
+		investment.InvestmentDate = time.Now().AddDate(0, 0, -3)
+		return investment, nil
+	}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", i.table)
 	err := i.db.Get(investment, query, id)
 
@@ -96,6 +100,27 @@ func (i *Investment) GetStartupNames(tx *sqlx.Tx) ([]*InvestmentRow, error) {
 	investments := []*InvestmentRow{}
 	query := fmt.Sprintf("SELECT * FROM %v", i.table)
 	err := i.db.Select(&investments, query)
+	return investments, err
+}
+
+// GetByName returns record by name.
+func (i *Investment) GetUserInvestments(tx *sqlx.Tx, partcipatedFundNames []string) ([]*InvestmentRow, error) {
+	investments := []*InvestmentRow{}
+	query := `SELECT * FROM investments WHERE FundLegalName in (`
+	last := len(partcipatedFundNames) - 1
+	for index, fundName := range partcipatedFundNames {
+		if index == last {
+			query += `'` + fundName + `')`
+		} else {
+			query += `'` + fundName + `',`
+		}
+	}
+	//fmt.Printf("input query %v", query)
+	err := i.db.Select(&investments, query)
+	if err != nil {
+		fmt.Println("GetUserInvestments Query Error %v", err)
+		return nil, err
+	}
 	return investments, err
 }
 

@@ -1,7 +1,7 @@
 {{define "content"}}
 <section class="bg-light" id="news">
    <div class="container">
-    <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
+    <a class="au-btn au-btn-icon au-btn--blue2" href="/viewinvestment?id={{.Investment.ID}}" >Back to Investment</a>
     <div class="row">
          <div class="col-lg-8 text-center">
             <h3 class="section-heading text-uppercase">Edit News with ID {{.News.ID}}</h3>
@@ -13,18 +13,22 @@
               <input type="hidden" name="id" id="id" value="{{.News.ID}}">
                <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <div class="form-group">
-                <label for="Status">Status</label>
-                 <select class="form-control" id="Status" name="Status">
-                   <option value="PENDING" {{ if eq "PENDING" .Investment.Status }}selected="selected"{{ end }}>Pending</option>
-                   <option value="PUBLISH" {{ if eq "PUBLISH" .Investment.Status }}selected="selected"{{ end }}>Publish</option>
-                   <option value="ARCHIVE" {{ if eq "ARCHIVE" .Investment.Status }}selected="selected"{{ end }}>Archive</option>
-                  </select>
+               <label for="Status">Status</label>
+               <select class="form-control" id="Status" name="Status">
+               <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .News.Status }}selected="selected"{{ end }}>Performance Below Target</option>
+               <option value="PERFORMANCE_ON_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .News.Status }}selected="selected"{{ end }}>Performance On Target</option>
+               <option value="PERFORMANCE_ABOVE_TARGET" {{ if eq "PERFORMANCE_ABOVE_TARGET" .News.Status }}selected="selected"{{ end }}>Performance Above Target</option>
+               <option value="POOR_PERFORMANCE" {{ if eq "POOR_PERFORMANCE" .News.Status }}selected="selected"{{ end }}>Poor Performance</option>
+               <option value="ACQUIRED_OR_SOLD" {{ if eq "ACQUIRED_OR_SOLD" .News.Status }}selected="selected"{{ end }}>Acquired Or Sold</option>
+               <option value="PUBLISH" {{ if eq "PUBLISH" .News.Status }}selected="selected"{{ end }}>Publish</option>
+               </select>
                </div>
+
                <label for="NewsDate">News Date</label>
                <div class="input-group date" data-provide="datepicker-inline">
                   <input type="text" id="NewsDate" name="NewsDate" value="{{ .News.NewsDate }}" class="form-control" required autofocus>
                   <div class="input-group-addon">
-                     <span class="glyphicon glyphicon-th"></span>
+                  <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
                   </div>
                </div>
                <div class="form-group">
@@ -34,10 +38,12 @@
          </div>
       </div>
       <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
       <textarea id="summernote" name="News">{{.News.News}}</textarea>
       </div> 
-      <button class="btn btn-md btn-primary btn-block" type="submit">Update</button>
+      <div class="col-lg-6">
+      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
+    </div>
       </form>
       </div>
    </div>

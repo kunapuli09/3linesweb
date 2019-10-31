@@ -28,7 +28,12 @@ func New(config *viper.Viper) (*Application, error) {
 	app.config = config
 	app.dsn = dsn
 	app.db = db
-	app.sessionStore = sessions.NewCookieStore([]byte(cookieStoreSecret))
+	store := sessions.NewCookieStore([]byte(cookieStoreSecret))
+	store.Options = &sessions.Options{
+		MaxAge:   60 * 30,
+		HttpOnly: true,
+	}
+	app.sessionStore = store
 
 	return app, nil
 }
@@ -74,27 +79,33 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/fundingreqs", handlers.FundingRequests).Methods("GET")
 	router.HandleFunc("/searchAppl", handlers.FundingRequests).Methods("POST")
 	router.HandleFunc("/fundingappl", handlers.FundingAppl).Methods("GET")
-	router.HandleFunc("/notifications", handlers.Notifications).Methods("GET")
+	//Notification Feature is removed as no investor paid attention
+	//router.HandleFunc("/notifications", handlers.Notifications).Methods("GET")
+	//router.HandleFunc("/publishNews", handlers.PublishNotification).Methods("GET")
+	//router.HandleFunc("/updateNotification", handlers.UpdateNotification).Methods("GET")
 	// router.HandleFunc("/notifyinvestors", handlers.NotifyInvestors).Methods("POST")
-	router.HandleFunc("/portfolio", handlers.GetPortfolio).Methods("GET")
+
+	router.HandleFunc("/entryaccess", handlers.EntryAccess).Methods("GET")
+	router.HandleFunc("/admindashboard", handlers.GetAdminDashboard).Methods("GET")
+	router.HandleFunc("/investordashboard", handlers.InvestorDashboard).Methods("GET")
+	// router.HandleFunc("/Fund1Dashboard", handlers.Fund1Dashboard).Methods("GET")
+	// router.HandleFunc("/Fund2Dashboard", handlers.Fund2Dashboard).Methods("GET")
 	router.HandleFunc("/viewinvestment", handlers.ViewInvestment).Methods("GET")
-	router.HandleFunc("/newinvestment", handlers.NewInvestment).Methods("GET")
 	router.HandleFunc("/editinvestment", handlers.EditInvestment).Methods("GET")
 	router.HandleFunc("/update", handlers.Update).Methods("POST")
-	router.HandleFunc("/add", handlers.Add).Methods("POST")
 
 	//investor contribution details
 	router.HandleFunc("/contributions", handlers.GetContributions).Methods("GET")
-	router.HandleFunc("/newcontribution", handlers.NewContribution).Methods("GET")
+	router.HandleFunc("/searchContributions", handlers.GetContributions).Methods("POST")
 	router.HandleFunc("/editcontribution", handlers.EditContribution).Methods("GET")
 	router.HandleFunc("/updatecontribution", handlers.UpdateContribution).Methods("POST")
-	router.HandleFunc("/addcontribution", handlers.AddContribution).Methods("POST")
 
 	router.HandleFunc("/newfinancials", handlers.NewFinancials).Methods("GET")
 	router.HandleFunc("/newinvestmentstructure", handlers.NewInvestmentStructure).Methods("GET")
+	router.HandleFunc("/editinvestmentstructure", handlers.NewInvestmentStructure).Methods("GET")
 	router.HandleFunc("/newcapitalstructure", handlers.NewCapitalStructure).Methods("GET")
 	router.HandleFunc("/addCapitalStructure", handlers.AddCapitalStructure).Methods("POST")
-	router.HandleFunc("/addInvestmentStructure", handlers.AddInvestmentStructure).Methods("POST")
+	router.HandleFunc("/updateInvestmentStructure", handlers.UpdateInvestmentStructure).Methods("POST")
 	router.HandleFunc("/addFinancialResults", handlers.AddFinancialResults).Methods("POST")
 	router.HandleFunc("/news", handlers.News).Methods("GET")
 
@@ -102,8 +113,6 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/editNews", handlers.EditNews).Methods("GET")
 	router.HandleFunc("/updateNews", handlers.UpdateNews).Methods("POST")
 	router.HandleFunc("/removenews", handlers.RemoveNews).Methods("GET")
-	router.HandleFunc("/publishNews", handlers.PublishNotification).Methods("GET")
-	router.HandleFunc("/updateNotification", handlers.UpdateNotification).Methods("GET")
 	router.HandleFunc("/removecapitalstructure", handlers.RemoveCapitalStructure).Methods("GET")
 	router.HandleFunc("/removeinvestmentstructure", handlers.RemoveInvestmentStructure).Methods("GET")
 	router.HandleFunc("/removefinancialresults", handlers.RemoveFinancialResults).Methods("GET")

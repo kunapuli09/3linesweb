@@ -1,12 +1,10 @@
 {{define "content"}}
 <section class="bg-light" id="news">
    <div class="container">
-      <a href="/viewinvestment?id={{.Investment.ID}}" class="btn btn-primary my-2">Back to Dashboard</a>
+      <a href="/viewinvestment?id={{.Investment.ID}}" class="au-btn au-btn-icon au-btn--blue2">Back to Dashboard</a>
+      <h3 class="section-heading text-uppercase">Add News for {{.Investment.StartupName}} </h3>
       {{if .Existing }}
       <div class="row">
-         <div class="col-lg-8 text-center">
-            <h3 class="section-heading text-uppercase">Add News for {{.Investment.StartupName}} </h3>
-         </div>
          <table class="table">
           <tbody>
             {{range .Existing }}
@@ -17,7 +15,7 @@
              <td>{{ .Status }}</td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removenews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a>
              <a class="btn btn-sm btn-outline-primary" href="/editNews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Update </a>
-              <a class="btn btn-sm btn-outline-warning" href="/publishNews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Publish </a>           
+             <!--  <a class="btn btn-sm btn-outline-warning" href="/publishNews?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Publish </a>  -->          
             </td>
            </td>
             </tr>
@@ -34,15 +32,18 @@
                <div class="form-group">
                 <label for="Status">Status</label>
                  <select class="form-control" id="Status" name="Status">
-                   <option value="PENDING">Pending</option>
-                   <option value="ARCHIVE">Archive</option>
-                  </select>
+               <option value="PERFORMANCE_BELOW_TARGET">Performance Below Target</option>
+               <option value="PERFORMANCE_ON_TARGET" selected>Performance On Target</option>
+               <option value="PERFORMANCE_ABOVE_TARGET">Performance Above Target</option>
+               <option value="POOR_PERFORMANCE">Poor Performance</option>
+               <option value="ACQUIRED_OR_SOLD">Acquired Or Sold</option>
+               </select>
                </div>
                <label for="NewsDate">News Date</label>
                <div class="input-group date" data-provide="datepicker-inline">
                   <input type="text" id="NewsDate" name="NewsDate" value="{{ .News.NewsDate }}" class="form-control" required autofocus>
                   <div class="input-group-addon">
-                     <span class="glyphicon glyphicon-th"></span>
+                  <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
                   </div>
                </div>
                <div class="form-group">
@@ -55,7 +56,8 @@
       <div class="col-lg-12">
       <textarea id="summernote" name="News">{{ .News.News }}</textarea>
       </div> 
-      <button class="btn btn-md btn-primary btn-block" type="submit">Add</button>
+    </div>
+      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Add</button>
       </form>
       </div>
    </div>

@@ -97,7 +97,7 @@ func GetLogin(w http.ResponseWriter, r *http.Request) {
 
 	currentUserInterface := session.Values["user"]
 	if currentUserInterface != nil {
-		http.Redirect(w, r, "/portfolio", 302)
+		http.Redirect(w, r, "/entryaccess", 302)
 		return
 	}
 
@@ -131,7 +131,7 @@ func PostLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/portfolio", 302)
+	http.Redirect(w, r, "/entryaccess", 302)
 }
 
 func GetLogout(w http.ResponseWriter, r *http.Request) {
@@ -200,7 +200,7 @@ func PutUsersID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Redirect(w, r, "/portfolio", 302)
+	http.Redirect(w, r, "/entryaccess", 302)
 }
 
 func DeleteUsersID(w http.ResponseWriter, r *http.Request) {
@@ -217,5 +217,5 @@ func DeleteUsersID(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err1)
 		return
 	}
-	http.Redirect(w, r, "/portfolio", 302)
+	http.Redirect(w, r, "/entryaccess", 302)
 }

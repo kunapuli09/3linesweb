@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
-	"strings"
 	"time"
 )
+
 const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
 const FUNDII = "3Lines Rocket Fund, L.P"
+
 func NewContribution(db *sqlx.DB) *Contribution {
 	contribution := &Contribution{}
 	contribution.db = db
@@ -29,8 +30,8 @@ type ContributionRow struct {
 	InvestorLegalName   string          `db:"InvestorLegalName"`
 	InvestorAddress     string          `db:"InvestorAddress"`
 	InvestorType        string          `db:"InvestorType"`
-	GroupContact        sql.NullString  `db:"GroupContact"`
-	InvestmentGroupName sql.NullString  `db:"InvestmentGroupName"`
+	GroupContact        string          `db:"GroupContact"`
+	InvestmentGroupName string          `db:"InvestmentGroupName"`
 	CommitmentDate      time.Time       `db:"CommitmentDate"`
 	OwnershipPercentage decimal.Decimal `db:"OwnershipPercentage"`
 	InvestmentAmount    decimal.Decimal `db:"InvestmentAmount"`
@@ -40,7 +41,7 @@ type ContributionRow struct {
 
 type SearchContribution struct {
 	InvestorLegalName string
-	FundLegalName     []string
+	FundLegalNames    []string
 }
 
 func (i *ContributionRow) FormattedCommitmentDate() string {
@@ -153,23 +154,39 @@ func (i *Contribution) SearchContributions(tx *sqlx.Tx, data SearchContribution)
 	var err error
 	isrs := []*ContributionRow{}
 	investorName := data.InvestorLegalName
-	funds := strings.Join(data.FundLegalName, ",")
-	if len(data.FundLegalName) > 0 {
-		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN users u ON a.user_id=u.id WHERE a.InvestorLegalName Like ? AND a.FundLegalName in (?)", i.table)
-		err = i.db.Select(&isrs, query, investorName+"%", funds)
+	if len(data.FundLegalNames) > 0 {
+		if len(investorName) > 0 {
+			query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN users u ON a.user_id=u.id WHERE a.InvestorLegalName Like '%%%s%%' AND a.FundLegalName in (`, i.table, investorName)
+		} else {
+			query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN users u ON a.user_id=u.id WHERE a.FundLegalName in (`, i.table)
+		}
+		last := len(data.FundLegalNames) - 1
+		for index, fundName := range data.FundLegalNames {
+			if index == last {
+				query += `'` + fundName + `')`
+			} else {
+				query += `'` + fundName + `',`
+			}
+		}
+		fmt.Printf("input query %s", query)
+		err = i.db.Select(&isrs, query)
 		if err != nil {
-			fmt.Println("Search1 Error %v", err)
+			fmt.Println("Search1 Error ", err)
 			return nil, err
 		}
 		return isrs, err
 	} else {
-		query = fmt.Sprintf("SELECT * FROM %v WHERE InvestorLegalName Like ?", i.table)
-		err = i.db.Select(&isrs, query, investorName+"%")
-		if err != nil {
-			fmt.Println("Search2 Error %v", err)
-			return nil, err
+		if len(investorName) > 0 {
+			query = fmt.Sprintf(`SELECT * FROM %s WHERE InvestorLegalName Like '%%%s%%'`, i.table, investorName)
+			fmt.Printf("input query %s for investor %s", query, investorName)
+			err = i.db.Select(&isrs, query)
+			if err != nil {
+				fmt.Println("Search2 Error", err)
+				return nil, err
+			}
+			return isrs, err
 		}
-		return isrs, err
+
 	}
 	return i.AllContributions(tx)
 

@@ -108,7 +108,7 @@ func (n *News) UpdateStatusById(tx *sqlx.Tx, newsId int64) (*NewsRow, error) {
 // Get All by Investment ID.
 func (i *News) GetPendingByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*NewsRow, error) {
 	css := []*NewsRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v and Status in ('%v', '%v')", i.table, Investment_ID, "PENDING", "ARCHIVE")
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
 	err := i.db.Select(&css, query)
 	return css, err
 }

@@ -103,6 +103,27 @@ func (i *Investment) GetStartupNames(tx *sqlx.Tx) ([]*InvestmentRow, error) {
 	return investments, err
 }
 
+// GetByName returns record by name.
+func (i *Investment) GetUserInvestments(tx *sqlx.Tx, partcipatedFundNames []string) ([]*InvestmentRow, error) {
+	investments := []*InvestmentRow{}
+	query := `SELECT * FROM investments WHERE FundLegalName in (`
+	last := len(partcipatedFundNames) - 1
+	for index, fundName := range partcipatedFundNames {
+		if index == last {
+			query += `'` + fundName + `')`
+		} else {
+			query += `'` + fundName + `',`
+		}
+	}
+	//fmt.Printf("input query %v", query)
+	err := i.db.Select(&investments, query)
+	if err != nil {
+		fmt.Println("GetUserInvestments Query Error %v", err)
+		return nil, err
+	}
+	return investments, err
+}
+
 // create a new record of user.
 func (i *Investment) Create(tx *sqlx.Tx, m map[string]interface{}) (*InvestmentRow, error) {
 	sqlResult, err := i.InsertIntoTable(tx, m)

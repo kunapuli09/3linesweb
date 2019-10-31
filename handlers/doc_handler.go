@@ -34,7 +34,7 @@ func Docs(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin || !currentUser.FundOne || !currentUser.FundTwo{
+	if !ok || !currentUser.Admin {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}

@@ -142,17 +142,17 @@
 
 
     //WidgetChart 3
-    var ctx = document.getElementById("widgetChart3");
+    var ctx = document.getElementById("investmentspeed");
     if (ctx) {
       ctx.height = 130;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['2017', '2018', '2019', '2020', '2021', '2022'],
+          labels: ['2017', '2018', '2019'],
           type: 'line',
           datasets: [{
-            data: [0, 37000.00, 37000.00, 37000.00, 0, 0],
-            label: 'Expense:',
+            data: [2, 10, 3],
+            label: 'Number of Startups Invested:',
             backgroundColor: 'transparent',
             borderColor: 'rgba(255,255,255,.55)',
           },]
@@ -209,7 +209,74 @@
         }
       });
     }
-
+    var ctx = document.getElementById("CapitalInvestmentBubbleChart");
+    if (ctx) {
+    ctx.height = 200;
+    var myChart = new Chart(ctx, {
+    type: 'bubble',
+    data: {
+      labels: "Africa",
+      datasets: [
+        {
+          label: ["China"],
+          backgroundColor: "rgba(255,221,50,0.2)",
+          borderColor: "rgba(255,221,50,1)",
+          data: [{
+            x: 21269017,
+            y: 5.245,
+            r: 15
+          }]
+        }, {
+          label: ["Denmark"],
+          backgroundColor: "rgba(60,186,159,0.2)",
+          borderColor: "rgba(60,186,159,1)",
+          data: [{
+            x: 258702,
+            y: 7.526,
+            r: 10
+          }]
+        }, {
+          label: ["Germany"],
+          backgroundColor: "rgba(0,0,0,0.2)",
+          borderColor: "#000",
+          data: [{
+            x: 3979083,
+            y: 6.994,
+            r: 15
+          }]
+        }, {
+          label: ["Japan"],
+          backgroundColor: "rgba(193,46,12,0.2)",
+          borderColor: "rgba(193,46,12,1)",
+          data: [{
+            x: 4931877,
+            y: 5.921,
+            r: 15
+          }]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Return Multiple'
+      }, scales: {
+        yAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Probability Of Success"
+          }
+        }],
+        xAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Amount Invested"
+          }
+        }]
+      }
+    }
+});
+}
 
     //WidgetChart 4
     var ctx = document.getElementById("widgetChart4");
@@ -249,7 +316,7 @@
     }
 
     //Individual Spread
-    var ctx = document.getElementById("individualspread");
+    var ctx = document.getElementById("CapitalInvestmentBarChart");
     if (ctx) {
       ctx.height = 115;
       var myChart = new Chart(ctx, {
@@ -726,7 +793,7 @@
     //Portfoliovalue
     var ctx = document.getElementById("portfoliovalue");
     if (ctx) {
-      ctx.height = 150;
+      ctx.height = 100;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -1239,6 +1306,58 @@
     console.log(error);
   }
 
+try { 
+    //pie chart
+    var ctx = document.getElementById("CapitalContributionPieChart");
+    if (ctx) {
+      ctx.height = 200;
+      var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          datasets: [{
+            data: capitalcontributions,
+            backgroundColor: [
+              "#17a2b8",
+              "#20c997",
+              "#28a745",
+              "#ffc107",
+              "#fd7e14",
+              "#6f42c1",
+              "#6610f2",
+              "#007bff"
+
+            ],
+            hoverBackgroundColor: [               
+              "#17a2b8",
+              "#20c997",
+              "#28a745",
+              "#ffc107",
+              "#fd7e14",
+              "#6f42c1",
+              "#6610f2",
+              "#007bff"
+            ]
+
+          }],
+          labels: fundnames
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          responsive: true
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
 
   try {
 

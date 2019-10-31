@@ -23,8 +23,6 @@ type UserRow struct {
 	Password string `db:"password"`
 	Admin    bool   `db:"admin"`
 	Dsc      bool
-	FundOne  bool
-	FundTwo  bool
 }
 
 type User struct {
@@ -54,8 +52,6 @@ func (u *User) GetById(tx *sqlx.Tx, id int64) (*UserRow, error) {
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", u.table)
 	err := u.db.Get(user, query, id)
 	user.Dsc = isDsc(user.Email)
-	user.FundOne = isFundI(user.ID, u.db)
-	user.FundTwo = isFundII(user.ID, u.db)
 	return user, err
 }
 
@@ -65,8 +61,6 @@ func (u *User) GetByEmail(tx *sqlx.Tx, email string) (*UserRow, error) {
 	query := fmt.Sprintf("SELECT *  FROM %v WHERE email=?", u.table)
 	err := u.db.Get(user, query, email)
 	user.Dsc = isDsc(user.Email)
-	user.FundOne = isFundI(user.ID, u.db)
-	user.FundTwo = isFundII(user.ID, u.db)
 	return user, err
 }
 
@@ -81,8 +75,6 @@ func (u *User) GetUserByEmailAndPassword(tx *sqlx.Tx, email, password string) (*
 		return nil, err
 	}
 	user.Dsc = isDsc(user.Email)
-	user.FundOne = isFundI(user.ID, u.db)
-	user.FundTwo = isFundII(user.ID, u.db)
 	return user, err
 }
 
@@ -181,50 +173,6 @@ func isDsc(a string) bool {
 	}
 	for _, b := range dsc_team {
 		if b == a {
-			return true
-		}
-	}
-	return false
-}
-
-
-//big hack..******fix this crap
-
-func SplitContributions(Contributions []*ContributionRow) ([]*ContributionRow, []*ContributionRow) {
-	var fundone []*ContributionRow
-	var fundtwo []*ContributionRow
-
-	for _, contribution := range Contributions {
-		switch fundName := contribution.FundLegalName; fundName {
-		case FUNDI:
-			fundone = append(fundone, contribution)
-		case FUNDII:
-			fundtwo = append(fundtwo, contribution)
-
-		default:
-			//fmt.Printf("%s. is unknown investor type", fundName)
-		}
-	}
-	return fundone, fundtwo
-}
-
-
-
-func isFundI(User_ID int64, db *sqlx.DB) bool {
-	contributions, _ := NewContribution(db).AllContributions(nil)
-	fundone_insvestors, _ := SplitContributions(contributions)
-	for _, b := range fundone_insvestors {
-		if b.User_ID == User_ID {
-			return true
-		}
-	}
-	return false
-}
-func isFundII(User_ID int64, db *sqlx.DB) bool {
-	contributions, _ := NewContribution(db).AllContributions(nil)
-	_,fundtwo_insvestors := SplitContributions(contributions)
-	for _, b := range fundtwo_insvestors {
-		if b.User_ID == User_ID {
 			return true
 		}
 	}

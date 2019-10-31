@@ -13,13 +13,17 @@
               <input type="hidden" name="id" id="id" value="{{.News.ID}}">
                <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <div class="form-group">
-                <label for="Status">Status</label>
-                 <select class="form-control" id="Status" name="Status">
-                   <option value="PENDING" {{ if eq "PENDING" .Investment.Status }}selected="selected"{{ end }}>Pending</option>
-                   <option value="PUBLISH" {{ if eq "PUBLISH" .Investment.Status }}selected="selected"{{ end }}>Publish</option>
-                   <option value="ARCHIVE" {{ if eq "ARCHIVE" .Investment.Status }}selected="selected"{{ end }}>Archive</option>
-                  </select>
+               <label for="Status">Status</label>
+               <select class="form-control" id="Status" name="Status">
+               <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .News.Status }}selected="selected"{{ end }}>Performance Below Target</option>
+               <option value="PERFORMANCE_ON_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .News.Status }}selected="selected"{{ end }}>Performance On Target</option>
+               <option value="PERFORMANCE_ABOVE_TARGET" {{ if eq "PERFORMANCE_ABOVE_TARGET" .News.Status }}selected="selected"{{ end }}>Performance Above Target</option>
+               <option value="POOR_PERFORMANCE" {{ if eq "POOR_PERFORMANCE" .News.Status }}selected="selected"{{ end }}>Poor Performance</option>
+               <option value="ACQUIRED_OR_SOLD" {{ if eq "ACQUIRED_OR_SOLD" .News.Status }}selected="selected"{{ end }}>Acquired Or Sold</option>
+               <option value="PUBLISH" {{ if eq "PUBLISH" .News.Status }}selected="selected"{{ end }}>Publish</option>
+               </select>
                </div>
+
                <label for="NewsDate">News Date</label>
                <div class="input-group date" data-provide="datepicker-inline">
                   <input type="text" id="NewsDate" name="NewsDate" value="{{ .News.NewsDate }}" class="form-control" required autofocus>

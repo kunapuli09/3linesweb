@@ -54,18 +54,8 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav text-uppercase ml-auto">
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-tachometer-alt"></i>Dashboard
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     {{if or (.CurrentUser.FundOne) (.CurrentUser.Admin)}}
-                     <a class="dropdown-item" href="/Fund1Dashboard">3Lines 2016 Discretionary Fund</a>
-                     {{end}}
-                     {{if or (.CurrentUser.FundTwo) (.CurrentUser.Admin)}}
-                     <a class="dropdown-item" href="/Fund2Dashboard">3Lines Rocket Fund</a>
-                     {{end}}
-                  </div>
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger" href="/entryaccess"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                </li>
                {{if .CurrentUser.Admin }}
                <li class="nav-item dropdown">
@@ -85,15 +75,13 @@
                   </div>
                </li>
                {{end}}
-               {{if or (.CurrentUser.FundOne) (.CurrentUser.FundTwo) (.CurrentUser.Admin) (.CurrentUser.Dsc)}}
-               <li class="nav-item">
+               <!-- <li class="nav-item">
                   <a class="nav-link js-scroll-trigger" href="/notifications">
                   <span class="fa-stack has-badge" data-count="{{.Count}}">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
                   </span>Notifications</a>
-               </li>
-               {{end}}
+               </li> -->
                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
                </li>
                <li class="nav-item">
@@ -311,8 +299,18 @@
          });
       </script>
       <script>
+      $('.tr-shadow').on('click', function() {
+        var ID = $(this).attr("id"); 
+        var URL = '/viewinvestment?id=' + ID
+        window.document.location = URL;
+    
+});
+    </script>
+      <script>
          var startupnames = {{.StartupNames}};
          var amounts = {{.Amounts}};
+         var fundnames = {{.FundNames}};
+         var capitalcontributions = {{.CapitalContributions}};
       </script>
       <script src="js/FundI_Investment_Pie.js"></script> 
    </body>

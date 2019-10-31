@@ -22,7 +22,7 @@ func GetContributions(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin{
+	if !ok || !currentUser.Admin {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -85,7 +85,7 @@ func EditContribution(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin{
+	if !ok || !currentUser.Admin {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -104,7 +104,7 @@ func EditContribution(w http.ResponseWriter, r *http.Request) {
 		CurrentUser  *models.UserRow
 		Count        int
 		Contribution *models.ContributionRow
-		Users 		[]*models.UserRow
+		Users        []*models.UserRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -179,21 +179,3 @@ func UpdateContribution(w http.ResponseWriter, r *http.Request) {
 	address := fmt.Sprintf("/contributions")
 	http.Redirect(w, r, address, 302)
 }
-func SplitContributionsByFund(Contributions []*models.ContributionRow) ([]*models.ContributionRow, []*models.ContributionRow) {
-	var fundone []*models.ContributionRow
-	var fundtwo []*models.ContributionRow
-
-	for _, contribution := range Contributions {
-		switch fundName := contribution.FundLegalName; fundName {
-		case FUNDI:
-			fundone = append(fundone, contribution)
-		case FUNDII:
-			fundtwo = append(fundtwo, contribution)
-
-		default:
-			fmt.Printf("%s. is unknown investor type", fundName)
-		}
-	}
-	return fundone, fundtwo
-}
-

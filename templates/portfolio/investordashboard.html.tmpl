@@ -134,7 +134,7 @@
                </div>
                <div class="text">
                   <h2>8,290,000</h2>
-                  <span>3Lines Total Management</span>
+                  <span>Capital Under Management</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -263,11 +263,8 @@
                   <thead>
                      <tr>
                         <th>Company Name</th>
-                        <th>Fund Legal Name</th>
                         <th>Invested Capital</th>
                         <th>Current Value</th>
-                        <th>Realized Proceeds</th>
-                        <th>Unrealized IRR</th>
                         <th>Status</th>
                      </tr>
                   </thead>
@@ -275,13 +272,10 @@
                      {{range .Investments }}
                       <tr id="{{.ID}}" class="tr-shadow">
                         <td>{{.StartupName}}</td>
-                        <td>{{.FundLegalName}}</td>
                         <td>
                            {{.InvestedCapital | currencyFormat}}
                         </td>
                         <td class="desc">{{.ReportedValue | currencyFormat }}</td>
-                        <td>{{.RealizedProceeds | currencyFormat}}</td>
-                        <td>{{.GrossIRR}}%</td>
                         <td>
                            {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
                            <button class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>

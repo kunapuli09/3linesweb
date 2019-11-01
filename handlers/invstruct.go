@@ -124,7 +124,7 @@ func UpdateInvestmentStructure(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	address := fmt.Sprintf("/newinvestmentstructure?Investment_ID=%v&id=%v", Investment_ID, ID)
+	address := fmt.Sprintf("/newinvestmentstructure?Investment_ID=%v&id=0", Investment_ID)
 	http.Redirect(w, r, address, 302)
 }
 

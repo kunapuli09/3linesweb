@@ -15,6 +15,7 @@
               <td>{{.Structure}}</td>
              <td>{{ .Units }}</td>
              <td>{{.TotalInvested}}</td>
+             <td>{{.ReportedValue}}</td>
              <td><a class="btn btn-sm btn-outline-primary" href="/editinvestmentstructure?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Update </a></td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removeinvestmentstructure?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>
             </tr>

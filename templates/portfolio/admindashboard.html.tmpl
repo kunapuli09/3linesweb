@@ -87,41 +87,40 @@
       <div class="row">
          <div class="col-md-12">
             <h3 class="title-5 m-b-35">Admin View</h3>
-            <!-- <h3 class="title-5 m-b-35"><i class="fa fa-circle" style="font-size:24px;color:#ffc107"></i>Below Target  <i class="fa fa-circle" style="font-size:24px;color:#6c757d"></i>On Target <i class="fa fa-circle" style="font-size:24px;color:#28a745"></i>Above Target <i class="fa fa-circle" style="font-size:24px;color:#dc3545"></i>Poor<i class="fa fa-circle" style="font-size:24px;color:#17a2b8"></i>Acquired Or Sold</h3>  -->
             {{if .Investments}}
-            <div class="table-responsive table-responsive-data2">
+            <div class="table-responsive table-responsive-data2 table-hover">
                <table class="table table-data2">
                   <thead>
                      <tr>
                         <th>Company Name</th>
-                        <th>Invested Capital</th>
-                        <th>Current Value</th>
                         <th>Status</th>
+                        <th>Current Value</th>
+                        <th>Invested Capital</th>
                      </tr>
                   </thead>
                   <tbody>
                      {{range .Investments }}
                       <tr id="{{.ID}}" class="tr-shadow">
                         <td>{{.StartupName}}</td>
-                        <td>{{.InvestedCapital | currencyFormat}}</td>
-                        <td class="desc">{{.ReportedValue | currencyFormat }}</td>
                         <td>
                            {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
-                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
+                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
                            {{ end }}
                            {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
-                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance On Target"><i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
+                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance On Target"><i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
                            {{ end }}
                            {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
-                           <button class="item" data-toggle="tooltip" data-placement="top" title="Performance Above Target"><i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
+                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Above Target"><i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
                            {{ end }}
                            {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <button class="item" data-toggle="tooltip" data-placement="top" title="Poor Performance"><i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
+                           <span class="item" data-toggle="tooltip" data-placement="top" title="Poor Performance"><i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
                            {{ end }}
                            {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <button class="item" data-toggle="tooltip" data-placement="top" title="Acquired Or Sold"><i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
+                           <span class="item" data-toggle="tooltip" data-placement="top" title="Acquired Or Sold"><i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
                            {{ end }}
                         </td>
+                        <td class="desc">{{.ReportedValue | currencyFormat }}</td>
+                        <td>{{.InvestedCapital | currencyFormat}}</td>
                      </tr>
                      <tr class="spacer"></tr>
                      {{end}}

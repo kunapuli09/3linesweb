@@ -1,328 +1,247 @@
 {{define "content"}}
 <section class="bg-light" id="viewinvestment">
-<!-- MAIN CONTENT-->
-<div class="main-content">
-   <div class="section__content section__content--p30">
-      <div class="container-fluid">
-         <div class="row">
-            <form class="form-signup-login form-investment" method="post" action="/add">
-            <div class="col-lg-12 text-center">
-               <h2 class="section-heading text-uppercase">{{.Investment.StartupName}} Investment Dashboard <a href="/entryaccess" class="btn btn-md btn-info"><i class="zmdi zmdi-view-list-alt"></i>Back To All Investments</a> </h2>
+   <!-- MAIN CONTENT-->
+   <div class="main-content">
+      <div class="section__content section__content--p30">
+         <div class="container-fluid">
+            <div class="row">
+               <form class="form-signup-login form-investment" method="post" action="/add">
+               <div class="col-lg-12 text-center">
+                  <h2 class="section-heading text-uppercase">{{.Investment.StartupName}} Investment Dashboard <a href="/entryaccess" class="btn btn-md btn-info"><i class="zmdi zmdi-view-list-alt"></i>Back To All Investments</a> </h2>
+               </div>
             </div>
-         </div>
-
-         {{if .CurrentUser.Admin }}
-         
-               <div class="dropdown">
+            {{if .CurrentUser.Admin }}
+            <div class="dropdown">
                <button class="btn btn-md btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                Investment Administration Actions
                </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-               <a class="dropdown-item" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
-                <a class="dropdown-item" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}&id=0" role="button"> Update Investment Structure</a>
-                <a class="dropdown-item" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
-               <a class="dropdown-item" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
-               <a class="dropdown-item" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
-               <a class="dropdown-item" href="/docs?Investment_ID={{.Investment.ID}}" role="button">Upload Docs</a>
-              </div>
-               </div>
-
-        {{end}}
-
-
-         <!-- {{if .CurrentUser.Admin }}
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Investment Structure</a>
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
-         <a class="au-btn au-btn-icon au-btn--blue2" href="/docs?Investment_ID={{.Investment.ID}}" role="button">Upload Docs</a>
-         {{end}} -->
-
-         {{if .ExistingNews}}
-         <div class="card-group">
-            <div class="card mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">
-                     Investor Updates
-                  </h5>
-                  <p class="card-text">
-                  <div class="table-responsive-md">
-                     <table class="table table-sm">
-                        <thead>
-                           <tr>
-                              <th scope="col">Reporting Date</th>
-                              <th scope="col">Investment Status</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           {{range .ExistingNews}}
-                           <tr>
-                              <td>{{.FormattedNewsDate}}</td>
-                              <td>
-                                 {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
-                                 <i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
-                                 {{ end }}
-                                 {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
-                                 <i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
-                                 {{ end }}
-                                 {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
-                                 <i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
-                                 {{ end }}
-                                 {{ if eq "POOR_PERFORMANCE" .Status }}
-                                 <i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
-                                 {{ end }}
-                                 {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                                 <i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
-                                 {{ end }}
-                              </td>
-                              <td>
-                                 <div id="collapse{{.ID}}" class="collapse">
-                                    <p class="card-text">
-                                       {{ .News | safeHTML }}
-                                    </p>
-                                 </div>
-                              </td>
-                              <td>
-                                 <div class="table-data-feature">
-                                    <a class="item" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}" title="More">
-                                    <i class="zmdi zmdi-more"> </i></a>
-                                 </div>
-                              </td>
-                           </tr>
-                           {{end}}
-                        </tbody>
-                     </table>
-                  </div>
-                  </p>
+               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/editinvestment?id={{.Investment.ID}}" role="button"> Update Investment</a>
+                  <a class="dropdown-item" href="/newinvestmentstructure?Investment_ID={{.Investment.ID}}&id=0" role="button"> Update Investment Structure</a>
+                  <a class="dropdown-item" href="/newcapitalstructure?Investment_ID={{.Investment.ID}}" role="button"> Update Capital Structure</a>
+                  <a class="dropdown-item" href="/newfinancials?Investment_ID={{.Investment.ID}}" role="button"> Update Financial Results</a>
+                  <a class="dropdown-item" href="/news?Investment_ID={{.Investment.ID}}" role="button">Update News</a>
+                  <a class="dropdown-item" href="/docs?Investment_ID={{.Investment.ID}}" role="button">Upload Docs</a>
                </div>
             </div>
-         </div>
-         {{end}}
-         
-         {{if .ExistingInvestmentStructures}}
-         <div class="card-group">
-            <div class="card mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">
-                     Investment Structure
-                  </h5>
-                  <p class="card-text">
-                  <div class="table-responsive-md">
-                     <table class="table table-sm">
-                        <thead>
-                           <tr>
-                              <th scope="col">Reporting Date</th>
-                              <th scope="col">Investment Structure</th>
-                              <th scope="col">Units/Par</th>
-                              <th scope="col">Total Invested</th>
-                              <th scope="col">Reported Value</th>
-                              <th scope="col">Realized Proceeds</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           {{range .ExistingInvestmentStructures}}
-                           <tr>
-                              <th scope="row">{{.FormattedReportingDate}}</th>
-                              <td>{{.Structure}}</td>
-                              <td>{{.Units}}</td>
-                              <td>{{.TotalInvested | currencyFormat}}</td>
-                              <td>{{.ReportedValue | currencyFormat}}</td>
-                              <td>{{.RealizedProceeds | currencyFormat}}</td>
-                           </tr>
-                           {{end}}
-                        </tbody>
-                     </table>
-                  </div>
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
-         {{if .Existing}}
-         <div class="card-group">
-            <div class="card mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">Financial Results</h5>
-                  <p class="card-text">
-                  <div class="table-responsive-md">
-                     <table class="table table-sm">
-                        <thead>
-                           <tr>
-                              <th scope="col">Reporting Date</th>
-                              <th scope="col">Revenue</th>
-                              <th scope="col">YOY % Growth</th>
-                              <th scope="col">LTM EBITDA</th>
-                              <th scope="col">YOY % Growth</th>
-                              <th scope="col">EBITDA Margin</th>
-                              <th scope="col">Total Enterprise Value</th>
-                              <th scope="col">Total Enterprise Value Multiple</th>
-                              <th scope="col">Total Leverage</th>
-                              <th scope="col">Total Leverage Multiple</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           {{range .Existing }}
-                           <tr>
-                              <td>{{.FormattedReportingDate}}</td>
-                              <td>{{.Revenue | currencyFormat}}</td>
-                              <td>{{.YoYGrowthPercentage1}}%</td>
-                              <td>{{.LTMEBITDA | currencyFormat}}</td>
-                              <td>{{.YoYGrowthPercentage2}}%</td>
-                              <td>{{.EBITDAMargin}}%</td>
-                              <td>{{.TotalExitValue | currencyFormat}}</td>
-                              <td>{{.TotalExitValueMultiple}}</td>
-                              <td>{{.TotalLeverage | currencyFormat}}</td>
-                              <td>{{.TotalLeverageMultiple}}</td>
-                           </tr>
-                           {{end}}
-                        </tbody>
-                     </table>
-                  </div>
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
-         {{if .ExistingCapitalStructures}}
-         <div class="card  mb-3" style="max-width: 100rem;">
-            <div class="card-body">
-               <h5 class="card-title">
-                  Capitalization Structure
-               </h5>
-               <p class="card-text">
-               <div class="table-responsive-md">
-                  <table class="table table-sm">
-                     <thead>
-                        <tr>
-                           <th scope="col">Reporting Date</th>
-                           <th scope="col">Capitalization</th>
-                           <th scope="col">Closing</th>
-                           <th scope="col">Year End Value</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        {{range .ExistingCapitalStructures}}
-                        <tr>
-                           <th scope="row">{{.FormattedReportingDate}}</th>
-                           <td>{{.Capitalization}}</td>
-                           <td>{{.ClosingValue | currencyFormat}}</td>
-                           <td>{{.YearEndValue | currencyFormat}}</td>
-                        </tr>
-                        {{end}}
-                     </tbody>
-                  </table>
-               </div>
-               </p>
-            </div>
-         </div>
-         {{end}}
-         <div class="row m-t-25">
-            <div class="col-sm-6 col-lg-6">
-                  <div class="overview__inner"><h5 class="card-title">
-                  Investment Summary
-               </h5>
-                     <div class="overview-box clearfix">
-                        <div class="table-responsive-md">
-                           <table class="table table-striped">
-                              <tbody>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Invested From</td>
-                                    <td>{{.Investment.FundLegalName}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Investment Date</td>
-                                    <td>{{.Investment.FormattedInvestmentDate}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Industry</td>
-                                    <td>{{.Investment.Industry}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Headquarters</td>
-                                    <td>{{.Investment.Headquarters}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Investment Commitment</td>
-                                    <td>{{.Investment.InvestmentCommittment | currencyFormat}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Invested Capital</td>
-                                    <td>{{.Investment.InvestedCapital | currencyFormat}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Board Representation</td>
-                                    <td>{{.Investment.BoardRepresentation}}</td>
-                                 </tr>
-                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Board Members</td>
-                                    <td>{{.Investment.BoardMembers}}</td>
-                                 </tr>
-                                 <!--  <tr>
-                                    <th scope="row"></th>
-                                    <td>Realized Proceeds</td>
-                                    <td>{{.Investment.RealizedProceeds}}</td>
-                                    </tr> -->
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-               </div>
-            </div>
-               <div class="overview__inner">
-                  <div class="overview-box clearfix">
+            {{end}}
+            {{if .ExistingNews}}
+            <div class="card-group">
+               <div class="card mb-3" style="max-width: 100rem;">
+                  <div class="card-body">
+                     <h5 class="card-title">
+                        Investor Updates
+                     </h5>
+                     <p class="card-text">
                      <div class="table-responsive-md">
-                        <table class="table table-striped">
+                        <table class="table table-sm">
+                           <thead>
+                              <tr>
+                                 <th scope="col">Reporting Date</th>
+                                 <th scope="col">Investment Status</th>
+                              </tr>
+                           </thead>
                            <tbody>
+                              {{range .ExistingNews}}
                               <tr>
-                                 <th scope="row"></th>
-                                 <td>Enterprise Value at Closing</td>
-                                 <td>{{.Investment.ExitValueAtClosing | currencyFormat}}</td>
+                                 <td>{{.FormattedNewsDate}}</td>
+                                 <td>
+                                    {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                                    <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
+                                    {{ end }}
+                                    {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                                    <span class="item" data-toggle="tooltip" data-placement="top" title="Performance On Target"><i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
+                                    {{ end }}
+                                    {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                                    <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Above Target"><i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
+                                    {{ end }}
+                                    {{ if eq "POOR_PERFORMANCE" .Status }}
+                                    <span class="item" data-toggle="tooltip" data-placement="top" title="Poor Performance"><i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
+                                    {{ end }}
+                                    {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                                    <span class="item" data-toggle="tooltip" data-placement="top" title="Acquired Or Sold"><i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
+                                    {{ end }}
+                                 </td>
+                                 <td>
+                                    <div id="collapse{{.ID}}" class="collapse">
+                                       <p class="card-text">
+                                          {{ .News | safeHTML }}
+                                       </p>
+                                    </div>
+                                 </td>
+                                 <td>
+                                    <div class="table-data-feature">
+                                       <a class="item" data-toggle="collapse" href="#collapse{{.ID}}" role="button" aria-expanded="false" aria-controls="collapse{{.ID}}" title="More">
+                                       <i class="zmdi zmdi-more"> </i></a>
+                                    </div>
+                                 </td>
                               </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Fund Ownership</td>
-                                 <td>{{.Investment.FundOwnershipPercentage}}%</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Investor Group Ownership</td>
-                                 <td>{{.Investment.InvestorGroupPercentage}}%</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Management Ownership</td>
-                                 <td>{{.Investment.ManagementOwnership}}%</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Reported Value</td>
-                                 <td>{{.Investment.ReportedValue | currencyFormat}}</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Investment Multiple</td>
-                                 <td>{{.Investment.InvestmentMultiple}}x</td>
-                              </tr>
-                              <tr>
-                                 <th scope="row"></th>
-                                 <td>Gross IRR(All Security Types)</td>
-                                 <td>{{.Investment.GrossIRR}}%</td>
-                              </tr>
+                              {{end}}
                            </tbody>
                         </table>
                      </div>
+                     </p>
                   </div>
                </div>
             </div>
+            {{end}}
+            {{if .ExistingInvestmentStructures}}
+            <div class="card-group">
+               <div class="card mb-3" style="max-width: 100rem;">
+                  <div class="card-body">
+                     <h5 class="card-title">
+                        Investment Structure
+                     </h5>
+                     <p class="card-text">
+                     <div class="table-responsive-md">
+                        <table class="table table-sm">
+                           <thead>
+                              <tr>
+                                 <th scope="col">Investment Structure</th>
+                                 <th scope="col">Units/Par</th>
+                                 <th scope="col">Total Invested</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {{range .ExistingInvestmentStructures}}
+                              <tr>
+                                 <td>{{.Structure}}</td>
+                                 <td>{{.Units}}</td>
+                                 <td>{{.TotalInvested | currencyFormat}}</td>
+                              </tr>
+                              {{end}}
+                           </tbody>
+                        </table>
+                     </div>
+                     </p>
+                  </div>
+               </div>
+            </div>
+            {{end}}
+            {{if .Existing}}
+            <div class="card-group">
+               <div class="card mb-3" style="max-width: 100rem;">
+                  <div class="card-body">
+                     <h5 class="card-title">Financial Results</h5>
+                     <p class="card-text">
+                     <div class="table-responsive-md">
+                        <table class="table table-sm">
+                           <thead>
+                              <tr>
+                                 <th scope="col">Reporting Date</th>
+                                 <th scope="col">Revenue</th>
+                                 <th scope="col">YOY % Growth</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              {{range .Existing }}
+                              <tr>
+                                 <td>{{.FormattedReportingDate}}</td>
+                                 <td>{{.Revenue | currencyFormat}}</td>
+                                 <td>{{.YoYGrowthPercentage1}}%</td>
+                              </tr>
+                              {{end}}
+                           </tbody>
+                        </table>
+                     </div>
+                     </p>
+                  </div>
+               </div>
+            </div>
+            {{end}}
+            {{if .ExistingCapitalStructures}}
+            <div class="card  mb-3" style="max-width: 100rem;">
+               <div class="card-body">
+                  <h5 class="card-title">
+                     Capitalization Structure
+                  </h5>
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table table-sm">
+                        <thead>
+                           <tr>
+                              <th scope="col">Reporting Date</th>
+                              <th scope="col">Capitalization</th>
+                              <th scope="col">Closing</th>
+                              <th scope="col">Year End Value</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {{range .ExistingCapitalStructures}}
+                           <tr>
+                              <th scope="row">{{.FormattedReportingDate}}</th>
+                              <td>{{.Capitalization}}</td>
+                              <td>{{.ClosingValue | currencyFormat}}</td>
+                              <td>{{.YearEndValue | currencyFormat}}</td>
+                           </tr>
+                           {{end}}
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+            {{end}}
+            <div class="card  mb-3" style="max-width: 100rem;">
+               <div class="card-body">
+                  <h5 class="card-title">
+                     Investment Summary
+                  </h5>
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table table-sm">
+                        <thead>
+                           <tr>
+                              <th scope="col">Fund Name</th>
+                              <th scope="col">Investment Date</th>
+                              <th scope="col">Invested Capital</th>
+                              <th scope="col">Headquarters</th>
+                              <th scope="col">Industry</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <th scope="row">{{.Investment.FundLegalName}}</th>
+                              <td>{{.Investment.FormattedInvestmentDate}}</td>
+                              <td>{{.Investment.InvestedCapital | currencyFormat}}</td>
+                              <td>{{.Investment.Headquarters}}</td>
+                              <td>{{.Investment.Industry}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+            <div class="card  mb-3" style="max-width: 100rem;">
+               <div class="card-body">
+                  <p class="card-text">
+                  <div class="table-responsive-md">
+                     <table class="table table-sm">
+                        <thead>
+                           <tr>
+                              <th scope="col">Enterprise Value at Closing</th>
+                              <th scope="col">Fund Ownership</th>
+                              <th scope="col">Gross IRR</th>
+                              <th scope="col">Investment Multiple</th>
+                              <th scope="col">Reported Value</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <th scope="row">{{.Investment.ExitValueAtClosing | currencyFormat}}</th>
+                              <td>{{.Investment.FundOwnershipPercentage}}%</td>
+                              <td>{{.Investment.GrossIRR}}%</td>
+                              <td>{{.Investment.InvestmentMultiple}}</td>
+                              <td>{{.Investment.ReportedValue}}</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  </p>
+               </div>
+            </div>
+         </div>
          {{if .Investment.Description }}
          <div class="card-group">
             <div class="card mb-3" style="max-width: 100rem;">
@@ -335,77 +254,7 @@
             </div>
          </div>
          {{end}}
-         <!-- {{if .Investment.InvestmentBackground }}
-         <div class="card-group">
-            <div class="card  mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">INVESTMENT BACKGROUND</h5>
-                  <p class="card-text">
-                     {{.Investment.InvestmentBackground | safeHTML}}
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
-         {{if .Investment.ValuationMethodology }}
-         <div class="card-group">
-            <div class="card  mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">VALUATION METHODOLOGY</h5>
-                  <p class="card-text">
-                     {{.Investment.ValuationMethodology | safeHTML}}
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
-         {{if .Investment.RiskAssessment }}
-         <div class="card-group">
-            <div class="card mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">RISK ASSESSMENT/UPDATE</h5>
-                  <p class="card-text">
-                     {{.Investment.RiskAssessment | safeHTML}}
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
-         {{if .Investment.InvestmentThesis}}
-         <div class="card-group">
-            <div class="card mb-3" style="max-width: 100rem;">
-               <div class="card-body">
-                  <h5 class="card-title">INVESTMENT THESIS</h5>
-                  <p class="card-text">
-                     {{.Investment.InvestmentThesis | safeHTML}}
-                  </p>
-               </div>
-            </div>
-         </div>
-         {{end}}
       </div>
-      {{if .ExistingDocs}}
-      <div class="card-group">
-         <div class="card text-info mb-3" style="max-width: 100rem;">
-            <div class="card-body">
-               <p class="card-text"> Important Documents
-               <div class="table-responsive-md">
-                  <table class="table">
-                     <tbody>
-                        {{range .ExistingDocs }}
-                        <tr>
-                           <td><a class="au-btn au-btn-icon au-btn--blue2" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
-                        </tr>
-                        {{end}}
-                     </tbody>
-                  </table>
-               </div>
-               </p>
-            </div>
-         </div>
-      </div>
-      {{end}} -->
    </div>
-</div>
 </section>
 {{end}}

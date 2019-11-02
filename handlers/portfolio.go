@@ -388,7 +388,7 @@ func CapitalContributionDataForPieChart(contributions []*models.ContributionRow)
 	var participatedFundNamesForWeb []string
 	var amounts []decimal.Decimal
 	for _, contribution := range contributions {
-		contributedCapitalWithOwnership := fmt.Sprintf("%s Ownership Precentage %s", contribution.FundLegalName, contribution.OwnershipPercentage.String())
+		contributedCapitalWithOwnership := fmt.Sprintf("%s", contribution.FundLegalName)
 		participatedFundNamesForBackend = append(participatedFundNamesForBackend, contribution.FundLegalName)
 		participatedFundNamesForWeb = append(participatedFundNamesForWeb, contributedCapitalWithOwnership)
 		amounts = append(amounts, contribution.InvestmentAmount)

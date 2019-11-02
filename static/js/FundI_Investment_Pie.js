@@ -1310,7 +1310,7 @@ try {
     //pie chart
     var ctx = document.getElementById("CapitalContributionPieChart");
     if (ctx) {
-      ctx.height = 200;
+      //ctx.height = 200;
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {
@@ -1343,6 +1343,7 @@ try {
         },
         options: {
           legend: {
+            display: false,
             position: 'top',
             labels: {
               fontFamily: 'Poppins'

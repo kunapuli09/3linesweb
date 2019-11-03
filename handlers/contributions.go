@@ -116,7 +116,7 @@ func EditContribution(w http.ResponseWriter, r *http.Request) {
 			return template.HTML(b)
 		},
 	}
-	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editContribution.html.tmpl")
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/editcontribution.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

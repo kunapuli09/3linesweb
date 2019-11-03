@@ -84,7 +84,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	}
 	startupnames, amounts := CapitalSpreadDataForBarChart(investments)
 
-	//data for fund1dashboard.html.tmpl
+	//data for entryaccess.html.tmpl
 	data := struct {
 		CurrentUser          *models.UserRow
 		Count                int
@@ -155,7 +155,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	if len(contributions) > 1 {
 		displayPieChart = true
 	}
-	//data for fund1dashboard.html.tmpl
+	//data for entryaccess.html.tmpl
 	data := struct {
 		CurrentUser          *models.UserRow
 		Count                int

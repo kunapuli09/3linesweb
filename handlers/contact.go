@@ -302,7 +302,7 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.Redirect(w, r, "/fund1dashboard", 302)
+		http.Redirect(w, r, "/entryaccess", 302)
 	}
 
 }

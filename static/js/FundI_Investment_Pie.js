@@ -140,75 +140,78 @@
       });
     }
 
+    try {
 
-    //WidgetChart 3
+    //line chart
     var ctx = document.getElementById("investmentspeed");
     if (ctx) {
-      ctx.height = 130;
+      ctx.height = 150;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['2017', '2018', '2019'],
-          type: 'line',
-          datasets: [{
-            data: [2, 10, 3],
-            label: 'Number of Startups Invested:',
-            backgroundColor: 'transparent',
-            borderColor: 'rgba(255,255,255,.55)',
-          },]
+          labels: ["July", "August", "September", "October"],
+          defaultFontFamily: "Poppins",
+          datasets: [
+            {
+              label: "Applications received",
+              backgroundColor: "rgba(193,46,12,0.2)",
+              borderColor: "rgba(193,46,12,1)",
+              borderWidth: "1",
+              data: [38, 43, 33, 76]
+            },
+            {
+              label: "Applications screened",
+              borderWidth: "1",
+              backgroundColor: "rgba(255,221,50,0.2)",
+              borderColor: "rgba(255,221,50,1)",
+              pointHighlightStroke: "rgba(26,179,148,1)",
+              data: [21, 19, 14, 23]
+            }
+          ]
         },
         options: {
-
-          maintainAspectRatio: false,
           legend: {
-            display: false
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
           },
           responsive: true,
           tooltips: {
             mode: 'index',
-            titleFontSize: 12,
-            titleFontColor: '#000',
-            bodyFontColor: '#000',
-            backgroundColor: '#fff',
-            titleFontFamily: 'Montserrat',
-            bodyFontFamily: 'Montserrat',
-            cornerRadius: 3,
-            intersect: false,
+            intersect: false
+          },
+          hover: {
+            mode: 'nearest',
+            intersect: true
           },
           scales: {
             xAxes: [{
-              gridLines: {
-                color: 'transparent',
-                zeroLineColor: 'transparent'
-              },
               ticks: {
-                fontSize: 2,
-                fontColor: 'transparent'
+                fontFamily: "Poppins"
+
               }
             }],
             yAxes: [{
-              display: false,
               ticks: {
-                display: false,
+                beginAtZero: true,
+                fontFamily: "Poppins"
               }
             }]
-          },
-          title: {
-            display: false,
-          },
-          elements: {
-            line: {
-              borderWidth: 1
-            },
-            point: {
-              radius: 4,
-              hitRadius: 10,
-              hoverRadius: 4
-            }
           }
+
         }
       });
     }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+    
+
+
     var ctx = document.getElementById("CapitalInvestmentBubbleChart");
     if (ctx) {
     ctx.height = 200;

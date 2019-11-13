@@ -96,6 +96,9 @@
                         <th>Status</th>
                         <th>Current Value</th>
                         <th>Invested Capital</th>
+                        <th>Investment Multiple</th>
+                        <th>Gross IRR</th>
+                        <th>Investment Date</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -121,6 +124,9 @@
                         </td>
                         <td class="desc">{{.ReportedValue | currencyFormat }}</td>
                         <td>{{.InvestedCapital | currencyFormat}}</td>
+                        <td>{{.InvestmentMultiple }}X</td>
+                        <td>{{.GrossIRR }}% </td>
+                        <td>{{.FormattedInvestmentDate }} </td>
                      </tr>
                      <tr class="spacer"></tr>
                      {{end}}

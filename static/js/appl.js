@@ -84,13 +84,17 @@ $(function() {
           //clear all fields
           $('#applicationForm').trigger("reset");
         },
-        error: function() {
-          // Fail message
+        error: function(xhr,status,error) {
+          if (xhr.responseText != "") {
+           var message = JSON.parse(xhr.responseText).Error
+            // Fail message
           $('#successApplication').html("<div class='alert alert-danger'>");
           $('#successApplication > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
             .append("</button>");
-          $('#successApplication > .alert-danger').append($("<strong>").text("Sorry " + FirstName + ", please fill in all required fields"));
+          $('#successApplication > .alert-danger').append($("<strong>").text("Sorry " + message + ", please fill in all required fields"));
           $('#successApplication > .alert-danger').append('</div>');
+          }
+          
           //clear all fields
           //$('#applicationForm').trigger("reset");
         },

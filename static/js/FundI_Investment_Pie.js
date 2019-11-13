@@ -145,7 +145,7 @@
     //line chart
     var ctx = document.getElementById("investmentspeed");
     if (ctx) {
-      ctx.height = 150;
+      ctx.height = 115;
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {

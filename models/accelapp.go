@@ -110,11 +110,10 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 }
 
 // GetByName returns record by name.
-func (i *Appl) GetByLastName(tx *sqlx.Tx, name string) (*ApplRow, error) {
+func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) (*ApplRow, error) {
 	isr := &ApplRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE LastName=?", i.table)
-	err := i.db.Get(isr, query, name)
-
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Email=? OR Website=? OR CompanyName=?", i.table)
+	err := i.db.Get(isr, query, email, website, companyname)
 	return isr, err
 }
 

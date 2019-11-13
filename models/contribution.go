@@ -178,7 +178,7 @@ func (i *Contribution) SearchContributions(tx *sqlx.Tx, data SearchContribution)
 	} else {
 		if len(investorName) > 0 {
 			query = fmt.Sprintf(`SELECT * FROM %s WHERE InvestorLegalName Like '%%%s%%'`, i.table, investorName)
-//			fmt.Printf("input query %s for investor %s", query, investorName)
+			//			fmt.Printf("input query %s for investor %s", query, investorName)
 			err = i.db.Select(&isrs, query)
 			if err != nil {
 				fmt.Println("Search2 Error", err)

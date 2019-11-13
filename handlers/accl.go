@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"errors"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -134,10 +135,34 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	m["ApplicationDate"] = time.Now()
 	m["Title"] = "Removed"
 	fmt.Printf("map %v", m)
-	_, err2 := models.NewAppl(db).Create(nil, m)
-	if err2 != nil {
-		fmt.Println("database error", err2)
-		libhttp.HandleErrorJson(w, err2)
+	//check for duplicate entry
+	phone, ok1 := m["Phone"].(string)
+	email, ok2 := m["Email"].(string)
+	website, ok3 := m["Website"].(string)
+	companyname, ok4 := m["CompanyName"].(string)
+	
+	if ok1 {
+		if len(phone) > 12 {
+			err2 := errors.New("Maximum 12 Digits in a Phone Number including Country Code. No + Sign Reqired for International.")
+			//fmt.Println(err5)
+			libhttp.HandleErrorJson(w, err2)
+			return
+		}
+	}
+	if ok2 && ok3 && ok4 {
+		appl, _ := models.NewAppl(db).GetExisting(nil, email, website, companyname)
+		if appl != nil {
+			err3 := errors.New("Duplicate Entry. An application with Website, CompanyName or Email Already Exists")
+			//fmt.Println(err2)
+			libhttp.HandleErrorJson(w, err3)
+			return
+		}
+	}
+
+	_, err4 := models.NewAppl(db).Create(nil, m)
+	if err4 != nil {
+		fmt.Println("Application Information is not Valid", err4)
+		libhttp.HandleErrorJson(w, err4)
 		return
 	}
 	http.Redirect(w, r, "/", 302)

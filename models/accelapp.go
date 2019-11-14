@@ -110,11 +110,17 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 }
 
 // GetByName returns record by name.
-func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) (*ApplRow, error) {
-	isr := &ApplRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE Email=? OR Website=? OR CompanyName=?", i.table)
-	err := i.db.Get(isr, query, email, website, companyname)
-	return isr, err
+func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) (bool) {
+	var count int
+	query := fmt.Sprintf("SELECT COUNT(*) FROM %v WHERE Email=? OR Website=? OR CompanyName=?", i.table)
+	err := i.db.Get(&count, query, email, website, companyname)
+	if err != nil {
+		fmt.Println("Existing Application Search Error %v", err)
+	}
+	if count > 0 {
+		return true
+	}
+	return false
 }
 
 // create a new record of user.

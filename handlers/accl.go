@@ -150,12 +150,12 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if ok2 && ok3 && ok4 {
-		appl, _ := models.NewAppl(db).GetExisting(nil, email, website, companyname)
-		if appl != nil {
-			err3 := errors.New("Duplicate Entry. An application with Website, CompanyName or Email Already Exists")
-			//fmt.Println(err2)
-			libhttp.HandleErrorJson(w, err3)
-			return
+		exists := models.NewAppl(db).GetExisting(nil, email, website, companyname)
+		if exists == true {
+				err3 := errors.New("Duplicate Entry. An application with Website, CompanyName or Email Already Exists")
+				//fmt.Println(err2)
+				libhttp.HandleErrorJson(w, err3)
+				return
 		}
 	}
 

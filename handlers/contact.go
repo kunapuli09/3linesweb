@@ -18,6 +18,7 @@ import (
 	"net/smtp"
 	"os"
 	"time"
+	"strings"
 )
 
 func PostEmail(w http.ResponseWriter, r *http.Request) {
@@ -288,9 +289,11 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		// 	libhttp.HandleErrorJson(w, err)
 		// 	return
 		// }
-		if login != email {
+		if !(strings.EqualFold(strings.Trim(login, " "), strings.Trim(email, " ")) {
 			// verification failed, don't allow password reset
-			libhttp.HandleErrorJson(w, err)
+			err3 := errors.New("Invalid Reset Link. Reset Link is Not Generated for the Email Entered")
+				
+			libhttp.HandleErrorJson(w, "")
 			return
 		}
 		sessionStore := r.Context().Value("sessionStore").(sessions.Store)

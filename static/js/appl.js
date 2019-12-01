@@ -78,7 +78,7 @@ $(function() {
           $('#successApplication > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
             .append("</button>");
           $('#successApplication > .alert-success')
-            .append("<strong>Thank You for applying. We will get back to you soon. </strong>");
+            .append("<strong>Thank You for applying. Pls send the deck to dsc@3lines.vc We will get back to you soon. </strong>");
           $('#successApplication > .alert-success')
             .append('</div>');
           //clear all fields

@@ -116,7 +116,7 @@ func (i *News) GetPendingByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*Ne
 // Get All by Investment ID.
 func (i *News) GetAllByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*NewsRow, error) {
 	css := []*NewsRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v ORDER BY NewsDate DESC", i.table, Investment_ID)
 	err := i.db.Select(&css, query)
 	return css, err
 }

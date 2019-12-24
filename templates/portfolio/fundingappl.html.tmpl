@@ -9,7 +9,7 @@
                                {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin)  }}
                                 <div class="overview-wrap">
                                     <!-- <h2 class="title-1">Application Details</h2> -->
-                                    <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a> 
+                                    <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a>
                                    <a href="/screeningNotes?Application_ID={{.Existing.ID}}" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-plus"></i>Screening Notes</a>
                                 </div>
                                 {{end}}
@@ -100,8 +100,8 @@
                                     <div class="au-card-inner">
                                         <h3 class="title-2">Comments</h3>
                                         <div class="chart-info">
-                                        {{ .Existing.Comments}}  
-                                            
+                                        {{ .Existing.Comments}}
+
                                         </div>
                                         <div class="recent-report__chart">
                                             <canvas id="recent-rep-chart"></canvas>
@@ -117,7 +117,7 @@
                                     {{ .Existing.ElevatorPitch}}
                                 </div>
                                 {{range .AllNotes }}
-                         
+
                                 <div class="overview-item overview-item--c4">
                                 <div class="au-card chart-percent-card">
                                     <div class="au-card-inner">
@@ -128,7 +128,7 @@
                               </div>
                                 {{end}}
                             </div>
-                            
+
                         </div>
                          {{if .AllNotes }}
                         <div class="row">
@@ -149,6 +149,7 @@
                                                   <th>Execution</th>
                                                   <th>Market</th>
                                                   <th>Scaling</th>
+                                                  <th>Competition</th>
                                                </tr>
                                             </thead>
                                             <tbody>
@@ -166,6 +167,7 @@
                                                   <td>{{ .ExecutionRisk }}</td>
                                                   <td>{{ .MarketRisk }}</td>
                                                   <td>{{ .ScalingRisk }}</td>
+                                                  <td>{{ .CompetitionRisk }}</td>
                                                </tr>
                                                {{end}}
                                             </tbody>

@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"time"
 	"errors"
+	"github.com/shopspring/decimal"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -102,6 +103,16 @@ func FundingAppl(w http.ResponseWriter, r *http.Request) {
 	funcMap := template.FuncMap{
 		"safeHTML": func(b string) template.HTML {
 			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+		"screeningStatus": func(b string) string {
+			if b == "ARCHIVE" {
+				return b + "D"
+			}
+			return b + "ED"
 		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")

@@ -112,6 +112,9 @@ func FundingAppl(w http.ResponseWriter, r *http.Request) {
 			if b == "ARCHIVE" {
 				return b + "D"
 			}
+			if b == "FASTTRACK" {
+				return "FAST TRACKED"
+			}
 			return b + "ED"
 		},
 	}
@@ -151,7 +154,7 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	email, ok2 := m["Email"].(string)
 	website, ok3 := m["Website"].(string)
 	companyname, ok4 := m["CompanyName"].(string)
-	
+
 	if ok1 {
 		if len(phone) > 12 {
 			err2 := errors.New("Maximum 12 Digits in a Phone Number including Country Code. No + Sign Reqired for International.")

@@ -165,7 +165,6 @@ func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 func isDsc(a string) bool {
 	//hardcode roles temporarily
 	dsc_team := []string{
-		"fundone@3lines.vc",
 		"roy.rajiv@gmail.com",
 		"arun.taman@gmail.com",
 		"sgosala99@gmail.com",

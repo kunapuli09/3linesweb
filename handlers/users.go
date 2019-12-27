@@ -78,7 +78,7 @@ func GetPerformance(w http.ResponseWriter, r *http.Request) {
 func GetLoginWithoutSession(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/login.html.tmpl")
+	tmpl, err := template.ParseFiles("templates/portfolio/login.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

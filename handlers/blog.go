@@ -38,11 +38,10 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, errors.New("no blog"))
 		return
 	}
-	tmpl, err := template.ParseFiles(name)
+	tmpl, err := template.ParseFiles("templates/blog/blog.html.tmpl", name)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl.Execute(w, r)
-
+	tmpl.ExecuteTemplate(w, "layout", nil)
 }

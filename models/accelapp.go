@@ -71,7 +71,7 @@ func (i *Appl) GetById(tx *sqlx.Tx, id int64) (*ApplRow, error) {
 // AllUsers returns all user rows.
 func (i *Appl) AllAppls(tx *sqlx.Tx) ([]*ApplRow, error) {
 	isrs := []*ApplRow{}
-	query := fmt.Sprintf("SELECT * FROM %v", i.table)
+	query := fmt.Sprintf("SELECT * FROM %v ORDER BY ApplicationDate DESC", i.table)
 	err := i.db.Select(&isrs, query)
 	if err != nil {
 		fmt.Println(err)
@@ -89,7 +89,7 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 	statuses := strings.Join(data.Status, ",")
 
 	if len(data.Status) > 0 {
-		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN screeningnotes s ON a.id=s.application_id WHERE a.CompanyName Like ? AND a.Locations Like ? AND s.Status in (?)", i.table)
+		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN screeningnotes s ON a.id=s.application_id WHERE a.CompanyName Like ? AND a.Locations Like ? AND s.Status in (?) ORDER BY ApplicationDate DESC", i.table)
 		err = i.db.Select(&isrs, query, location+"%", companyName+"%", statuses)
 		if err != nil {
 			fmt.Println("Search1 Error %v", err)
@@ -97,7 +97,7 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 		}
 		return isrs, err
 	} else {
-		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ?", i.table)
+		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ? ORDER BY ApplicationDate DESC", i.table)
 		err = i.db.Select(&isrs, query, location+"%", companyName+"%")
 		if err != nil {
 			fmt.Println("Search2 Error %v", err)
@@ -112,7 +112,7 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 // GetByName returns record by name.
 func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) (bool) {
 	var count int
-	query := fmt.Sprintf("SELECT COUNT(*) FROM %v WHERE Email=? OR Website=? OR CompanyName=?", i.table)
+	query := fmt.Sprintf("SELECT COUNT(*) FROM %v WHERE Email=? OR Website=? OR CompanyName=? ORDER BY ApplicationDate DESC", i.table)
 	err := i.db.Get(&count, query, email, website, companyname)
 	if err != nil {
 		fmt.Println("Existing Application Search Error %v", err)

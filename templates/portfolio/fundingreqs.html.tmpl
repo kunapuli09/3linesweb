@@ -51,11 +51,14 @@
                            <tr>
                               <th scope="row">ID</th>
                               <th>Application Date</th>
-                              <th>Startup Name</th>
+                              <th>Location</th>
                               <th>Founder Name</th>
                               <th>Email</th>
                               <th>Phone</th>
                               <th>Referrer</th>
+                              <th>Website</th>
+                              <th>Startup Name</th>
+                              
                            </tr>
                         </thead>
                         <tbody>
@@ -63,11 +66,14 @@
                            <tr id="{{.ID}}" class="detail">
                               <th scope="row"><i class="zmdi zmdi-eye"></i></th>
                               <td>{{.FormattedApplicationDate}}</td>
-                              <td>{{ .CompanyName }}</td>
+                              <th>{{ .Locations }}</th>
                               <td>{{ .FirstName }} {{ .LastName }}</td>
                               <td>{{ .Email }}</td>
                               <td>{{ .Phone }}</td>
                               <td>{{ .Referrer}}</td>
+                              <td>{{ .Website }}</td>
+                              <td>{{ .CompanyName }}</td>
+                              
                            </tr>
                            {{end}}
                         </tbody>

@@ -30,7 +30,8 @@
     <link href="vendor2/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor2/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor2/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" media="all">
+      
     <!-- Main CSS-->
     <link href="css2/theme.css" rel="stylesheet" media="all">
 
@@ -121,8 +122,10 @@
     <script src="vendor2/circle-progress/circle-progress.min.js"></script>
     <script src="vendor2/perfect-scrollbar/perfect-scrollbar.js"></script>
     <script src="vendor2/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor2/select2/select2.min.js">
-    </script>
+    <script src="vendor2/select2/select2.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
     <!-- Main JS-->
    <!--  <script src="js2/main.js"></script> -->
@@ -139,6 +142,11 @@
     
 });
     </script>
+    <script>
+      $(document).ready(function() {
+      $('#deals').DataTable();
+      } );
+      </script>
 </html>
 <!-- end document-->
 {{end}}

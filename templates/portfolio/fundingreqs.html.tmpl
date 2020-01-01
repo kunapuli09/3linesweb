@@ -12,14 +12,14 @@
             <div class="row">
                <div class="col-md-12">
                   <form class="form-signup-login form-signup" method="post" action="/searchAppl">
-                  <div class="col-md-4">
+                  <!-- <div class="col-md-4">
                      <div class="form-group">
                         <input name="CompanyName" type="text" class="form-control" placeholder="Search by a Startup Name, Ex: Smiley" value=""/>
                      </div>
                      <div class="form-group">
                        <input name="Location" type="text" class="form-control" placeholder="Search by a Location,  Ex: Den" value=""  autofocus/>
                        </div>
-                  </div>
+                  </div> -->
                      <div class="col-md-8">
                       
                           
@@ -46,19 +46,16 @@
                   
                   <h2 class="title-1 m-b-25">Applications</h2>
                   <div class="table-responsive table--no-card m-b-40">
-                     <table class="table table-hover">
+                     <table id="deals" class="table table-hover">
                         <thead>
                            <tr>
                               <th scope="row">ID</th>
                               <th>Application Date</th>
                               <th>Location</th>
-                              <th>Founder Name</th>
-                              <th>Email</th>
-                              <th>Phone</th>
-                              <th>Referrer</th>
                               <th>Website</th>
+                              <th>Referrer</th>
+                              <th>Founder Name</th>
                               <th>Startup Name</th>
-                              
                            </tr>
                         </thead>
                         <tbody>
@@ -67,13 +64,10 @@
                               <th scope="row"><i class="zmdi zmdi-eye"></i></th>
                               <td>{{.FormattedApplicationDate}}</td>
                               <th>{{ .Locations }}</th>
-                              <td>{{ .FirstName }} {{ .LastName }}</td>
-                              <td>{{ .Email }}</td>
-                              <td>{{ .Phone }}</td>
-                              <td>{{ .Referrer}}</td>
                               <td>{{ .Website }}</td>
+                              <td>{{ .Referrer}}</td>
+                              <td>{{ .FirstName }} {{ .LastName }}</td>
                               <td>{{ .CompanyName }}</td>
-                              
                            </tr>
                            {{end}}
                         </tbody>

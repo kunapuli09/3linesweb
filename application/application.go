@@ -76,6 +76,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/contact", handlers.PostEmail).Methods("POST")
 	router.HandleFunc("/appl", handlers.NewApplication).Methods("GET")
 	router.HandleFunc("/application", handlers.AddApplication).Methods("POST")
+	router.HandleFunc("/updateApplication", handlers.UpdateApplication).Methods("POST")
 	router.HandleFunc("/fundingreqs", handlers.FundingRequests).Methods("GET")
 	router.HandleFunc("/searchAppl", handlers.FundingRequests).Methods("POST")
 	router.HandleFunc("/fundingappl", handlers.FundingAppl).Methods("GET")
@@ -124,6 +125,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("./docs"))))
 
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
+
 
 	// Path of static files must be last!
 	router.PathPrefix("/").Handler(http.FileServer(http.Dir("static")))

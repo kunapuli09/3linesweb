@@ -182,7 +182,59 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/", 302)
 }
 
-//db call to update
+//database call to add update
+func UpdateApplication(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	var i models.ApplRow
+	db := r.Context().Value("db").(*sqlx.DB)
+	err := r.ParseForm()
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	_, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	existing, e := models.NewAppl(db).GetById(nil, ID)
+	if e != nil {
+		fmt.Println("Failed to Get  Existing Application", e)
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	decoder := schema.NewDecoder()
+	decoder.RegisterConverter(sql.NullString{}, ConvertSQLNullString)
+	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
+	err1 := decoder.Decode(&i, r.PostForm)
+	fmt.Printf("Form %v", r.PostForm)
+	if err1 != nil {
+		fmt.Println("decoding error")
+		libhttp.HandleErrorJson(w, err1)
+		return
+	}
+	m := structs.Map(i)
+	m["Title"] = existing.Title
+	m["ApplicationDate"]=existing.ApplicationDate
+	fmt.Printf("map %v", m)
+	_, err4 := models.NewAppl(db).UpdateById(nil, ID, m)
+	if err4 != nil {
+		fmt.Println("Failed to Update Information", err4)
+		libhttp.HandleErrorJson(w, err4)
+		return
+	}
+	http.Redirect(w, r, "/fundingreqs", 302)
+}
+
+
+//db call to remove
 func RemoveApplication(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)

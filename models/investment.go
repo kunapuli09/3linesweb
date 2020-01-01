@@ -115,6 +115,7 @@ func (i *Investment) GetUserInvestments(tx *sqlx.Tx, partcipatedFundNames []stri
 			query += `'` + fundName + `',`
 		}
 	}
+	query += " ORDER BY InvestmentDate DESC"
 	//fmt.Printf("input query %v", query)
 	err := i.db.Select(&investments, query)
 	if err != nil {

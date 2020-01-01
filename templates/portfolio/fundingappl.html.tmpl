@@ -10,6 +10,7 @@
                                 <div class="overview-wrap">
                                     <!-- <h2 class="title-1">Application Details</h2> -->
                                     <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a>
+                                    <a class="au-btn au-btn-icon au-btn--blue2" href="javascript:void(0)" data-toggle="modal" data-target="#application-modal"><i class="zmdi zmdi-edit"></i>Edit Application</a>
                                    <a href="/screeningNotes?Application_ID={{.Existing.ID}}" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-plus"></i>Screening Notes</a>
                                 </div>
                                 {{end}}
@@ -181,5 +182,90 @@
                 </div>
             </div>
             <!-- END MAIN CONTENT-->
+            <!-- Application Info Modal -->
+            <div class="modal fade" id="application-modal" tabindex="-1" role="dialog" aria-labelledby="application-label" aria-hidden="true">
+               <div class="modal-dialog">
+                  <div class="modal-content">
+                     <div class="modal-header">
+                        <h4 class="modal-title" id="application-label">Update Application Info</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     </div>
+                     <form method="post" action="/updateApplication">
+                        <input type="hidden" name="id" value="{{.Existing.ID}}">
+                        <div class="modal-body">
+                            <div class="form-group">
+                              <label class="control-label" for="Locations">Program Location:</label>
+                              <input type="text" name="Locations" id="Locations" class="form-control" value="{{ .Existing.Locations }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="FirstName">First Name:</label>
+                              <input type="text" name="FirstName" id="FirstName" class="form-control" value="{{ .Existing.FirstName }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="LastName">Last Name:</label>
+                              <input type="text" name="LastName" id="LastName" class="form-control" value="{{ .Existing.LastName }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="Email">Email:</label>
+                              <input type="email" name="Email" id="Email" class="form-control" value="{{ .Existing.Email }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="Phone">Phone:</label>
+                              <input type="tel" name="Phone" id="Phone" class="form-control" value="{{ .Existing.Phone }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="CompanyName">Company Name:</label>
+                              <input type="text" name="CompanyName" id="CompanyName" class="form-control" value="{{ .Existing.CompanyName }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="Website">Website:</label>
+                              <input type="text" name="Website" id="Website" class="form-control" value="{{ .Existing.Website }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="Referrer">Who Referred You?:</label>
+                              <input type="text" name="Referrer" id="Referrer" class="form-control" value="{{ .Existing.Referrer }}">
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label" for="CapitalRaised">Capital Raised:</label>
+                              <input type="number" name="CapitalRaised" id="CapitalRaised" class="form-control" value="{{ .Existing.CapitalRaised }}">
+                           </div>
+                           <div class="form-group" id="Revenue">
+                              <div class="row">
+                              <label class="control-label" for="Revenue">Revenue Status:</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="PreRevenue">Pre Revenue</label>
+                              <input class="form-check-input2" type="radio" name="Revenue" id="PreRevenue" value="Pre-Revenue" {{ if eq "Pre-Revenue" .Existing.Revenue }}checked="checked"{{ end }}>
+                              </div>
+                              <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="RevenuePositive">Revenue Positive</label>
+                              <input class="form-check-input2" type="radio" name="Revenue" id="RevenuePositive" value="Revenue Positive" {{ if eq "Revenue Positive" .Existing.Revenue }}checked="checked"{{ end }}>
+                              </div>
+                              <div class="form-check form-check-inline">
+                              <label class="form-check-label" for="Profitable">Profitable</label>
+                              <input class="form-check-input2" type="radio" name="Revenue" id="Profitable" value="Profitable" {{ if eq "Profitable" .Existing.Revenue }}checked="checked"{{ end }}>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group">
+                              <label class="control-label" for="Industries">Industries:</label>
+                              <input type="text" name="Industries" id="Industries" class="form-control" value="{{ .Existing.Industries }}">
+                        </div>
+                        <div class="form-group">
+                              <label class="control-label" for="ElevatorPitch">Elevator Pitch:</label>
+                              <textarea type="text" name="ElevatorPitch" id="ElevatorPitch" class="form-control">{{ .Existing.ElevatorPitch | safeHTML}}</textarea>
+                           </div>
+                        <div class="form-group">
+                          <label class="control-label" for="Comments">Comments:</label>
+                           <textarea type="text" name="Comments" id="Comments" class="form-control">{{ .Existing.Comments | safeHTML }}</textarea>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                           <button type="button" class="btn btn-success" onclick="$(this).closest('form').submit()">Save changes</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
             </section>
             {{end}}

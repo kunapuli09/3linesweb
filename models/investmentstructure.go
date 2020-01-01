@@ -100,7 +100,7 @@ func (i *InvestmentStructure) UpdateById(tx *sqlx.Tx, isId int64, data map[strin
 // Get All by Investment ID.
 func (i *InvestmentStructure) GetAllByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*InvestmentStructureRow, error) {
 	css := []*InvestmentStructureRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v ORDER BY ReportingDate DESC", i.table, Investment_ID)
 	err := i.db.Select(&css, query)
 
 	return css, err

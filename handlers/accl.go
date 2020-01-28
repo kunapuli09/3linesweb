@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/fatih/structs"
 	"github.com/gorilla/schema"
@@ -9,12 +10,11 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
+	"github.com/shopspring/decimal"
 	"html/template"
 	"net/http"
 	"strconv"
 	"time"
-	"errors"
-	"github.com/shopspring/decimal"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -166,10 +166,10 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	if ok2 && ok3 && ok4 {
 		exists := models.NewAppl(db).GetExisting(nil, email, website, companyname)
 		if exists == true {
-				err3 := errors.New("Duplicate Entry. An application with Website, CompanyName or Email Already Exists")
-				//fmt.Println(err2)
-				libhttp.HandleErrorJson(w, err3)
-				return
+			err3 := errors.New("Duplicate Entry. An application with Website, CompanyName or Email Already Exists")
+			//fmt.Println(err2)
+			libhttp.HandleErrorJson(w, err3)
+			return
 		}
 	}
 
@@ -222,7 +222,7 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	}
 	m := structs.Map(i)
 	m["Title"] = existing.Title
-	m["ApplicationDate"]=existing.ApplicationDate
+	m["ApplicationDate"] = existing.ApplicationDate
 	fmt.Printf("map %v", m)
 	_, err4 := models.NewAppl(db).UpdateById(nil, ID, m)
 	if err4 != nil {
@@ -232,7 +232,6 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/fundingreqs", 302)
 }
-
 
 //db call to remove
 func RemoveApplication(w http.ResponseWriter, r *http.Request) {

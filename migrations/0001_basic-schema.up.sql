@@ -214,6 +214,18 @@ ALTER TABLE applications ADD INDEX  Locations_Index (Locations);
 ALTER TABLE investments ADD FundLegalName VARCHAR(255);
 SET SQL_SAFE_UPDATES = 0;
 UPDATE  investments SET FundLegalName="3Lines 2016 Discretionary Fund, LLC";
+#Roles update for new blogreaders
+ALTER TABLE 3linesweb.users ADD Roles VARCHAR(255); 
+ALTER TABLE 3linesweb.users DROP COLUMN Admin;
+UPDATE 3linesweb.users set Roles='Admin,Dsc,Investor,BlogReader' where admin=1;
+
+UPDATE 3linesweb.users set Roles='Investor,BlogReader' where admin=0;
+
+UPDATE 3linesweb.users set Roles='Dsc,Investor,BlogReader' where email in ("fundone@3lines.vc",
+        "roy.rajiv@gmail.com",
+        "arun.taman@gmail.com",
+        "sgosala99@gmail.com",
+        "dsc@3lines.vc")
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
 

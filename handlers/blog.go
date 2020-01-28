@@ -2,27 +2,34 @@ package handlers
 
 import (
 	"errors"
+	"github.com/gorilla/sessions"
 	"github.com/kunapuli09/3linesweb/libhttp"
+	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
 	"net/http"
 	"strconv"
 )
 
-var m = map[int]string{
-	1:  "templates/blog/blog1.html.tmpl",
-	2:  "templates/blog/blog2.html.tmpl",
-	3:  "templates/blog/blog3.html.tmpl",
-	4:  "templates/blog/blog4.html.tmpl",
-	5:  "templates/blog/blog5.html.tmpl",
-	6:  "templates/blog/blog6.html.tmpl",
-	7:  "templates/blog/blog7.html.tmpl",
-	8:  "templates/blog/blog8.html.tmpl",
-	9:  "templates/blog/blog9.html.tmpl",
-	10: "templates/blog/blog10.html.tmpl",
-	11: "templates/blog/blog11.html.tmpl",
-	12: "templates/blog/blog12.html.tmpl",
-	13: "templates/blog/blog13.html.tmpl",
-	14: "templates/blog/blog14.html.tmpl",
+type Blog struct {
+	Name   string
+	Secure bool
+}
+
+var m = map[int]*Blog{
+	1:  &Blog{"templates/blog/blog1.html.tmpl", false},
+	2:  &Blog{"templates/blog/blog2.html.tmpl", false},
+	3:  &Blog{"templates/blog/blog3.html.tmpl", false},
+	4:  &Blog{"templates/blog/blog4.html.tmpl", false},
+	5:  &Blog{"templates/blog/blog5.html.tmpl", false},
+	6:  &Blog{"templates/blog/blog6.html.tmpl", false},
+	7:  &Blog{"templates/blog/blog7.html.tmpl", false},
+	8:  &Blog{"templates/blog/blog8.html.tmpl", false},
+	9:  &Blog{"templates/blog/blog9.html.tmpl", false},
+	10: &Blog{"templates/blog/blog10.html.tmpl", false},
+	11: &Blog{"templates/blog/blog11.html.tmpl", false},
+	12: &Blog{"templates/blog/blog12.html.tmpl", false},
+	13: &Blog{"templates/blog/blog13.html.tmpl", false},
+	14: &Blog{"templates/blog/blog14.html.tmpl", true},
 }
 
 func GetBlog(w http.ResponseWriter, r *http.Request) {
@@ -33,15 +40,37 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	name, ok := m[i]
-	if !ok {
+	b, ok1 := m[i]
+	if !ok1 {
 		libhttp.HandleErrorJson(w, errors.New("no blog"))
 		return
 	}
-	tmpl, err := template.ParseFiles("templates/blog/blog.html.tmpl", name)
+	tmpl, err := template.ParseFiles("templates/blog/blogdashboard.html.tmpl", b.Name)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl.ExecuteTemplate(w, "layout", nil)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if b.Secure == true {
+		if !ok {
+			http.Redirect(w, r, "/logout", 302)
+			return
+		}
+	}
+	if ok {
+		//data
+		if currentUser.BlogReader || currentUser.Investor || currentUser.Dsc || currentUser.Admin {
+			data := struct {
+				CurrentUser *models.UserRow
+			}{
+				currentUser,
+			}
+			tmpl.ExecuteTemplate(w, "bloglayout", data)
+		}
+
+	}
+
+	tmpl.ExecuteTemplate(w, "bloglayout", nil)
 }

@@ -1,0 +1,168 @@
+{{define "bloglayout"}}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>3Lines Venture Capital</title>
+      <!-- Bootstrap core CSS -->
+      <link href="vendor2/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="vendor2/font-awesome/css/all.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+      <!-- date picker start  -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0-RC3/css/bootstrap-datepicker.min.css">
+      <!-- date picker end  -->
+      <!-- Custom styles for portf-->
+      <link href="css/album.css" rel="stylesheet">
+      <link href="css/navbar-top-fixed.css" rel="stylesheet">
+      <!--summer note rich text editor -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+      <!-- ******** Dashboard ThemeFontfaces CSS-->
+      <link href="vendor2/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+      <!-- Bootstrap CSS-->
+      <link href="vendor2/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+      <!-- vendor2 CSS-->
+      <link href="vendor2/animsition/animsition.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/wow/animate.css" rel="stylesheet" media="all">
+      <link href="vendor2/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/slick/slick.css" rel="stylesheet" media="all">
+      <link href="vendor2/select2/select2.min.css" rel="stylesheet" media="all">
+      <link href="vendor2/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+      <link href="css2/theme.css" rel="stylesheet" media="all">
+      <!-- ******** End Dashboard Theme -->
+      <!-- Favicon.ico -->
+      <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+      <link rel="manifest" href="img/favicon/site.webmanifest">
+      <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#00a300">
+      <meta name="theme-color" content="#ffffff">
+   </head>
+   <body id="page-top">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+         <img src="img/logo.png" alt="3Lines">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav text-uppercase ml-auto">
+                    {{if .CurrentUser }}
+                     <li class="nav-item">
+                      <a class="nav-link js-scroll-trigger" href="/entryaccess"><i class="fas fa-tachometer-alt"></i>Blog Dashboard</a>
+                     </li>
+                     {{end}}
+                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="appl">Apply</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/#blog">News & Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/login">Investors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="http://www.mentorbaba.co" target="_blank">mentorBaba</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
+                    </li>
+                    {{if .CurrentUser }}
+                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
+                     </li>
+                     {{end}}
+                </ul>  
+         </div>
+      </nav>
+      {{template "content" .}}
+      <!-- Footer -->
+      <footer>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                  <span class="copyright">Copyright &copy; 3Lines 2019</span>
+               </div>
+               <div class="col-md-4">
+                  <ul class="list-inline social-buttons">
+                     <li class="list-inline-item">
+                        <a href="http://twitter.com/threelinesus">
+                        <i class="zmdi zmdi-twitter-box"></i>
+                        </a>
+                     </li>
+                     <li class="list-inline-item">
+                        <a href="http://facebook.com/threelinesus">
+                        <i class="zmdi zmdi-facebook-box"></i>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- User Settings Modal -->
+      <div class="modal fade" id="user-settings-modal" tabindex="-1" role="dialog" aria-labelledby="user-settings-label" aria-hidden="true">
+         <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title" id="user-settings-label">User Settings</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               </div>
+               <form method="post" action="/users/{{ .CurrentUser.ID }}">
+                  <div class="modal-body">
+                     <input type="hidden" name="_method" value="put">
+                     <div class="form-group">
+                        <label class="control-label" for="email">Email:</label>
+                        <input type="text" name="Email" id="email" class="form-control" value="{{ .CurrentUser.Email }}">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="email">Phone:</label>
+                        <input type="text" name="Phone" id="phone" class="form-control" value="{{ .CurrentUser.Phone }}">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="password">New Password:</label>
+                        <input type="password" name="Password" id="password" class="form-control">
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label" for="password-again">New Password Again:</label>
+                        <input type="password" name="PasswordAgain" id="password-again" class="form-control">
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-success" onclick="$(this).closest('form').submit()">Save changes</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!-- Bootstrap core JavaScript -->
+      <script src="vendor/jquery/jquery.min.js"></script>
+      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Plugin JavaScript -->
+      <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <script src="js/jqBootstrapValidation.js"></script>
+      <script src="js/contact_me.js"></script>
+      <!-- Custom scripts for this template -->
+      <script src="js/agency.min.js"></script>
+   </body>
+</html>
+{{end}}

@@ -16,8 +16,8 @@ import (
 	"net/http"
 	"net/smtp"
 	"os"
-	"time"
 	"strings"
+	"time"
 )
 
 func PostEmail(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +71,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 		c, err := smtp.Dial("localhost:25")
 		if err != nil {
 			log.Fatal(err)
-			err := errors.New("Sorry, mail server is not up.")	
+			err := errors.New("Sorry, mail server is not up.")
 			libhttp.HandleErrorJson(w, err)
 			return
 		}
@@ -84,7 +84,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 		wc, err := c.Data()
 		if err != nil {
 			log.Fatal(err)
-			err := errors.New("Sorry, issue with sending an email to your address")	
+			err := errors.New("Sorry, issue with sending an email to your address")
 			libhttp.HandleErrorJson(w, err)
 			return
 		}
@@ -133,13 +133,13 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("Email")
 	token := r.FormValue("token")
 	db := r.Context().Value("db").(*sqlx.DB)
-	
+
 	if email != "" {
 		u := models.NewUser(db)
 		user, err := u.GetByEmail(nil, email)
 		if err != nil {
 			fmt.Println("User Doesn't exist.")
-			e := errors.New("Invalid Reset Link. Reset Link is Not Generated for the Email Entered")	
+			e := errors.New("Invalid Reset Link. Reset Link is Not Generated for the Email Entered")
 			libhttp.HandleErrorJson(w, e)
 			return
 		}
@@ -147,10 +147,10 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 		log.Println("Verifying Token", token)
 		login, err := passwordreset.VerifyToken(token, getPwdVal, PasswordSecret)
 		log.Println("Verifying Token. Hashed Login", login)
-		log.Println("Verifying Token. Email Reset By User", user.Email) 
+		log.Println("Verifying Token. Email Reset By User", user.Email)
 		if !(strings.EqualFold(strings.Trim(login, " "), strings.Trim(email, " "))) {
 			// verification failed, don't allow password reset
-			err := errors.New("Invalid Reset Link. Reset Link is Not Generated for the Email Entered")	
+			err := errors.New("Invalid Reset Link. Reset Link is Not Generated for the Email Entered")
 			libhttp.HandleErrorJson(w, err)
 			return
 		}
@@ -171,4 +171,3 @@ func Reset(w http.ResponseWriter, r *http.Request) {
 func getPwdVal(dbPassword string) ([]byte, error) {
 	return []byte(dbPassword), nil
 }
-

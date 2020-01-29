@@ -53,12 +53,6 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if b.Secure == true {
-		if !ok {
-			http.Redirect(w, r, "/logout", 302)
-			return
-		}
-	}
 	if ok {
 		//data
 		if currentUser.BlogReader || currentUser.Investor || currentUser.Dsc || currentUser.Admin {
@@ -70,7 +64,14 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 			tmpl.ExecuteTemplate(w, "bloglayout", data)
 		}
 
+	}else{
+		if b.Secure == true {
+			http.Redirect(w, r, "/logout", 302)
+			return
+		}else{
+			tmpl.ExecuteTemplate(w, "bloglayout", nil)
+		}
 	}
-
-	tmpl.ExecuteTemplate(w, "bloglayout", nil)
+	
 }
+

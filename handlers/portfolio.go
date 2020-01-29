@@ -43,7 +43,6 @@ func EntryAccess(w http.ResponseWriter, r *http.Request) {
 	case currentUser.Investor:
 		InvestorDashboard(w, r)
 	case currentUser.BlogReader:
-		fmt.Println("Going to blog BlogDashboard")
 		BlogDashboard(w, r)
 	default:
 		fmt.Println("reached default as well")

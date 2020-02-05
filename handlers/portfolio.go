@@ -40,6 +40,8 @@ func EntryAccess(w http.ResponseWriter, r *http.Request) {
 	switch defaultView := true; defaultView {
 	case currentUser.Admin:
 		GetAdminDashboard(w, r)
+	case currentUser.Dsc:
+		InvestorDashboard(w, r)
 	case currentUser.Investor:
 		InvestorDashboard(w, r)
 	case currentUser.BlogReader:

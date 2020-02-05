@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
+	"fmt"
 )
 
 type Blog struct {
@@ -61,6 +62,7 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 			}{
 				currentUser,
 			}
+			fmt.Println("user logged in executing blog template")
 			tmpl.ExecuteTemplate(w, "bloglayout", data)
 		}
 
@@ -69,6 +71,7 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/logout", 302)
 			return
 		}else{
+			fmt.Println("not a secure blog, so executing blog template")
 			tmpl.ExecuteTemplate(w, "bloglayout", nil)
 		}
 	}

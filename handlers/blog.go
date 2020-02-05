@@ -30,7 +30,8 @@ var m = map[int]*Blog{
 	11: &Blog{"templates/blog/blog11.html.tmpl", false},
 	12: &Blog{"templates/blog/blog12.html.tmpl", false},
 	13: &Blog{"templates/blog/blog13.html.tmpl", false},
-	14: &Blog{"templates/blog/blog14.html.tmpl", true},
+	14: &Blog{"templates/blog/blog14.html.tmpl", false},
+	15: &Blog{"templates/blog/blog15.html.tmpl", false},
 }
 
 func GetBlog(w http.ResponseWriter, r *http.Request) {
@@ -71,7 +72,7 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(w, r, "/logout", 302)
 			return
 		}else{
-			fmt.Println("not a secure blog, so executing blog template")
+			//fmt.Println("not a secure blog, so executing blog template")
 			tmpl.ExecuteTemplate(w, "bloglayout", nil)
 		}
 	}

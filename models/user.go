@@ -183,13 +183,13 @@ func (i *User) UpdateRoles(u *UserRow) {
 	switch roles := u.Roles; roles {
 	case "Admin,Dsc,Investor,BlogReader":
 		u.Admin = true
-		fmt.Println("User is Admin")
+		//fmt.Println("User is Admin")
 	case "Dsc,Investor,BlogReader":
 		u.Dsc = true
-		fmt.Println("User is Dsc")
+		//fmt.Println("User is Dsc")
 	case "Investor,BlogReader":
 		u.Investor = true
-		fmt.Println("User is Investor")
+		//fmt.Println("User is Investor")
 	default:
 		u.BlogReader = true
 		fmt.Println("User is BlogReader")

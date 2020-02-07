@@ -40,8 +40,14 @@ func EntryAccess(w http.ResponseWriter, r *http.Request) {
 	switch defaultView := true; defaultView {
 	case currentUser.Admin:
 		GetAdminDashboard(w, r)
-	default:
+	case currentUser.Dsc:
 		InvestorDashboard(w, r)
+	case currentUser.Investor:
+		InvestorDashboard(w, r)
+	case currentUser.BlogReader:
+		BlogDashboard(w, r)
+	default:
+		fmt.Println("reached default as well")
 	}
 
 }
@@ -188,6 +194,32 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
+func BlogDashboard(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	//data for entryaccess.html.tmpl
+	data := struct {
+		CurrentUser *models.UserRow
+	}{
+		currentUser,
+	}
+
+	tmpl, err := template.ParseFiles("templates/blog/blogdashboard.html.tmpl", "templates/blog/securedblogs.html.tmpl")
+
+	if err != nil {
+		fmt.Println(err)
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "bloglayout", data)
+}
 func NoEntry(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)

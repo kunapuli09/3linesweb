@@ -110,7 +110,7 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 }
 
 // GetByName returns record by name.
-func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) (bool) {
+func (i *Appl) GetExisting(tx *sqlx.Tx, email string, website string, companyname string) bool {
 	var count int
 	query := fmt.Sprintf("SELECT COUNT(*) FROM %v WHERE Email=? OR Website=? OR CompanyName=? ORDER BY ApplicationDate DESC", i.table)
 	err := i.db.Get(&count, query, email, website, companyname)

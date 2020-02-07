@@ -17,13 +17,29 @@ func NewUser(db *sqlx.DB) *User {
 }
 
 type UserRow struct {
-	ID       int64  `db:"id"`
-	Email    string `db:"email"`
-	Phone    string `db:"phone"`
-	Password string `db:"password"`
-	Admin    bool   `db:"admin"`
-	Dsc      bool
+	ID         int64  `db:"id"`
+	Email      string `db:"email"`
+	Phone      string `db:"phone"`
+	Password   string `db:"password"`
+	Roles      string `db:"Roles"`
+	Admin      bool
+	Dsc        bool
+	Investor   bool
+	BlogReader bool
 }
+
+// type RoleType int
+
+// const (
+//     Admin RoleType = iota
+//     Dsc
+//     Investor
+//     BlogReader
+// )
+
+// func (r RoleType) String() string {
+//     return [...]string{"Admin", "Dsc", "Investor", "BlogReader"}[r]
+// }
 
 type User struct {
 	Base
@@ -51,7 +67,7 @@ func (u *User) GetById(tx *sqlx.Tx, id int64) (*UserRow, error) {
 	user := &UserRow{}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", u.table)
 	err := u.db.Get(user, query, id)
-	user.Dsc = isDsc(user.Email)
+	u.UpdateRoles(user)
 	return user, err
 }
 
@@ -60,7 +76,7 @@ func (u *User) GetByEmail(tx *sqlx.Tx, email string) (*UserRow, error) {
 	user := &UserRow{}
 	query := fmt.Sprintf("SELECT *  FROM %v WHERE email=?", u.table)
 	err := u.db.Get(user, query, email)
-	user.Dsc = isDsc(user.Email)
+	u.UpdateRoles(user)
 	return user, err
 }
 
@@ -74,7 +90,7 @@ func (u *User) GetUserByEmailAndPassword(tx *sqlx.Tx, email, password string) (*
 	if err != nil {
 		return nil, err
 	}
-	user.Dsc = isDsc(user.Email)
+	u.UpdateRoles(user)
 	return user, err
 }
 
@@ -102,7 +118,7 @@ func (u *User) Signup(tx *sqlx.Tx, email, password, passwordAgain string, phone 
 	data["email"] = email
 	data["password"] = hashedPassword
 	data["phone"] = phone
-	data["admin"] = 0
+	data["Roles"] = "BlogReader"
 
 	sqlResult, err := u.InsertIntoTable(tx, data)
 	if err != nil {
@@ -162,19 +178,20 @@ func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 
 	return sqlResult, nil
 }
-func isDsc(a string) bool {
-	//hardcode roles temporarily
-	dsc_team := []string{
-		"fundone@3lines.vc",
-		"roy.rajiv@gmail.com",
-		"arun.taman@gmail.com",
-		"sgosala99@gmail.com",
-		"dsc@3lines.vc",
+func (i *User) UpdateRoles(u *UserRow) {
+	fmt.Printf("Roles %s", u.Roles)
+	switch roles := u.Roles; roles {
+	case "Admin,Dsc,Investor,BlogReader":
+		u.Admin = true
+		//fmt.Println("User is Admin")
+	case "Dsc,Investor,BlogReader":
+		u.Dsc = true
+		//fmt.Println("User is Dsc")
+	case "Investor,BlogReader":
+		u.Investor = true
+		//fmt.Println("User is Investor")
+	default:
+		u.BlogReader = true
+		fmt.Println("User is BlogReader")
 	}
-	for _, b := range dsc_team {
-		if b == a {
-			return true
-		}
-	}
-	return false
 }

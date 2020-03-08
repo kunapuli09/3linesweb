@@ -117,6 +117,18 @@ func FundingAppl(w http.ResponseWriter, r *http.Request) {
 			}
 			return b + "ED"
 		},
+		"scoreDescription": func(b int8) template.HTML {
+			if b < 4 {
+				return template.HTML(`<span style="color:#28a745">LOW</span>`)
+			}
+			if b > 3 && b < 8 {
+				return template.HTML(`<span style="color:#ffc107">MEDIUM</span>`)
+			}
+			if b > 7 && b < 11 {
+				return template.HTML(`<span style="color:#dc3545">HIGH</span>`)
+			}
+			return template.HTML("NOT REVIWED")
+		},
 	}
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/internal.html.tmpl", "templates/portfolio/fundingappl.html.tmpl")
 	if err != nil {
@@ -194,7 +206,7 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	}
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
-	_, ok := session.Values["user"].(*models.UserRow)
+	currentUser, ok := session.Values["user"].(*models.UserRow)
 	if !ok {
 		http.Redirect(w, r, "/logout", 302)
 		return
@@ -214,7 +226,6 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	decoder.RegisterConverter(sql.NullString{}, ConvertSQLNullString)
 	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
 	err1 := decoder.Decode(&i, r.PostForm)
-	fmt.Printf("Form %v", r.PostForm)
 	if err1 != nil {
 		fmt.Println("decoding error")
 		libhttp.HandleErrorJson(w, err1)
@@ -223,6 +234,8 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	m := structs.Map(i)
 	m["Title"] = existing.Title
 	m["ApplicationDate"] = existing.ApplicationDate
+	m["LastUpdatedTime"] = time.Now()
+	m["LastUpdatedBy"] = currentUser.Email
 	fmt.Printf("map %v", m)
 	_, err4 := models.NewAppl(db).UpdateById(nil, ID, m)
 	if err4 != nil {

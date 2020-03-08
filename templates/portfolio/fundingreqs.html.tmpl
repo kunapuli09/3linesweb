@@ -5,9 +5,9 @@
       <div class="section__content section__content--p30">
          <div class="container-fluid">
             <div class="row">
-          <div class="col-lg-6 text-center">
+          <!-- <div class="col-lg-6 text-center">
             <h2 class="section-heading text-uppercase">Search Applications</h2>
-          </div>
+          </div> -->
         </div>
             <div class="row">
                <div class="col-md-12">
@@ -21,20 +21,23 @@
                        </div>
                   </div> -->
                      <div class="col-md-8">
-                      
-                          
-                       <div class="form-check form-check-inline">
-                     <input type="checkbox" name="Status" value="RECOMMEND">Recommended</input>
-                     
-                     </div>
-                     <div class="form-check form-check-inline">
-                     <input type="checkbox" name="Status" value="TRACK">Tracking</input>
-                     </div>
-                     <div class="form-check form-check-inline">
-                     <input type="checkbox" name="Status" value="ARCHIVE">Archived</input>
-                     </div>
-                     <div class="form-check form-check-inline">
-                     <input type="checkbox" name="Status" value="FASTTRACK">Fast Track</input>
+                     <label for="Status"><span><h2>Select One or More Application Statuses</h2><span></label>
+                              <select class="form-control" id="Status" name="Status" multiple>
+                                 <option value="Initial Review Pending By DSC">Initial Review Pending By DSC</option>
+                                 <option value="Initial Meeting Scheduled By DSC">Initial Meeting Scheduled By DSC</option>
+                                 <option value="Deal is Not a Fit, Archived By DSC">Deal is Not a Fit, Archived by DSC</option>
+                                 <option value="Deal is Early For Us, Archived By DSC">Deal is Early For Us, Archived By DSC</option>
+                                 <option value="Deal is Not Ready, Tracked By DSC">Deal is Not Ready, Tracked By DSC</option>
+                                 <option value="Deal is Ready, GP Followup Recommended">Deal is Ready, GP Followup Recommended</option>
+                                 <option value="Bypassed DSC, Fast Tracked By GPs and Initial Call Scheduled">Bypassed DSC, Fast Tracked By GPs and Initial Call Scheduled</option>
+                                 <option value="GPs Initial Review Found Deal is Not Ready, Archived By GPs">GPs Initial Review Found Deal is Not Ready, Archived By GPs</option>
+                                 <option value="GPs Found Deal Limitations, Tracking">GPs Found Deal Limitations, Tracking</option>
+                                 <option value="Accepted into Due Diligence By GPs">Accepted into Due Diligence By GPs</option>
+                                 <option value="Due Diligence Found Deal Limitations, Archived By GPs"> Due Diligence Found Deal Limitations, Archived By GPs</option>
+                                 <option value="Investment Recommended By GPs">Investment Recommended By GPs</option>
+                                 <option value="Investment Completed By GPs">Investment Completed By GPs</option>
+                              </select>
+                           </div>
                      </div>
                         <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Search</button>
                         <a href="/entryaccess" class="au-btn au-btn-icon au-btn--blue2" role="button">Cancel</a>

@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/jmoiron/sqlx"
 	"github.com/shopspring/decimal"
-	"strings"
 	"time"
 )
 
@@ -35,6 +34,9 @@ type ApplRow struct {
 	Comments        string          `db:"Comments"`
 	ElevatorPitch   string          `db:"ElevatorPitch"`
 	CapitalRaised   decimal.Decimal `db:"CapitalRaised"`
+	Status          string          `db:"Status"`
+	LastUpdatedBy   string          `db:"LastUpdatedBy"`
+	LastUpdatedTime time.Time       `db:"LastUpdatedTime"`
 }
 
 type Appl struct {
@@ -83,24 +85,21 @@ func (i *Appl) AllAppls(tx *sqlx.Tx) ([]*ApplRow, error) {
 func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 	var query string
 	var err error
+	var statuses string
 	isrs := []*ApplRow{}
-	companyName := data.CompanyName
-	location := data.Location
-	statuses := strings.Join(data.Status, ",")
-
+	last := len(data.Status) - 1
+	for index, Status := range data.Status {
+		if index == last {
+			statuses += `'` + Status + `'`
+		} else {
+			statuses += `'` + Status + `',`
+		}
+	}
 	if len(data.Status) > 0 {
-		query = fmt.Sprintf("SELECT a.* FROM %v a LEFT JOIN screeningnotes s ON a.id=s.application_id WHERE a.CompanyName Like ? AND a.Locations Like ? AND s.Status in (?) ORDER BY ApplicationDate DESC", i.table)
-		err = i.db.Select(&isrs, query, location+"%", companyName+"%", statuses)
+		query = fmt.Sprintf(`SELECT * FROM %v WHERE Status in (%s) ORDER BY ApplicationDate DESC`, i.table, statuses)
+		err = i.db.Select(&isrs, query)
 		if err != nil {
 			fmt.Println("Search1 Error %v", err)
-			return nil, err
-		}
-		return isrs, err
-	} else {
-		query = fmt.Sprintf("SELECT * FROM %v WHERE Locations Like ? AND CompanyName Like ? ORDER BY ApplicationDate DESC", i.table)
-		err = i.db.Select(&isrs, query, location+"%", companyName+"%")
-		if err != nil {
-			fmt.Println("Search2 Error %v", err)
 			return nil, err
 		}
 		return isrs, err

@@ -2,13 +2,13 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
 	"net/http"
 	"strconv"
-	"fmt"
 )
 
 type Blog struct {
@@ -67,15 +67,14 @@ func GetBlog(w http.ResponseWriter, r *http.Request) {
 			tmpl.ExecuteTemplate(w, "bloglayout", data)
 		}
 
-	}else{
+	} else {
 		if b.Secure == true {
 			http.Redirect(w, r, "/logout", 302)
 			return
-		}else{
+		} else {
 			//fmt.Println("not a secure blog, so executing blog template")
 			tmpl.ExecuteTemplate(w, "bloglayout", nil)
 		}
 	}
-	
-}
 
+}

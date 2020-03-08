@@ -209,6 +209,11 @@ CREATE TABLE contributions (
 alter table applications ADD  Referrer VARCHAR(255);
 alter table applications ADD  ElevatorPitch VARCHAR(255);
 alter table applications ADD  Revenue VARCHAR(255);
+alter table applications ADD  Status VARCHAR(255);
+ALTER TABLE applications ADD INDEX  Status_Index (Status);
+ALTER TABLE applications ADD LastUpdatedBy VARCHAR(255);
+ALTER TABLE applications ADD LastUpdatedTime timestamp;
+
 ALTER TABLE applications ADD INDEX  CompanyName_Index (CompanyName);
 ALTER TABLE applications ADD INDEX  Locations_Index (Locations);
 ALTER TABLE investments ADD FundLegalName VARCHAR(255);

@@ -160,6 +160,8 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 	m := structs.Map(i)
 	m["ApplicationDate"] = time.Now()
 	m["Title"] = "Removed"
+	m["LastUpdatedTime"] = time.Now()
+	m["LastUpdatedBy"] = m["Email"].(string)
 	fmt.Printf("map %v", m)
 	//check for duplicate entry
 	phone, ok1 := m["Phone"].(string)

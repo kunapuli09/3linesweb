@@ -238,6 +238,7 @@ func UpdateApplication(w http.ResponseWriter, r *http.Request) {
 	m["ApplicationDate"] = existing.ApplicationDate
 	m["LastUpdatedTime"] = time.Now()
 	m["LastUpdatedBy"] = currentUser.Email
+	m["Status"] = "Initial Review Pending By DSC"
 	fmt.Printf("map %v", m)
 	_, err4 := models.NewAppl(db).UpdateById(nil, ID, m)
 	if err4 != nil {

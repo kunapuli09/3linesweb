@@ -58,6 +58,7 @@ func (app *Application) MiddlewareStruct() (*interpose.Middleware, error) {
 
 func (app *Application) mux() *gorilla_mux.Router {
 	MustLogin := middlewares.MustLogin
+	MustSecure := middlewares.MustSecure
 
 	router := gorilla_mux.NewRouter()
 
@@ -117,12 +118,14 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/removefinancialresults", handlers.RemoveFinancialResults).Methods("GET")
 	router.HandleFunc("/docs", handlers.Docs).Methods("GET")
 	router.HandleFunc("/addDoc", handlers.AddDoc).Methods("POST")
+	router.HandleFunc("/userdocs", handlers.UserDocs).Methods("GET")
+	router.HandleFunc("/addUserDocs", handlers.AddDocs).Methods("POST")
+	router.HandleFunc("/removeUserDoc", handlers.RemoveUserDoc).Methods("GET")
 	router.HandleFunc("/removeDoc", handlers.RemoveDoc).Methods("GET")
 
 	router.HandleFunc("/screeningNotes", handlers.ScreeningNotes).Methods("GET")
 	router.HandleFunc("/updateScreeningNotes", handlers.UpdateScreeningNotes).Methods("POST")
-
-	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("./docs"))))
+	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", MustSecure(http.FileServer(http.Dir("./docs")))))
 
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 

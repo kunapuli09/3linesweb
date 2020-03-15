@@ -6,6 +6,24 @@
       <h1 class="jumbotron-heading">
          Welcome To Investor Dashboard
       </h1>
+      <button class="au-btn au-btn-icon au-btn--blue2" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Tax Documents
+            </button>
+            <div id="collapseOne" class="collapse">
+                  <p class="card-text">
+                  <table class="table">
+                  <tbody>
+                  {{range .InvestmentDocs }}
+                  <tr>
+                   <td>
+                     <a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" download="" role="button"><i class="zmdi zmdi-download"></i>{{ .DocName }}</a>
+                     </td>
+                  </tr>
+                  {{end}}
+                </tbody>
+              </table>
+             </p>
+            </div>
    </div>
 </section>
 <p class="lead text-muted"></p>

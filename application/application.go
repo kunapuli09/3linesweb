@@ -58,7 +58,7 @@ func (app *Application) MiddlewareStruct() (*interpose.Middleware, error) {
 
 func (app *Application) mux() *gorilla_mux.Router {
 	MustLogin := middlewares.MustLogin
-	MustSecure := middlewares.MustSecure
+	//MustSecure := middlewares.MustSecure
 
 	router := gorilla_mux.NewRouter()
 
@@ -125,7 +125,8 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.HandleFunc("/screeningNotes", handlers.ScreeningNotes).Methods("GET")
 	router.HandleFunc("/updateScreeningNotes", handlers.UpdateScreeningNotes).Methods("POST")
-	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", MustSecure(http.FileServer(http.Dir("./docs")))))
+	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", http.FileServer(http.Dir("./docs"))))
+	//router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", MustSecure(http.FileServer(http.Dir("./docs")))))
 
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")
 

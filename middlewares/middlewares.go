@@ -7,6 +7,8 @@ import (
 	"context"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
+	"github.com/kunapuli09/3linesweb/models"
+	"fmt"
 )
 
 func SetDB(db *sqlx.DB) func(http.Handler) http.Handler {
@@ -42,4 +44,40 @@ func MustLogin(next http.Handler) http.Handler {
 		}
 		next.ServeHTTP(res, req)
 	})
+}
+
+// MustSecure is a middleware that checks existence of current user.
+func MustSecure(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
+		res.Header().Set("Content-Type", "text/html")
+		path := req.URL.EscapedPath()
+		//prepare page
+		db := req.Context().Value("db").(*sqlx.DB)
+		sessionStore := req.Context().Value("sessionStore").(sessions.Store)
+		session, _ := sessionStore.Get(req, "3linesweb-session")
+		currentUser, ok := session.Values["user"].(*models.UserRow)
+		//fmt.Println(req)
+		if !ok {
+			fmt.Printf("Not logged in but tried to access %v", path)
+			http.Redirect(res, req, "/logout", 302)
+			return
+		}
+		alldocs, _ := models.NewUserDoc(db).GetAllByUserId(nil, currentUser.ID)
+		_, exists := Find(alldocs, path)
+		if !exists {
+			fmt.Printf("No privileges but tried to access %v", path)
+			http.Redirect(res, req, "/logout", 302)
+			return
+		}
+		next.ServeHTTP(res, req)
+	})
+}
+
+func Find(slice []*models.UserDocRow, val string) (int, bool) {
+    for i, item := range slice {
+        if item.DocName == val {
+            return i, true
+        }
+    }
+    return -1, false
 }

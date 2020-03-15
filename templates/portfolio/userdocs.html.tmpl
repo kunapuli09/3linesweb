@@ -1,0 +1,46 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+      <a href="/entryaccess" class="au-btn au-btn-icon au-btn--blue2">Back to Dashboard</a>
+      
+      <div class="row">
+         <div class="col-lg-4">
+          <h3 class="section-heading text-uppercase">Upload Investor Docs</h3>
+            <form enctype="multipart/form-data" class="form-signup-login form-investment" method="post" action="/addUserDocs">
+              <div class="form-group">
+          <label for="User_ID">Choose An Investor Web User Id</label>
+          <select class="form-control" id="User_ID" name="User_ID">
+          {{ range .Users}}
+          <option value="{{.ID}}">{{.Email}}</option>
+          {{end}}
+          </select>
+          </div>
+         </div>
+          
+          
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+      <div class="form-group">
+        <label for="Doc">Choose File</label>
+        <input type="file" class="form-control-file" name= "Doc" id="Doc" multiple>
+      </div>
+      </div> 
+      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Add</button>
+      </form>
+      </div>
+   </div>
+
+   <table class="table">
+          <tbody>
+            {{range .Existing }}
+            <tr>
+             <th scope="row">{{.ID}}</th>
+             <td><a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
+             <td><a class="btn btn-sm btn-outline-danger" href="/removeUserDoc?id={{.ID}}&&DocName={{ .DocName }}" role="button"> Remove </a></td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+</section>
+{{end}}

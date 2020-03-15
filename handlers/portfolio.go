@@ -141,6 +141,11 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 			return ac.FormatMoney(f)
 		},
 	}
+	investmentdocs, err := models.NewUserDoc(db).GetAllByUserId(nil, currentUser.ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
 	contributions, err := models.NewContribution(db).GetAllByFundNameAndUserId(nil, "", currentUser.ID)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -166,6 +171,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		CurrentUser          *models.UserRow
 		Count                int
 		Contributions        []*models.ContributionRow
+		InvestmentDocs 		 []*models.UserDocRow
 		Investments          []*models.InvestmentRow
 		StartupNames         []string
 		Amounts              []decimal.Decimal
@@ -176,6 +182,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		currentUser,
 		getCount(w, r, currentUser.Email),
 		contributions,
+		investmentdocs,
 		investments,
 		startupnames,
 		amounts,

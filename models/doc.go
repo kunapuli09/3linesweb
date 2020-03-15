@@ -77,6 +77,27 @@ func (i *Doc) Create(tx *sqlx.Tx, m map[string]interface{}) (*DocRow, error) {
 	return i.userRowFromSqlResult(tx, sqlResult)
 }
 
+func (i *Doc) BatchInsert(tx *sqlx.Tx, docs []*DocRow) (sql.Result, error) {
+	sqlStr := "INSERT INTO docs(investment_id,  UploadDate, DocPath, Hash, DocName) VALUES "
+	vals := []interface{}{}
+	for _, doc := range docs {
+		sqlStr += "(?, ?, ?, ?, ?),"
+		vals = append(vals, doc.Investment_ID, time.Now(), doc.DocPath, doc.Hash, doc.DocName)
+	}
+	//trim the last ,
+	sqlStr = sqlStr[0 : len(sqlStr)-1]
+	//prepare the statement
+	stmt, err := i.db.Prepare(sqlStr)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	//format all vals at once
+	sqlResult, err := stmt.Exec(vals...)
+
+	return sqlResult, err
+}
+
 // UpdateEmailAndPasswordById updates user email and password.
 func (i *Doc) UpdateById(tx *sqlx.Tx, nId int64, data map[string]interface{}) (*DocRow, error) {
 	if len(data) > 0 {

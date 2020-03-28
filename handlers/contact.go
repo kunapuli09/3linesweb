@@ -18,10 +18,20 @@ import (
 	"os"
 	"strings"
 	"time"
+	"github.com/haisum/recaptcha"
 )
 
 func PostEmail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
+	re := recaptcha.R{
+    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+	}
+	isValid := re.Verify(*r)
+    if !isValid {
+    	fmt.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		return
+    }
 	name := r.FormValue("name")
 	email := r.FormValue("email")
 	phone := r.FormValue("phone")

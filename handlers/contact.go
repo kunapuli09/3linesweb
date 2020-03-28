@@ -73,7 +73,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		PasswordSecret := []byte(os.Getenv("PASSWORD_SECRET"))
-		if nil != PasswordSecret || "" != PasswordSecret{
+		if len(PasswordSecret) <= 0 {
 			log.Println("PasswordSecret Environment Variable is missing")
 		}
 		pwdVal, err := getPwdVal(user.Password)

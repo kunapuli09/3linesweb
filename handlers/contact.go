@@ -73,10 +73,14 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		PasswordSecret := []byte(os.Getenv("PASSWORD_SECRET"))
+		if nil != PasswordSecret || "" != PasswordSecret{
+			log.Println("PasswordSecret Environment Variable is missing")
+		}
 		pwdVal, err := getPwdVal(user.Password)
 		token := passwordreset.NewToken(user.Email, 12*time.Hour, pwdVal, PasswordSecret)
 		//passwordResetLink := fmt.Sprintf("http://localhost:8888/reset?token=%s", token)
 		passwordResetLink := fmt.Sprintf("https://3lines.vc/reset?token=%s", token)
+		log.Printf("PasswordResetLink %s", passwordResetLink)
 		// Connect to the remote SMTP server.
 		c, err := smtp.Dial("localhost:25")
 		if err != nil {
@@ -87,7 +91,7 @@ func PasswordResetEmail(w http.ResponseWriter, r *http.Request) {
 		}
 		defer c.Close()
 		// Set the sender and recipient.
-
+		log.Printf("A Password Reset Email was Requested By %s", user.Email)
 		c.Mail(os.Getenv("EMAIL_RECEIVER_ID"))
 		c.Rcpt(user.Email)
 		// Send the email body.

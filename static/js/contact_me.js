@@ -1,78 +1,108 @@
+var onloadCallback = function() {
+    grecaptcha.render('g-recaptcha', {
+        'sitekey': '6LcF3OQUAAAAAGmMrHmVIWUp4qxjL8wdLnGR6k-w'
+    });
+};
 $(function() {
+    //Check if required fields are filled
+    function checkifreqfld() {
+        var isFormFilled = true;
+        $("#contactForm").find(".form-control:visible").each(function() {
+            var value = $.trim($(this).val());
+            if ($(this).prop('required')) {
+                if (value.length < 1) {
+                    //$(this).closest(".form-group").addClass("field-error");
+                    isFormFilled = false;
+                } else {
+                    //$(this).closest(".form-group").removeClass("field-error");
+                }
+            } else {
+                //$(this).closest(".form-group").removeClass("field-error");
+            }
+        });
+        return isFormFilled;
+    }
+    $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
+        preventSubmit: true,
+        submitError: function($form, event, errors) {
+            // additional error messages or events
+        },
+        submitSuccess: function($form, event) {
+            if (checkifreqfld()) {
+                event.preventDefault();
+            }
+            //google captcha response
+            var rcres = grecaptcha.getResponse();
+            // get values from FORM
+            var name = $("input#name").val();
+            var email = $("input#email").val();
+            var phone = $("input#phone").val();
+            var message = $("textarea#message").val();
+            var firstName = name; // For Success/Failure Message
+            // Check for white space in name for Success/Fail message
+            if (firstName.indexOf(' ') >= 0) {
+                firstName = name.split(' ').slice(0, -1).join(' ');
+            }
+            $this = $("#sendMessageButton");
+            $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
+            $.ajax({
+                url: "/contact",
+                type: "POST",
+                data: {
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    rcres: rcres,
+                    message: message
+                },
+                cache: false,
+                success: function() {
+                    // Success message
+                    $('#success').html("<div class='alert alert-success'>");
+                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                        .append("</button>");
+                    $('#success > .alert-success')
+                        .append("<strong>Your message has been sent. </strong>");
+                    $('#success > .alert-success')
+                        .append('</div>');
+                    //clear all fields
+                    $('#contactForm').trigger("reset");
+                    if (rcres.length) {
+                        grecaptcha.reset();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Fail message
+                    if (xhr.responseText != "") {
+                        var message = JSON.parse(xhr.responseText).Error
+                        $('#success').html("<div class='alert alert-danger'>");
+                        $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
+                            .append("</button>");
+                        $('#success > .alert-danger').append($("<strong>").text("Sorry " + message + ", error is preventing you from reaching out to us. Please try again later!"));
+                        $('#success > .alert-danger').append('</div>');
+                        //clear all fields
+                        $('#contactForm').trigger("reset");
+                    }
+                },
+                complete: function() {
+                    setTimeout(function() {
+                        $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
+                    }, 1000);
+                }
+            });
+        },
+        filter: function() {
+            return $(this).is(":visible");
+        },
+    });
 
-  $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
-    preventSubmit: true,
-    submitError: function($form, event, errors) {
-      // additional error messages or events
-    },
-    submitSuccess: function($form, event) {
-      event.preventDefault(); // prevent default submit behaviour
-      // get values from FORM
-      var name = $("input#name").val();
-      var email = $("input#email").val();
-      var phone = $("input#phone").val();
-      var message = $("textarea#message").val();
-      var firstName = name; // For Success/Failure Message
-      // Check for white space in name for Success/Fail message
-      if (firstName.indexOf(' ') >= 0) {
-        firstName = name.split(' ').slice(0, -1).join(' ');
-      }
-      $this = $("#sendMessageButton");
-      $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
-      $.ajax({
-        url: "/contact",
-        type: "POST",
-        data: {
-          name: name,
-          phone: phone,
-          email: email,
-          message: message
-        },
-        cache: false,
-        success: function() {
-          // Success message
-          $('#success').html("<div class='alert alert-success'>");
-          $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-            .append("</button>");
-          $('#success > .alert-success')
-            .append("<strong>Your message has been sent. </strong>");
-          $('#success > .alert-success')
-            .append('</div>');
-          //clear all fields
-          $('#contactForm').trigger("reset");
-        },
-        error: function(xhr,status,error) {
-          // Fail message
-          if (xhr.responseText != "") {
-           var message = JSON.parse(xhr.responseText).Error
-          $('#success').html("<div class='alert alert-danger'>");
-          $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-            .append("</button>");
-          $('#success > .alert-danger').append($("<strong>").text("Sorry " + message + ", error is preventing you from reaching out to us. Please try again later!"));
-          $('#success > .alert-danger').append('</div>');
-          //clear all fields
-          $('#contactForm').trigger("reset");
-        }
-        },
-        complete: function() {
-          setTimeout(function() {
-            $this.prop("disabled", false); // Re-enable submit button when AJAX call is complete
-          }, 1000);
-        }
-      });
-    },
-    filter: function() {
-      return $(this).is(":visible");
-    },
-  });
-
-  $("a[data-toggle=\"tab\"]").click(function(e) {
-    e.preventDefault();
-    $(this).tab("show");
-  });
+    $("a[data-toggle=\"tab\"]").click(function(e) {
+        e.preventDefault();
+        $(this).tab("show");
+    });
 });
 
 /*When clicking on Full hide fail/success boxes */
 $('#name').focus(function() {
-  $('#success').html('');
+    $('#success').html('');
 });

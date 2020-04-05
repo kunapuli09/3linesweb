@@ -26,7 +26,6 @@ func PostEmail(w http.ResponseWriter, r *http.Request) {
 	re := recaptcha.R{
     	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
 	}
-	//isValid := re.Verify(*r)
 	token := r.FormValue("rcres")
 	log.Println("Verifying Captcha token", token)
 	isValid := re.VerifyResponse(token)

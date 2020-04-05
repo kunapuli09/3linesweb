@@ -15,6 +15,9 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"log"
+	"os"
+	"github.com/haisum/recaptcha"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -157,6 +160,17 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err1)
 		return
 	}
+	re := recaptcha.R{
+    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+	}
+	token := r.FormValue("rcres")
+	log.Println("Verifying Captcha token", token)
+	isValid := re.VerifyResponse(token)
+	if !isValid {
+    	fmt.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		return
+    }
 	m := structs.Map(i)
 	m["ApplicationDate"] = time.Now()
 	m["Title"] = "Removed"

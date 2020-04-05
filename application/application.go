@@ -63,7 +63,6 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router := gorilla_mux.NewRouter()
 
 	router.Handle("/", http.HandlerFunc(handlers.GetHome)).Methods("GET")
-	router.HandleFunc("/signup", handlers.GetSignup).Methods("GET")
 	router.HandleFunc("/signup", handlers.PostSignup).Methods("POST")
 	router.HandleFunc("/events", handlers.GetEvents).Methods("GET")
 	router.HandleFunc("/performance", handlers.GetPerformance).Methods("GET")

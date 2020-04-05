@@ -179,19 +179,14 @@ func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 	return sqlResult, nil
 }
 func (i *User) UpdateRoles(u *UserRow) {
-	fmt.Printf("Roles %s", u.Roles)
 	switch roles := u.Roles; roles {
 	case "Admin,Dsc,Investor,BlogReader":
 		u.Admin = true
-		//fmt.Println("User is Admin")
 	case "Dsc,Investor,BlogReader":
 		u.Dsc = true
-		//fmt.Println("User is Dsc")
 	case "Investor,BlogReader":
 		u.Investor = true
-		//fmt.Println("User is Investor")
 	default:
 		u.BlogReader = true
-		fmt.Println("User is BlogReader")
 	}
 }

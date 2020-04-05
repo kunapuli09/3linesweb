@@ -30,7 +30,7 @@ func PostEmail(w http.ResponseWriter, r *http.Request) {
 	log.Println("Verifying Captcha token", token)
 	isValid := re.VerifyResponse(token)
 	if !isValid {
-    	fmt.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
         libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
 		return
     }

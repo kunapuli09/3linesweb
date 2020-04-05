@@ -37,6 +37,9 @@ type ApplRow struct {
 	Status          string          `db:"Status"`
 	LastUpdatedBy   string          `db:"LastUpdatedBy"`
 	LastUpdatedTime time.Time       `db:"LastUpdatedTime"`
+	//Google Captcha Response Field Required for Form Parsing
+	//Not storing this field in database
+	rcres           string
 }
 
 type Appl struct {

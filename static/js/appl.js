@@ -1,12 +1,38 @@
+var onloadCallback1 = function() {
+    grecaptcha.render('g-recaptcha1', {
+        'sitekey': '6LcF3OQUAAAAAGmMrHmVIWUp4qxjL8wdLnGR6k-w'
+    });
+  };
 $(function() {
-
+  //Check if required fields are filled
+    function checkifreqfld() {
+        var isFormFilled = true;
+        $("#contactForm").find(".form-control:visible").each(function() {
+            var value = $.trim($(this).val());
+            if ($(this).prop('required')) {
+                if (value.length < 1) {
+                    //$(this).closest(".form-group").addClass("field-error");
+                    isFormFilled = false;
+                } else {
+                    //$(this).closest(".form-group").removeClass("field-error");
+                }
+            } else {
+                //$(this).closest(".form-group").removeClass("field-error");
+            }
+        });
+        return isFormFilled;
+    }
   $("#applicationForm input,#applicationForm textarea").jqBootstrapValidation({
     preventSubmit: true,
     submitError: function($form, event, errors) {
       // additional error messages or events
     },
     submitSuccess: function($form, event) {
-      event.preventDefault(); // prevent default submit behaviour
+      if (checkifreqfld()) {
+                event.preventDefault();
+      }
+      //google captcha response
+      var rcres = grecaptcha.getResponse();
       // get values from FORM
       var FirstName = $("input#FirstName").val();
       var LastName = $("input#LastName").val();
@@ -69,7 +95,8 @@ $(function() {
           Revenue: Revenue,
           CapitalRaised: CapitalRaised,
           Comments: Comments,
-          ElevatorPitch: ElevatorPitch
+          ElevatorPitch: ElevatorPitch,
+          rcres: rcres
         },
         cache: false,
         success: function() {
@@ -83,6 +110,9 @@ $(function() {
             .append('</div>');
           //clear all fields
           $('#applicationForm').trigger("reset");
+          if (rcres.length) {
+              grecaptcha.reset();
+          }
         },
         error: function(xhr,status,error) {
           if (xhr.responseText != "") {

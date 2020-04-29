@@ -15,17 +15,28 @@
       <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css' media="print">
       <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css' media="print">
       <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css' media="print">
+      <!-- date picker end  -->
       <!-- Custom styles for this template -->
       <link href="css/agency.min.css" rel="stylesheet">
+      <!-- Favicon.ico -->
+      <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+      <link rel="manifest" href="img/favicon/site.webmanifest">
+      <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+      <meta name="msapplication-TileColor" content="#00a300">
+      <meta name="theme-color" content="#ffffff">
+         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback1&render=explicit" async defer>
+    </script>
    </head>
-   <body id="page-top" onload="javascript:window.location.href='#start';">
+   <body id="page-top">
       <!-- Navigation -->
-      <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
          <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/logo.png" alt="3Lines"></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
-            <i class="fa fa-bars"></i>
+            <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav text-uppercase ml-auto">
@@ -39,10 +50,19 @@
                      <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
                   </li>
                   <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="appl">Apply</a>
+                  </li>
+                  <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/#team">Team</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link js-scroll-trigger" href="/#blog">Blog</a>
+                     <a class="nav-link js-scroll-trigger" href="/#blog">News & Blogs</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/login">Investors</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="http://www.mentorbaba.co" target="_blank">mentorBaba</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
@@ -51,22 +71,64 @@
             </div>
          </div>
       </nav>
-      <!-- Header -->
-      <header class="masthead">
-        <div class="container">
-            <div class="intro-text">
-              <div class="intro-lead-in">Three Lines (Capital, Time and Growth) </div>
-                <div class="intro-heading">Investments
-                Beyond Rockies</div>
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="appl">Apply for Seed Funding Here!</a>
+         <section id="contact">
+            <div class="container">
+            <div class="row">
+               <div class="col-lg-12 text-center">
+                  <h2 class="section-heading">Funding the Future of Work Webinar<br>
+                  10 AM MDT on Tuesday, May 12th 2020</h2>
+                  <div class="intro-lead-in text-primary text-center">(Family Offices Investors Or Fund Of Funds Only)</div>
+               </div>
+               
+               <div class="intro-lead-in"></div>
+               <div class="intro-lead-in"></div>
             </div>
-        </div>
-    </header>
-<section class="py-5" id="start">
+            <div class="row">
+            </div>
+      <form id="rsvpForm" name="rsvpForm" method="post" action="/rsvp">
+      <div class="row">
+      <div class="col-lg-12">
+      <div class="row">
+        <div class="col-md-6">
+                <p style="color:White;">
+               3Lines Venture Capital invests in exceptional founders and startups working on broad disruptive themes around the Future of Work, AI enabled enterprises, and Industry 4.0. Future workforces will be untethered with a mix of real and virtual collaborative global workspaces. The corporation of the future is an AI-assisted organization with nearly half of the business decisions powered by machine learning or cognition engines. </p>
+               <p style="color:White;">
+               The current pandemic environment is providing both an early glimpse into the future of work and the need for radically evolved collaboration tools. 3Lines Venture Capital has developed an investment platform and an active cross-border (USA/INDIA) deal flow environment of startups ready to ride the technology curve and disrupt the incumbents, they call the “Rocket Fund.” In this webinar, 3Lines will provide more details on their Rocket Fund and how it will leverage the opportunities for today’s new work environment.</p>
+              
+      </div>
+      <div class="col-md-6">
+      <div class="form-group">
+      <input class="form-control" id="FullName" type="text" placeholder="Full Name *" required data-validation-required-message="Please enter your full name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="Email" type="email" placeholder="Your Email *" required data-validation-required-message="Please enter your email address.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="Phone" type="tel" pattern='^(\d{10}|\d{11}|\d{12})$' placeholder="Phone Maximum 12 Digits.  No + or - format" required data-validation-required-message="Maximum 12 Digits in a Phone Number including Country Code. No (+) or (-) Sign Reqired for International.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="form-group">
+      <input class="form-control" id="CompanyName" type="text" placeholder="Company Name *" required data-validation-required-message="Please enter your company name.">
+      <p class="help-block text-danger"></p>
+      </div>
+      <div class="clearfix"></div>
+      <div class="clearfix"></div>
+      <div id="g-recaptcha2"class="g-recaptcha"></div>
+      <div id="successRSVP"></div>
+      <button id="rsvpButton" class="btn btn-success btn-xl text-uppercase" type="submit">RSVP</button>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>
+      </section>
+      <section class="py-5" id="start">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase text-left">Investor Meetings & Seminar Events</h2>
+            <h2 class="section-heading text-uppercase text-left">Event Calendar</h2>
           </div>
         </div>
       </div>
@@ -83,64 +145,59 @@
                 </thead>
                 <tbody>
                     <!-- Single event in a single day -->
-                    <tr>
+                     <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">20</div>
+                            <div class="dayofmonth">1</div>
                             <div class="dayofweek">Saturday</div>
-                            <div class="shortdate text-muted">April, 2019</div>
+                            <div class="shortdate text-muted">June, 2019</div>
                         </td>
                         <td class="agenda-time">
                             6:00 PM - 9:00PM
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Portland Investor Meet & Seminar Event<br>
-                                DOUBLETREE BY HILTON PORTLAND<br>
-                                15402 NW CORNELL RD - BEAVERTON, OR 97006<br>
-                                <a href="https://docsend.com/view/wgtzpji"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
-
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event" disabled></i>Investor Meet</br>
+                                4201 Wallis Ranch Drive, Dublin, CA 94568</br>
+                                <a href="https://docsend.com/view/kvgkgsp"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">21</div>
+                            <div class="dayofmonth">25</div>
                             <div class="dayofweek">Sunday</div>
-                            <div class="shortdate text-muted">April, 2019</div>
-                        </td>
-                        <td class="agenda-time">
-                            4:00 PM - 7:00PM
-                        </td>
-                        <td class="agenda-events">
-                            <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Dallas Investor Meet & Seminar Event</br>
-                                BIRYANI POT @HILLTOP</br>
-                                8350 N MACARTHUR BLVD #190, IRVING, TX 75063</br>
-                                <a href="https://docsend.com/view/ugm8twy"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">27</div>
-                            <div class="dayofweek">Saturday</div>
-                            <div class="shortdate text-muted">April, 2019</div>
+                            <div class="shortdate text-muted">May, 2019</div>
                         </td>
                         <td class="agenda-time">
                             6:00 PM - 9:00PM
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Irvine, Los Angeles Investor Meet & Seminar Event</br>
-                                SAGAR INDIAN CUISINE</br>
-                                4241 MacArthur Blvd, Newport Beach, CA 92660</br>
-                                <a href="https://docsend.com/view/ps33mgh"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event" disabled></i>Dallas NATS Investor Private Party</br>
+                                Irving Convention Center</br>
+                                <a href=""><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">4</div>
+                            <div class="dayofmonth">22</div>
+                            <div class="dayofweek">Wednesday & Thursday</div>
+                            <div class="shortdate text-muted">May, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            3:00 PM - 9:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>New York Family Office Event</br>
+                                </br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">18</div>
                             <div class="dayofweek">Saturday</div>
                             <div class="shortdate text-muted">May, 2019</div>
                         </td>
@@ -149,28 +206,9 @@
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Seminar Event</br>
-                                FANUM AMG Trust Bank</br>
-                                6295 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
-                                <a href="https://docsend.com/view/84i7eu3"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">9</div>
-                            <div class="dayofweek">Thursday</div>
-                            <div class="shortdate text-muted">May, 2019</div>
-                        </td>
-                        <td class="agenda-time">
-                            7:00 PM - 9:00PM
-                        </td>
-                        <td class="agenda-events">
-                            <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Private Dinner</br>
-                                Garnish Indian Cuisine</br>
-                                6585 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
-                                <a href="https://docsend.com/view/jtr986t"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Atlanta Investor Meet & Seminar Event</br>
+                                </br>
+                                <a href="https://docsend.com/view/hsfw47a"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
@@ -192,41 +230,26 @@
                     </tr>
                     <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">18</div>
-                            <div class="dayofweek">Saturday</div>
+                            <div class="dayofmonth">9</div>
+                            <div class="dayofweek">Thursday</div>
                             <div class="shortdate text-muted">May, 2019</div>
                         </td>
                         <td class="agenda-time">
-                            6:00 PM - 9:00PM
+                            7:00 PM - 9:00PM
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Atlanta Investor Meet & Seminar Event</br>
-                                Sankranthi Banquet Hall</br>
-                                <a href="https://docsend.com/view/hsfw47a"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">22nd & 23rd</div>
-                            <div class="dayofweek">Wednesday & Thursday</div>
-                            <div class="shortdate text-muted">May, 2019</div>
-                        </td>
-                        <td class="agenda-time">
-                            3:00 PM - 9:00PM
-                        </td>
-                        <td class="agenda-events">
-                            <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>New York Family Office Event</br>
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Private Dinner</br>
                                 </br>
+                                6585 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
+                                <a href="https://docsend.com/view/jtr986t"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">25th & 26th</div>
-                            <div class="dayofweek">Sunday</div>
+                            <div class="dayofmonth">4</div>
+                            <div class="dayofweek">Saturday</div>
                             <div class="shortdate text-muted">May, 2019</div>
                         </td>
                         <td class="agenda-time">
@@ -234,27 +257,45 @@
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event" disabled></i>Dallas NATS Investor Private Party</br>
-                                Irving Convention Center</br>
-                                <a href=""><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Denver Investor Meet & Seminar Event</br>
+                                FANUM AMG Trust Bank</br>
+                                6295 Greenwood Plaza Blvd, Greenwood Village, CO 80111</br>
+                                <a href="https://docsend.com/view/84i7eu3"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
-
-                    <tr>
+                   <tr>
                         <td class="agenda-date" class="active" rowspan="1">
-                            <div class="dayofmonth">1st</div>
+                            <div class="dayofmonth">27</div>
                             <div class="dayofweek">Saturday</div>
-                            <div class="shortdate text-muted">June, 2019</div>
+                            <div class="shortdate text-muted">April, 2019</div>
                         </td>
                         <td class="agenda-time">
                             6:00 PM - 9:00PM
                         </td>
                         <td class="agenda-events">
                             <div class="agenda-event">
-                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Investor Meet</br>
-                                4201 Wallis Ranch Drive, Dublin, CA 94568</br>
-                                <a href="https://docsend.com/view/kvgkgsp"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit">Checkout Details & RSVP</button></a>
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Irvine, Los Angeles Investor Meet & Seminar Event</br>
+                                4241 MacArthur Blvd, Newport Beach, CA 92660</br>
+                                <a href="https://docsend.com/view/ps33mgh"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="agenda-date" class="active" rowspan="1">
+                            <div class="dayofmonth">21</div>
+                            <div class="dayofweek">Sunday</div>
+                            <div class="shortdate text-muted">April, 2019</div>
+                        </td>
+                        <td class="agenda-time">
+                            4:00 PM - 7:00PM
+                        </td>
+                        <td class="agenda-events">
+                            <div class="agenda-event">
+                                <i class="glyphicon glyphicon-repeat text-muted" title="Repeating event"></i>Dallas Investor Meet & Seminar Event</br>
+                                @HILLTOP</br>
+                                8350 N MACARTHUR BLVD #190, IRVING, TX 75063</br>
+                                <a href="https://docsend.com/view/ugm8twy"><button class="btn btn-success btn-md text-uppercase js-scroll-trigger" type="submit" disabled>Checkout Details & RSVP</button></a>
                             </div>
                         </td>
                     </tr>
@@ -264,8 +305,7 @@
         </div>
     </div>
     </section>
-
-<!-- Footer -->
+      <!-- Footer -->
       <footer>
          <div class="container">
             <div class="row">
@@ -291,7 +331,8 @@
       </footer>
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
-      <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--       <script src="vendor/bootstrap/js/popper.min.js"></script> -->
+      <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
       <!-- Contact form JavaScript -->
@@ -299,6 +340,18 @@
       <script src="js/contact_me.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
+      <script src="js/appl.js"></script>
+      <script src="js/rsvp.js"></script>
+      <!-- date picker start  -->
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
+      <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', 'UA-77741671-1');
+      </script>
    </body>
 </html>
 {{end}}

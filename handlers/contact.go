@@ -21,6 +21,48 @@ import (
 	"github.com/haisum/recaptcha"
 )
 
+func RSVP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	re := recaptcha.R{
+    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+	}
+	token := r.FormValue("rcres")
+	//log.Println("Verifying Captcha token", token)
+	isValid := re.VerifyResponse(token)
+	if !isValid {
+    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		return
+    }
+	name := r.FormValue("FullName")
+	email := r.FormValue("Email")
+	phone := r.FormValue("Phone")
+	companyname := r.FormValue("CompanyName")
+	//Connect to the remote SMTP server.
+	c, err := smtp.Dial("localhost:25")
+	if err != nil {
+		log.Panic(err)
+	}
+	defer c.Close()
+	// Set the sender and recipient.
+
+	c.Mail(os.Getenv("EMAIL_RECEIVER_ID"))
+	c.Rcpt(os.Getenv("EMAIL_RECEIVER_ID"))
+	// Send the email body.
+	wc, err := c.Data()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer wc.Close()
+	msg := fmt.Sprintf("%s \n %s \n %s \n %s \n %s", "Future Of Work Webinar Registration", companyname, name, phone, email)
+	buf := bytes.NewBufferString(msg)
+	if _, err = buf.WriteTo(wc); err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Mail sent successfully to", msg)
+	http.Redirect(w, r, "/", 302)
+}
+
 func PostEmail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	re := recaptcha.R{

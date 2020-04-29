@@ -66,7 +66,7 @@ $(function() {
           $('#successRSVP > .alert-success')
             .append('</div>');
           //clear all fields
-          $('#successRSVP').trigger("reset");
+          $('#rsvpForm').trigger("reset");
           if (rcres.length) {
               grecaptcha.reset();
           }
@@ -83,7 +83,7 @@ $(function() {
           }
           
           //clear all fields
-          //$('#applicationForm').trigger("reset");
+          //$('#rsvpForm').trigger("reset");
         },
         complete: function() {
           setTimeout(function() {

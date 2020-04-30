@@ -31,18 +31,14 @@ $(function() {
       var Email = $("input#Email").val();
       var CompanyName = $("input#CompanyName").val();
       var Phone = $("input#Phone").val();
-      var fullName = FullName; // For Success/Failure Message
-      // Check for white space in name for Success/Fail message
-      if (fullName.indexOf(' ') >= 0) {
-        fullName = name.split(' ').slice(0, -1).join(' ');
-      }
+      
       $this = $("#rsvpButton");
       $this.prop("disabled", true); // Disable submit button until AJAX call is complete to prevent duplicate messages
       $.ajax({
         url: "/rsvp",
         type: "POST",
         data: {
-          FullName: fullName,
+          FullName: FullName,
           Email: Email,
           CompanyName: CompanyName,
           Phone: Phone

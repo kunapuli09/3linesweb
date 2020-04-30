@@ -1,8 +1,3 @@
-var onloadCallback1 = function() {
-    grecaptcha.render('g-recaptcha2', {
-        'sitekey': '6LcF3OQUAAAAAGmMrHmVIWUp4qxjL8wdLnGR6k-w'
-    });
-  };
 $(function() {
   //Check if required fields are filled
     function checkifreqfld() {
@@ -31,8 +26,6 @@ $(function() {
       if (checkifreqfld()) {
                 event.preventDefault();
       }
-      //google captcha response
-      var rcres = grecaptcha.getResponse();
       // get values from FORM
       var FullName = $("input#FullName").val();
       var Email = $("input#Email").val();
@@ -52,8 +45,7 @@ $(function() {
           FullName: fullName,
           Email: Email,
           CompanyName: CompanyName,
-          Phone: Phone,
-          rcres: rcres
+          Phone: Phone
         },
         cache: false,
         success: function() {
@@ -67,9 +59,6 @@ $(function() {
             .append('</div>');
           //clear all fields
           $('#rsvpForm').trigger("reset");
-          if (rcres.length) {
-              grecaptcha.reset();
-          }
         },
         error: function(xhr,status,error) {
           if (xhr.responseText != "") {

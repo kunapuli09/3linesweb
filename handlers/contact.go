@@ -23,17 +23,6 @@ import (
 
 func RSVP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	re := recaptcha.R{
-    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
-	}
-	token := r.FormValue("rcres")
-	//log.Println("Verifying Captcha token", token)
-	isValid := re.VerifyResponse(token)
-	if !isValid {
-    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
-        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
-		return
-    }
 	name := r.FormValue("FullName")
 	email := r.FormValue("Email")
 	phone := r.FormValue("Phone")
@@ -62,6 +51,16 @@ func RSVP(w http.ResponseWriter, r *http.Request) {
 	log.Println("Mail sent successfully to", msg)
 	http.Redirect(w, r, "/", 302)
 }
+
+// func RSVP(w http.ResponseWriter, r *http.Request) {
+// 	w.Header().Set("Content-Type", "text/html")
+// 	name := r.FormValue("FullName")
+// 	email := r.FormValue("Email")
+// 	phone := r.FormValue("Phone")
+// 	companyname := r.FormValue("CompanyName")
+// 	log.Println("Mail sent successfully to", fmt.Sprintf("%s \n %s \n %s \n %s \n %s", "Future Of Work Webinar Registration", companyname, name, phone, email))
+// 	http.Redirect(w, r, "/", 302)
+// }
 
 func PostEmail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")

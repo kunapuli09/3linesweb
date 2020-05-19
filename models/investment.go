@@ -96,6 +96,14 @@ func (i *Investment) GetByName(tx *sqlx.Tx, name string) (*InvestmentRow, error)
 }
 
 // GetByName returns record by name.
+func (i *Investment) GetAllInvestmentsWithoutSyndicates(tx *sqlx.Tx) ([]*InvestmentRow, error) {
+	investments := []*InvestmentRow{}
+	query := fmt.Sprintf("SELECT * FROM %v WHERE StartupName NOT LIKE '%%%s%%'", i.table, "LLC")
+	err := i.db.Select(&investments, query)
+	return investments, err
+}
+
+// GetByName returns record by name.
 func (i *Investment) GetStartupNames(tx *sqlx.Tx) ([]*InvestmentRow, error) {
 	investments := []*InvestmentRow{}
 	query := fmt.Sprintf("SELECT * FROM %v", i.table)

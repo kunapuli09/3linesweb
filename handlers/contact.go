@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/dchest/passwordreset"
 	"github.com/gorilla/sessions"
+	"github.com/haisum/recaptcha"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
@@ -18,7 +19,6 @@ import (
 	"os"
 	"strings"
 	"time"
-	"github.com/haisum/recaptcha"
 )
 
 func RSVP(w http.ResponseWriter, r *http.Request) {
@@ -65,16 +65,16 @@ func RSVP(w http.ResponseWriter, r *http.Request) {
 func PostEmail(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	re := recaptcha.R{
-    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+		Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
 	}
 	token := r.FormValue("rcres")
 	log.Println("Verifying Captcha token", token)
 	isValid := re.VerifyResponse(token)
 	if !isValid {
-    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
-        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+		libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
 		return
-    }
+	}
 	name := r.FormValue("name")
 	email := r.FormValue("email")
 	phone := r.FormValue("phone")

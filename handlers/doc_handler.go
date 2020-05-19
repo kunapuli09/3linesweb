@@ -3,8 +3,8 @@ package handlers
 import (
 	"crypto/md5"
 	"fmt"
-	"github.com/fatih/structs"
-	"github.com/gorilla/schema"
+	//"github.com/fatih/structs"
+	//"github.com/gorilla/schema"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
@@ -15,9 +15,12 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"github.com/haisum/recaptcha"
+	"log"
+	"errors"
 )
 
-func Docs(w http.ResponseWriter, r *http.Request) {
+func GetInvestmentDocs(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	//Generate MD5 Hash for a new file
 	curtime := time.Now().Unix()
@@ -43,16 +46,16 @@ func Docs(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	alldocs, err := models.NewDoc(db).GetAllByInvestmentId(nil, Investment_ID)
+	alldocs, err := models.NewInvestmentDoc(db).GetAllByInvestmentId(nil, Investment_ID)
 	//create empty investmentstructure
-	doc := models.DocRow{Hash: hash}
+	doc := models.InvestmentDocRow{Hash: hash}
 	//create session date for page rendering
 	data := struct {
 		CurrentUser *models.UserRow
 		Count       int
 		Investment  *models.InvestmentRow
-		Doc         models.DocRow
-		Existing    []*models.DocRow
+		Doc         models.InvestmentDocRow
+		Existing    []*models.InvestmentDocRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -68,7 +71,7 @@ func Docs(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-func UserDocs(w http.ResponseWriter, r *http.Request) {
+func GetUserDocs(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	//prepare page
 	db := r.Context().Value("db").(*sqlx.DB)
@@ -87,7 +90,7 @@ func UserDocs(w http.ResponseWriter, r *http.Request) {
 		CurrentUser *models.UserRow
 		Count       int
 		Existing    []*models.UserDocRow
-		Users        []*models.UserRow
+		Users       []*models.UserRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -102,68 +105,204 @@ func UserDocs(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-//database call to add new
-func AddDoc(w http.ResponseWriter, r *http.Request) {
+func GetCareers(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	_, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
-		http.Redirect(w, r, "/logout", 302)
-		return
+	//prepare page
+	db := r.Context().Value("db").(*sqlx.DB)
+	i := models.NewInvestment(db)
+	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
+	//create session date for page rendering
+	data := struct {
+		Investments []*models.InvestmentRow
+		SuccessMessage string
+	}{
+		investments,
+		"",
 	}
-	//---- parse uploaded file------
-	r.ParseMultipartForm(32 << 20)
-	file, handler, err := r.FormFile("Doc")
+	tmpl, err := template.ParseFiles("templates/careers/careers.html.tmpl")
 	if err != nil {
-		fmt.Println("file parse error")
-		fmt.Println(err)
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	defer file.Close()
-	fmt.Fprintf(w, "%v", handler.Header)
-	docPath := "./docs/" + handler.Filename
-	f, err1 := os.OpenFile(docPath, os.O_WRONLY|os.O_CREATE, 0666)
-	if err1 != nil {
-		fmt.Println("file open error")
-		fmt.Println(err1)
-		return
-	}
-	defer f.Close()
-	io.Copy(f, file)
-	//------file upload complete ------
-	var i models.DocRow
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+//database call to add new
+func AddProposalDoc(w http.ResponseWriter, r *http.Request) {
+	var docs []*models.ProposalDocRow
 	db := r.Context().Value("db").(*sqlx.DB)
-	err2 := r.ParseForm()
-	if err2 != nil {
-		libhttp.HandleErrorJson(w, err2)
+	i := models.NewInvestment(db)
+	w.Header().Set("Content-Type", "text/html")
+	re := recaptcha.R{
+		Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+	}
+	token := r.FormValue("g-recaptcha-response")
+	log.Println("Verifying Captcha token", token)
+	isValid := re.VerifyResponse(token)
+	if !isValid {
+		log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+		libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
 		return
 	}
-	decoder := schema.NewDecoder()
-	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
-	err3 := decoder.Decode(&i, r.PostForm)
-	if err3 != nil {
-		fmt.Println("decoding error")
-		libhttp.HandleErrorJson(w, err3)
+	investment_ID, e1 := strconv.ParseInt(r.FormValue("Investment_ID"), 10, 64)
+	if e1 != nil {
+		libhttp.HandleErrorJson(w, e1)
 		return
 	}
-	m := structs.Map(i)
-	m["DocPath"] = "/files/" + handler.Filename
-	m["DocName"] = handler.Filename
-	fmt.Printf("map %v", m)
-	_, err4 := models.NewDoc(db).Create(nil, m)
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//get a ref to the parsed multipart form
+	m := r.MultipartForm
+
+	//get the *fileheaders
+	files := m.File["Doc"]
+	//---- parse uploaded file------
+	//copy each part to destination.
+	for i, _ := range files {
+		//for each fileheader, get a handle to the actual file
+		file, err := files[i].Open()
+		defer file.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//create destination file making sure the path is writeable.
+		dst, err := os.Create("./docs/" + files[i].Filename)
+		defer dst.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//copy the uploaded file to the destination file
+		if _, err := io.Copy(dst, file); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//Generate MD5 Hash for a new file
+		curtime := time.Now().Unix()
+		h := md5.New()
+		io.WriteString(h, strconv.FormatInt(curtime, 10))
+		hash := fmt.Sprintf("%x", h.Sum(nil))
+		doc := models.ProposalDocRow{
+			Investment_ID: investment_ID, 
+			UploadDate: time.Now(), 
+			DocPath: "/files/" + files[i].Filename, 
+			Hash:hash, 
+			DocName: files[i].Filename,
+		    Email: r.FormValue("Email"),
+		    Phone: r.FormValue("Phone"),
+		    CompanyName: r.FormValue("CompanyName"),
+		    FullName: r.FormValue("FullName"),
+    		}
+		fmt.Printf("doc info %v", doc)
+		docs = append(docs, &doc)
+	}
+	//------files uploaded ------
+	_, err4 := models.NewProposalDoc(db).BatchInsert(nil, docs)
 	if err4 != nil {
 		fmt.Println("database error")
 		libhttp.HandleErrorJson(w, err4)
 		return
 	}
-	address := fmt.Sprintf("/viewinvestment?id=%v", m["Investment_ID"])
-	http.Redirect(w, r, address, 302)
+	tmpl, err := template.ParseFiles("templates/careers/careers.html.tmpl")
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
+	//create session date for page rendering
+	data := struct {
+		Investments []*models.InvestmentRow
+		SuccessMessage string
+	}{
+		investments,
+		"Thank you for your interest to collaborate and 3Lines team will reach out to you soon.",
+	}
+	
+	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
 //database call to add new
-func AddDocs(w http.ResponseWriter, r *http.Request) {
+func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {
+	var docs []*models.InvestmentDocRow
+	db := r.Context().Value("db").(*sqlx.DB)
+	w.Header().Set("Content-Type", "text/html")
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !currentUser.Admin {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	investment_ID, e1 := strconv.ParseInt(r.FormValue("Investment_ID"), 10, 64)
+	if e1 != nil {
+		libhttp.HandleErrorJson(w, e1)
+		return
+	}
+	err := r.ParseMultipartForm(32 << 20)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	//get a ref to the parsed multipart form
+	m := r.MultipartForm
+
+	//get the *fileheaders
+	files := m.File["Doc"]
+	//---- parse uploaded file------
+	//copy each part to destination.
+	for i, _ := range files {
+		//for each fileheader, get a handle to the actual file
+		file, err := files[i].Open()
+		defer file.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//create destination file making sure the path is writeable.
+		dst, err := os.Create("./docs/" + files[i].Filename)
+		defer dst.Close()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//copy the uploaded file to the destination file
+		if _, err := io.Copy(dst, file); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		//Generate MD5 Hash for a new file
+		curtime := time.Now().Unix()
+		h := md5.New()
+		io.WriteString(h, strconv.FormatInt(curtime, 10))
+		hash := fmt.Sprintf("%x", h.Sum(nil))
+		doc := models.InvestmentDocRow{
+			Investment_ID: investment_ID, 
+			UploadDate: time.Now(), 
+			DocPath: "/files/" + files[i].Filename, 
+			Hash:hash, 
+			DocName: files[i].Filename,
+    		}
+		fmt.Printf("doc info %v", doc)
+		docs = append(docs, &doc)
+	}
+	//------files uploaded ------
+	_, err4 := models.NewInvestmentDoc(db).BatchInsert(nil, docs)
+	if err4 != nil {
+		fmt.Println("database error")
+		libhttp.HandleErrorJson(w, err4)
+		return
+	}
+	address := fmt.Sprintf("/investmentDocs?Investment_ID=%v", investment_ID)
+	http.Redirect(w, r, address, 302)
+}
+//database call to add new
+func AddUserDocs(w http.ResponseWriter, r *http.Request) {
 	var docs []*models.UserDocRow
 	db := r.Context().Value("db").(*sqlx.DB)
 	w.Header().Set("Content-Type", "text/html")
@@ -234,7 +373,7 @@ func AddDocs(w http.ResponseWriter, r *http.Request) {
 }
 
 //db call to update
-func RemoveDoc(w http.ResponseWriter, r *http.Request) {
+func RemoveInvestmentDoc(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
 	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
@@ -247,7 +386,7 @@ func RemoveDoc(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, e1)
 		return
 	}
-	_, err2 := models.NewDoc(db).DeleteByID(nil, ID)
+	_, err2 := models.NewInvestmentDoc(db).DeleteByID(nil, ID)
 	if err2 != nil {
 		libhttp.HandleErrorJson(w, err2)
 		return
@@ -266,9 +405,10 @@ func RemoveDoc(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	address := fmt.Sprintf("/docs?Investment_ID=%v", Investment_ID)
+	address := fmt.Sprintf("/investmentDocs?Investment_ID=%v", Investment_ID)
 	http.Redirect(w, r, address, 302)
 }
+
 //db call to update
 func RemoveUserDoc(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")

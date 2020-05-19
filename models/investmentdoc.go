@@ -7,32 +7,32 @@ import (
 	"time"
 )
 
-func NewUserDoc(db *sqlx.DB) *UserDoc {
-	n := &UserDoc{}
+func NewInvestmentDoc(db *sqlx.DB) *InvestmentDoc {
+	n := &InvestmentDoc{}
 	n.db = db
-	n.table = "userdocs"
+	n.table = "docs"
 	n.hasID = true
 	return n
 }
 
-type UserDoc struct {
+type InvestmentDoc struct {
 	Base
 }
 
-type UserDocRow struct {
-	ID         int64     `db:"id"`
-	User_ID    int64     `db:"user_id"`
-	UploadDate time.Time `db:"UploadDate"`
-	Hash       string    `db:"Hash"`
-	DocPath    string    `db:"DocPath"`
-	DocName    string    `db:"DocName"`
+type InvestmentDocRow struct {
+	ID            int64     `db:"id"`
+	Investment_ID int64     `db:"investment_id"`
+	UploadDate    time.Time `db:"UploadDate"`
+	DocPath       string    `db:"DocPath"`
+	Hash          string    `db:"Hash"`
+	DocName       string    `db:"DocName"`
 }
 
-func (n *UserDocRow) FormattedUploadDate() string {
+func (n *InvestmentDocRow) FormattedUploadDate() string {
 	return n.UploadDate.Format("01/02/2006")
 }
 
-func (i *UserDoc) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*UserDocRow, error) {
+func (i *InvestmentDoc) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentDocRow, error) {
 	nId, err := sqlResult.LastInsertId()
 	if err != nil {
 		return nil, err
@@ -42,8 +42,8 @@ func (i *UserDoc) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*User
 }
 
 // AllUsers returns all user rows.
-func (i *UserDoc) AllDocs(tx *sqlx.Tx) ([]*UserDocRow, error) {
-	nrs := []*UserDocRow{}
+func (i *InvestmentDoc) AllDocs(tx *sqlx.Tx) ([]*InvestmentDocRow, error) {
+	nrs := []*InvestmentDocRow{}
 	query := fmt.Sprintf("SELECT * FROM %v", i.table)
 	err := i.db.Select(&nrs, query)
 
@@ -51,8 +51,8 @@ func (i *UserDoc) AllDocs(tx *sqlx.Tx) ([]*UserDocRow, error) {
 }
 
 // GetById returns record by id.
-func (i *UserDoc) GetById(tx *sqlx.Tx, id int64) (*UserDocRow, error) {
-	n := &UserDocRow{}
+func (i *InvestmentDoc) GetById(tx *sqlx.Tx, id int64) (*InvestmentDocRow, error) {
+	n := &InvestmentDocRow{}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE id=?", i.table)
 	err := i.db.Get(n, query, id)
 
@@ -60,8 +60,8 @@ func (i *UserDoc) GetById(tx *sqlx.Tx, id int64) (*UserDocRow, error) {
 }
 
 // GetByName returns record by name.
-func (i *UserDoc) GetByName(tx *sqlx.Tx, name string) (*UserDocRow, error) {
-	n := &UserDocRow{}
+func (i *InvestmentDoc) GetByName(tx *sqlx.Tx, name string) (*InvestmentDocRow, error) {
+	n := &InvestmentDocRow{}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE name=?", i.table)
 	err := i.db.Get(n, query, name)
 
@@ -69,7 +69,7 @@ func (i *UserDoc) GetByName(tx *sqlx.Tx, name string) (*UserDocRow, error) {
 }
 
 // create a new record of user.
-func (i *UserDoc) Create(tx *sqlx.Tx, m map[string]interface{}) (*UserDocRow, error) {
+func (i *InvestmentDoc) Create(tx *sqlx.Tx, m map[string]interface{}) (*InvestmentDocRow, error) {
 	sqlResult, err := i.InsertIntoTable(tx, m)
 	if err != nil {
 		return nil, err
@@ -77,12 +77,12 @@ func (i *UserDoc) Create(tx *sqlx.Tx, m map[string]interface{}) (*UserDocRow, er
 	return i.userRowFromSqlResult(tx, sqlResult)
 }
 
-func (i *UserDoc) BatchInsert(tx *sqlx.Tx, docs []*UserDocRow) (sql.Result, error) {
-	sqlStr := "INSERT INTO userdocs(user_id, UploadDate, DocPath, Hash, DocName) VALUES "
+func (i *InvestmentDoc) BatchInsert(tx *sqlx.Tx, docs []*InvestmentDocRow) (sql.Result, error) {
+	sqlStr := "INSERT INTO docs(investment_id,  UploadDate, DocPath, Hash, DocName) VALUES "
 	vals := []interface{}{}
 	for _, doc := range docs {
 		sqlStr += "(?, ?, ?, ?, ?),"
-		vals = append(vals, doc.User_ID, doc.UploadDate, doc.DocPath, doc.Hash, doc.DocName)
+		vals = append(vals, doc.Investment_ID, time.Now(), doc.DocPath, doc.Hash, doc.DocName)
 	}
 	//trim the last ,
 	sqlStr = sqlStr[0 : len(sqlStr)-1]
@@ -99,7 +99,7 @@ func (i *UserDoc) BatchInsert(tx *sqlx.Tx, docs []*UserDocRow) (sql.Result, erro
 }
 
 // UpdateEmailAndPasswordById updates user email and password.
-func (i *UserDoc) UpdateById(tx *sqlx.Tx, nId int64, data map[string]interface{}) (*UserDocRow, error) {
+func (i *InvestmentDoc) UpdateById(tx *sqlx.Tx, nId int64, data map[string]interface{}) (*InvestmentDocRow, error) {
 	if len(data) > 0 {
 		//calling base.go function
 		_, err := i.UpdateByID(tx, data, nId)
@@ -112,16 +112,16 @@ func (i *UserDoc) UpdateById(tx *sqlx.Tx, nId int64, data map[string]interface{}
 }
 
 // Get All by Investment ID.
-func (i *UserDoc) GetAllByUserId(tx *sqlx.Tx, User_ID int64) ([]*UserDocRow, error) {
-	css := []*UserDocRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE user_id=%v", i.table, User_ID)
+func (i *InvestmentDoc) GetAllByInvestmentId(tx *sqlx.Tx, Investment_ID int64) ([]*InvestmentDocRow, error) {
+	css := []*InvestmentDocRow{}
+	query := fmt.Sprintf("SELECT * FROM %v WHERE Investment_ID=%v", i.table, Investment_ID)
 	err := i.db.Select(&css, query)
 
 	return css, err
 }
 
 // UpdateEmailAndPasswordById updates user email and password.
-func (i *UserDoc) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
+func (i *InvestmentDoc) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 
 	//calling base.go function
 	sqlResult, err := i.DeleteById(tx, csId)

@@ -3,15 +3,15 @@ package handlers
 import (
 	"errors"
 	"github.com/gorilla/sessions"
+	"github.com/haisum/recaptcha"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
-	"net/http"
-	"strings"
 	"log"
+	"net/http"
 	"os"
-	"github.com/haisum/recaptcha"
+	"strings"
 )
 
 func GetHome(w http.ResponseWriter, r *http.Request) {
@@ -45,16 +45,16 @@ func PostSignup(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("Password")
 	passwordAgain := r.FormValue("PasswordAgain")
 	re := recaptcha.R{
-    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+		Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
 	}
 	token := r.FormValue("g-recaptcha-response")
 	log.Println("Verifying Captcha token", token)
 	isValid := re.VerifyResponse(token)
 	if !isValid {
-    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
-        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+		libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
 		return
-    }
+	}
 	_, err := models.NewUser(db).Signup(nil, email, password, passwordAgain, phone)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)

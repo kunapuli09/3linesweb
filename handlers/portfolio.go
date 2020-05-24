@@ -171,7 +171,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		CurrentUser          *models.UserRow
 		Count                int
 		Contributions        []*models.ContributionRow
-		InvestmentDocs 		 []*models.UserDocRow
+		InvestmentDocs       []*models.UserDocRow
 		Investments          []*models.InvestmentRow
 		StartupNames         []string
 		Amounts              []decimal.Decimal
@@ -293,7 +293,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	AllNews, err := models.NewNews(db).GetAllByInvestmentId(nil, ID)
 	AllCapitalStructures, err := models.NewCapitalStructure(db).GetAllByInvestmentId(nil, ID)
 	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
-	AllDocs, err := models.NewDoc(db).GetAllByInvestmentId(nil, ID)
+	AllDocs, err := models.NewInvestmentDoc(db).GetAllByInvestmentId(nil, ID)
 
 	//create session date for page rendering
 	data := struct {
@@ -304,7 +304,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingNews                 []*models.NewsRow
 		ExistingCapitalStructures    []*models.CapitalizationStructure
 		ExistingInvestmentStructures []*models.InvestmentStructureRow
-		ExistingDocs                 []*models.DocRow
+		ExistingDocs                 []*models.InvestmentDocRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),

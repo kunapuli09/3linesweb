@@ -50,20 +50,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <!-- <li class="nav-item">
-                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                     </li> -->
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="appl">Apply</a>
+                        <a class="nav-link js-scroll-trigger" href="/appl">Apply</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/#blog">News & Blogs</a>
@@ -72,39 +69,12 @@
                         <a class="nav-link js-scroll-trigger" href="/login">Investors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="http://www.mentorbaba.co" target="_blank">mentorBaba</a>
+                        <a class="nav-link js-scroll-trigger" href="/careers">Collaboration</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                     </li>
-                    <!-- {{if .CurrentUser }}
-                     <li class="nav-item">
-                       <a href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
-                     </li>
-                      <li class="nav-item">
-                       <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
-                     </li>
-                     {{else}}
-                      <li class="nav-item">
-                       <a class="nav-link js-scroll-trigger" href="/login">Login</a>
-                     </li>
-                     {{end}} -->
                 </ul>
-                <!-- {{if .CurrentUser }}
-                  <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ .CurrentUser.Email }} <span class="caret"></span></a>
-
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a></li>
-
-                        <li class="divider"></li>
-
-                        <li><a href="/logout">Logout</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                  {{end}} -->
             </div>
         </div>
     </nav>
@@ -113,24 +83,20 @@
     <header class="masthead">
         <div class="container">
             <div class="intro-text">
-              <!-- <name /> -->
               <div class="intro-heading">3Lines Venture Capital</div>
-    <!-- <div class="intro-lead-in">Early stage investments into Artificial Intelligence, Internet of Things, Cyber Security, Distributed Ledger Technologies, Cloud Edge, and Enterprise Software</div> -->
-<!-- <div class="intro-lead-in">3Lines Fund I Big News!!!</div> -->
-<div id="carouselAnnouncements" class="carousel slide" data-ride="carousel" data-interval="3000">
+<div id="carouselAnnouncements" class="carousel slide" data-ride="carousel" data-interval="2000">
   <div class="carousel-inner">
     <div class="carousel-item">
-      <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#" onclick='newTab("https://www.prnewswire.com/news-releases/popwallet-raises-4-million-for-mobile-wallet-marketing-automation-300956256.html")'>Popwallet Raises $4 Million</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="/blog?blogNumber=16" target="_blank">3Lines Leading $4 Million Round for Vetty Inc</a>
     </div>
     <div class="carousel-item active">
-      <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#" onclick='newTab("https://www.overwatchid.com")'>OverwatchID Acquired by Sailpoint</a>
-    </div>
-    <div class="carousel-item">
-      <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#" onclick='newTab("https://www.freightwaves.com/news/motiv-power-systems-raises-60-million-for-electric-truck-conversions")'>$60 Million Raise By Motive Power Systems</a>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="https://forcewealth.com/portfolio-items/force-webinar-3lines-rocket-fund-investing-in-the-future-of-work/" target="_blank">3Lines Future of Work Webinar on May 28th, 11AM Mountain Time</a>
     </div>
   </div>
-
-
+  </div>
+    <!-- <div class="carousel-item active">
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="https://www.overwatchid.com" target="_blank">OverwatchID Acquired by Sailpoint</a>
+    </div> -->
  <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
   <div class="carousel-inner">
     <div class="carousel-item active">
@@ -163,8 +129,8 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a> -->
-</div>
-                <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="appl">Apply Here for Funding!</a> -->
+
+   <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="appl">Apply Here for Funding!</a> -->
 
             </div>
         </div>
@@ -174,154 +140,37 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">About Us</h2>
-                   <h3 class="section-subheading">3Lines Venture Capital is an early-stage software technology fund. We look beyond the traditional innovation ecosystems to invest in companies and entrepreneurs that are using innovative technologies such as sensing, IoT, virtualization, machine learning, AI, and autonomic computing to bring category-defining new products and services for business software, human capital management, digital health, cybersecurity, and financial technology services. We have made 18 early-stage investments and are currently investing out of our second fund. We are looking at innovation ecosystems both in the US and India, with a plan to deploy about 30% of our capital in India using our second fund.</h3>
+                    <h2 class="section-heading">About Us</h2>
+                    <p>3Lines Venture Capital invests in exceptional founders and startups working on broad disruptive themes of Future of Work, AI enabled enterprises, and Industry 4.0.  The confluence and exponential growth of intelligence, automation, and mobility technologies will be disruptive and reshape our work and lives. We are currently investing out of our second fund and looking at innovation ecosystems both in the US and India, with a plan to deploy about 30% of our capital in India using our second fund.</p>
                 </div>
-            </div>
-            <div class="row text-center">
-                <div class="col-md-12">
-                    <h2 class="section-heading text-uppercase">Our Value</h2>
-                    <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-dollar-sign fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
-                    </span>
-                    </span>
-                    <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h3 class="section-subheading">Our Limited Partners and portfolio startups gain from international market presence in the mature US market and also in an emergent cluster of innovation, India. A Global Fund management practice with a very unique and organically built 'Money and Mind Network' of investment partners, advisors, deal scouts spans across eight cities in the USA and six cities in India. A very high quality personalized attention driven by long-term human relationships results in quicker turnaround times and great value for all the stakeholders.</h3>
-                </div>
-                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5" id="portfolio">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Our Investments</h2>
-                <h3 class="section-subheading text-muted"></h3>
-            </div>
-        </div>
-        <h4></h4>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("https://www.soar.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/Soar.png" alt="Soar">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://popwallet.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/pw.png" alt="Popwallet">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("https://www.cyr3con.ai")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/cyr3con.png" alt="Cyr3Con">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("https://arzooo.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/arzooo.jpg" alt="Arzooo">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://www.calibermind.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/cm.png" alt="Calibermind">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://www.geovisual-analytics.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/gva.png" alt="Geovisual Analytics">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://www.swimlane.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/sl.png" alt="Swimlane">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://www.ourfood.co.in")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/of.png" alt="Our Food">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://pharmajet.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/pj.png" alt="Pharmajet">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("https://bitsbox.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/bb.png" alt="Bitsbox">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("https://soprishealth.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/sh.png" alt="Sopris Health">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://feltapp.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/felt.png" alt="Felt">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://vetty.co")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/vett.png" alt="Vetty">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://roadbotics.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/rb.jpg" alt="RoadBotics">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://motivps.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/Motiv.png" alt="Motiv Power Systems">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://presagen.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/presagen.png" alt="Presagen">
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <a href="#" onclick='newTab("http://audvisor.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/audvisor.png" alt="Audvisor">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5" id="portfolio">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Exits</h2>
-                <h3 class="section-subheading text-muted"></h3>
-            </div>
-        </div>
-        <h4></h4>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <a href="#" onclick='newTab("https://www.overwatchid.com")'>
-                        <img class="img-fluid d-block mx-auto" src="img/portfolio/ow.png" alt="OverwatchID">
-                    </a>
-
-                </div>
-                <p class="text-muted">3Lines Fund I Portfolio Company OverwatchID Acquired by Sailpoint. OverwatchID is a first Converged Cloud-Based Identity Security Platform that protects SMEs from data breaches. The SaaS solution is quickly configurable on the cloud, and easily manageable by security operations. OverwatchID was acquired by SailPoint(NYSE:SAIL) in October 2019.
-                  <a href="#" onclick='newTab("https://www.overwatchid.com")' class="item" title="More">
-                    <i class="fa fa-newspaper fa-1x"></i>
-                  </a>
-                </p>
-
+                <div class="col-md-4 text-center">
+                    <h4 class="section-heading">Future of Work</h4>
+                    <img class="img-fluid mx-auto d-block" src="img/about/fow-circle.png" alt="Future of Work" style="width:200px;height:200px;">
+                    <!-- <p>15-20% employee turnover rate</p>
+                    <p>4 years and decreasing employee average stay</p>
+                    <p>36% of US economy is gig-economy and rising</p>
+                    <p>65% of primary school children today will ultimately work in a new job category</p>
+                    <p>>300% daily usage of Zoom video conferencing due to contagion. New normal?</p> -->
+                    <p>Future workforce is distributed, continuously retooling, and agile; and future workplace is a mix of real and virtual collaborative global workspaces.</p> 
+                   </div>
+                   <div class="col-md-4 text-center">
+                    <h4 class="section-heading">Future of Enterprise</h2>
+                    <img class="img-fluid mx-auto d-block" src="img/about/foe-circle.png" alt="Future of Enterprise" style="width:200px;height:200px;">
+                    <!-- <p>50% of business process or business decisions AI driven</p>
+                    <p>2/3 of surveyed firms expect regulatory and compliance staff costs increasing</p>
+                    <p>40% of surveyed CROs indicated predictive risk management as a high priority</p>
+                    <p>70% of the CEOs surveyed expressed concern on workplace readiness for digital-native workforce</p> -->
+                    <p>Future enterprise is an AI-assisted organization with nearly half of business decisions or business processes powered by machine learning or cognition engines.</p>
+                   </div>
+                   <div class="col-md-4 text-center">
+                    <h4 class="section-heading">Future of Industry</h4>
+                    <img class="img-fluid mx-auto d-block" src="img/about/foi.png" alt="Future of Industry" style="width:200px;height:200px;">
+                    <!-- <p>$60B+ AI-enabled industrial software market</p>
+                    <p>$20B+ savings due to AI-enabled optimizations</p>
+                    <p>$4.5B+ (CAGR 15%) annual AI-driven supply chain optimization</p>
+                    <p>5%-20% unplanned shutdown losses per plant</p> -->
+                    <p>Future industry is intelligent with sensing networks and computing platforms to optimize industrial operations. India has the opportunity to leapfrog here. </p>
+                   </div>
             </div>
         </div>
     </section>
@@ -330,7 +179,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Our Team</h2>
+                    <h2 class="section-heading">Our Team</h2>
                     <h3 class="section-subheading text-muted"></h3>
                 </div>
             </div>
@@ -402,7 +251,7 @@
                     <div class="team-member">
                         <img class="mx-auto rounded-circle" src="img/team/Ashish.jpg" alt="">
                         <h4>Ashish Jain</h4>
-                        <p class="text-muted">Venture Partner</p>
+                        <p class="text-muted">Partner</p>
                         <p>Mr. Ashish Jain is very experienced in helping founders and early-stage companies build high-performance teams and gain early traction with customers. Most recently, Ashish was a Managing Director at GE Ventures, where he co-created three industrial IoT and AI startups. Avitas Systems, industrial inspections and asset integrity management company, was acquired by Baker Hughes GE. AiRXOS, a digital airspace and unmanned aerial vehicle traffic management company, was acquired by GE Aviation. GE Current, a digital platform for energy and distributed power management, was acquired by Private Equity firm American Industrial Partners.
                           <a class="item" data-toggle="collapse" href="#AshishMore" role="button" aria-expanded="false" aria-controls="AshishMore"><i class="zmdi zmdi-more zmdi-hc-lg"></i></a>
                         </p>
@@ -426,140 +275,126 @@
                 </div>
             </div>
     </section>
-    <!-- <section class="py-5" id="team">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Advisors</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/peter.jpg" alt="">
-                        <h4>Peter Adams</h4>
-                        <p class="text-muted">Compliance Advisor</p>
-                        <p class="text-muted">Peter Adams is an independent advisory board member at 3Lines. Adams is a serial entrepreneur, having founded five companies and he has also served over a dozen years as Economics Director and as CIO of an international professional services firm. Adams is a co-author of “Venture Capital for Dummies,” John Wiley & Sons, 2013.</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://twitter.com/peterkadams?lang=en">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/peteradams">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/praful.jpg" alt="">
-                        <h4>Praful Shah</h4>
-                        <p class="technologyxt-muted">Advisory Board Chairman</p>
-                        <p class="text-muted">Praful Shah helps 3Lines as an Advisory Board Chairman. Praful has been a successful private investor with a portfolio of over 75 start-ups in the Boulder/ Denver metro area. He invests in companies that blend improving the lives of people, society and significant financial returns.</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/praful-shah-578bb5/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div<name />
-            </div>
-    </section> -->
-    <!-- Investors -->
-    <section class="py-5" id="DSC">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading text-uppercase">Deal Screening Council (DSC)</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/sumanth.jpg" alt="">
-                        <h4>Sumanth Channabasappa</h4>
-                        <p class="text-muted">Investor, DSC Chair, Denver</p>
-                        <p class="text-muted">Sumanth Chennabasappa is an investor, advisory board member with 3Lines and helps with the portfolio start-up growth. Sumanth is driven by impact, coupled with market-based returns. He has led or contributed to mobile, broadband, Internet protocols, network security, Voice over IP (VoIP) and the Internet of Things (IoT).</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://twitter.com/sumanthc">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/sumanthc/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/rajiv.jpeg" alt="">
-                        <h4>Rajiv Roy</h4>
-                        <p class="text-muted">Investor, DSC Liaison, Dallas</p>
-                        <p class="text-muted">Rajiv Roy has spent his career in the semiconductor industry focusing on Mergers and Acquisitions and Global Marketing. He completed 8 deals while at Rudolph Technologies including preliminary due diligence, board presentations, deal structuring, company integration. He is a member of the IITEAN managing team - Dallas based IIT Angel investor network. </p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/rajivroy">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/Kevin.jpg" alt="">
-                        <h4>Kevin Morningstar</h4>
-                        <p class="text-muted">Investor, DSC Liaison, Denver</p>
-                        <p class="text-muted">Kevin Morningstar has over 30 years of experience in the medical device industry. He co-founded Silverglide Surgical Technologies, Inc., a Boulder surgical instruments business successfully sold to Stryker in a planned exit. Kevin brings in extensive capital syndication expertise to help 3Lines portfolio companies.</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://twitter.com/kevinmstar">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/kevinmorningstar/">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="team-member">
-                        <img class="mx-auto rounded-circle" src="img/team/sriram.jpg" alt="">
-                        <h4>Sriram Gosala</h4>
-                        <p class="text-muted">Investor, DSC Liaison, New Jersey</p>
-                        <p class="text-muted">Sriram Gosala is an experienced Enterprise Data Management (EDM) professional with more than 20 years of experience in implementing master data management for large investment banks and insurance companies. Has established a proven track record in providing technical vision and leadership on firm-wide data strategy, developing creative and innovative ideas to optimize the business value of data, and facilitating change-defining digital transformation.</p>
-                        <ul class="list-inline social-buttons">
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/sriramgosala">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-    </section>
-    {{template "content" .}}
-    <!-- Clients -->
-    <section class="py-5">
+    <section class="py-5" id="portfolio">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Collaboration</h2>
+                <h2 class="section-heading">Our Investments</h2>
+                <h3 class="section-subheading text-muted"></h3>
+            </div>
+        </div>
+        <h4></h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    <a href="https://www.soar.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/Soar.png" alt="Soar">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://popwallet.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/pw.png" alt="Popwallet">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="https://www.cyr3con.ai" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/cyr3con.png" alt="Cyr3Con">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="https://arzooo.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/arzooo.jpg" alt="Arzooo">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://www.calibermind.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/cm.png" alt="Calibermind">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://www.geovisual-analytics.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/gva.png" alt="Geovisual Analytics">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://www.swimlane.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/sl.png" alt="Swimlane">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://www.ourfood.co.in" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/of.png" alt="Our Food">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://pharmajet.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/pj.png" alt="Pharmajet">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="https://bitsbox.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/bb.png" alt="Bitsbox">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="https://soprishealth.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/sh.png" alt="Sopris Health">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://feltapp.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/felt.png" alt="Felt">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://vetty.co" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/vett.png" alt="Vetty">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://roadbotics.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/rb.jpg" alt="RoadBotics">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://motivps.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/Motiv.png" alt="Motiv Power Systems">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://presagen.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/presagen.png" alt="Presagen">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <a href="http://audvisor.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/audvisor.png" alt="Audvisor">
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                     <a href="https://www.overwatchid.com" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="img/portfolio/ow.png" alt="OverwatchID">
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <p class="text-muted">3Lines Fund I Portfolio Company OverwatchID Acquired by Sailpoint. OverwatchID is a first Converged Cloud-Based Identity Security Platform that protects SMEs from data breaches. The SaaS solution is quickly configurable on the cloud, and easily manageable by security operations. OverwatchID was acquired by SailPoint(NYSE:SAIL) in October 2019.
+                  <a href="#" onclick='newTab("https://www.overwatchid.com")' class="item" title="More">
+                    <i class="fa fa-newspaper fa-1x"></i>
+                  </a>
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <!-- Investors -->
+    {{template "content" .}}
+    <!-- Clients -->
+    <!-- <section class="py-5">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading">Collaboration</h2>
                 <h3 class="section-subheading text-muted">
                   Corporate Social Responsibility Supporters: Jindal Stainless in Jhajpur, India</br></br>
                   Members of : Mid-America Healthcare Investors Network
@@ -580,7 +415,7 @@
          </div>
          </div>
          </div>
-      </section>
+      </section> -->
     <!-- Contact -->
     <section id="contact">
         <div class="container">

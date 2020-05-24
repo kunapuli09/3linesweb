@@ -93,6 +93,22 @@ CREATE TABLE userdocs (
     ON DELETE CASCADE
 )ENGINE=INNODB;
 
+CREATE TABLE proposaldocs (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Investment_ID bigint(20) unsigned NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    FullName VARCHAR(255) NOT NULL,
+    CompanyName VARCHAR(255) NOT NULL,
+    Phone VARCHAR(12) NOT NULL,
+    UploadDate DATE,
+    DocPath VARCHAR(255),
+    DocName VARCHAR(255),
+    Hash VARCHAR(255), 
+    INDEX proposaldocs_ind (Investment_ID),
+    FOREIGN KEY (Investment_ID)
+    REFERENCES investments(id)
+    ON DELETE CASCADE
+)ENGINE=INNODB;
 
 CREATE TABLE investment_structure (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,

@@ -47,7 +47,7 @@
    <body id="page-top">
       <!-- Navigation -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-         <img src="img/logo.png" alt="3Lines">
+         <a class="navbar-brand js-scroll-trigger" href="/#page-top"><img src="img/logo.png" alt="3Lines"></img></a>
          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
          </button>
@@ -63,9 +63,6 @@
                         <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
                      </li>
                      {{ else }}
-                      <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/">Home</a>
-                     </li>
                      {{end}}
                 </ul>  
          </div>

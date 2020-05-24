@@ -7,17 +7,17 @@ import (
 	"github.com/fatih/structs"
 	"github.com/gorilla/schema"
 	"github.com/gorilla/sessions"
+	"github.com/haisum/recaptcha"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"github.com/shopspring/decimal"
 	"html/template"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
-	"log"
-	"os"
-	"github.com/haisum/recaptcha"
 )
 
 func NewApplication(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +28,7 @@ func NewApplication(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl.ExecuteTemplate(w, "content", nil)
+	tmpl.ExecuteTemplate(w, "layout", nil)
 }
 
 func FundingRequests(w http.ResponseWriter, r *http.Request) {
@@ -161,16 +161,16 @@ func AddApplication(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	re := recaptcha.R{
-    	Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
+		Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
 	}
 	token := r.FormValue("rcres")
 	log.Println("Verifying Captcha token", token)
 	isValid := re.VerifyResponse(token)
 	if !isValid {
-    	log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
-        libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
+		log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
+		libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
 		return
-    }
+	}
 	m := structs.Map(i)
 	m["ApplicationDate"] = time.Now()
 	m["Title"] = "Removed"

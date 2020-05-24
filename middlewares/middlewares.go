@@ -5,10 +5,10 @@ import (
 	"net/http"
 
 	"context"
+	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/models"
-	"fmt"
 )
 
 func SetDB(db *sqlx.DB) func(http.Handler) http.Handler {
@@ -74,10 +74,10 @@ func MustSecure(next http.Handler) http.Handler {
 }
 
 func Find(slice []*models.UserDocRow, val string) (int, bool) {
-    for i, item := range slice {
-        if item.DocName == val {
-            return i, true
-        }
-    }
-    return -1, false
+	for i, item := range slice {
+		if item.DocName == val {
+			return i, true
+		}
+	}
+	return -1, false
 }

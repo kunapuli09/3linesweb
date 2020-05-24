@@ -13,7 +13,7 @@
              <th scope="row">{{.ID}}</th>
              <td>{{.FormattedUploadDate}}</td>
              <td><a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
-             <td><a class="btn btn-sm btn-outline-danger" href="/removeDoc?id={{.ID}}&Investment_ID={{ $.Investment.ID }}&DocPath={{ .DocPath }}" role="button"> Remove </a></td>
+             <td><a class="btn btn-sm btn-outline-danger" href="/removeInvestmentDoc?id={{.ID}}&Investment_ID={{ $.Investment.ID }}&DocPath={{ .DocPath }}" role="button"> Remove </a></td>
             </tr>
             {{end}}
           </tbody>
@@ -21,7 +21,7 @@
       </div>
       <div class="row">
          <div class="col-lg-4">
-            <form enctype="multipart/form-data" class="form-signup-login form-investment" method="post" action="/addDocs">
+            <form enctype="multipart/form-data" class="form-signup-login form-investment" method="post" action="/addInvestmentDocs">
                <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}">
                <input type="hidden" name="Hash" id="Hash" value="{{.Doc.Hash}}"/>
          </div>

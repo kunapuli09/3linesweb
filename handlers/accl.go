@@ -28,7 +28,7 @@ func NewApplication(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	tmpl.ExecuteTemplate(w, "content", nil)
+	tmpl.ExecuteTemplate(w, "layout", nil)
 }
 
 func FundingRequests(w http.ResponseWriter, r *http.Request) {

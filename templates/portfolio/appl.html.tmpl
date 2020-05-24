@@ -1,4 +1,4 @@
-{{define "content"}}
+{{define "layout"}}
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -26,28 +26,21 @@
       <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
       <meta name="msapplication-TileColor" content="#00a300">
       <meta name="theme-color" content="#ffffff">
-         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback1&render=explicit" async defer>
-    </script>
+      <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback1&render=explicit" async defer></script>
    </head>
    <body id="page-top">
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
          <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/logo.png" alt="3Lines"></a>
+            <a class="navbar-brand js-scroll-trigger" href="/#page-top"><img src="img/logo.png" alt="3Lines"></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav text-uppercase ml-auto">
-                  <!-- <li class="nav-item">
-                     <a class="nav-link js-scroll-trigger" href="#services">Services</a>
-                     </li> -->
                   <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/#about">About</a>
-                  </li>
-                  <li class="nav-item">
-                     <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="appl">Apply</a>
@@ -56,13 +49,16 @@
                      <a class="nav-link js-scroll-trigger" href="/#team">Team</a>
                   </li>
                   <li class="nav-item">
+                     <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
+                  </li>
+                  <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/#blog">News & Blogs</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/login">Investors</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link js-scroll-trigger" href="http://www.mentorbaba.co" target="_blank">mentorBaba</a>
+                     <a class="nav-link js-scroll-trigger" href="/careers">Collaboration</a>
                   </li>
                   <li class="nav-item">
                      <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
@@ -76,71 +72,70 @@
             <div class="container">
             <div class="row">
                <div class="col-lg-12 text-center">
-                  <h2 class="section-heading text-uppercase">Application for Funding</h2>
+                  <h2 class="section-heading">Application for Funding</h2>
+                  <strong>
+                     <p class="text-primary">Please complete the application form below and send the pitch deck to dsc@3lines.vc.</p>
+                  </strong>
+                  <p style="color:White;">We invest in disruptive software technology startup companies in the Future of Work (Ex: Audvisor, SOAR, etc.), AI Enabled Enterprises (Ex: Vetty, Cyr3Con, Swimlane, etc.) and the Industry 4.0/Supply Chain Logistics (Ex: Arzooo.com, etc.). Our screening council will review every application immediately and schedule a virtual/zoom pitch session by the same week Saturday if the startup fits into our broader investment theme. The screening council will make a recommendation for a followup call with one of the General Partners or track an application if the applied startup is not ready for investment. In most cases, our turnaround time is less than 10 days for an applicant to learn about acceptance into the due diligence process. Screening Council members understand our investment principles and have familiarity with our technology focus areas like Machine Learning and Artificial Intelligence, Internet of Things, Cyber Security, Autonomic Computing, Hybrid Cloud, P2P Applications, and SaaS. Our screening council's network is spread across eight cities in the USA and four cities in India.</p>
+                  <br>
                </div>
-               <div class="col-md-12 text-center">
-                  <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-dollar-sign fa-stack-1x fa-inverse"></i>
-                    </span>
-                  <h4 style="color:White;">Machine Learning and Artificial Intelligence, Internet of Things, Cyber Security, Autonomic Computing, Hybrid Cloud, P2P Applications and SaaS Startups Apply Here. Seed through Series B Startups in the USA and India are eligible for investment of up to <h1 class="text-primary">$3 Million</h1> USD</h6>
-                  <h4 style="color:White;"></h4>
-               </div>
-               
-               <div class="intro-lead-in text-primary"></div>
-               <div class="intro-lead-in"></div>
-               <div class="intro-lead-in"></div>
             </div>
             <div class="row">
-               
-               <!-- <div class="col-md-6 text-center">
-                  <span class="fa-stack fa-4x">
-                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                    <i class="fas fa-handshake fa-stack-1x fa-inverse"></i>
-                    </span>
-                  <h4 style="color:White;">Qualified Pre-Seed India Startups will be assigned a mentor on mentorBaba platform and will receive additional financial support.</h4>
-               </div> -->
+               <div class="col-sm-4">
+                  <div class="team-member">
+                     <img class="mx-auto rounded-circle" src="img/team/rajiv.jpeg" alt="">
+                     <h4 style="color:White;">Rajiv Roy</h4>
+                     <p style="color:White;">Screening Council Member, Dallas</p>
+                     <p style="color:White;">Rajiv Roy has spent his career in the semiconductor industry focusing on Mergers and Acquisitions and Global Marketing. He completed 8 deals while at Rudolph Technologies including preliminary due diligence, board presentations, deal structuring, company integration. He is a member of the IITEAN managing team - Dallas based IIT Angel investor network. </p>
+                     <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                           <a href="https://www.linkedin.com/in/rajivroy">
+                           <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <div class="team-member">
+                     <img class="mx-auto rounded-circle" src="img/team/sumanth.jpg" alt="">
+                     <h4 style="color:White;">Sumanth Channabasappa</h4>
+                     <p style="color:White;">Screening Council Chair, Denver</p>
+                     <p style="color:White;">Sumanth Chennabasappa is an investor, advisory board member with 3Lines and helps with the portfolio start-up growth. Sumanth is driven by impact, coupled with market-based returns. He has led or contributed to mobile, broadband, Internet protocols, network security, Voice over IP (VoIP) and the Internet of Things (IoT).</p>
+                     <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                           <a href="https://twitter.com/sumanthc">
+                           <i class="fab fa-twitter"></i>
+                           </a>
+                        </li>
+                        <li class="list-inline-item">
+                           <a href="https://www.linkedin.com/in/sumanthc/">
+                           <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <div class="team-member">
+                     <img class="mx-auto rounded-circle" src="img/team/sriram.jpg" alt="">
+                     <h4 style="color:White;">Sriram Gosala</h4>
+                     <p style="color:White;">Screening Council Member, New Jersey</p>
+                     <p style="color:White;">Sriram Gosala is an experienced Enterprise Data Management (EDM) professional with more than 20 years of experience in implementing master data management for large investment banks and insurance companies. He has a track record in providing technical vision and leadership, developing creative and innovative ideas to optimize the business value of data.</p>
+                     <ul class="list-inline social-buttons">
+                        <li class="list-inline-item">
+                           <a href="https://www.linkedin.com/in/sriramgosala">
+                           <i class="fab fa-linkedin-in"></i>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
             </div>
-            <!-- <div class="row">
-               <div class="col-md-6 text-center">
-                  <h4 class="service-heading">
-                     <h6 style="color:White;">
-                        <p>Day 1 (All Locations) : Pitch Competition</p>
-                     </h6>
-                  </h4>
-                  <h6 style="color:White;">Morning </h6>
-                  <p class="text-primary">
-                  Pre-Seed and Seed - Startups</br> Pitch Session :
-                  9am - 12pm, 10 Startups </br>
-                  Pitch Duration: 15 minutes</br>
-                  </p>
-                  <h6 style="color:White;">Afternoon </h6>
-                  <p class="text-primary">
-                  Seed+ ,  Series-A, and Series-B Startups </br>
-                  Pitch Session :  1:15PM - 4:15PM, 8 Startups </br>
-                  Pitch Duration: 20 minutes</br>
-                  </p>
-               </div>
-               <div class="col-md-6 text-center">
-                  <h4 class="service-heading">
-                     <h6 style="color:White;">
-                        <p>Day 2 - Workshop by 3Lines General Partners</p>
-                     </h6>
-                  </h4>
-                  <h6 style="color:White;">Morning </h6>
-                  <p class="text-primary">
-                  Pre-Seed and Seed - Startups</br> Venture Capital Awareness :
-                  9am - 12pm</br>
-                  Topics : Valuations, and Team Building</p>
-                  <h6 style="color:White;">Afternoon </h6>
-                  <p class="text-primary">
-                  Seed+ and Series-A, Series-B Startups </br>
-                  Due Diligence Session :  1:15PM - 4:15PM</br></p>
-                  </p>
-                  <h6 style="color:White;">Evening</h6>
-                  <p class="text-primary">Awards and Networking Event with Special Guests</p>
-               </div>
-            </div> -->
+            <div class="container">
+            <div class="col-lg-12 text-center">
+               <h3 class="section-heading">Application Form</h3>
+            </div>
       <form id="applicationForm" name="sentForm" method="post" action="/application">
       <div class="row">
       <div class="col-md-12">
@@ -311,7 +306,7 @@
                      </li>
                      <li class="list-inline-item">
                         <a href="http://facebook.com/threelinesus">
-                        <i class="fas fa-facebook"></i>
+                        <i class="fab fa-facebook"></i>
                         </a>
                      </li>
                   </ul>
@@ -321,7 +316,7 @@
       </footer>
       <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
-<!--       <script src="vendor/bootstrap/js/popper.min.js"></script> -->
+      <!--       <script src="vendor/bootstrap/js/popper.min.js"></script> -->
       <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -338,8 +333,13 @@
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
          gtag('js', new Date());
-
+         
          gtag('config', 'UA-77741671-1');
+      </script>
+      <script>
+         $(document).ready(function(){
+         $(this).scrollTop(0);
+      });
       </script>
    </body>
 </html>

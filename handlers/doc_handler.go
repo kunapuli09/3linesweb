@@ -5,19 +5,19 @@ import (
 	"fmt"
 	//"github.com/fatih/structs"
 	//"github.com/gorilla/schema"
+	"errors"
 	"github.com/gorilla/sessions"
+	"github.com/haisum/recaptcha"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
-	"github.com/haisum/recaptcha"
-	"log"
-	"errors"
 )
 
 func GetInvestmentDocs(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +113,7 @@ func GetCareers(w http.ResponseWriter, r *http.Request) {
 	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
 	//create session date for page rendering
 	data := struct {
-		Investments []*models.InvestmentRow
+		Investments    []*models.InvestmentRow
 		SuccessMessage string
 	}{
 		investments,
@@ -188,16 +188,16 @@ func AddProposalDoc(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(h, strconv.FormatInt(curtime, 10))
 		hash := fmt.Sprintf("%x", h.Sum(nil))
 		doc := models.ProposalDocRow{
-			Investment_ID: investment_ID, 
-			UploadDate: time.Now(), 
-			DocPath: "/files/" + files[i].Filename, 
-			Hash:hash, 
-			DocName: files[i].Filename,
-		    Email: r.FormValue("Email"),
-		    Phone: r.FormValue("Phone"),
-		    CompanyName: r.FormValue("CompanyName"),
-		    FullName: r.FormValue("FullName"),
-    		}
+			Investment_ID: investment_ID,
+			UploadDate:    time.Now(),
+			DocPath:       "/files/" + files[i].Filename,
+			Hash:          hash,
+			DocName:       files[i].Filename,
+			Email:         r.FormValue("Email"),
+			Phone:         r.FormValue("Phone"),
+			CompanyName:   r.FormValue("CompanyName"),
+			FullName:      r.FormValue("FullName"),
+		}
 		fmt.Printf("doc info %v", doc)
 		docs = append(docs, &doc)
 	}
@@ -216,13 +216,13 @@ func AddProposalDoc(w http.ResponseWriter, r *http.Request) {
 	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
 	//create session date for page rendering
 	data := struct {
-		Investments []*models.InvestmentRow
+		Investments    []*models.InvestmentRow
 		SuccessMessage string
 	}{
 		investments,
 		"Thank you for your interest to collaborate and 3Lines team will reach out to you soon.",
 	}
-	
+
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
@@ -282,12 +282,12 @@ func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(h, strconv.FormatInt(curtime, 10))
 		hash := fmt.Sprintf("%x", h.Sum(nil))
 		doc := models.InvestmentDocRow{
-			Investment_ID: investment_ID, 
-			UploadDate: time.Now(), 
-			DocPath: "/files/" + files[i].Filename, 
-			Hash:hash, 
-			DocName: files[i].Filename,
-    		}
+			Investment_ID: investment_ID,
+			UploadDate:    time.Now(),
+			DocPath:       "/files/" + files[i].Filename,
+			Hash:          hash,
+			DocName:       files[i].Filename,
+		}
 		fmt.Printf("doc info %v", doc)
 		docs = append(docs, &doc)
 	}
@@ -301,6 +301,7 @@ func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {
 	address := fmt.Sprintf("/investmentDocs?Investment_ID=%v", investment_ID)
 	http.Redirect(w, r, address, 302)
 }
+
 //database call to add new
 func AddUserDocs(w http.ResponseWriter, r *http.Request) {
 	var docs []*models.UserDocRow
@@ -356,7 +357,7 @@ func AddUserDocs(w http.ResponseWriter, r *http.Request) {
 		h := md5.New()
 		io.WriteString(h, strconv.FormatInt(curtime, 10))
 		hash := fmt.Sprintf("%x", h.Sum(nil))
-		doc := models.UserDocRow{User_ID: user_ID, UploadDate: time.Now(), DocPath: "/files/" + files[i].Filename, Hash:hash, DocName: files[i].Filename}
+		doc := models.UserDocRow{User_ID: user_ID, UploadDate: time.Now(), DocPath: "/files/" + files[i].Filename, Hash: hash, DocName: files[i].Filename}
 		fmt.Printf("doc info %v", doc)
 		docs = append(docs, &doc)
 	}

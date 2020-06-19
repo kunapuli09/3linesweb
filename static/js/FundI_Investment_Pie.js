@@ -1080,29 +1080,37 @@
 
   try {
     //bar chart
-    var ctx = document.getElementById("barChart");
+    var ctx = document.getElementById("dealvelocity");
     if (ctx) {
-      ctx.height = 200;
+      ctx.height = 115;
       var myChart = new Chart(ctx, {
         type: 'bar',
         defaultFontFamily: 'Poppins',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: ["Q3/2019", "Q4/2019", "Q1/2020", "Q2/2020"],
           datasets: [
             {
-              label: "My First dataset",
-              data: [65, 59, 80, 81, 56, 55, 40],
+              label: "Applications received",
+              data: [100, 200, 60, 100],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
-              backgroundColor: "rgba(0, 123, 255, 0.5)",
+              backgroundColor: "rgb(192,192,192)",
               fontFamily: "Poppins"
             },
             {
-              label: "My Second dataset",
-              data: [28, 48, 40, 19, 86, 27, 90],
+              label: "Applications screened",
+              data: [50, 100, 35, 30],
               borderColor: "rgba(0,0,0,0.09)",
               borderWidth: "0",
-              backgroundColor: "rgba(0,0,0,0.07)",
+              backgroundColor: "rgb(128,128,128)",
+              fontFamily: "Poppins"
+            },
+            {
+              label: "Accepted for followup",
+              data: [10, 20, 15, 10],
+              borderColor: "rgba(0,0,0,0.09)",
+              borderWidth: "0",
+              backgroundColor: "rgb(0,128,128)",
               fontFamily: "Poppins"
             }
           ]

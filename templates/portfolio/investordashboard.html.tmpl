@@ -81,14 +81,15 @@
       </div>
    </div>
 </div>
+{{if .FundIInvestor}}
 <div class="row m-t-25">
    <div class="col-sm-6">
       <div class="overview-item overview-item--c4">
       <div class="overview__inner">
          <div class="overview-box clearfix">
-               <span>Fund I Performance</span>
+               <span>One Exit Distribution Made. OverWatchID Acquired By Sailpoint in October 2019</span>
                <div class="text">
-                  <h2>OverWatchID Successfully Exited</h2>
+                  <h2>Fund I Performance</h2>
                </div>
             </div>
             <div class="overview-box clearfix"></div>
@@ -96,6 +97,95 @@
          </div>
       </div>
    </div>
+   <div class="col-sm-3">
+      <div class="overview-item overview-item--c2">
+         <div class="overview__inner">
+          <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>1,480,000</h2>
+                  <span>Total Raised</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>1,335,000</h2>
+                  <span>Total Invested</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>121,000</h2>
+                  <span>Total Expenses</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>24,000</h2>
+                  <span>Capital Reserve</span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-3">
+      <div class="overview-item overview-item--c2">
+         <div class="overview__inner">
+         <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>11,060</h2>
+                  <span>Legal Expenses(2017)</span>
+               </div>
+            </div>
+          <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>14,675</h2>
+                  <span>Op Expenses(2017-2020)</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>21,265</h2>
+                  <span>Insurance(2017-2020)</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>74,000</h2>
+                  <span>Fee Total (2017-2020)</span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+</div>
+{{end}}
+{{if .FundIIInvestor}}
+<div class="row m-t-25">
    <div class="col-sm-6">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
@@ -104,8 +194,8 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>8,290,000</h2>
-                  <span>Total Management</span>
+                  <h2>2,806,000</h2>
+                  <span>Total First Tranche</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -113,8 +203,8 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>4,485,000</h2>
-                  <span>Fund II</span>
+                  <h2>1,514,000</h2>
+                  <span>Total Second Tranche</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -122,8 +212,8 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>2,325,000</h2>
-                  <span>SPVs</span>
+                  <h2>2,000,000</h2>
+                  <span>Total Invested</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -131,39 +221,73 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>1,480,000</h2>
-                  <span>Fund I</span>
+                  <h2>8,000,000</h2>
+                  <span>Total Interests</span>
                </div>
             </div>
          </div>
       </div>
    </div>
-</div>
-</div>
-<!-- <div class="row m-t-25">
-
    <div class="col-sm-6">
-      <div class="overview-item overview-item--c4">
+      <div class="overview-item overview-item--c2">
          <div class="overview__inner">
             <div class="overview-box clearfix">
                <div class="text">
-                  <h2>Deal Flow</h2>
+                  <h2>Deal Velocity</h2>
+                  <span>Invested: Q3/2019:Popwallet Q4/2019:SOAR, Arzooo Q1/2020:Cyr3Con | Q2/2020: Vetty</span>
                </div>
             </div>
-            <div class="overview-chart">
-               <canvas id="investmentspeed"></canvas>
-            </div>
+               <canvas id="dealvelocity"></canvas>
          </div>
       </div>
    </div>
 
-
-
-
-   <div class="col-md-6">
-      
+   <!-- <div class="col-sm-3">
+      <div class="overview-item overview-item--c2">
+         <div class="overview__inner">
+         <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>26,083</h2>
+                  <span>Legal Expenses</span>
+               </div>
+            </div>
+          <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>93,537</h2>
+                  <span>Formation Expenses</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>11,000</h2>
+                  <span>Insurance(8/2019-8/2020)</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>86,700</h2>
+                  <span>Year1 Fee(8/2019-8/2020)</span>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div> -->
 </div>
-</div> -->
+</div>
+{{end}}
+
 
 <!-- DATA TABLE-->
 <section class="p-t-20">

@@ -166,6 +166,9 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	if len(contributions) > 1 {
 		displayPieChart = true
 	}
+	//Display Fund I /Fund II Specific Data
+	_, f1Investor := Find(participatedFundNamesForBackend, FUNDI)
+	_, f2Investor := Find(participatedFundNamesForBackend, FUNDII)
 	//data for entryaccess.html.tmpl
 	data := struct {
 		CurrentUser          *models.UserRow
@@ -178,6 +181,8 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		FundNames            []string
 		CapitalContributions []decimal.Decimal
 		DisplayPieChart      bool
+		FundIInvestor        bool
+		FundIIInvestor       bool
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -189,6 +194,8 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		participatedFundNamesForWeb,
 		capitalcontributions,
 		displayPieChart,
+		f1Investor,
+		f2Investor,
 	}
 
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/investordashboard.html.tmpl")
@@ -446,4 +453,15 @@ func unique(slice []string) []string {
 		}
 	}
 	return participatedFundNamesForBackend
+}
+
+// Find takes a slice and looks for an element in it. If found it will
+// return it's key, otherwise it will return -1 and a bool of false.
+func Find(slice []string, val string) (int, bool) {
+    for i, item := range slice {
+        if item == val {
+            return i, true
+        }
+    }
+    return -1, false
 }

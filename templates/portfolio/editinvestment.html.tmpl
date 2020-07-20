@@ -134,6 +134,10 @@
    <input name="GrossIRR" type="number" min="0.00" step="0.01" class="form-control" placeholder="60%" value="{{ .Investment.GrossIRR }}"  autofocus>
    </div>
    <div class="form-group">
+   <label for="TotalCapitalRaised">Total Capital Raised</label>
+   <input name="TotalCapitalRaised" type="number" min="0.00" step="0.01" class="form-control" placeholder="$50,0000" value="{{ .Investment.TotalCapitalRaised }}"  autofocus>
+   </div>
+   <div class="form-group">
    <label for="Status">Status</label>
    <select class="form-control" id="Status" name="Status">
    <option value="PERFORMANCE_BELOW_TARGET" {{ if eq "PERFORMANCE_BELOW_TARGET" .Investment.Status }}selected="selected"{{ end }}>Performance Below Target</option>

@@ -44,6 +44,7 @@ type InvestmentRow struct {
 	ManagementOwnership     decimal.Decimal `db:"ManagementOwnership"`
 	InvestmentCommittment   decimal.Decimal `db:"InvestmentCommittment"`
 	InvestedCapital         decimal.Decimal `db:"InvestedCapital"`
+	TotalCapitalRaised      decimal.Decimal `db:"TotalCapitalRaised"`
 	RealizedProceeds        decimal.Decimal `db:"RealizedProceeds"`
 	ReportedValue           decimal.Decimal `db:"ReportedValue"`
 	InvestmentMultiple      decimal.Decimal `db:"InvestmentMultiple"`
@@ -51,8 +52,39 @@ type InvestmentRow struct {
 	Status                  string          `db:"Status"`
 }
 
+type RevenueSummary struct {
+	ID                 int64           `db:"id"`
+	StartupName        string          `db:"StartupName"`
+	InvestedCapital    decimal.Decimal `db:"InvestedCapital"`
+	TotalCapitalRaised decimal.Decimal `db:"TotalCapitalRaised"`
+	ReportedValue      decimal.Decimal `db:"ReportedValue"`
+	InvestmentMultiple decimal.Decimal `db:"InvestmentMultiple"`
+	ReportingDate      time.Time       `db:"ReportingDate"`
+	Revenue            decimal.Decimal `db:"Revenue"`
+	EBIDTA             decimal.Decimal `db:"LTMEBITDA"`
+}
+
+type RevenueDisplay struct {
+	ID                 int64
+	StartupName        string
+	InvestedCapital    decimal.Decimal
+	TotalCapitalRaised decimal.Decimal
+	ReportedValue      decimal.Decimal
+	InvestmentMultiple decimal.Decimal
+	LastYearEBIDTA     decimal.Decimal
+	ForecastedEBIDTA   decimal.Decimal
+	LastYearRevenue    decimal.Decimal
+	ForecastedRevenue  decimal.Decimal
+	LastYearRevenueToCapital   decimal.Decimal
+	ForecastedRevenueToCapital   decimal.Decimal
+}
+
 func (i *InvestmentRow) FormattedInvestmentDate() string {
 	return i.InvestmentDate.Format("01/02/2006")
+}
+
+func (r *RevenueSummary) FormattedReportingDate() string {
+	return r.ReportingDate.Format("01/02/2006")
 }
 
 func (i *Investment) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*InvestmentRow, error) {
@@ -91,8 +123,15 @@ func (i *Investment) GetByName(tx *sqlx.Tx, name string) (*InvestmentRow, error)
 	investment := &InvestmentRow{}
 	query := fmt.Sprintf("SELECT * FROM %v WHERE name=?", i.table)
 	err := i.db.Get(investment, query, name)
-
 	return investment, err
+}
+
+// GetByName returns record by name.
+func (i *Investment) GetRevenueSummary(tx *sqlx.Tx) ([]*RevenueSummary, error) {
+	revenues := []*RevenueSummary{}
+	query := "SELECT i.id, i.StartupName,i.TotalCapitalRaised, i.InvestedCapital, i.ReportedValue, i.InvestmentMultiple, fr.Revenue, fr.ReportingDate,fr.LTMEBITDA FROM investments AS i INNER JOIN financial_results AS fr ON i.ID = fr.Investment_ID"
+	err := i.db.Select(&revenues, query)
+	return revenues, err
 }
 
 // GetByName returns record by name.

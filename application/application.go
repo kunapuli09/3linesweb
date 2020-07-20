@@ -89,6 +89,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.HandleFunc("/entryaccess", handlers.EntryAccess).Methods("GET")
 	router.HandleFunc("/admindashboard", handlers.GetAdminDashboard).Methods("GET")
+	router.HandleFunc("/adminrevenuedashboard", handlers.GetRevenueSummaryDashboard).Methods("GET")
 	router.HandleFunc("/investordashboard", handlers.InvestorDashboard).Methods("GET")
 	router.HandleFunc("/viewinvestment", handlers.ViewInvestment).Methods("GET")
 	router.HandleFunc("/editinvestment", handlers.EditInvestment).Methods("GET")

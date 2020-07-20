@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"sort"
 )
 
 const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
@@ -145,6 +146,10 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	table := BuildRevenueSummaryDisplayTable(revenues)
+
+	sort.Slice(table, func(i, j int) bool {
+		return table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple)
+	})
 
 	//data for entryaccess.html.tmpl
 	data := struct {
@@ -581,7 +586,8 @@ func Find(slice []string, val string) (int, bool) {
 func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*models.RevenueDisplay {
 	data := make(map[string]*models.RevenueDisplay)
 	for _, revenue := range revenues {
-		RTC := revenue.Revenue.Div(revenue.TotalCapitalRaised)
+		percentage, _ := decimal.NewFromString("100")
+		RTC := revenue.Revenue.Div(revenue.TotalCapitalRaised).Mul(percentage)
 		if _, ok := data[revenue.StartupName]; !ok {
 			display := &models.RevenueDisplay{
 				ID:                 revenue.ID,

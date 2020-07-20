@@ -45,6 +45,7 @@ CREATE TABLE investments (
     ManagementOwnership DECIMAL(20,2),
     InvestmentCommittment DECIMAL(20,2),
     InvestedCapital DECIMAL(20,2),
+    TotalCapitalRaised DECIMAL(20,2),
     RealizedProceeds DECIMAL(20,2),
     ReportedValue DECIMAL(20,2),
     InvestmentMultiple DECIMAL(20,2),
@@ -247,6 +248,7 @@ ALTER TABLE applications ADD LastUpdatedTime timestamp;
 ALTER TABLE applications ADD INDEX  CompanyName_Index (CompanyName);
 ALTER TABLE applications ADD INDEX  Locations_Index (Locations);
 ALTER TABLE investments ADD FundLegalName VARCHAR(255);
+ALTER TABLE investments ADD TotalCapitalRaised DECIMAL(20,2)
 SET SQL_SAFE_UPDATES = 0;
 UPDATE  investments SET FundLegalName="3Lines 2016 Discretionary Fund, LLC";
 #Roles update for new blogreaders

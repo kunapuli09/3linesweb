@@ -56,8 +56,10 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                      {{if .CurrentUser.Admin }}
+                     <a href="/adminrevenuedashboard" class="dropdown-item">Revenue Dashboard</a> 
                      <a href="/entryaccess" class="dropdown-item">Investments</a> 
                      <a href="/contributions" class="dropdown-item">Investors</a>
+                     <a href="/userdocs" class="dropdown-item">Investor Documents</a>
                      {{end}}
                      <a href="/fundingreqs" class="dropdown-item">Deals</a>   
                   </div>

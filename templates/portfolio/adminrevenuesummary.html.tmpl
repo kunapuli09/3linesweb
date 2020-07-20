@@ -1,0 +1,59 @@
+{{define "content"}}
+
+<!-- DATA TABLE-->
+<section class="p-t-20">
+      <div class="row">
+         <div class="col-md-12">
+            {{if .Table}}
+            <div class="table-responsive table-responsive-data2 table-hover">
+               <table class="table table-data2">
+                  <thead>
+                     <tr>
+                        <th>Company Name</th>
+                        <th>Total Raised</th>
+                        <th>Capital Invested</th>
+                        <th>Current Value</th>
+                        <th>Current Multiple</th>
+                        <th colspan="2" style="text-align: center">Revenue</th>
+                        <th colspan="2" style="text-align: center">EBIDTA</th>
+                        <th colspan="2" style="text-align: center">Revenue To Capital Ratio</th>
+                     </tr>
+                     <tr>
+                        <th colspan="5"></th>
+                        <th>Last Year</th>
+                        <th>Forecast</th>
+                        <th>Last Year</th>
+                        <th>Forecast</th>
+                        <th>Last Year</th>
+                        <th>Forecast</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {{range .Table }}
+                      <tr id="{{.ID}}" class="tr-shadow">
+                        <td>{{.StartupName}}</td>
+                        <td class="desc">{{.TotalCapitalRaised | currencyFormat }}</td>
+                        <td>{{.InvestedCapital | currencyFormat}}</td>
+                        <td class="desc">{{.ReportedValue | currencyFormat }}</td>
+                        <td>{{.InvestmentMultiple }}X</td>
+                        <!-- PUT IN CONDITIONAL TO BRING REVENUE BASED ON YEAR -->
+                        <td>{{.LastYearRevenue | currencyFormat}} </td>
+                        <td>{{.ForecastedRevenue | currencyFormat}} </td>
+                        <td>{{.LastYearEBIDTA | currencyFormat}} </td>
+                        <td>{{.ForecastedEBIDTA | currencyFormat}} </td>
+                        <td>{{.LastYearRevenueToCapital}} %</td>
+                        <td>{{.ForecastedRevenueToCapital}} %</td>
+                        
+                     </tr>
+                     <tr class="spacer"></tr>
+                     {{end}}
+                  </tbody>
+               </table>
+            </div>
+            {{end}}
+         </div>
+      </div>
+   </div>
+</section>
+<!-- END DATA TABLE-->
+{{end}}

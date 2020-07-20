@@ -36,9 +36,6 @@ func NewFinancials(w http.ResponseWriter, r *http.Request) {
 	}
 	AllFinancialResults, err := models.NewFinancialResults(db).GetAllByInvestmentId(nil, Investment_ID)
 
-	for _, v := range AllFinancialResults {
-		fmt.Printf("Revenue %v", v.Revenue)
-	}
 	//create empty investmentstructure
 	FinancialResults := models.FinancialResultsRow{}
 	//create session date for page rendering

@@ -120,6 +120,52 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
+func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !currentUser.Admin {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	revenues, err := models.NewInvestment(db).GetRevenueSummary(nil)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	table := BuildRevenueSummaryDisplayTable(revenues)
+
+	//data for entryaccess.html.tmpl
+	data := struct {
+		CurrentUser *models.UserRow
+		Count       int
+		Table       []*models.RevenueDisplay
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		table,
+	}
+
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/adminrevenuesummary.html.tmpl")
+
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
 func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
@@ -255,6 +301,72 @@ func NoEntry(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
+	}
+	tmpl.ExecuteTemplate(w, "layout", data)
+}
+
+//presentation view for new investment
+func ViewAdminDashboard(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	db := r.Context().Value("db").(*sqlx.DB)
+	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
+	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
+	if e != nil {
+		libhttp.HandleErrorJson(w, e)
+		return
+	}
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
+	investment, err := models.NewInvestment(db).GetById(nil, ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
+	//TODO do a big join query
+	AllFinancialResults, err := models.NewFinancialResults(db).GetAllByInvestmentId(nil, ID)
+	AllNews, err := models.NewNews(db).GetAllByInvestmentId(nil, ID)
+	AllCapitalStructures, err := models.NewCapitalStructure(db).GetAllByInvestmentId(nil, ID)
+	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
+	AllDocs, err := models.NewInvestmentDoc(db).GetAllByInvestmentId(nil, ID)
+
+	//create session date for page rendering
+	data := struct {
+		CurrentUser                  *models.UserRow
+		Count                        int
+		Investment                   *models.InvestmentRow
+		Existing                     []*models.FinancialResultsRow
+		ExistingNews                 []*models.NewsRow
+		ExistingCapitalStructures    []*models.CapitalizationStructure
+		ExistingInvestmentStructures []*models.InvestmentStructureRow
+		ExistingDocs                 []*models.InvestmentDocRow
+	}{
+		currentUser,
+		getCount(w, r, currentUser.Email),
+		investment,
+		AllFinancialResults,
+		AllNews,
+		AllCapitalStructures,
+		AllInvestmentStructures,
+		AllDocs,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
@@ -458,10 +570,56 @@ func unique(slice []string) []string {
 // Find takes a slice and looks for an element in it. If found it will
 // return it's key, otherwise it will return -1 and a bool of false.
 func Find(slice []string, val string) (int, bool) {
-    for i, item := range slice {
-        if item == val {
-            return i, true
-        }
-    }
-    return -1, false
+	for i, item := range slice {
+		if item == val {
+			return i, true
+		}
+	}
+	return -1, false
+}
+
+func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*models.RevenueDisplay {
+	data := make(map[string]*models.RevenueDisplay)
+	for _, revenue := range revenues {
+		RTC := revenue.Revenue.Div(revenue.TotalCapitalRaised)
+		if _, ok := data[revenue.StartupName]; !ok {
+			display := &models.RevenueDisplay{
+				ID:                 revenue.ID,
+				StartupName:        revenue.StartupName,
+				InvestedCapital:    revenue.InvestedCapital,
+				TotalCapitalRaised: revenue.TotalCapitalRaised,
+				ReportedValue:      revenue.ReportedValue,
+				InvestmentMultiple: revenue.InvestmentMultiple,
+			}
+			if revenue.ReportingDate.Year() == time.Now().Year() {
+				display.ForecastedRevenue = revenue.Revenue
+				display.ForecastedEBIDTA = revenue.EBIDTA
+				display.ForecastedRevenueToCapital = RTC
+			}
+			if revenue.ReportingDate.Year() == (time.Now().Year() - 1) {
+				display.LastYearRevenue = revenue.Revenue
+				display.LastYearEBIDTA = revenue.EBIDTA
+				display.LastYearRevenueToCapital = RTC
+			}
+			data[revenue.StartupName] = display
+		} else {
+			if revenue.ReportingDate.Year() == time.Now().Year() {
+				data[revenue.StartupName].ForecastedRevenue = revenue.Revenue
+				data[revenue.StartupName].ForecastedEBIDTA = revenue.EBIDTA
+				data[revenue.StartupName].ForecastedRevenueToCapital = RTC //Undefined
+			}
+			if revenue.ReportingDate.Year() == (time.Now().Year() - 1) {
+				data[revenue.StartupName].LastYearRevenue = revenue.Revenue
+				data[revenue.StartupName].LastYearEBIDTA = revenue.EBIDTA
+				data[revenue.StartupName].LastYearRevenueToCapital = RTC //Undefined
+			}
+		}
+
+	}
+
+	v := make([]*models.RevenueDisplay, 0, len(data))
+	for _, value := range data {
+		v = append(v, value)
+	}
+	return v
 }

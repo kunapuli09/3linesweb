@@ -130,10 +130,10 @@ func EditFinancialResults(w http.ResponseWriter, r *http.Request) {
 	}
 	//create session data for page rendering
 	data := struct {
-		CurrentUser *models.UserRow
-		Count       int
-		Investment  *models.InvestmentRow
-		FinancialResults        *models.FinancialResultsRow
+		CurrentUser      *models.UserRow
+		Count            int
+		Investment       *models.InvestmentRow
+		FinancialResults *models.FinancialResultsRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),

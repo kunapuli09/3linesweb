@@ -12,9 +12,9 @@ import (
 	"github.com/shopspring/decimal"
 	"html/template"
 	"net/http"
+	"sort"
 	"strconv"
 	"time"
-	"sort"
 )
 
 const FUNDI = "3Lines 2016 Discretionary Fund, LLC"
@@ -585,8 +585,10 @@ func Find(slice []string, val string) (int, bool) {
 
 func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*models.RevenueDisplay {
 	data := make(map[string]*models.RevenueDisplay)
+	zero, _ := decimal.NewFromString("0")
+	percentage, _ := decimal.NewFromString("100")
 	for _, revenue := range revenues {
-		percentage, _ := decimal.NewFromString("100")
+		decimal.DivisionPrecision = 4
 		RTC := revenue.Revenue.Div(revenue.TotalCapitalRaised).Mul(percentage)
 		if _, ok := data[revenue.StartupName]; !ok {
 			display := &models.RevenueDisplay{
@@ -597,6 +599,7 @@ func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*model
 				ReportedValue:      revenue.ReportedValue,
 				InvestmentMultiple: revenue.InvestmentMultiple,
 			}
+
 			if revenue.ReportingDate.Year() == time.Now().Year() {
 				display.ForecastedRevenue = revenue.Revenue
 				display.ForecastedEBIDTA = revenue.EBIDTA
@@ -619,8 +622,30 @@ func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*model
 				data[revenue.StartupName].LastYearEBIDTA = revenue.EBIDTA
 				data[revenue.StartupName].LastYearRevenueToCapital = RTC //Undefined
 			}
+
 		}
 
+	}
+
+	for _, display := range data {
+		if display.LastYearEBIDTA.LessThan(zero) {
+			display.IsLastYearEBIDTANegative = true
+		}
+		if display.LastYearRevenue.LessThan(zero) {
+			display.IsLastYearRevenueNegative = true
+		}
+		if display.ForecastedEBIDTA.LessThan(zero) {
+			display.IsForecastedEBIDTANegative = true
+		}
+		if display.ForecastedRevenue.LessThan(zero) {
+			display.IsForecastedRevenueNegative = true
+		}
+		if display.LastYearRevenueToCapital.LessThan(percentage) {
+			display.IsLastYearRevenueToCapitalNegative = true
+		}
+		if display.ForecastedRevenueToCapital.LessThan(percentage) {
+			display.IsForecastedRevenueToCapitalNegative = true
+		}
 	}
 
 	v := make([]*models.RevenueDisplay, 0, len(data))

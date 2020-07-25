@@ -76,6 +76,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/blog", handlers.GetBlog).Methods("GET")
 	router.HandleFunc("/contact", handlers.PostEmail).Methods("POST")
 	router.HandleFunc("/appl", handlers.NewApplication).Methods("GET")
+	router.HandleFunc("/apply", handlers.NewApplication).Methods("GET")
 	router.HandleFunc("/application", handlers.AddApplication).Methods("POST")
 	router.HandleFunc("/updateApplication", handlers.UpdateApplication).Methods("POST")
 	router.HandleFunc("/fundingreqs", handlers.FundingRequests).Methods("GET")

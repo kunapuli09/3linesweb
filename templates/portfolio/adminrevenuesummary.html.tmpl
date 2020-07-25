@@ -36,14 +36,37 @@
                         <td>{{.InvestedCapital | currencyFormat}}</td>
                         <td class="desc">{{.ReportedValue | currencyFormat }}</td>
                         <td>{{.InvestmentMultiple }}X</td>
-                        <!-- PUT IN CONDITIONAL TO BRING REVENUE BASED ON YEAR -->
-                        <td>{{.LastYearRevenue | currencyFormat}} </td>
-                        <td>{{.ForecastedRevenue | currencyFormat}} </td>
-                        <td>{{.LastYearEBIDTA | currencyFormat}} </td>
-                        <td>{{.ForecastedEBIDTA | currencyFormat}}</p></span></td>
-                        <td>{{.LastYearRevenueToCapital}} %</td>
-                        <td>{{.ForecastedRevenueToCapital}} %</td>
+                        {{if .IsLastYearRevenueNegative}}
+                        <td><p class="text-danger">{{.LastYearRevenue | currencyFormat}}</p> </td>
+                        {{else}}
+                        <td><p class="text-success">{{.LastYearRevenue | currencyFormat}} </p></td>
+                        {{end}}
+                        {{if .IsLastYearEBIDTANegative}}
+                        <td><p class="text-danger">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
+                        {{else}}
+                        <td><p class="text-success">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
+                        {{end}}
+                        {{if .IsForecastedRevenueNegative}}
+                        <td><p class="text-danger">{{.ForecastedRevenue | currencyFormat}} </p></td>
+                        {{else}}
+                        <td><p class="text-success">{{.ForecastedRevenue | currencyFormat}} </p></td>
                         
+                        {{end}}
+                        {{if .IsForecastedEBIDTANegative}}
+                        <td><p class="text-danger">{{.ForecastedEBIDTA | currencyFormat}}</p> </td>
+                        {{else}}
+                        <td><p class="text-success">{{.ForecastedEBIDTA | currencyFormat}} </p></td>
+                        {{end}}
+                        {{if .IsLastYearRevenueToCapitalNegative}}
+                        <td><p class="text-danger">{{.LastYearRevenueToCapital }}% </p></td>
+                        {{else}}
+                        <td><p class="text-success">{{.LastYearRevenueToCapital }}% </p></td>
+                        {{end}}
+                        {{if .IsForecastedRevenueToCapitalNegative}}
+                        <td><p class="text-danger">{{.ForecastedRevenueToCapital }}% </p></td>
+                        {{else}}
+                        <td><p class="text-success">{{.ForecastedRevenueToCapital }}%</p> </td>
+                        {{end}}
                      </tr>
                      <tr class="spacer"></tr>
                      {{end}}
@@ -55,5 +78,4 @@
       </div>
    </div>
 </section>
-<!-- END DATA TABLE-->
 {{end}}

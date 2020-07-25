@@ -65,18 +65,24 @@ type RevenueSummary struct {
 }
 
 type RevenueDisplay struct {
-	ID                 int64
-	StartupName        string
-	InvestedCapital    decimal.Decimal
-	TotalCapitalRaised decimal.Decimal
-	ReportedValue      decimal.Decimal
-	InvestmentMultiple decimal.Decimal
-	LastYearEBIDTA     decimal.Decimal
-	ForecastedEBIDTA   decimal.Decimal
-	LastYearRevenue    decimal.Decimal
-	ForecastedRevenue  decimal.Decimal
-	LastYearRevenueToCapital   decimal.Decimal
-	ForecastedRevenueToCapital   decimal.Decimal
+	ID                                   int64
+	StartupName                          string
+	InvestedCapital                      decimal.Decimal
+	TotalCapitalRaised                   decimal.Decimal
+	ReportedValue                        decimal.Decimal
+	InvestmentMultiple                   decimal.Decimal
+	LastYearEBIDTA                       decimal.Decimal
+	ForecastedEBIDTA                     decimal.Decimal
+	LastYearRevenue                      decimal.Decimal
+	ForecastedRevenue                    decimal.Decimal
+	LastYearRevenueToCapital             decimal.Decimal
+	ForecastedRevenueToCapital           decimal.Decimal
+	IsLastYearEBIDTANegative             bool
+	IsLastYearRevenueNegative            bool
+	IsForecastedEBIDTANegative           bool
+	IsForecastedRevenueNegative          bool
+	IsLastYearRevenueToCapitalNegative   bool
+	IsForecastedRevenueToCapitalNegative bool
 }
 
 func (i *InvestmentRow) FormattedInvestmentDate() string {

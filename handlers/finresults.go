@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
+	"github.com/shopspring/decimal"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -52,7 +53,16 @@ func NewFinancialResults(w http.ResponseWriter, r *http.Request) {
 		FinancialResults,
 		AllFinancialResults,
 	}
-	tmpl, err := template.ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/newfinancials.html.tmpl")
+	funcMap := template.FuncMap{
+		"safeHTML": func(b string) template.HTML {
+			return template.HTML(b)
+		},
+		"currencyFormat": func(currency decimal.Decimal) string {
+			f, _ := currency.Float64()
+			return ac.FormatMoney(f)
+		},
+	}
+	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/newfinancials.html.tmpl")
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return

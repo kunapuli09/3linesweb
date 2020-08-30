@@ -148,8 +148,15 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 	table := BuildRevenueSummaryDisplayTable(revenues)
 
 	sort.Slice(table, func(i, j int) bool {
-		return table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple)
+		if table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple){
+			return true
+		}
+		if table[i].InvestmentMultiple.LessThan(table[j].InvestmentMultiple){
+			return false
+		}
+		return table[i].StartupName < table[j].StartupName 
 	})
+	
 
 	//data for entryaccess.html.tmpl
 	data := struct {

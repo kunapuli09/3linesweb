@@ -94,22 +94,6 @@ CREATE TABLE userdocs (
     ON DELETE CASCADE
 )ENGINE=INNODB;
 
-CREATE TABLE proposaldocs (
-    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    Investment_ID bigint(20) unsigned NOT NULL,
-    Email VARCHAR(255) NOT NULL,
-    FullName VARCHAR(255) NOT NULL,
-    CompanyName VARCHAR(255) NOT NULL,
-    Phone VARCHAR(12) NOT NULL,
-    UploadDate DATE,
-    DocPath VARCHAR(255),
-    DocName VARCHAR(255),
-    Hash VARCHAR(255), 
-    INDEX proposaldocs_ind (Investment_ID),
-    FOREIGN KEY (Investment_ID)
-    REFERENCES investments(id)
-    ON DELETE CASCADE
-)ENGINE=INNODB;
 
 CREATE TABLE investment_structure (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -237,6 +221,45 @@ CREATE TABLE contributions (
         ON DELETE CASCADE
 )ENGINE=INNODB;
 
+
+CREATE TABLE `offices` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(255) NOT NULL,
+  `LastName` varchar(255) NOT NULL,
+  `EmailAddress` varchar(255) NOT NULL,
+  `FirmType` varchar(255) DEFAULT NULL,
+  `FirmName` varchar(255) DEFAULT NULL,
+  `Address1` varchar(255) DEFAULT NULL,
+  `Address2` varchar(255) DEFAULT NULL,
+  `City` varchar(255) DEFAULT NULL,
+  `State` varchar(255) DEFAULT NULL,
+  `Zip Code` varchar(255) DEFAULT NULL,
+  `Phone` varchar(255) DEFAULT NULL,
+  `Fax` varchar(255) DEFAULT NULL,
+  `Website` varchar(255) DEFAULT NULL,
+  `Description` text,
+  `ContactName` varchar(255) NOT NULL,
+  `ContactTitle` text,
+  `ContactPhone` varchar(255) DEFAULT NULL,
+  `ContactLocation` varchar(255) DEFAULT NULL,
+  `ContactSpecialty` varchar(255) DEFAULT NULL,
+  `Stages` text,
+  `PortfolioFirms` text,
+  `RecentFundings` text,
+  `FirmFocus` text,
+  `LastUpdatedBy` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34514 DEFAULT CHARSET=latin1
+
+CREATE TABLE executives (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ApplicationDate timestamp,
+    Name VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL,
+    SocialMediaHandle TEXT NOT NULL,
+    UNIQUE KEY (email)
+)ENGINE=INNODB;
+
 alter table applications ADD  Referrer VARCHAR(255);
 alter table applications ADD  ElevatorPitch VARCHAR(255);
 alter table applications ADD  Revenue VARCHAR(255);
@@ -263,6 +286,8 @@ UPDATE 3linesweb.users set Roles='Dsc,Investor,BlogReader' where email in ("fund
         "arun.taman@gmail.com",
         "sgosala99@gmail.com",
         "dsc@3lines.vc")
+
+DROP TABLE 3linesweb.proposaldocs;
 #alter table investments ADD  Status VARCHAR(255);
 #update investments set Status = "COMPLETE";
 

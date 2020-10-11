@@ -26,10 +26,10 @@
       <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
       <meta name="msapplication-TileColor" content="#00a300">
       <meta name="theme-color" content="#ffffff">
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback3&render=explicit" async defer></script>
     </script>
    </head>
-   <body id="page-top" onload="javascript:ClearForm()">
+   <body id="page-top">
       <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
          <div class="container">
@@ -40,31 +40,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                <ul class="navbar-nav text-uppercase ml-auto">
-                  <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/#about">About</a>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/appl">Apply</a>
+                        <a class="nav-link js-scroll-trigger" href="#team">Team</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/#team">Team</a>
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/#blog">News & Blogs</a>
+                        <a class="nav-link js-scroll-trigger" href="/appl">Startups</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/login">Investors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/careers">Collaboration</a>
+                        <a class="nav-link js-scroll-trigger" href="/executives">ExecutiveAffiliates<!---LinkedIn Handle --></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="/#contact">Contact</a>
+                        <a class="nav-link js-scroll-trigger" href="/#blog">News&Blogs</a>
                     </li>
-               </ul>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                    </li>
+                </ul>
             </div>
          </div>
       </nav>
@@ -72,9 +72,9 @@
             <div class="container">
             <div class="row">
                <div class="col-lg-12 text-center">
-                  <h2 class="section-heading">Explore a partnership or a career opportunity with a 3Lines portfolio company<br>
+                  <h2 class="section-heading">3Lines is Expanding Executive Affiliate Network. Please Register Here <br>
                   </h2>
-                  <div class="intro-lead-in text-primary text-center">(Partnership Proposals Or Resumes Only)</div>
+                  <div class="intro-lead-in text-primary text-center"></div>
                </div>
                
                <div class="intro-lead-in"></div>
@@ -87,9 +87,8 @@
       <div class="row">
         <div class="col-md-6">
                 <p style="color:White;">
-               3Lines Venture Capital invests in exceptional founders and startups working on broad disruptive themes around the Future of Work, AI enabled enterprises, and Industry 4.0. Most of the companies are earlystage and would like to explore collaboration partnerships. A good example would be a company looking for a sales channel partner. Many of the fast growing startups also look for highly talented individuals that are seeking jobs in the startup space. This portal doesn't gaurantee a partnership or a job. </p>
-               <p style="color:White;">
-               We will make the introduction if the fit is right. Please submit less confidential information to start a dialogue.</p>
+               We are a growth VC with PE rigor and have built a portfolio of AI powered software companies in the Future Of Work, Enterprise and Industry with $1-$10M in revenue. 3Lines needs C-Level executives with interest in early stage companies to be a member of our Mind Network. When and as needed we will draw upon your expertise to help our portfolio companies in their growth phase. </p>
+               
               
       </div>
       <div class="col-md-6">
@@ -100,17 +99,9 @@
       </button>
       </div>
       {{ end }}
-      <form id="careersForm" enctype="multipart/form-data" class="form-signup-login" method="post" action="/addProposalDoc">
+      <form id="executiveForm" class="form-signup-login" method="post" action="/addExecutive">
       <div class="form-group">
-        <label for="Startup_ID"><span style="color:White;">Choose a startup to work with</span></label>
-        <select class="form-control" id="Investment_ID" name="Investment_ID">
-          {{ range .Investments}}
-          <option value="{{.ID}}">{{.StartupName}}</option>
-          {{end}}
-        </select>
-      </div>
-      <div class="form-group">
-      <input class="form-control" id="FullName" name="FullName" type="text" placeholder="Full Name *" required data-validation-required-message="Please enter your full name.">
+      <input class="form-control" id="Name" name="Name" type="text" placeholder="Name *" required data-validation-required-message="Please enter your full name.">
       <p class="help-block text-danger"></p>
       </div>
       <div class="form-group">
@@ -118,20 +109,12 @@
       <p class="help-block text-danger"></p>
       </div>
       <div class="form-group">
-      <input class="form-control" id="Phone" name="Phone" type="tel" pattern='^(\d{10}|\d{11}|\d{12})$' placeholder="Phone Maximum 12 Digits.  No + or - format" required data-validation-required-message="Maximum 12 Digits in a Phone Number including Country Code. No (+) or (-) Sign Reqired for International.">
+      <input class="form-control" id="SocialMediaHandle" name="SocialMediaHandle" type="text" placeholder="Linkedin/Twitter Profile URL *" data-validation-required-message="Please enter your LinkedIn Profile URL.">
       <p class="help-block text-danger"></p>
       </div>
-      <div class="form-group">
-      <input class="form-control" id="CompanyName" name="CompanyName" type="text" placeholder="Company Name *" data-validation-required-message="Please enter your company name.">
-      <p class="help-block text-danger"></p>
-      </div>
-      <div class="form-group">
-        <label for="Doc"><span style="color:White;">Upload a business proposal or a resume in a PDF Format</span></label>
-        <input type="file" class="form-control-file" name= "Doc" id="Doc" style="color:White;">
-      </div>
-      <!-- <div id="g-recaptcha3" name="rcres" class="g-recaptcha"></div> -->
-      <div class="g-recaptcha" data-sitekey="6LcF3OQUAAAAAGmMrHmVIWUp4qxjL8wdLnGR6k-w"></div>
-      <button class="btn btn-success btn-xl text-uppercase" type="submit">Submit</button>
+      <div id="g-recaptcha3"class="g-recaptcha"></div>
+      <div id="successExecutive"></div>
+      <button id="sendExecutiveButton" class="btn btn-primary btn-xl text-uppercase" type="submit">Submit</button>
       </div>
       </form>
       </div>
@@ -143,8 +126,11 @@
       <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
       <!-- Plugin JavaScript -->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+      <!-- Contact form JavaScript -->
+      <script src="js/jqBootstrapValidation.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
+      <script src="js/executive.js"></script>
       <!-- date picker start  -->
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
@@ -157,7 +143,7 @@
       </script>
       <script>
       function ClearForm(){
-      document.careersForm.reset();
+      document.executiveForm.reset();
       }
    </script>
    </body>

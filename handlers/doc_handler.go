@@ -5,15 +5,12 @@ import (
 	"fmt"
 	//"github.com/fatih/structs"
 	//"github.com/gorilla/schema"
-	"errors"
 	"github.com/gorilla/sessions"
-	"github.com/haisum/recaptcha"
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -105,126 +102,7 @@ func GetUserDocs(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-func GetCareers(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html")
-	//prepare page
-	db := r.Context().Value("db").(*sqlx.DB)
-	i := models.NewInvestment(db)
-	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
-	//create session date for page rendering
-	data := struct {
-		Investments    []*models.InvestmentRow
-		SuccessMessage string
-	}{
-		investments,
-		"",
-	}
-	tmpl, err := template.ParseFiles("templates/careers/careers.html.tmpl")
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	tmpl.ExecuteTemplate(w, "layout", data)
-}
 
-//database call to add new
-func AddProposalDoc(w http.ResponseWriter, r *http.Request) {
-	var docs []*models.ProposalDocRow
-	db := r.Context().Value("db").(*sqlx.DB)
-	i := models.NewInvestment(db)
-	w.Header().Set("Content-Type", "text/html")
-	re := recaptcha.R{
-		Secret: os.Getenv("CAPTCHA_SITE_SECRET"),
-	}
-	token := r.FormValue("g-recaptcha-response")
-	log.Println("Verifying Captcha token", token)
-	isValid := re.VerifyResponse(token)
-	if !isValid {
-		log.Printf("Invalid Captcha! These errors ocurred: %v", re.LastError())
-		libhttp.HandleErrorJson(w, errors.New("Invalid Captcha!"))
-		return
-	}
-	investment_ID, e1 := strconv.ParseInt(r.FormValue("Investment_ID"), 10, 64)
-	if e1 != nil {
-		libhttp.HandleErrorJson(w, e1)
-		return
-	}
-	err := r.ParseMultipartForm(32 << 20)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	//get a ref to the parsed multipart form
-	m := r.MultipartForm
-
-	//get the *fileheaders
-	files := m.File["Doc"]
-	//---- parse uploaded file------
-	//copy each part to destination.
-	for i, _ := range files {
-		//for each fileheader, get a handle to the actual file
-		file, err := files[i].Open()
-		defer file.Close()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		//create destination file making sure the path is writeable.
-		dst, err := os.Create("./docs/" + files[i].Filename)
-		defer dst.Close()
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		//copy the uploaded file to the destination file
-		if _, err := io.Copy(dst, file); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		//Generate MD5 Hash for a new file
-		curtime := time.Now().Unix()
-		h := md5.New()
-		io.WriteString(h, strconv.FormatInt(curtime, 10))
-		hash := fmt.Sprintf("%x", h.Sum(nil))
-		doc := models.ProposalDocRow{
-			Investment_ID: investment_ID,
-			UploadDate:    time.Now(),
-			DocPath:       "/files/" + files[i].Filename,
-			Hash:          hash,
-			DocName:       files[i].Filename,
-			Email:         r.FormValue("Email"),
-			Phone:         r.FormValue("Phone"),
-			CompanyName:   r.FormValue("CompanyName"),
-			FullName:      r.FormValue("FullName"),
-		}
-		fmt.Printf("doc info %v", doc)
-		docs = append(docs, &doc)
-	}
-	//------files uploaded ------
-	_, err4 := models.NewProposalDoc(db).BatchInsert(nil, docs)
-	if err4 != nil {
-		fmt.Println("database error")
-		libhttp.HandleErrorJson(w, err4)
-		return
-	}
-	tmpl, err := template.ParseFiles("templates/careers/careers.html.tmpl")
-	if err != nil {
-		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	investments, err := i.GetAllInvestmentsWithoutSyndicates(nil)
-	//create session date for page rendering
-	data := struct {
-		Investments    []*models.InvestmentRow
-		SuccessMessage string
-	}{
-		investments,
-		"Thank you for your interest to collaborate and 3Lines team will reach out to you soon.",
-	}
-
-	tmpl.ExecuteTemplate(w, "layout", data)
-}
 
 //database call to add new
 func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {

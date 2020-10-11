@@ -124,8 +124,8 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/addInvestmentDocs", handlers.AddInvestmentDocs).Methods("POST")
 	router.HandleFunc("/userdocs", handlers.GetUserDocs).Methods("GET")
 	router.HandleFunc("/addUserDocs", handlers.AddUserDocs).Methods("POST")
-	router.HandleFunc("/careers", handlers.GetCareers).Methods("GET")
-	router.HandleFunc("/addProposalDoc", handlers.AddProposalDoc).Methods("POST")
+	router.HandleFunc("/executives", handlers.GetExecutives).Methods("GET")
+	router.HandleFunc("/addExecutive", handlers.AddExecutive).Methods("POST")
 	router.HandleFunc("/removeUserDoc", handlers.RemoveUserDoc).Methods("GET")
 	router.HandleFunc("/removeInvestmentDoc", handlers.RemoveInvestmentDoc).Methods("GET")
 

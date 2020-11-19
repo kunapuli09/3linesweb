@@ -339,13 +339,19 @@
         options: {
           maintainAspectRatio: true,
           legend: {
-            display: false
+            display: false,
           },
           scales: {
             xAxes: [{
-              display: false,
+              display: true,
               categoryPercentage: 1,
-              barPercentage: 0.65
+              barPercentage: 0.65,
+              gridLines: {
+                    display: false,
+              },
+              ticks: {
+                fontColor: "white", // this here
+              },
             }],
             yAxes: [{
               display: false
@@ -791,7 +797,6 @@
   } catch (error) {
     console.log(error);
   }
-
   try {
     //Portfoliovalue
     var ctx = document.getElementById("portfoliovalue");
@@ -800,29 +805,132 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["Q4 2017", "Q1 2018", "Q2 2018", "Q3 2018", "Q4 2018", "Q1 2019", "Q2 2019"],
+          labels: ["Q3 2017", "Q4 2017", "Q1 2018", "Q2 2018", "Q3 2018", "Q4 2018", "Q1 2019", "Q2 2019","Q3 2019", "Q4 2019", "Q1 2020", "Q2 2020","Q3 2020"],
           type: 'line',
           defaultFontFamily: 'Poppins',
           datasets: [{
             label: "Invested Capital",
-            data: [100000, 250000, 450000, 775000, 875000, 1000000, 1215000],
+            data: [50000, 100000, 415000, 615000, 1215000, 1315000, 1565000,1590000,1805000,1865000,1865000,1885000,1994472],
             backgroundColor: 'transparent',
-            borderColor: 'rgba(220,53,69,0.75)',
+            borderColor: 'rgba(255,255,255, 0.9)',
             borderWidth: 3,
             pointStyle: 'circle',
             pointRadius: 5,
             pointBorderColor: 'transparent',
-            pointBackgroundColor: 'rgba(220,53,69,0.75)',
+            pointBackgroundColor: 'rgba(255,165,0)',
           }, {
             label: "Portfolio Value",
-            data: [150000, 500000, 800000, 1500000, 1600000, 2000000, 2215000],
+            data: [102500, 205000, 850750, 861000, 1600000, 2490750, 2695750, 3208250,3259500,3700250,3823250,4289500,3393000,3590049],
             backgroundColor: 'transparent',
             borderColor: 'rgba(40,167,69,0.75)',
             borderWidth: 3,
             pointStyle: 'circle',
             pointRadius: 5,
             pointBorderColor: 'transparent',
-            pointBackgroundColor: 'rgba(40,167,69,0.75)',
+            pointBackgroundColor: 'rgba(44, 130, 201, 1)',
+          }]
+        },
+        options: {
+          responsive: true,
+          tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Poppins',
+            bodyFontFamily: 'Poppins',
+            cornerRadius: 3,
+            intersect: false,
+          },
+          legend: {
+            display: false,
+            labels: {
+              usePointStyle: true,
+              fontFamily: 'Poppins',
+            },
+          },
+          scales: {
+            xAxes: [{
+              display: true,
+              gridLines: {
+                display: false,
+                drawBorder: false
+              },
+              scaleLabel: {
+                display: false,
+                labelString: 'Month'
+              },
+              ticks: {
+                fontFamily: "Poppins",
+                fontColor: "white"
+              }
+            }],
+            yAxes: [{
+              display: true,
+              gridLines: {
+                display: false,
+                drawBorder: false
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'Portfolio Value',
+                fontFamily: "Poppins"
+
+              },
+              ticks: {
+                fontFamily: "Poppins",
+                fontColor: "white"
+              }
+            }]
+          },
+          title: {
+            display: false,
+            text: 'Normal Legend'
+          }
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+
+
+
+  try {
+    //Portfoliovalue
+    var ctx = document.getElementById("rocketfundportfoliovalue");
+    if (ctx) {
+      ctx.height = 100;
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ["Q3 2019", "Q4 2019", "Q1 2020", "Q2 2020","Q3 2020"],
+          type: 'line',
+          defaultFontFamily: 'Poppins',
+          datasets: [{
+            label: "Invested Capital",
+            data: [250000.00,700000.00,950000.00,1950000.00,2575000.00,4075000.00],
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(255,255,255, 0.9)',
+            borderWidth: 3,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: 'rgba(255,165,0)',
+          }, {
+            label: "Portfolio Value",
+            data: [250000.00,700000.00,950000.00,1950000.00,3862500.00,6112500.00],
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(40,167,69,0.75)',
+            borderWidth: 3,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: 'rgba(44, 130, 201, 1)',
           }]
         },
         options: {
@@ -1354,7 +1462,7 @@ try {
         },
         options: {
           legend: {
-            display: false,
+            display: true,
             position: 'top',
             labels: {
               fontFamily: 'Poppins'

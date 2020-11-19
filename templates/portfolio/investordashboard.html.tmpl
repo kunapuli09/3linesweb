@@ -32,7 +32,7 @@
       {{if .DisplayPieChart}}
       <div class="au-card m-b-10">
          <div class="au-card-inner">
-            <h3 class="title-2 m-b-20">Investor Contribution</h3>
+            <h3 class="title-2 m-b-20">My Investments</h3>
             <canvas id="CapitalContributionPieChart"></canvas>
          </div>
       </div>
@@ -46,7 +46,7 @@
                </div>
                <div class="text">
                   <h2>{{.InvestmentAmount}}</h2>
-                  <span>Investor Contribution</span></br>
+                  <span>Investment</span></br>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -67,19 +67,41 @@
       {{end}}
    </div>
    <div class="col-sm-6">
-      <div class="overview-item overview-item--c1">
-         <div class="overview__inner">
-            <div class="overview-box clearfix">
-               <div class="text">
-                  <h2>3Lines Diversification</h2><span> (Note: Highlight the bars)</span>
+               <div class="overview-item overview-item--c1">
+                  <div class="overview__inner">
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>10,000,000</h2>
+                           <span>Current Total Assets Under Management</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>5,000,000</h2>
+                           <span>Co-Investment Signups for Next 3 Yrs</span>
+                        </div>
+                     </div>
+                     <div class="overview-box clearfix">
+                        <div class="icon">
+                           <i class="zmdi zmdi-money"></i>
+                        </div>
+                        <div class="text">
+                           <h2>5,000,000</h2>
+                           <span>Venture Debt Signups for Next 3 Yrs</span>
+                        </div>
+                     </div>
+                     <div class="overview-chart">
+                        <canvas id="CapitalInvestmentBarChart"></canvas>
+                     </div>
+                  </div>
                </div>
             </div>
-            <div class="overview-chart">
-               <canvas id="CapitalInvestmentBarChart"></canvas>
-            </div>
-         </div>
-      </div>
-   </div>
 </div>
 {{if .FundIInvestor}}
 <div class="row m-t-25">
@@ -100,13 +122,22 @@
    <div class="col-sm-3">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
+         <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>1,994,472</h2>
+                  <span>Fund I+SPVs Invested</span>
+               </div>
+            </div>
           <div class="overview-box clearfix">
                <div class="icon">
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>1,480,000</h2>
-                  <span>Total Raised</span>
+                  <h2>1,634,000</h2>
+                  <span>Raised through Fund I</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -114,26 +145,8 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>1,335,000</h2>
-                  <span>Total Invested</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>121,000</h2>
-                  <span>Total Expenses</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>24,000</h2>
-                  <span>Capital Reserve</span>
+                  <h2>565,000</h2>
+                  <span>Raised through SPVs</span>
                </div>
             </div>
          </div>
@@ -142,22 +155,13 @@
    <div class="col-sm-3">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
-         <div class="overview-box clearfix">
+            <div class="overview-box clearfix">
                <div class="icon">
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>11,060</h2>
-                  <span>Legal Expenses(2017)</span>
-               </div>
-            </div>
-          <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>14,675</h2>
-                  <span>Op Expenses(2017-2020)</span>
+                  <h2>25,735</h2>
+                  <span>Legal+OpExpenses</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -174,8 +178,8 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>74,000</h2>
-                  <span>Fee Total (2017-2020)</span>
+                  <h2>121,000</h2>
+                  <span>Lifetime Mgmt Fee</span>
                </div>
             </div>
          </div>
@@ -188,14 +192,33 @@
 <div class="row m-t-25">
    <div class="col-sm-6">
       <div class="overview-item overview-item--c2">
+         <div class="overview-item overview-item--c2">
          <div class="overview__inner">
+         <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>4,075,000</h2>
+                  <span>Fund II+SPVs Invested</span>
+               </div>
+            </div>
+         <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>6,000,000</h2>
+                  <span>Total Raised(Fund II + SPVs)</span>
+               </div>
+            </div>
           <div class="overview-box clearfix">
                <div class="icon">
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>2,806,000</h2>
-                  <span>Total First Tranche</span>
+                  <h2>~5,000,000</h2>
+                  <span>Raised through Fund II</span>
                </div>
             </div>
             <div class="overview-box clearfix">
@@ -203,44 +226,41 @@
                   <i class="zmdi zmdi-money"></i>
                </div>
                <div class="text">
-                  <h2>1,514,000</h2>
-                  <span>Total Second Tranche</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>2,000,000</h2>
-                  <span>Total Invested</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>8,000,000</h2>
-                  <span>Total Interests</span>
+                  <h2>1,150,000</h2>
+                  <span>Raised through SPVs</span>
                </div>
             </div>
          </div>
       </div>
+      </div>
    </div>
    <div class="col-sm-6">
+      <div class="overview-item overview-item--c4">
+      <div class="overview__inner">
+         <div class="overview-box clearfix">
+               <span>Arzooo Initial Investment Multipled 3.97 times</span>
+               <div class="text">
+                  <h2>Rocket Fund Performance</h2>
+               </div>
+            </div>
+            <div class="overview-box clearfix"></div>
+            <canvas id="rocketfundportfoliovalue"></canvas>
+         </div>
+      </div>
+   </div>
+   <!-- <div class="col-sm-6">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
             <div class="overview-box clearfix">
                <div class="text">
                   <h2>Deal Velocity</h2>
-                  <span>Invested: Q3/2019:Popwallet Q4/2019:SOAR, Arzooo Q1/2020:Cyr3Con | Q2/2020: Vetty</span>
+                  <span>Invested: Q3/2019:Popwallet Q4/2019:SOAR, Arzooo Q1/2020:Cyr3Con | Q2/2020: Vetty | Q3/2020 SignalX, Arzooo | Q4/2020 Echosec</span>
                </div>
             </div>
                <canvas id="dealvelocity"></canvas>
          </div>
       </div>
-   </div>
+   </div> -->
 
    <!-- <div class="col-sm-3">
       <div class="overview-item overview-item--c2">

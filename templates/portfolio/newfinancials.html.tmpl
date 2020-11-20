@@ -13,7 +13,7 @@
              <th scope="row">{{.ID}}</th>
              <td>{{.FormattedReportingDate}}</td>
              <td>{{.Revenue | currencyFormat }}</td>
-             <td>{{.Assessment}}</td>
+             <td>{{.LTMEBITDA | currencyFormat }}</td>
              <td><a class="btn btn-sm btn-outline-primary" href="/editfinancials?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Update </a></td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removefinancials?id={{.ID}}&Investment_ID={{ $.Investment.ID }}" role="button"> Remove </a></td>
             </tr>

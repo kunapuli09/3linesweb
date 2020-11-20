@@ -41,16 +41,15 @@
                         {{else}}
                         <td><p class="text-success">{{.LastYearRevenue | currencyFormat}} </p></td>
                         {{end}}
-                        {{if .IsLastYearEBIDTANegative}}
-                        <td><p class="text-danger">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
-                        {{else}}
-                        <td><p class="text-success">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
-                        {{end}}
                         {{if .IsForecastedRevenueNegative}}
                         <td><p class="text-danger">{{.ForecastedRevenue | currencyFormat}} </p></td>
                         {{else}}
                         <td><p class="text-success">{{.ForecastedRevenue | currencyFormat}} </p></td>
-                        
+                        {{end}}
+                        {{if .IsLastYearEBIDTANegative}}
+                        <td><p class="text-danger">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
+                        {{else}}
+                        <td><p class="text-success">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
                         {{end}}
                         {{if .IsForecastedEBIDTANegative}}
                         <td><p class="text-danger">{{.ForecastedEBIDTA | currencyFormat}}</p> </td>

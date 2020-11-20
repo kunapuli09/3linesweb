@@ -130,6 +130,7 @@
                               <tr>
                                  <th scope="col">Reporting Date</th>
                                  <th scope="col">Revenue</th>
+                                 <th scope="col">EBITDA</th>
                                  <th scope="col">YOY % Growth</th>
                               </tr>
                            </thead>
@@ -138,6 +139,7 @@
                               <tr>
                                  <td>{{.FormattedReportingDate}}</td>
                                  <td>{{.Revenue | currencyFormat}}</td>
+                                 <td>{{.LTMEBITDA | currencyFormat}}</td>
                                  <td>{{.YoYGrowthPercentage1}}%</td>
                               </tr>
                               {{end}}

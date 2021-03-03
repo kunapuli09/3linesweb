@@ -68,6 +68,23 @@ CREATE TABLE news (
     ON DELETE CASCADE
 )ENGINE=INNODB;
 
+CREATE TABLE assessments (
+    id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    investment_id bigint(20) unsigned NOT NULL,
+    ReviewDate timestamp,
+    RevenueGrowth TEXT,
+    Execution TEXT,
+    Leadership TEXT,
+    RevenueBreakEvenPlan TEXT,
+    KeyGrowthEnablers TEXT,
+    PlaybookAdoption VARCHAR(255),
+    Status VARCHAR(255),
+    INDEX review_ind (investment_id),
+        FOREIGN KEY (investment_id)
+        REFERENCES investments(id)
+        ON DELETE CASCADE
+)ENGINE=INNODB;
+
 CREATE TABLE docs (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     investment_id bigint(20) unsigned NOT NULL,

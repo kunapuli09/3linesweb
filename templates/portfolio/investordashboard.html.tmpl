@@ -6,28 +6,240 @@
       <h1 class="jumbotron-heading">
          Welcome To Investor Dashboard
       </h1>
+      <span>Your Ownership Percentages</span>
+      {{range .Contributions}}
+      <span>{{.FundLegalName}} - {{.OwnershipPercentage}}%</span></br>
+      {{end}}
       <button class="au-btn au-btn-icon au-btn--blue2" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Tax Documents
-            </button>
-            <div id="collapseOne" class="collapse">
-                  <p class="card-text">
-                  <table class="table">
-                  <tbody>
-                  {{range .InvestmentDocs }}
-                  <tr>
-                   <td>
+      Tax Documents
+      </button>
+      <div id="collapseOne" class="collapse">
+         <p class="card-text">
+         <table class="table">
+            <tbody>
+               {{range .InvestmentDocs }}
+               <tr>
+                  <td>
                      <a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" download="{{ .DocName }}" role="button"><i class="zmdi zmdi-download"></i>{{ .DocName }}</a>
-                     </td>
-                  </tr>
-                  {{end}}
-                </tbody>
-              </table>
-             </p>
-            </div>
+                  </td>
+               </tr>
+               {{end}}
+            </tbody>
+         </table>
+         </p>
+      </div>
    </div>
 </section>
-<p class="lead text-muted"></p>
-<div class="row m-t-25">
+{{if .FundIInvestor}}
+<section class="p-t-20">
+<!-- Portfolio Ratings Table -->
+   <div class="container-fluid">
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND I Forecasts 10-11x Return in Three Years</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+               <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQKAve72-n3us87Nch_l4Sk6wRco3Ab6FRI3uLkeAsLD1K6yOwTtGWsdzpKkm025SMqKlzKHPlYMPDN/pubchart?oid=703267337&amp;format=interactive"></iframe>
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND I Detailed Performance and Forecast of Big Winners</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+               <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTfJU_LYUaFxVBjtVhmUbDP3WP23yuQ5infY28nbV2FKflN15DqGcwaEimlmpbzb2idxeXYzen0Zfgp/pubchart?oid=1850120934&amp;format=interactive"></iframe>
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND I Detailed Performance and Forecast</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+               <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_Y8iY3seUsDi5bdqM7ec9119esGK7jPX_tTEPQHjdvie5lX9hLJ87fHVv2rP_CKPCgZu8M2PwYuB/pubchart?oid=1850120934&amp;format=interactive"></iframe>
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      
+   </div>
+</div>
+</section>
+{{end}}
+{{if .FundIIInvestor}}
+<section class="p-t-20">
+<!-- Portfolio Ratings Table -->
+   <div class="container-fluid">
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND II Forecasts 20-25x Return in Three Years</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+               <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRoikZDWfv4Jt86gujVjkcSSF8fb6GN14_VtmbYhH0PHXvN7ICREn5MDUIm5v3c0Yrag-YawLLslGaK/pubchart?oid=703267337&amp;format=interactive"></iframe>
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND II Detailed Performance and Forecast of Big Winners</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+             <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSc6NWt_1I4DWthdZflMNqiyuTiVFxNlnswnd6pGDZIYyYPpwkjvTmpdbU6tWjcCzUVjFqy97_aKlER/pubchart?oid=1850120934&amp;format=interactive"></iframe>  
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      <div class="row">
+         <div class='col-sm-3'></div>
+         <div class="col-sm-8">
+            <h3 class="title-5 m-b-35">FUND II Detailed Performance and Forecast</h3>
+            <div class="embed-responsive embed-responsive-16by9 align-items-center">
+               <iframe class="embed-responsive-item" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTwq_RA4WWdHBfB_hgbyE_pn4HKd_1P2Hu3P7ttFiFiQE6Pf_jcweuYLiIY6_8UIIBy-nQAnb4lcefF/pubchart?oid=1850120934&amp;format=interactive"></iframe>
+               </div>
+         </div>
+         <div class='col-sm-1'></div>
+      </div>
+      
+   </div>
+</div>
+</section>
+{{end}}
+
+      
+<!-- End Revenue Table -->
+<!-- DATA TABLE-->
+<section class="p-t-20">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <h3 class="title-5 m-b-35">Investment Portfolio</h3>
+            {{if .Investments}}
+            <div class="table-responsive table--no-card m-b-30">
+               <table class="table table-hover table-borderless table-striped table-earning ">
+                  <thead>
+                     <tr>
+                        <th>Company Name</th>
+                        <th>Playbook Rating</th>
+                        <th>Team</th>
+                        <th>Revenue Growth</th>
+                        <th>Return Multiple Projection</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {{range .Investments }}
+                     <tr id="{{.ID}}" class="tr-shadow">
+                        <td>{{.StartupName}}</td>
+                        <td>
+                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           <p class="text-danger">Slow Growth
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           <p class="text-info">High Potential</p>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           <p class="text-success">Star</p>
+                           {{ end }}
+                           {{ if eq "POOR_PERFORMANCE" .Status }}
+                           <p class="text-danger">Slow Growth</p>
+                           {{ end }}
+                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                           <p class="text-secondary">Acquired</p>
+                           {{ end }}
+                        </td>
+                        <td>
+                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           <p class="text-danger">B-C
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           <p class="text-info">A-B+</p>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           <p class="text-success">A+</p>
+                           {{ end }}
+                           {{ if eq "POOR_PERFORMANCE" .Status }}
+                           <p class="text-danger">B-C</p>
+                           {{ end }}
+                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                           <p class="text-secondary">C</p>
+                           {{ end }}
+                        </td>
+                        <td>
+                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           <p class="text-danger">Less than 50% of Plan
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           <p class="text-info">50-70% of Plan</p>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           <p class="text-success">70%+ of Plan</p>
+                           {{ end }}
+                           {{ if eq "POOR_PERFORMANCE" .Status }}
+                           <p class="text-danger">Less than 50% of Plan</p>
+                           {{ end }}
+                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                           <p class="text-secondary">Less than 50% of Plan</p>
+                           {{ end }}
+                        </td>
+                        <td>
+                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           <p class="text-danger">1-2X
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           <p class="text-info">More than 10X</p>
+                           {{ end }}
+                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           <p class="text-success">More than 10X</p>
+                           {{ end }}
+                           {{ if eq "POOR_PERFORMANCE" .Status }}
+                           <p class="text-danger">1-2X</p>
+                           {{ end }}
+                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
+                           <p class="text-secondary">1-2X</p>
+                           {{ end }}
+                        </td>
+                     </tr>
+                     <tr class="spacer"></tr>
+                     {{end}}
+                  </tbody>
+               </table>
+            </div>
+            {{end}}
+         </div>
+      </div>
+   </div>
+</section>
+<!-- END DATA TABLE-->
+{{end}}
+
+<!-- <div class="col-md-12">
+            <h3 class="title-5 m-b-35">FUND I DETAILED PERFORMANCE WITHOUT THE BIG WINNERS</h3>
+            <div class="embed-responsive embed-responsive-21by9">
+            <iframe width="733" height="336" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRs_Y8iY3seUsDi5bdqM7ec9119esGK7jPX_tTEPQHjdvie5lX9hLJ87fHVv2rP_CKPCgZu8M2PwYuB/pubchart?oid=1850120934&amp;format=interactive"></iframe>
+         </div>
+         
+         <div class="col-md-12" align="text-center">
+            <h3 class="title-5 m-b-35">FUND I EXPECTED DELIVER 4X WITHOUT THE BIG WINNERS</h3>
+            <div class="embed-responsive embed-responsive-21by9">
+            <iframe width="733" height="336" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR_XBbwWihnzeXWi0WDIpws9T9EBeBYnwHfwzNFq474SiVrBXh4XMTVjJej2Pq2dMb1XEKeLo2EbCKk/pubchart?oid=463618367&amp;format=interactive"></iframe>
+         </div>
+         <h3 class="title-5 m-b-35">MOTIV PERFORMANCE</h3>
+         <div class="embed-responsive embed-responsive-21by9">
+            <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTEENUJs6oJrGwKoqoG5wR790oChcLrdpOzITc5aB5tYvSF_WY61txvCNHLlfBo13CsD8FQ_zp81FkR/pubchart?oid=1855021731&amp;format=interactive"></iframe>
+         </div>
+         <h3 class="title-5 m-b-35">OUR FOOD PERFORMANCE</h3>
+         <div class="embed-responsive embed-responsive-21by9">
+            <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vScf-o33z7gcixZ2VcBlpzPSpctQolKbmlmK4UO81E4A5r18AIk9b_lGk__9yoEmIZx-bvljsTbonqs/pubchart?oid=1148416441&amp;format=interactive"></iframe>
+         </div>
+         <h3 class="title-5 m-b-35">ROADBOTICS</h3>
+         <div class="embed-responsive embed-responsive-21by9">
+            <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTbzX4VhquD4885f6iIb-bMZzqwF3ve7BZwrB_Dn2EEZUJKQeTTl21Lzb90ikDxltjh4oX_IIRVwrVM/pubchart?oid=387620388&amp;format=interactive"></iframe>
+         </div> -->
+
+<!-- <div class="row m-t-25">
    <div class="col-sm-6">
       {{if .DisplayPieChart}}
       <div class="au-card m-b-10">
@@ -48,7 +260,7 @@
                   <h2>{{.InvestmentAmount}}</h2>
                   <span>Investment</span></br>
                </div>
-            </div>
+               </div> 
             <div class="overview-box clearfix">
                <div class="text">
                   <h2>{{.FundLegalName}}</h2>
@@ -67,127 +279,127 @@
       {{end}}
    </div>
    <div class="col-sm-6">
-               <div class="overview-item overview-item--c1">
-                  <div class="overview__inner">
-                     <div class="overview-box clearfix">
-                        <div class="icon">
-                           <i class="zmdi zmdi-money"></i>
-                        </div>
-                        <div class="text">
-                           <h2>10,000,000</h2>
-                           <span>Current Total Assets Under Management</span>
-                        </div>
-                     </div>
-                     <div class="overview-box clearfix">
-                        <div class="icon">
-                           <i class="zmdi zmdi-money"></i>
-                        </div>
-                        <div class="text">
-                           <h2>5,000,000</h2>
-                           <span>Co-Investment Signups for Next 3 Yrs</span>
-                        </div>
-                     </div>
-                     <div class="overview-box clearfix">
-                        <div class="icon">
-                           <i class="zmdi zmdi-money"></i>
-                        </div>
-                        <div class="text">
-                           <h2>5,000,000</h2>
-                           <span>Venture Debt Signups for Next 3 Yrs</span>
-                        </div>
-                     </div>
-                     <div class="overview-chart">
-                        <canvas id="CapitalInvestmentBarChart"></canvas>
-                     </div>
+      <div class="overview-item overview-item--c1">
+         <div class="overview__inner">
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>10,000,000</h2>
+                  <span>Current Total Assets Under Management</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>5,000,000</h2>
+                  <span>Co-Investment Signups for Next 3 Yrs</span>
+               </div>
+            </div>
+            <div class="overview-box clearfix">
+               <div class="icon">
+                  <i class="zmdi zmdi-money"></i>
+               </div>
+               <div class="text">
+                  <h2>5,000,000</h2>
+                  <span>Venture Debt Signups for Next 3 Yrs</span>
+               </div>
+            </div>
+            <div class="overview-chart">
+               <canvas id="CapitalInvestmentBarChart"></canvas>
+            </div>
+      
+      </div>
+      </div>
+      </div> 
+   
+   <div class="row m-t-25">
+      <div class="col-sm-6">
+         <div class="overview-item overview-item--c4">
+            <div class="overview__inner">
+               <div class="overview-box clearfix">
+                  <span>One Exit Distribution Made. OverWatchID Acquired By Sailpoint in October 2019</span>
+                  <div class="text">
+                     <h2>Fund I Performance</h2>
+                  </div>
+               </div>
+               <div class="overview-box clearfix"></div>
+               <canvas id="portfoliovalue"></canvas>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-3">
+         <div class="overview-item overview-item--c2">
+            <div class="overview__inner">
+            <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>1,994,472</h2>
+                     <span>Fund I+SPVs Invested</span>
+                  </div>
+               </div>
+             <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>1,634,000</h2>
+                     <span>Raised through Fund I</span>
+                  </div>
+               </div>
+               <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>565,000</h2>
+                     <span>Raised through SPVs</span>
                   </div>
                </div>
             </div>
-</div>
-{{if .FundIInvestor}}
-<div class="row m-t-25">
-   <div class="col-sm-6">
-      <div class="overview-item overview-item--c4">
-      <div class="overview__inner">
-         <div class="overview-box clearfix">
-               <span>One Exit Distribution Made. OverWatchID Acquired By Sailpoint in October 2019</span>
-               <div class="text">
-                  <h2>Fund I Performance</h2>
-               </div>
-            </div>
-            <div class="overview-box clearfix"></div>
-            <canvas id="portfoliovalue"></canvas>
          </div>
-      </div>
-   </div>
-   <div class="col-sm-3">
-      <div class="overview-item overview-item--c2">
-         <div class="overview__inner">
-         <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
+         </div>
+         <div class="col-sm-3">
+         <div class="overview-item overview-item--c2">
+            <div class="overview__inner">
+               <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>25,735</h2>
+                     <span>Legal+OpExpenses</span>
+                  </div>
                </div>
-               <div class="text">
-                  <h2>1,994,472</h2>
-                  <span>Fund I+SPVs Invested</span>
+               <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>21,265</h2>
+                     <span>Insurance(2017-2020)</span>
+                  </div>
                </div>
-            </div>
-          <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>1,634,000</h2>
-                  <span>Raised through Fund I</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>565,000</h2>
-                  <span>Raised through SPVs</span>
+               <div class="overview-box clearfix">
+                  <div class="icon">
+                     <i class="zmdi zmdi-money"></i>
+                  </div>
+                  <div class="text">
+                     <h2>121,000</h2>
+                     <span>Lifetime Mgmt Fee</span>
+                  </div>
                </div>
             </div>
          </div>
-      </div>
+         </div> 
    </div>
-   <div class="col-sm-3">
-      <div class="overview-item overview-item--c2">
-         <div class="overview__inner">
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>25,735</h2>
-                  <span>Legal+OpExpenses</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>21,265</h2>
-                  <span>Insurance(2017-2020)</span>
-               </div>
-            </div>
-            <div class="overview-box clearfix">
-               <div class="icon">
-                  <i class="zmdi zmdi-money"></i>
-               </div>
-               <div class="text">
-                  <h2>121,000</h2>
-                  <span>Lifetime Mgmt Fee</span>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-</div>
-{{end}}
+</div> -->
+<!-- 
 {{if .FundIIInvestor}}
 <div class="row m-t-25">
    <div class="col-sm-6">
@@ -233,11 +445,11 @@
          </div>
       </div>
       </div>
-   </div>
+      </div> 
    <div class="col-sm-6">
       <div class="overview-item overview-item--c4">
-      <div class="overview__inner">
-         <div class="overview-box clearfix">
+         <div class="overview__inner">
+            <div class="overview-box clearfix">
                <span>Arzooo Initial Investment Multiple 3.97 times</span>
                <div class="text">
                   <h2>Rocket Fund Performance</h2>
@@ -248,7 +460,7 @@
          </div>
       </div>
    </div>
-   <!-- <div class="col-sm-6">
+   <div class="col-sm-6">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
             <div class="overview-box clearfix">
@@ -260,9 +472,8 @@
                <canvas id="dealvelocity"></canvas>
          </div>
       </div>
-   </div> -->
-
-   <!-- <div class="col-sm-3">
+      </div>
+   <div class="col-sm-3">
       <div class="overview-item overview-item--c2">
          <div class="overview__inner">
          <div class="overview-box clearfix">
@@ -303,65 +514,53 @@
             </div>
          </div>
       </div>
-   </div> -->
+      </div>
 </div>
-</div>
-{{end}}
+</div> 
+{{end}}-->
 
-
-<!-- DATA TABLE-->
-<section class="p-t-20">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-          <h3 class="title-5 m-b-35">Investor Portfolio</h3>
-            {{if .Investments}}
-            <div class="table-responsive table-responsive-data2">
-               <table class="table table-data2 table-hover">
+<!-- <div class="row">
+         <h3 class="title-5 m-b-35">Portfolio Ratings Guide</h3>
+         <div class="col-lg-12">
+            <div class="table-responsive table--no-card m-b-30">
+               <table class="table table-borderless table-striped table-earning">
                   <thead>
                      <tr>
-                        <th>Company Name</th>
-                        <th>Status</th>
-                        <th>Current Value</th>
-                        <th>Invested Capital</th>
+                        <th>Ratings</th>
+                        <th>Revenue Growth</th>
+                        <th>Operation Discipline</th>
+                        <th>Team</th>
+                        <th>Return Multiple Projection</th>
+                        <!-- <th>3Lines Action</th> -->
                      </tr>
                   </thead>
                   <tbody>
-                     {{range .Investments }}
-                      <tr id="{{.ID}}" class="tr-shadow">
-                        <td>{{.StartupName}}</td>
-                        <td>
-                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
-                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Below Target"><i class="fa fa-circle" style="font-size:48px;color:#ffc107"></i>
-                           {{ end }}
-                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
-                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance On Target"><i class="fa fa-circle" style="font-size:48px;color:#6c757d"></i>
-                           {{ end }}
-                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
-                           <span class="item" data-toggle="tooltip" data-placement="top" title="Performance Above Target"><i class="fa fa-circle" style="font-size:48px;color:#28a745"></i>
-                           {{ end }}
-                           {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <span class="item" data-toggle="tooltip" data-placement="top" title="Poor Performance"><i class="fa fa-circle" style="font-size:48px;color:#dc3545"></i>
-                           {{ end }}
-                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <span class="item" data-toggle="tooltip" data-placement="top" title="Acquired Or Sold"><i class="fa fa-circle" style="font-size:48px;color:#17a2b8"></i>
-                           {{ end }}
-                        </td>
-                        <td class="desc">{{.ReportedValue | currencyFormat }}</td>
-                        <td>
-                           {{.InvestedCapital | currencyFormat}}
-                        </td>
-                        
+                     <tr>
+                        <td>Star</td>
+                        <td>70%+ of Plan</td>
+                        <td>Metric Driven</td>
+                        <td>A+</td>
+                        <td>More than 10X</td>
+                        <!-- <td>Support founder, increase equity stake to 10% +</td> -->
                      </tr>
-                     <tr class="spacer"></tr>
-                     {{end}}
+                     <tr>
+                        <td>High Potential</td>
+                        <td>50-70% of Plan</td>
+                        <td>Ad hoc </td>
+                        <td>A-B+</td>
+                        <td>More than 5X</td>
+                        <!-- <td>Mentor founder , increase  equity to 6-7%</td> -->
+                     </tr>
+                     <tr>
+                        <td>Slow Growth</td>
+                        <td>Less than 50% of Plan</td>
+                        <td>Capital Hungry</td>
+                        <td>B- C</td>
+                        <td>1-2X</td>
+                        <!-- <td>Manage for 2x ROI, look for pivots and down rounds</td> -->
+                     </tr>
                   </tbody>
                </table>
             </div>
-            {{end}}
          </div>
-      </div>
-   </div>
-</section>
-<!-- END DATA TABLE-->
-{{end}}
+      </div> -->

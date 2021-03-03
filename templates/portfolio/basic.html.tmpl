@@ -43,6 +43,8 @@
       <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
       <meta name="msapplication-TileColor" content="#00a300">
       <meta name="theme-color" content="#ffffff">
+      <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      <!-- end canva js -->
    </head>
    <body id="page-top">
       {{if .CurrentUser}}
@@ -239,6 +241,31 @@
            tabsize: 2,
            height: 100
          });
+         $('#arevenuegrowth').summernote({
+           placeholder: 'Revenue Growth',
+           tabsize: 2,
+           height: 100
+         });
+         $('#aexecution').summernote({
+           placeholder: 'Execution',
+           tabsize: 2,
+           height: 100
+         });
+         $('#aleadership').summernote({
+           placeholder: 'Leadership',
+           tabsize: 2,
+           height: 100
+         });
+         $('#arevenuebreakevenplan').summernote({
+           placeholder: 'RevenueBreakEvenPlan',
+           tabsize: 2,
+           height: 100
+         });
+         $('#akeygrowthenablers').summernote({
+           placeholder: 'KeyGrowthEnablers',
+           tabsize: 2,
+           height: 100
+         });
          $(document).ready(function() {
          $('#summernote').summernote();
          });
@@ -274,6 +301,21 @@
          });
          $(document).ready(function() {
          $('#Comments').summernote();
+         });
+         $(document).ready(function() {
+         $('#arevenuegrowth').summernote();
+         });
+         $(document).ready(function() {
+         $('#aexectuion').summernote();
+         });
+         $(document).ready(function() {
+         $('#aleadership').summernote();
+         });
+         $(document).ready(function() {
+         $('#arevenuebreakevenplan').summernote();
+         });
+         $(document).ready(function() {
+         $('#akeygrowthenablers').summernote();
          });
       </script>
       <script>
@@ -311,6 +353,7 @@
          var capitalcontributions = {{.CapitalContributions}};
       </script>
       <script src="js/FundI_Investment_Pie.js"></script> 
+      
    </body>
 </html>
 {{end}}

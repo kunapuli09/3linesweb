@@ -1,0 +1,84 @@
+{{define "content"}}
+<section class="bg-light" id="news">
+   <div class="container">
+   <a href="/viewinvestment?id={{.Investment.ID}}" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-view-list-alt"></i>Back to Investment</a> 
+   <div class="row">
+      <div class="col-lg-12 text-center">
+         <h3 class="section-heading text-uppercase">Add or Change Assessment for Startup {{.Investment.StartupName}}</h3>
+      </div>
+   </div>
+   <div class="row">
+    <div class="col-md-3">
+        <form method="post" class="range-field" action="/updateAssessment"/>
+      <input type="hidden" name="id" id="id" value="{{.Assessment.ID}}"/>
+      <input type="hidden" name="Investment_ID" id="Investment_ID" value="{{.Investment.ID}}"/>
+     
+         <div class="form-group">
+            <label for="Status">Status</label>
+            <select class="form-control" id="Status" name="Status">
+               <option value="Star" {{ if eq "Star" .Assessment.Status }}selected="selected"{{ end }}>Star</option>
+               <option value="HighPotential" {{ if eq "HighPotential" .Assessment.Status }}selected="selected"{{ end }}>High Potential</option>
+               <option value="SlowGrowth" {{ if eq "SlowGrowth" .Assessment.Status }}selected="selected"{{ end }}>Slow Growth</option>
+            </select>
+         </div>
+         <div class="form-group">
+          <label for="PlaybookAdoption">PlaybookAdoption</label>
+          <input name="PlaybookAdoption" type="text" class="form-control" placeholder="Playbook Adoption %" value="{{ .Assessment.PlaybookAdoption }}"  autofocus>
+          </div>
+         <label for="ReviewDate">Review Date</label>
+         <div class="input-group date" data-provide="datepicker-inline">
+         <input type="text" id="ReviewDate" name="ReviewDate" value="{{.Assessment.FormattedReviewDate}}" class="form-control">
+         <div class="input-group-addon">
+         <i class="fa fa-calendar" aria-hidden="true"></i><span class="glyphicon glyphicon-th"></span>
+        </div>
+        </div>
+       </div>
+     </div>
+       <div class="row">
+        <div class="col-lg-12">
+        <div class="form-group">
+        <label for="RevenueGrowth">Revenue Growth</label>
+        <textarea id="arevenuegrowth" name="RevenueGrowth">{{ .Assessment.RevenueGrowth | safeHTML }}</textarea>
+        </div> 
+        </div>   
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        <div class="form-group">
+        <label for="Execution">Execution</label>
+        <textarea id="aexecution" name="Execution">{{ .Assessment.Execution | safeHTML }}</textarea>
+        </div> 
+        </div>   
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        <div class="form-group">
+        <label for="Leadership">Leadership</label>
+        <textarea id="aleadership" name="Leadership">{{ .Assessment.Leadership | safeHTML }}</textarea>
+        </div> 
+        </div>   
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        <div class="form-group">
+        <label for="RevenueBreakEvenPlan">Revenue BreakEven Plan</label>
+        <textarea id="arevenuebreakevenplan" name="RevenueBreakEvenPlan">{{ .Assessment.RevenueBreakEvenPlan | safeHTML }}</textarea>
+        </div> 
+        </div>   
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+        <div class="form-group">
+        <label for="KeyGrowthEnablers">Key Growth Enablers</label>
+        <textarea id="akeygrowthenablers" name="KeyGrowthEnablers">{{ .Assessment.KeyGrowthEnablers | safeHTML }}</textarea>
+        </div> 
+        </div>   
+      </div> 
+      <button class="au-btn au-btn-icon au-btn--blue2" type="submit">Update</button>
+      <a class="au-btn au-btn-icon au-btn--blue2" href="/entryaccess" class="other-form text-center">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+</section>
+{{end}}

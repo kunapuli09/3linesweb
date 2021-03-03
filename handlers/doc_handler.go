@@ -102,8 +102,6 @@ func GetUserDocs(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "layout", data)
 }
 
-
-
 //database call to add new
 func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {
 	var docs []*models.InvestmentDocRow

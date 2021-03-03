@@ -65,6 +65,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.Handle("/", http.HandlerFunc(handlers.GetHome)).Methods("GET")
 	//router.HandleFunc("/signup", handlers.PostSignup).Methods("POST")
 	router.HandleFunc("/rsvp", handlers.GetEvents).Methods("GET")
+	router.HandleFunc("/RSVP", handlers.GetEvents).Methods("GET")
 	router.HandleFunc("/rsvp", handlers.RSVP).Methods("POST")
 	router.HandleFunc("/performance", handlers.GetPerformance).Methods("GET")
 	router.HandleFunc("/login", handlers.GetLogin).Methods("GET")
@@ -131,6 +132,8 @@ func (app *Application) mux() *gorilla_mux.Router {
 
 	router.HandleFunc("/screeningNotes", handlers.ScreeningNotes).Methods("GET")
 	router.HandleFunc("/updateScreeningNotes", handlers.UpdateScreeningNotes).Methods("POST")
+	router.HandleFunc("/assessments", handlers.Assessments).Methods("GET")
+	router.HandleFunc("/updateAssessment", handlers.UpdateAssessment).Methods("POST")
 	router.PathPrefix("/files/").Handler(http.StripPrefix("/files/", MustSecure(http.FileServer(http.Dir("./docs")))))
 
 	router.Handle("/users/{id:[0-9]+}", MustLogin(http.HandlerFunc(handlers.PostPutDeleteUsersID))).Methods("POST", "PUT", "DELETE")

@@ -17,11 +17,11 @@ func NewExecutive(db *sqlx.DB) *Executive {
 }
 
 type ExecutiveRow struct {
-	ID              int64           `db:"id"`
-	ApplicationDate time.Time       `db:"ApplicationDate"`
-	Name       		string          `db:"Name"`
-	Email           string          `db:"Email"`
-	SocialMediaHandle        string `db:"SocialMediaHandle"`
+	ID                int64     `db:"id"`
+	ApplicationDate   time.Time `db:"ApplicationDate"`
+	Name              string    `db:"Name"`
+	Email             string    `db:"Email"`
+	SocialMediaHandle string    `db:"SocialMediaHandle"`
 	//Google Captcha Response Field Required for Form Parsing
 	//Not storing this field in database
 	rcres string

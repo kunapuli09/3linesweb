@@ -32,32 +32,32 @@
                      {{range .Table }}
                       <tr id="{{.ID}}" class="tr-shadow">
                         <td>{{.StartupName}}</td>
-                        <td class="desc">{{.TotalCapitalRaised | currencyFormat }}</td>
-                        <td>{{.InvestedCapital | currencyFormat}}</td>
-                        <td class="desc">{{.ReportedValue | currencyFormat }}</td>
+                        <td class="desc">{{.TotalCapitalRaised | currencyFormat }}M</td>
+                        <td>{{.InvestedCapital | currencyFormat}}M</td>
+                        <td class="desc">{{.ReportedValue | currencyFormat }}M</td>
                         <td>{{.InvestmentMultiple }}X</td>
                         {{if .IsLastYearRevenueNegative}}
-                        <td><p class="text-danger">{{.LastYearRevenue | currencyFormat}}</p> </td>
+                        <td><p class="text-danger">{{.LastYearRevenue | currencyFormat}}M</p> </td>
                         {{else}}
-                        <td><p class="text-success">{{.LastYearRevenue | currencyFormat}} </p></td>
+                        <td><p class="text-success">{{.LastYearRevenue | currencyFormat}}M</p></td>
                         {{end}}
                         {{if .IsForecastedRevenueNegative}}
-                        <td><p class="text-danger">{{.ForecastedRevenue | currencyFormat}} </p></td>
+                        <td><p class="text-danger">{{.ForecastedRevenue | currencyFormat}}M</p></td>
                         {{else}}
-                        <td><p class="text-success">{{.ForecastedRevenue | currencyFormat}} </p></td>
+                        <td><p class="text-success">{{.ForecastedRevenue | currencyFormat}}M</p></td>
                         {{end}}
                         {{if .IsLastYearEBIDTANegative}}
-                        <td><p class="text-danger">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
+                        <td><p class="text-danger">{{.LastYearEBIDTA | currencyFormat}}M</p> </td>
                         {{else}}
-                        <td><p class="text-success">{{.LastYearEBIDTA | currencyFormat}}</p> </td>
+                        <td><p class="text-success">{{.LastYearEBIDTA | currencyFormat}}M</p> </td>
                         {{end}}
                         {{if .IsForecastedEBIDTANegative}}
-                        <td><p class="text-danger">{{.ForecastedEBIDTA | currencyFormat}}</p> </td>
+                        <td><p class="text-danger">{{.ForecastedEBIDTA | currencyFormat}}M</p> </td>
                         {{else}}
-                        <td><p class="text-success">{{.ForecastedEBIDTA | currencyFormat}} </p></td>
+                        <td><p class="text-success">{{.ForecastedEBIDTA | currencyFormat}}M</p></td>
                         {{end}}
                         {{if .IsLastYearRevenueToCapitalNegative}}
-                        <td><p class="text-danger">{{.LastYearRevenueToCapital }}% </p></td>
+                        <td><p class="text-danger">{{.LastYearRevenueToCapital }}%</p></td>
                         {{else}}
                         <td><p class="text-success">{{.LastYearRevenueToCapital }}% </p></td>
                         {{end}}

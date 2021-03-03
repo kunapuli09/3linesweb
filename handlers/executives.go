@@ -1,9 +1,13 @@
 package handlers
 
 import (
-	"fmt"
+	"database/sql"
 	"errors"
+	"fmt"
+	"github.com/fatih/structs"
+	"github.com/gorilla/schema"
 	"github.com/haisum/recaptcha"
+	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
 	"html/template"
@@ -11,13 +15,7 @@ import (
 	"net/http"
 	"os"
 	"time"
-	"github.com/gorilla/schema"
-	"github.com/fatih/structs"
-	"github.com/jmoiron/sqlx"
-	"database/sql"
 )
-
-
 
 func GetExecutives(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -86,4 +84,3 @@ func AddExecutive(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/", 302)
 }
-

@@ -25,7 +25,9 @@ const PERFORMANCE_ABOVE_TARGET = "PERFORMANCE_ABOVE_TARGET"
 const POOR_PERFORMANCE = "POOR_PERFORMANCE"
 const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 
-var ac = accounting.Accounting{Symbol: "$", Precision: 2}
+var ac = accounting.Accounting{Symbol: "$", Precision: 0}
+var revenueformat = accounting.Accounting{Symbol: "$", Precision: 2}
+
 
 func EntryAccess(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
@@ -70,7 +72,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return ac.FormatMoney(f)
+			return revenueformat.FormatMoney(f/1000000)
 		},
 	}
 	contributions, err := models.NewContribution(db).AllContributions(nil)
@@ -137,7 +139,7 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return ac.FormatMoney(f)
+			return revenueformat.FormatMoney(f/1000000)
 		},
 	}
 	revenues, err := models.NewInvestment(db).GetRevenueSummary(nil)
@@ -148,15 +150,14 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 	table := BuildRevenueSummaryDisplayTable(revenues)
 
 	sort.Slice(table, func(i, j int) bool {
-		if table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple){
+		if table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple) {
 			return true
 		}
-		if table[i].InvestmentMultiple.LessThan(table[j].InvestmentMultiple){
+		if table[i].InvestmentMultiple.LessThan(table[j].InvestmentMultiple) {
 			return false
 		}
-		return table[i].StartupName < table[j].StartupName 
+		return table[i].StartupName < table[j].StartupName
 	})
-	
 
 	//data for entryaccess.html.tmpl
 	data := struct {
@@ -196,7 +197,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return ac.FormatMoney(f)
+			return revenueformat.FormatMoney(f/1000000)
 		},
 	}
 	investmentdocs, err := models.NewUserDoc(db).GetAllByUserId(nil, currentUser.ID)
@@ -332,8 +333,9 @@ func ViewAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return ac.FormatMoney(f)
+			return revenueformat.FormatMoney(f/1000000)
 		},
+		
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
 	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
@@ -398,7 +400,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return ac.FormatMoney(f)
+			return revenueformat.FormatMoney(f/1000000)
 		},
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
@@ -425,6 +427,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 	AllCapitalStructures, err := models.NewCapitalStructure(db).GetAllByInvestmentId(nil, ID)
 	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
 	AllDocs, err := models.NewInvestmentDoc(db).GetAllByInvestmentId(nil, ID)
+	Assessment, err := models.NewAssessment(db).GetByInvestmentId(nil, 0, ID)
 
 	//create session date for page rendering
 	data := struct {
@@ -436,6 +439,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		ExistingCapitalStructures    []*models.CapitalizationStructure
 		ExistingInvestmentStructures []*models.InvestmentStructureRow
 		ExistingDocs                 []*models.InvestmentDocRow
+		Assessment                   *models.AssessmentRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -445,6 +449,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		AllCapitalStructures,
 		AllInvestmentStructures,
 		AllDocs,
+		Assessment,
 	}
 	tmpl.ExecuteTemplate(w, "layout", data)
 }

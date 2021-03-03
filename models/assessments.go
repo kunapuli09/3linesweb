@@ -10,7 +10,7 @@ import (
 func NewAssessment(db *sqlx.DB) *Assessment {
 	is := &Assessment{}
 	is.db = db
-	is.table = "Assessments"
+	is.table = "assessments"
 	is.hasID = true
 	return is
 }

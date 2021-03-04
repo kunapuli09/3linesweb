@@ -79,6 +79,11 @@ CREATE TABLE assessments (
     KeyGrowthEnablers TEXT,
     PlaybookAdoption VARCHAR(255),
     Status VARCHAR(255),
+    StartupName VARCHAR(255) NOT NULL,
+    MarketMultiple DECIMAL(20,2),
+    YearThreeForecastedRevenue DECIMAL(20,2),
+    ThreelinesValueAtExit DECIMAL(20,2),
+    YearThreeExitMultiple DECIMAL(20,2),
     INDEX review_ind (investment_id),
         FOREIGN KEY (investment_id)
         REFERENCES investments(id)
@@ -276,6 +281,13 @@ CREATE TABLE executives (
     SocialMediaHandle TEXT NOT NULL,
     UNIQUE KEY (email)
 )ENGINE=INNODB;
+
+
+alter table assessments ADD StartupName VARCHAR(255) NOT NULL;
+alter table assessments ADD MarketMultiple DECIMAL(20,2);
+alter table assessments ADD YearThreeForecastedRevenue DECIMAL(20,2);
+alter table assessments ADD ThreelinesValueAtExit DECIMAL(20,2);
+alter table assessments ADD YearThreeExitMultiple DECIMAL(20,2);
 
 alter table applications ADD  Referrer VARCHAR(255);
 alter table applications ADD  ElevatorPitch VARCHAR(255);

@@ -117,7 +117,7 @@
       <div class="row">
          <div class="col-md-12">
             <h3 class="title-5 m-b-35">Investment Portfolio</h3>
-            {{if .Investments}}
+            {{if .Assessments}}
             <div class="table-responsive table--no-card m-b-30">
                <table class="table table-hover table-borderless table-striped table-earning ">
                   <thead>
@@ -130,75 +130,51 @@
                      </tr>
                   </thead>
                   <tbody>
-                     {{range .Investments }}
-                     <tr id="{{.ID}}" class="tr-shadow">
+                     {{range .Assessments }}
+                     <tr id="{{.Investment_ID}}" class="tr-shadow">
                         <td>{{.StartupName}}</td>
                         <td>
-                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           {{ if eq "SlowGrowth" .Status }}
                            <p class="text-danger">Slow Growth
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           {{ if eq "HighPotential" .Status }}
                            <p class="text-info">High Potential</p>
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           {{ if eq "Star" .Status }}
                            <p class="text-success">Star</p>
                            {{ end }}
-                           {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <p class="text-danger">Slow Growth</p>
-                           {{ end }}
-                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <p class="text-secondary">Acquired</p>
-                           {{ end }}
                         </td>
                         <td>
-                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           {{ if eq "SlowGrowth" .Status }}
                            <p class="text-danger">B-C
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           {{ if eq "HighPotential" .Status }}
                            <p class="text-info">A-B+</p>
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           {{ if eq "Star" .Status }}
                            <p class="text-success">A+</p>
                            {{ end }}
-                           {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <p class="text-danger">B-C</p>
-                           {{ end }}
-                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <p class="text-secondary">C</p>
-                           {{ end }}
                         </td>
                         <td>
-                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           {{ if eq "SlowGrowth" .Status }}
                            <p class="text-danger">Less than 50% of Plan
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           {{ if eq "HighPotential" .Status }}
                            <p class="text-info">50-70% of Plan</p>
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           {{ if eq "Star" .Status }}
                            <p class="text-success">70%+ of Plan</p>
-                           {{ end }}
-                           {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <p class="text-danger">Less than 50% of Plan</p>
-                           {{ end }}
-                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <p class="text-secondary">Less than 50% of Plan</p>
                            {{ end }}
                         </td>
                         <td>
-                           {{ if eq "PERFORMANCE_BELOW_TARGET" .Status }}
+                           {{ if eq "SlowGrowth" .Status }}
                            <p class="text-danger">1-2X
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ON_TARGET" .Status }}
+                           {{ if eq "HighPotential" .Status }}
                            <p class="text-info">More than 10X</p>
                            {{ end }}
-                           {{ if eq "PERFORMANCE_ABOVE_TARGET" .Status }}
+                           {{ if eq "Star" .Status }}
                            <p class="text-success">More than 10X</p>
-                           {{ end }}
-                           {{ if eq "POOR_PERFORMANCE" .Status }}
-                           <p class="text-danger">1-2X</p>
-                           {{ end }}
-                           {{ if eq "ACQUIRED_OR_SOLD" .Status }}
-                           <p class="text-secondary">1-2X</p>
                            {{ end }}
                         </td>
                      </tr>

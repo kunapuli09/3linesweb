@@ -28,7 +28,6 @@ const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 var ac = accounting.Accounting{Symbol: "$", Precision: 0}
 var revenueformat = accounting.Accounting{Symbol: "$", Precision: 2}
 
-
 func EntryAccess(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
@@ -72,7 +71,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return revenueformat.FormatMoney(f/1000000)
+			return revenueformat.FormatMoney(f / 1000000)
 		},
 	}
 	contributions, err := models.NewContribution(db).AllContributions(nil)
@@ -92,6 +91,8 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		investments = append(investments, i...)
 	}
 	startupnames, amounts := CapitalSpreadDataForBarChart(investments)
+	investmentids := GetInvestmentIDsForAssessments(investments)
+	assessments, _ := models.NewAssessment(db).GetAssessmentsForInvestmentIds(nil, investmentids)
 
 	//data for entryaccess.html.tmpl
 	data := struct {
@@ -103,6 +104,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		Amounts              []decimal.Decimal
 		FundNames            []string
 		CapitalContributions []decimal.Decimal
+		Assessments          []*models.AssessmentRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -112,6 +114,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		amounts,
 		participatedFundNamesForWeb,
 		capitalcontributions,
+		assessments,
 	}
 
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/admindashboard.html.tmpl")
@@ -139,7 +142,7 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return revenueformat.FormatMoney(f/1000000)
+			return revenueformat.FormatMoney(f / 1000000)
 		},
 	}
 	revenues, err := models.NewInvestment(db).GetRevenueSummary(nil)
@@ -197,7 +200,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return revenueformat.FormatMoney(f/1000000)
+			return revenueformat.FormatMoney(f / 1000000)
 		},
 	}
 	investmentdocs, err := models.NewUserDoc(db).GetAllByUserId(nil, currentUser.ID)
@@ -229,6 +232,9 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	_, f1Investor := Find(participatedFundNamesForBackend, FUNDI)
 	_, f2Investor := Find(participatedFundNamesForBackend, FUNDII)
 	//data for entryaccess.html.tmpl
+	investmentids := GetInvestmentIDsForAssessments(investments)
+	assessments, _ := models.NewAssessment(db).GetAssessmentsForInvestmentIds(nil, investmentids)
+
 	data := struct {
 		CurrentUser          *models.UserRow
 		Count                int
@@ -242,6 +248,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		DisplayPieChart      bool
 		FundIInvestor        bool
 		FundIIInvestor       bool
+		Assessments          []*models.AssessmentRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -255,6 +262,7 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 		displayPieChart,
 		f1Investor,
 		f2Investor,
+		assessments,
 	}
 
 	tmpl, err := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/basic.html.tmpl", "templates/portfolio/investordashboard.html.tmpl")
@@ -333,9 +341,8 @@ func ViewAdminDashboard(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return revenueformat.FormatMoney(f/1000000)
+			return revenueformat.FormatMoney(f / 1000000)
 		},
-		
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
 	// tmpl, e := template.ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/basic.html.tmpl")
@@ -400,7 +407,7 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		},
 		"currencyFormat": func(currency decimal.Decimal) string {
 			f, _ := currency.Float64()
-			return revenueformat.FormatMoney(f/1000000)
+			return revenueformat.FormatMoney(f / 1000000)
 		},
 	}
 	tmpl, e := template.New("main").Funcs(funcMap).ParseFiles("templates/portfolio/viewinvestment.html.tmpl", "templates/portfolio/internal.html.tmpl")
@@ -556,6 +563,14 @@ func CapitalSpreadDataForBarChart(investments []*models.InvestmentRow) ([]string
 		amounts = append(amounts, investment.InvestedCapital)
 	}
 	return startupnames, amounts
+}
+
+func GetInvestmentIDsForAssessments(investments []*models.InvestmentRow) []int64 {
+	var investmentids []int64
+	for _, investment := range investments {
+		investmentids = append(investmentids, investment.ID)
+	}
+	return investmentids
 }
 
 func CapitalContributionDataForPieChart(contributions []*models.ContributionRow) ([]string, []string, []decimal.Decimal) {

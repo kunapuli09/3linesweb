@@ -25,6 +25,15 @@
           <label for="PlaybookAdoption">PlaybookAdoption</label>
           <input name="PlaybookAdoption" type="text" class="form-control" placeholder="Playbook Adoption %" value="{{ .Assessment.PlaybookAdoption }}"  autofocus>
           </div>
+          <div class="form-group">
+          <label for="MarketMultiple">Market Multiple Based on Topline and Bottomline Growth</label>
+          <input name="MarketMultiple" type="text" class="form-control" placeholder="Market Multiple" value="{{ .Assessment.MarketMultiple }}"  autofocus>
+          </div>
+          <div class="form-group">
+          <label for="YearThreeForecastedRevenue">Year Three Forecasted Revenue</label>
+          <input name="YearThreeForecastedRevenue" type="text" class="form-control" placeholder="Year Three Forecasted Revenue" value="{{ .Assessment.YearThreeForecastedRevenue }}"  autofocus>
+          </div>
+
          <label for="ReviewDate">Review Date</label>
          <div class="input-group date" data-provide="datepicker-inline">
          <input type="text" id="ReviewDate" name="ReviewDate" value="{{.Assessment.FormattedReviewDate}}" class="form-control">

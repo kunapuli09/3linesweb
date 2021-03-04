@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/kunapuli09/3linesweb/libhttp"
 	"github.com/kunapuli09/3linesweb/models"
+	"github.com/shopspring/decimal"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -50,10 +51,10 @@ func Assessments(w http.ResponseWriter, r *http.Request) {
 	//fmt.Printf("Assessments%v", Assessments)
 	//create session date for page rendering
 	data := struct {
-		CurrentUser          *models.UserRow
-		Count                int
-		Investment          *models.InvestmentRow
-		Assessment 			*models.AssessmentRow
+		CurrentUser *models.UserRow
+		Count       int
+		Investment  *models.InvestmentRow
+		Assessment  *models.AssessmentRow
 	}{
 		currentUser,
 		getCount(w, r, currentUser.Email),
@@ -94,6 +95,11 @@ func UpdateAssessment(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, e)
 		return
 	}
+	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
+	if err != nil {
+		libhttp.HandleErrorJson(w, err)
+		return
+	}
 	// r.PostForm is a map of our POST form values
 	decoder := schema.NewDecoder()
 	decoder.RegisterConverter(time.Time{}, ConvertFormDate)
@@ -103,9 +109,17 @@ func UpdateAssessment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m := structs.Map(i)
+	m["StartupName"] = investment.StartupName
+	yr3rev := m["YearThreeForecastedRevenue"].(decimal.Decimal)
+	marketmultiple := m["MarketMultiple"].(decimal.Decimal)
+	hundred, _ := decimal.NewFromString("100")
+	ownership := investment.FundOwnershipPercentage.Div(hundred)
+	threelinesValueAtExit := yr3rev.Mul(marketmultiple).Mul(ownership)
+	m["ThreelinesValueAtExit"] = threelinesValueAtExit
+	m["YearThreeExitMultiple"] = threelinesValueAtExit.Div(investment.InvestedCapital).Ceil()
 	//fmt.Printf("map %v", m)
 	if Assessment_ID == 0 {
-		//fmt.Printf("Creating New Notes with ApplicationID%v, ScreenerEmail%v", Investment_ID, ScreenerEmail)
+		//fmt.Printf("Creating New Assessment %v", m)
 		assessment, err2 := models.NewAssessment(db).Create(nil, m)
 		if err2 != nil {
 			libhttp.HandleErrorJson(w, err2)

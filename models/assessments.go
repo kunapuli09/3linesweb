@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/jmoiron/sqlx"
+	"github.com/shopspring/decimal"
+	"strconv"
 	"time"
 )
 
@@ -20,16 +22,21 @@ type Assessment struct {
 }
 
 type AssessmentRow struct {
-	ID                   int64     `db:"id"`
-	Investment_ID        int64     `db:"investment_id"`
-	ReviewDate           time.Time `db:"ReviewDate"`
-	Status               string    `db:"Status"`
-	RevenueGrowth        string    `db:"RevenueGrowth"`
-	Execution            string    `db:"Execution"`
-	Leadership           string    `db:"Leadership"`
-	RevenueBreakEvenPlan string    `db:"RevenueBreakEvenPlan"`
-	KeyGrowthEnablers    string    `db:"KeyGrowthEnablers"`
-	PlaybookAdoption     string    `db:"PlaybookAdoption"`
+	ID                         int64           `db:"id"`
+	Investment_ID              int64           `db:"investment_id"`
+	ReviewDate                 time.Time       `db:"ReviewDate"`
+	Status                     string          `db:"Status"`
+	RevenueGrowth              string          `db:"RevenueGrowth"`
+	Execution                  string          `db:"Execution"`
+	Leadership                 string          `db:"Leadership"`
+	RevenueBreakEvenPlan       string          `db:"RevenueBreakEvenPlan"`
+	KeyGrowthEnablers          string          `db:"KeyGrowthEnablers"`
+	PlaybookAdoption           string          `db:"PlaybookAdoption"`
+	StartupName                string          `db:"StartupName"`
+	MarketMultiple             decimal.Decimal `db:"MarketMultiple"`
+	YearThreeForecastedRevenue decimal.Decimal `db:"YearThreeForecastedRevenue"`
+	ThreelinesValueAtExit      decimal.Decimal `db:"ThreelinesValueAtExit"`
+	YearThreeExitMultiple      decimal.Decimal `db:"YearThreeExitMultiple"`
 }
 
 func (i *AssessmentRow) FormattedReviewDate() string {
@@ -128,4 +135,27 @@ func (i *Assessment) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 	}
 
 	return sqlResult, nil
+}
+
+// Search By CompanyName or Location returns records query.
+func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids []int64) ([]*AssessmentRow, error) {
+	var query string
+	var err error
+	isrs := []*AssessmentRow{}
+	query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN investments i ON a.investment_id=i.id WHERE a.investment_id in (`, i.table)
+	last := len(investmentids) - 1
+	for index, id := range investmentids {
+		if index == last {
+			query += strconv.FormatInt(id, 10) + `)`
+		} else {
+			query += strconv.FormatInt(id, 10) + `,`
+		}
+	}
+	//fmt.Printf("input query %s", query)
+	err = i.db.Select(&isrs, query)
+	if err != nil {
+		fmt.Println("Search1 Error ", err)
+		return nil, err
+	}
+	return isrs, err
 }

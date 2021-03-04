@@ -284,10 +284,10 @@ CREATE TABLE executives (
 
 
 alter table assessments ADD StartupName VARCHAR(255) NOT NULL;
-alter table assessments ADD MarketMultiple DECIMAL(20,2);
-alter table assessments ADD YearThreeForecastedRevenue DECIMAL(20,2);
-alter table assessments ADD ThreelinesValueAtExit DECIMAL(20,2);
-alter table assessments ADD YearThreeExitMultiple DECIMAL(20,2);
+Alter table assessments ADD(MarketMultiple DECIMAL(20,2) Default 1.0);
+Alter table assessments ADD(YearThreeForecastedRevenue DECIMAL(20,2) Default 1.0);
+Alter table assessments ADD(ThreelinesValueAtExit DECIMAL(20,2) Default 1.0);
+Alter table assessments ADD(YearThreeExitMultiple DECIMAL(20,2) Default 1.0);
 
 alter table applications ADD  Referrer VARCHAR(255);
 alter table applications ADD  ElevatorPitch VARCHAR(255);

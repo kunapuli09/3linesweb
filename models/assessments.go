@@ -82,7 +82,7 @@ func (i *Assessment) GetById(tx *sqlx.Tx, id int64) (*AssessmentRow, error) {
 // GetByName returns record by name.
 func (i *Assessment) GetByName(tx *sqlx.Tx, name string) (*AssessmentRow, error) {
 	isr := &AssessmentRow{}
-	query := fmt.Sprintf("SELECT * FROM %v WHERE status=?", i.table)
+	query := fmt.Sprintf("SELECT * FROM %v WHERE StartupName=?", i.table)
 	err := i.db.Get(isr, query, name)
 
 	return isr, err
@@ -144,6 +144,7 @@ func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids [
 	isrs := []*AssessmentRow{}
 	query = fmt.Sprintf(`SELECT a.* FROM %s a LEFT JOIN investments i ON a.investment_id=i.id WHERE a.investment_id in (`, i.table)
 	last := len(investmentids) - 1
+	//fmt.Printf("Number of InvestmentIds for Assessment Query %s", len(investmentids))
 	for index, id := range investmentids {
 		if index == last {
 			query += strconv.FormatInt(id, 10) + `)`
@@ -157,5 +158,6 @@ func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids [
 		fmt.Println("Search1 Error ", err)
 		return nil, err
 	}
+	fmt.Printf("Number of Assessments Returned %s", len(isrs))
 	return isrs, err
 }

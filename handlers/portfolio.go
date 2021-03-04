@@ -92,6 +92,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	}
 	startupnames, amounts := CapitalSpreadDataForBarChart(investments)
 	investmentids := GetInvestmentIDsForAssessments(investments)
+	CreateMissingAssessments(r, investments)
 	assessments, _ := models.NewAssessment(db).GetAssessmentsForInvestmentIds(nil, investmentids)
 
 	//data for entryaccess.html.tmpl
@@ -571,6 +572,31 @@ func GetInvestmentIDsForAssessments(investments []*models.InvestmentRow) []int64
 		investmentids = append(investmentids, investment.ID)
 	}
 	return investmentids
+}
+
+func CreateMissingAssessments(r *http.Request, investments []*models.InvestmentRow) {
+	db := r.Context().Value("db").(*sqlx.DB)
+	fmt.Println("Creating New Assessments \n")
+	for _, investment := range investments {
+		a, _ := models.NewAssessment(db).GetByName(nil, investment.StartupName)
+		if a.StartupName == "" {
+			m := make(map[string]interface{})
+			m["PlaybookAdoption"] = 10
+			m["MarketMultiple"] = 1
+			m["Investment_ID"] = investment.ID
+			m["StartupName"] = investment.StartupName
+			m["ReviewDate"] = time.Now()
+			m["Status"] = "Star"
+			m["RevenueGrowth"] = " "
+			m["Execution"] = " "
+			m["Leadership"] = " "
+			m["RevenueBreakEvenPlan"] = " "
+			m["KeyGrowthEnablers"] = " "
+
+			p, _ := models.NewAssessment(db).Create(nil, m)
+			fmt.Printf("Created New Assessment With Assessment ID %v for Investment ID %v\n", p.ID, investment.ID)
+		}
+	}
 }
 
 func CapitalContributionDataForPieChart(contributions []*models.ContributionRow) ([]string, []string, []decimal.Decimal) {

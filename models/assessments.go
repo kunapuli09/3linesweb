@@ -158,6 +158,6 @@ func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids [
 		fmt.Println("Search1 Error ", err)
 		return nil, err
 	}
-	fmt.Printf("Number of Assessments Returned %s", len(isrs))
+	//fmt.Printf("Number of Assessments Returned %s", len(isrs))
 	return isrs, err
 }

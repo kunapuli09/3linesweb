@@ -94,7 +94,15 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	investmentids := GetInvestmentIDsForAssessments(investments)
 	CreateMissingAssessments(r, investments)
 	assessments, _ := models.NewAssessment(db).GetAssessmentsForInvestmentIds(nil, investmentids)
-
+	sort.Slice(assessments, func(i, j int) bool {
+		if assessments[i].Status > assessments[j].Status {
+			return true
+		}
+		if assessments[i].Status < assessments[j].Status {
+			return false
+		}
+		return assessments[i].Status < assessments[j].Status
+	})
 	//data for entryaccess.html.tmpl
 	data := struct {
 		CurrentUser          *models.UserRow
@@ -576,7 +584,7 @@ func GetInvestmentIDsForAssessments(investments []*models.InvestmentRow) []int64
 
 func CreateMissingAssessments(r *http.Request, investments []*models.InvestmentRow) {
 	db := r.Context().Value("db").(*sqlx.DB)
-	fmt.Println("Creating New Assessments \n")
+	//fmt.Println("Creating New Assessments \n")
 	for _, investment := range investments {
 		a, _ := models.NewAssessment(db).GetByName(nil, investment.StartupName)
 		if a.StartupName == "" {

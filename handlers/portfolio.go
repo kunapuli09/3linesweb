@@ -243,7 +243,15 @@ func InvestorDashboard(w http.ResponseWriter, r *http.Request) {
 	//data for entryaccess.html.tmpl
 	investmentids := GetInvestmentIDsForAssessments(investments)
 	assessments, _ := models.NewAssessment(db).GetAssessmentsForInvestmentIds(nil, investmentids)
-
+	sort.Slice(assessments, func(i, j int) bool {
+		if assessments[i].Status > assessments[j].Status {
+			return true
+		}
+		if assessments[i].Status < assessments[j].Status {
+			return false
+		}
+		return assessments[i].Status < assessments[j].Status
+	})
 	data := struct {
 		CurrentUser          *models.UserRow
 		Count                int

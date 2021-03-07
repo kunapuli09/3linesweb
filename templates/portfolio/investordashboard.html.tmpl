@@ -6,9 +6,9 @@
       <h1 class="jumbotron-heading">
          Welcome To Investor Dashboard
       </h1>
-      <span>Your Ownership Percentages</span>
+      <span>You will receive annual Tax Documents(Schedule K1s) with ownership percentages for the following Investments.</br></span>
       {{range .Contributions}}
-      <span>{{.FundLegalName}} - {{.OwnershipPercentage}}%</span></br>
+      <span>{{.FundLegalName}}</span></br>
       {{end}}
       <button class="au-btn au-btn-icon au-btn--blue2" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
       Tax Documents
@@ -116,10 +116,11 @@
    <div class="container">
       <div class="row">
          <div class="col-md-12">
-            <h3 class="title-5 m-b-35">Investment Portfolio: Click on a Company Name for Details</h3>
+            <h3 class="title-5 m-b-35">Investment Portfolio: </h3>
+            <span>Click on a Company Name for Details<span>
             {{if .Assessments}}
             <div class="table-responsive table--no-card m-b-30">
-               <table class="table table-hover table-borderless table-striped table-earning ">
+               <table class="table table-hover table-borderless table-striped table-earning">
                   <thead>
                      <tr>
                         <th>Company Name</th>

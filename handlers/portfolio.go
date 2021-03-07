@@ -25,6 +25,10 @@ const PERFORMANCE_ABOVE_TARGET = "PERFORMANCE_ABOVE_TARGET"
 const POOR_PERFORMANCE = "POOR_PERFORMANCE"
 const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 
+var multipleInvestments = map[int64]int64{
+	28:4,27:15,35:15,26:20,25:21,24:22,30:29,37:33,40:33,39:38,43:41,44:41,
+}
+
 var ac = accounting.Accounting{Symbol: "$", Precision: 0}
 var revenueformat = accounting.Accounting{Symbol: "$", Precision: 2}
 
@@ -445,11 +449,17 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
+	//**hack for SPVs using primary investment data. investment structure data is different
+	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
+	primaryInvestmentID, exists := multipleInvestments[ID]
+	if exists {
+		ID = primaryInvestmentID
+		fmt.Println("Using Primary Investment Data ID for Assessments")
+	}
 	//TODO do a big join query
 	AllFinancialResults, err := models.NewFinancialResults(db).GetAllByInvestmentId(nil, ID)
 	AllNews, err := models.NewNews(db).GetAllByInvestmentId(nil, ID)
 	AllCapitalStructures, err := models.NewCapitalStructure(db).GetAllByInvestmentId(nil, ID)
-	AllInvestmentStructures, err := models.NewInvestmentStructure(db).GetAllByInvestmentId(nil, ID)
 	AllDocs, err := models.NewInvestmentDoc(db).GetAllByInvestmentId(nil, ID)
 	Assessment, err := models.NewAssessment(db).GetByInvestmentId(nil, 0, ID)
 

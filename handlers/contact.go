@@ -43,7 +43,7 @@ func RSVP(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 	defer wc.Close()
-	msg := fmt.Sprintf("%s \n %s \n %s \n %s \n %s", "Future Of Work Webinar Registration", companyname, name, phone, email)
+	msg := fmt.Sprintf("%s \n %s \n %s \n %s \n %s", "Webinar Interest", companyname, name, phone, email)
 	buf := bytes.NewBufferString(msg)
 	if _, err = buf.WriteTo(wc); err != nil {
 		log.Fatal(err)

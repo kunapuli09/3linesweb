@@ -66,7 +66,7 @@ func (app *Application) mux() *gorilla_mux.Router {
 	//router.HandleFunc("/signup", handlers.PostSignup).Methods("POST")
 	router.HandleFunc("/rsvp", handlers.GetEvents).Methods("GET")
 	router.HandleFunc("/RSVP", handlers.GetEvents).Methods("GET")
-	router.HandleFunc("/rsvp", handlers.RSVP).Methods("POST")
+	//router.HandleFunc("/rsvp", handlers.RSVP).Methods("POST")
 	router.HandleFunc("/performance", handlers.GetPerformance).Methods("GET")
 	router.HandleFunc("/login", handlers.GetLogin).Methods("GET")
 	router.HandleFunc("/login", handlers.PostLogin).Methods("POST")

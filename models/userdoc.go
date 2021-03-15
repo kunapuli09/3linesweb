@@ -22,6 +22,7 @@ type UserDoc struct {
 type UserDocRow struct {
 	ID         int64     `db:"id"`
 	User_ID    int64     `db:"user_id"`
+	Email      string    `db:"Email"`
 	UploadDate time.Time `db:"UploadDate"`
 	Hash       string    `db:"Hash"`
 	DocPath    string    `db:"DocPath"`
@@ -78,11 +79,11 @@ func (i *UserDoc) Create(tx *sqlx.Tx, m map[string]interface{}) (*UserDocRow, er
 }
 
 func (i *UserDoc) BatchInsert(tx *sqlx.Tx, docs []*UserDocRow) (sql.Result, error) {
-	sqlStr := "INSERT INTO userdocs(user_id, UploadDate, DocPath, Hash, DocName) VALUES "
+	sqlStr := "INSERT INTO userdocs(user_id, Email, UploadDate, DocPath, Hash, DocName) VALUES "
 	vals := []interface{}{}
 	for _, doc := range docs {
-		sqlStr += "(?, ?, ?, ?, ?),"
-		vals = append(vals, doc.User_ID, doc.UploadDate, doc.DocPath, doc.Hash, doc.DocName)
+		sqlStr += "(?, ?, ?, ?, ?, ?),"
+		vals = append(vals, doc.User_ID, doc.Email, doc.UploadDate, doc.DocPath, doc.Hash, doc.DocName)
 	}
 	//trim the last ,
 	sqlStr = sqlStr[0 : len(sqlStr)-1]

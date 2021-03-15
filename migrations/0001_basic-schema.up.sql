@@ -106,6 +106,7 @@ CREATE TABLE docs (
 CREATE TABLE userdocs (
     id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id bigint(20) unsigned NOT NULL,
+    Email VARCHAR(255),
     UploadDate DATE,
     DocPath VARCHAR(255),
     DocName VARCHAR(255),
@@ -283,6 +284,7 @@ CREATE TABLE executives (
 )ENGINE=INNODB;
 
 
+alter table userdocs ADD Email VARCHAR(255) NOT NULL;
 alter table assessments ADD StartupName VARCHAR(255) NOT NULL;
 Alter table assessments ADD(MarketMultiple DECIMAL(20,2) Default 1.0);
 Alter table assessments ADD(YearThreeForecastedRevenue DECIMAL(20,2) Default 1.0);
@@ -324,3 +326,7 @@ DROP TABLE 3linesweb.proposaldocs;
 #update news set Status = "PUBLISHED";
 #alter table news ADD  Title VARCHAR(255);
 #update news set Title = "Title 1";
+
+UPDATE userdocs ud
+INNER JOIN users u ON ud.user_id = u.id
+SET ud.Email = u.email;

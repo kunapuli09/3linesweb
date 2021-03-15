@@ -195,6 +195,13 @@ func AddUserDocs(w http.ResponseWriter, r *http.Request) {
 		libhttp.HandleErrorJson(w, e1)
 		return
 	}
+	u := models.NewUser(db)
+	user, e2 := u.GetById(nil, user_ID)
+	if e2 != nil {
+		libhttp.HandleErrorJson(w, e2)
+		return
+	}
+
 	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -233,7 +240,7 @@ func AddUserDocs(w http.ResponseWriter, r *http.Request) {
 		h := md5.New()
 		io.WriteString(h, strconv.FormatInt(curtime, 10))
 		hash := fmt.Sprintf("%x", h.Sum(nil))
-		doc := models.UserDocRow{User_ID: user_ID, UploadDate: time.Now(), DocPath: "/files/" + files[i].Filename, Hash: hash, DocName: files[i].Filename}
+		doc := models.UserDocRow{User_ID: user_ID, Email: user.Email, UploadDate: time.Now(), DocPath: "/files/" + files[i].Filename, Hash: hash, DocName: files[i].Filename}
 		fmt.Printf("doc info %v", doc)
 		docs = append(docs, &doc)
 	}

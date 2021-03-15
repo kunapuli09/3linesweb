@@ -37,6 +37,7 @@
             <tr>
              <th scope="row">{{.ID}}</th>
              <td><a class="btn btn-sm btn-outline-success" href="{{ .DocPath }}" role="button">{{ .DocName }}</a></td>
+             <td>{{ .Email }}</td>
              <td><a class="btn btn-sm btn-outline-danger" href="/removeUserDoc?id={{.ID}}&&DocName={{ .DocName }}" role="button"> Remove </a></td>
             </tr>
             {{end}}

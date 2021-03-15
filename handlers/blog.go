@@ -37,6 +37,9 @@ var m = map[int]*Blog{
 	18: &Blog{"templates/blog/blog18.html.tmpl", false},
 	19: &Blog{"templates/blog/blog19.html.tmpl", false},
 	20: &Blog{"templates/blog/blog20.html.tmpl", false},
+	21: &Blog{"templates/blog/blog21.html.tmpl", false},
+	22: &Blog{"templates/blog/blog22.html.tmpl", false},
+	23: &Blog{"templates/blog/blog23.html.tmpl", false},
 }
 
 func GetBlog(w http.ResponseWriter, r *http.Request) {

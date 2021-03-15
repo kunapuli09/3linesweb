@@ -81,7 +81,7 @@ func (i *InvestmentDoc) BatchInsert(tx *sqlx.Tx, docs []*InvestmentDocRow) (sql.
 	sqlStr := "INSERT INTO docs(investment_id,  UploadDate, DocPath, Hash, DocName) VALUES "
 	vals := []interface{}{}
 	for _, doc := range docs {
-		sqlStr += "(?, ?, ?, ?, ?),"
+		sqlStr += "(?, ?, ?, ?, ?, ?),"
 		vals = append(vals, doc.Investment_ID, time.Now(), doc.DocPath, doc.Hash, doc.DocName)
 	}
 	//trim the last ,

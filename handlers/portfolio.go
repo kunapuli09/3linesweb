@@ -66,7 +66,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok {
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin ) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -494,19 +494,18 @@ func ViewInvestment(w http.ResponseWriter, r *http.Request) {
 func EditInvestment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin ) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
 		return
 	}
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin {
-		http.Redirect(w, r, "/logout", 302)
-		return
-	}
-
 	investment, err := models.NewInvestment(db).GetById(nil, ID)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -540,6 +539,13 @@ func EditInvestment(w http.ResponseWriter, r *http.Request) {
 func Update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin ) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	var i models.InvestmentRow
 	err := r.ParseForm()
 	if err != nil {

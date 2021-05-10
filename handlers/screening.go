@@ -17,7 +17,13 @@ import (
 func ScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin || currentUser.Dsc) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	Application_ID, err := strconv.ParseInt(r.URL.Query().Get("Application_ID"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -27,13 +33,6 @@ func ScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	ScreeningNotes_ID, err := strconv.ParseInt(r.URL.Query().Get("ScreeningNotes_ID"), 10, 64)
 	if err != nil {
 		ScreeningNotes_ID = 0
-	}
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !(currentUser.InvestorRelations || currentUser.Admin || currentUser.Dsc) {
-		http.Redirect(w, r, "/logout", 302)
-		return
 	}
 	Application, err := models.NewAppl(db).GetById(nil, Application_ID)
 	if err != nil {
@@ -75,8 +74,14 @@ func ScreeningNotes(w http.ResponseWriter, r *http.Request) {
 func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin || currentUser.Dsc) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	var i models.ScreeningNotesRow
-
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -133,6 +138,13 @@ func UpdateScreeningNotes(w http.ResponseWriter, r *http.Request) {
 func RemoveScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin || currentUser.Dsc) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)

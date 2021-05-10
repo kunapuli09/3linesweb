@@ -18,7 +18,13 @@ import (
 func Assessments(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
-
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin ) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -28,13 +34,6 @@ func Assessments(w http.ResponseWriter, r *http.Request) {
 	Assessment_ID, err := strconv.ParseInt(r.URL.Query().Get("Assessment_ID"), 10, 64)
 	if err != nil {
 		Assessment_ID = 0
-	}
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !(currentUser.InvestorRelations || currentUser.Admin ) {
-		http.Redirect(w, r, "/logout", 302)
-		return
 	}
 	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
 	if err != nil {
@@ -78,8 +77,14 @@ func Assessments(w http.ResponseWriter, r *http.Request) {
 func UpdateAssessment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	var i models.AssessmentRow
-
 	err := r.ParseForm()
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -144,6 +149,13 @@ func UpdateAssessment(w http.ResponseWriter, r *http.Request) {
 func RemoveAssessment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)

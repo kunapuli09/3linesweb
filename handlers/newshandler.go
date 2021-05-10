@@ -100,6 +100,13 @@ func AddNews(w http.ResponseWriter, r *http.Request) {
 func RemoveNews(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	ID, e := strconv.ParseInt(r.FormValue("id"), 10, 64)
 	if e != nil {
 		libhttp.HandleErrorJson(w, e)
@@ -123,6 +130,13 @@ func RemoveNews(w http.ResponseWriter, r *http.Request) {
 func EditNews(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	News_ID, err := strconv.ParseInt(r.URL.Query().Get("id"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
@@ -131,13 +145,6 @@ func EditNews(w http.ResponseWriter, r *http.Request) {
 	Investment_ID, err := strconv.ParseInt(r.URL.Query().Get("Investment_ID"), 10, 64)
 	if err != nil {
 		libhttp.HandleErrorJson(w, err)
-		return
-	}
-	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
-	session, _ := sessionStore.Get(r, "3linesweb-session")
-	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
-		http.Redirect(w, r, "/logout", 302)
 		return
 	}
 	investment, err := models.NewInvestment(db).GetById(nil, Investment_ID)
@@ -179,6 +186,13 @@ func EditNews(w http.ResponseWriter, r *http.Request) {
 func UpdateNews(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	db := r.Context().Value("db").(*sqlx.DB)
+	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
+	session, _ := sessionStore.Get(r, "3linesweb-session")
+	currentUser, ok := session.Values["user"].(*models.UserRow)
+	if !ok || !(currentUser.Admin || currentUser.InvestorRelations) {
+		http.Redirect(w, r, "/logout", 302)
+		return
+	}
 	var i models.NewsRow
 	err := r.ParseForm()
 	if err != nil {

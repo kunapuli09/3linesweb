@@ -37,7 +37,23 @@ type FinancialResultsRow struct {
 }
 
 func (f *FinancialResultsRow) FormattedReportingDate() string {
-	return f.ReportingDate.Format("01/02/2006")
+	s := f.ReportingDate.Format("01/02/2006")
+	_,month,_ := f.ReportingDate.Date();
+	switch month {
+	case time.December :
+		s = s + "(Year End Totals)"
+	case time.January :
+		s = s + "(Current Year Forecast)"
+	case time.March :
+		s = s + "(Q1 Results)"
+	case time.June :
+		s = s + "(Q2 Results)"
+	case time.September :
+		s = s + "(Q3 Results)"
+	default:
+		s = s + ""
+	}
+	return s
 }
 
 func (i *FinancialResults) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*FinancialResultsRow, error) {

@@ -171,7 +171,7 @@ func (i *Contribution) SearchContributions(tx *sqlx.Tx, data SearchContribution)
 		fmt.Printf("input query %s", query)
 		err = i.db.Select(&isrs, query)
 		if err != nil {
-			fmt.Println("Search1 Error ", err)
+			fmt.Println("Contribution Search Error ", err)
 			return nil, err
 		}
 		return isrs, err

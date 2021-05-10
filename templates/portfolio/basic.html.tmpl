@@ -59,19 +59,21 @@
                 <li class="nav-item">
                   <a class="nav-link js-scroll-trigger" href="/entryaccess"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                </li>
-               {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin)  }}
+               {{if or (.CurrentUser.InvestorRelations) (.CurrentUser.Admin) (.CurrentUser.Dsc)}}
                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-briefcase"></i>Fund Management
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                     {{if .CurrentUser.Admin  }}
+                    <a href="/fundingreqs" class="dropdown-item">Deals</a>
+                     {{if or (.CurrentUser.InvestorRelations) (.CurrentUser.Admin)  }}
                      <a href="/adminrevenuedashboard" class="dropdown-item">Revenue Dashboard</a> 
+                     {{end}}
                      <a href="/entryaccess" class="dropdown-item">Investments</a> 
+                     {{if .CurrentUser.InvestorRelations  }}
                      <a href="/contributions" class="dropdown-item">Investors</a>
                      <a href="/userdocs" class="dropdown-item">Investor Documents</a>
                      {{end}}
-                     <a href="/fundingreqs" class="dropdown-item">Deals</a>
                   </div>
                </li>
                {{end}}

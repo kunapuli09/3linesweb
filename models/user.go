@@ -17,15 +17,16 @@ func NewUser(db *sqlx.DB) *User {
 }
 
 type UserRow struct {
-	ID         int64  `db:"id"`
-	Email      string `db:"email"`
-	Phone      string `db:"phone"`
-	Password   string `db:"password"`
-	Roles      string `db:"Roles"`
-	Admin      bool
-	Dsc        bool
-	Investor   bool
-	BlogReader bool
+	ID                int64  `db:"id"`
+	Email             string `db:"email"`
+	Phone             string `db:"phone"`
+	Password          string `db:"password"`
+	Roles             string `db:"Roles"`
+	Admin             bool
+	Dsc               bool
+	Investor          bool
+	BlogReader        bool
+	InvestorRelations bool
 }
 
 // type RoleType int
@@ -180,6 +181,8 @@ func (i *User) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 }
 func (i *User) UpdateRoles(u *UserRow) {
 	switch roles := u.Roles; roles {
+	case "InvestorRelations,Admin,Dsc,Investor,BlogReader":
+		u.InvestorRelations = true
 	case "Admin,Dsc,Investor,BlogReader":
 		u.Admin = true
 	case "Dsc,Investor,BlogReader":

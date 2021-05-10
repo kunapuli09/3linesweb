@@ -26,7 +26,7 @@ const POOR_PERFORMANCE = "POOR_PERFORMANCE"
 const ACQUIRED_OR_SOLD = "ACQUIRED_OR_SOLD"
 
 var multipleInvestments = map[int64]int64{
-	28:4,27:15,35:15,26:20,25:21,24:22,30:29,37:33,40:33,39:38,43:41,44:41,
+	28: 4, 27: 15, 35: 15, 26: 20, 25: 21, 24: 22, 30: 29, 37: 33, 40: 33, 39: 38, 43: 41, 44: 41,
 }
 
 var ac = accounting.Accounting{Symbol: "$", Precision: 0}
@@ -41,9 +41,11 @@ func EntryAccess(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
-	//fmt.Printf("%s. Inside EntryAccess", currentUser.Email)
+	//fmt.Printf("%s. Inside EntryAccess %s", currentUser.Email, currentUser.Roles)
 
 	switch defaultView := true; defaultView {
+	case currentUser.InvestorRelations:
+		GetAdminDashboard(w, r)
 	case currentUser.Admin:
 		GetAdminDashboard(w, r)
 	case currentUser.Dsc:
@@ -64,7 +66,7 @@ func GetAdminDashboard(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin {
+	if !ok {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}
@@ -145,7 +147,7 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 	sessionStore := r.Context().Value("sessionStore").(sessions.Store)
 	session, _ := sessionStore.Get(r, "3linesweb-session")
 	currentUser, ok := session.Values["user"].(*models.UserRow)
-	if !ok || !currentUser.Admin {
+	if !ok || !(currentUser.InvestorRelations || currentUser.Admin) {
 		http.Redirect(w, r, "/logout", 302)
 		return
 	}

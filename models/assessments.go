@@ -155,7 +155,7 @@ func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids [
 	//fmt.Printf("input query %s", query)
 	err = i.db.Select(&isrs, query)
 	if err != nil {
-		fmt.Println("Search1 Error ", err)
+		fmt.Println("Error in GetAssessmentsForInvestmentIds", err)
 		return nil, err
 	}
 	//fmt.Printf("Number of Assessments Returned %s", len(isrs))

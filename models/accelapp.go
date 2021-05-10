@@ -102,7 +102,7 @@ func (i *Appl) Search(tx *sqlx.Tx, data Search) ([]*ApplRow, error) {
 		query = fmt.Sprintf(`SELECT * FROM %v WHERE Status in (%s) ORDER BY ApplicationDate DESC`, i.table, statuses)
 		err = i.db.Select(&isrs, query)
 		if err != nil {
-			fmt.Println("Search1 Error %v", err)
+			fmt.Println("Error in Loading All Deals/Applications%v", err)
 			return nil, err
 		}
 		return isrs, err

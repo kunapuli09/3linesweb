@@ -12,7 +12,7 @@
             </div>
             <div class="row">
                <div class="col-md-12">
-                  {{if .CurrentUser.Admin }}
+                  {{if or (.CurrentUser.Admin) (.CurrentUser.InvestorRelations) }}
                   <div class="dropdown">
                      <button class="btn btn-md btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      Investment Administration Actions

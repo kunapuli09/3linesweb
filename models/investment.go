@@ -55,9 +55,7 @@ type InvestmentRow struct {
 type RevenueSummary struct {
 	ID                 int64           `db:"id"`
 	StartupName        string          `db:"StartupName"`
-	InvestedCapital    decimal.Decimal `db:"InvestedCapital"`
 	TotalCapitalRaised decimal.Decimal `db:"TotalCapitalRaised"`
-	ReportedValue      decimal.Decimal `db:"ReportedValue"`
 	InvestmentMultiple decimal.Decimal `db:"InvestmentMultiple"`
 	ReportingDate      time.Time       `db:"ReportingDate"`
 	Revenue            decimal.Decimal `db:"Revenue"`
@@ -67,9 +65,7 @@ type RevenueSummary struct {
 type RevenueDisplay struct {
 	ID                                   int64
 	StartupName                          string
-	InvestedCapital                      decimal.Decimal
 	TotalCapitalRaised                   decimal.Decimal
-	ReportedValue                        decimal.Decimal
 	InvestmentMultiple                   decimal.Decimal
 	LastYearEBIDTA                       decimal.Decimal
 	ForecastedEBIDTA                     decimal.Decimal
@@ -135,7 +131,7 @@ func (i *Investment) GetByName(tx *sqlx.Tx, name string) (*InvestmentRow, error)
 // GetByName returns record by name.
 func (i *Investment) GetRevenueSummary(tx *sqlx.Tx) ([]*RevenueSummary, error) {
 	revenues := []*RevenueSummary{}
-	query := "SELECT i.id, i.StartupName,i.TotalCapitalRaised, i.InvestedCapital, i.ReportedValue, i.InvestmentMultiple, fr.Revenue, fr.ReportingDate,fr.LTMEBITDA FROM investments AS i INNER JOIN financial_results AS fr ON i.ID = fr.Investment_ID"
+	query := "SELECT i.id, i.StartupName,i.TotalCapitalRaised, i.InvestmentMultiple, fr.Revenue, fr.ReportingDate,fr.LTMEBITDA FROM investments AS i INNER JOIN financial_results AS fr ON i.ID = fr.Investment_ID"
 	err := i.db.Select(&revenues, query)
 	return revenues, err
 }

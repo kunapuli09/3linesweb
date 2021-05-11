@@ -137,7 +137,7 @@ func (i *Assessment) DeleteByID(tx *sqlx.Tx, csId int64) (sql.Result, error) {
 	return sqlResult, nil
 }
 
-// Search By CompanyName or Location returns records query.
+// 
 func (i *Assessment) GetAssessmentsForInvestmentIds(tx *sqlx.Tx, investmentids []int64) ([]*AssessmentRow, error) {
 	var query string
 	var err error

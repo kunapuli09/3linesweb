@@ -11,13 +11,12 @@
                      <tr>
                         <th>Company Name</th>
                         <th>Total Raised</th>
-                        <th>Current Multiple</th>
                         <th colspan="2" style="text-align: center">Revenue</th>
                         <th colspan="2" style="text-align: center">EBIDTA</th>
                         <th colspan="2" style="text-align: center">Revenue To Capital Ratio</th>
                      </tr>
                      <tr>
-                        <th colspan="3"></th>
+                        <th colspan="2"></th>
                         <th>Last Year</th>
                         <th>Current Year</th>
                         <th>Last Year</th>
@@ -31,7 +30,6 @@
                       <tr id="{{.ID}}" class="tr-shadow">
                         <td>{{.StartupName}}</td>
                         <td class="desc">{{.TotalCapitalRaised | currencyFormat }}M</td>
-                        <td>{{.InvestmentMultiple }}X</td>
                         {{if .IsLastYearRevenueNegative}}
                         <td><p class="text-danger">{{.LastYearRevenue | currencyFormat}}M</p> </td>
                         {{else}}

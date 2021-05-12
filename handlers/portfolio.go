@@ -169,10 +169,10 @@ func GetRevenueSummaryDashboard(w http.ResponseWriter, r *http.Request) {
 	table := BuildRevenueSummaryDisplayTable(revenues)
 
 	sort.Slice(table, func(i, j int) bool {
-		if table[i].InvestmentMultiple.GreaterThan(table[j].InvestmentMultiple) {
+		if table[i].ForecastedRevenue.GreaterThan(table[j].ForecastedRevenue) {
 			return true
 		}
-		if table[i].InvestmentMultiple.LessThan(table[j].InvestmentMultiple) {
+		if table[i].ForecastedRevenue.LessThan(table[j].ForecastedRevenue) {
 			return false
 		}
 		return table[i].StartupName < table[j].StartupName
@@ -682,8 +682,7 @@ func BuildRevenueSummaryDisplayTable(revenues []*models.RevenueSummary) []*model
 			display := &models.RevenueDisplay{
 				ID:                 revenue.ID,
 				StartupName:        revenue.StartupName,
-				 TotalCapitalRaised: revenue.TotalCapitalRaised,
-				 InvestmentMultiple: revenue.InvestmentMultiple,
+				TotalCapitalRaised: revenue.TotalCapitalRaised,
 			}
 
 			if revenue.ReportingDate.Year() == time.Now().Year() {

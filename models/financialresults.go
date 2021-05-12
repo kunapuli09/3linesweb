@@ -36,6 +36,14 @@ type FinancialResultsRow struct {
 	Assessment             string          `db:"Assessment"`
 }
 
+func (f *FinancialResultsRow) FormattedYoYGrowth() string {
+	zero, _ := decimal.NewFromString("0")
+	if f.YoYGrowthPercentage1.LessThanOrEqual(zero){
+		return "low growth"
+	}
+	return f.YoYGrowthPercentage1.String() + "%"
+}
+
 func (f *FinancialResultsRow) FormattedReportingDate() string {
 	s := f.ReportingDate.Format("01/02/2006")
 	_,month,_ := f.ReportingDate.Date();
@@ -55,6 +63,7 @@ func (f *FinancialResultsRow) FormattedReportingDate() string {
 	}
 	return s
 }
+
 
 func (i *FinancialResults) userRowFromSqlResult(tx *sqlx.Tx, sqlResult sql.Result) (*FinancialResultsRow, error) {
 	frId, err := sqlResult.LastInsertId()

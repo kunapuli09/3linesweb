@@ -6,7 +6,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                               {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin)  }}
+                               {{if or (.CurrentUser.Dsc) (.CurrentUser.Admin) (.CurrentUser.InvestorRelations)  }}
                                 <div class="overview-wrap">
                                     <!-- <h2 class="title-1">Application Details</h2> -->
                                     <a href="/fundingreqs" class="au-btn au-btn-icon au-btn--blue2"><i class="zmdi zmdi-view-list-alt"></i>All Applications</a>

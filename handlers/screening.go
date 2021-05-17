@@ -42,7 +42,7 @@ func ScreeningNotes(w http.ResponseWriter, r *http.Request) {
 	//fmt.Printf("ScreeningNotes_ID%v", ScreeningNotes_ID)
 	screeningNotes, err := models.NewScreeningNotes(db).GetByApplicationIdAndScreener(nil, ScreeningNotes_ID, Application_ID, currentUser.Email)
 	if err != nil {
-		fmt.Printf("DB Error %v", err)
+		fmt.Printf("Error in Retrieving ScreeningNotes %v", err)
 	}
 	//fmt.Printf("screeningnotes%v", screeningNotes)
 	//create session date for page rendering

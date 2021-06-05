@@ -170,7 +170,7 @@ func AddInvestmentDocs(w http.ResponseWriter, r *http.Request) {
 	//------files uploaded ------
 	_, err4 := models.NewInvestmentDoc(db).BatchInsert(nil, docs)
 	if err4 != nil {
-		fmt.Println("database error")
+		fmt.Println("Error Adding Document Related to an Investment")
 		libhttp.HandleErrorJson(w, err4)
 		return
 	}

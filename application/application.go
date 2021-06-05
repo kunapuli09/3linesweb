@@ -84,9 +84,9 @@ func (app *Application) mux() *gorilla_mux.Router {
 	router.HandleFunc("/searchAppl", handlers.FundingRequests).Methods("POST")
 	router.HandleFunc("/fundingappl", handlers.FundingAppl).Methods("GET")
 	//Notification Feature is removed as no investor paid attention
-	//router.HandleFunc("/notifications", handlers.Notifications).Methods("GET")
-	//router.HandleFunc("/publishNews", handlers.PublishNotification).Methods("GET")
-	//router.HandleFunc("/updateNotification", handlers.UpdateNotification).Methods("GET")
+	router.HandleFunc("/notifications", handlers.Notifications).Methods("GET")
+	router.HandleFunc("/publishNews", handlers.PublishNotification).Methods("GET")
+	router.HandleFunc("/updateNotification", handlers.UpdateNotification).Methods("GET")
 	// router.HandleFunc("/notifyinvestors", handlers.NotifyInvestors).Methods("POST")
 
 	router.HandleFunc("/entryaccess", handlers.EntryAccess).Methods("GET")

@@ -59,6 +59,13 @@
                 <li class="nav-item">
                   <a class="nav-link js-scroll-trigger" href="/entryaccess"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
                </li>
+               <li class="nav-item">
+                 <a class="nav-link js-scroll-trigger" href="/notifications">
+                   <span class="fa-stack has-badge" data-count="{{.Count}}">
+                       <i class="fa fa-circle fa-stack-2x"></i>
+                       <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                   </span>Unread Messages</a>
+               </li>
                {{if or (.CurrentUser.InvestorRelations) (.CurrentUser.Admin) (.CurrentUser.Dsc)}}
                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,6 +75,7 @@
                     <a href="/fundingreqs" class="dropdown-item">Deals</a>
                      {{if or (.CurrentUser.InvestorRelations) (.CurrentUser.Admin)  }}
                      <a href="/adminrevenuedashboard" class="dropdown-item">Revenue Dashboard</a> 
+                     <a href="/news?Investment_ID=9" class="dropdown-item">Publish News</a>
                      {{end}}
                      <a href="/entryaccess" class="dropdown-item">Investments</a> 
                      {{if .CurrentUser.InvestorRelations  }}
@@ -77,13 +85,6 @@
                   </div>
                </li>
                {{end}}
-               <!-- <li class="nav-item">
-                  <a class="nav-link js-scroll-trigger" href="/notifications">
-                  <span class="fa-stack has-badge" data-count="{{.Count}}">
-                  <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-                  </span>Notifications</a>
-               </li> -->
                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:void(0)" data-toggle="modal" data-target="#user-settings-modal">User Settings</a>
                </li>
                <li class="nav-item">

@@ -197,15 +197,16 @@ Certain information contained herein has been acquired from published sources an
             </div>
          </div>
       </div>
-<!-- <section class="py-5" id="investors">
+<section class="py-5" id="investors">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2 class="section-heading text-uppercase">Investor Network</h2>
                    <h3 class="section-subheading"></h3>
                    <div id="map" class="map-container" style="height: 500px"></div>
+                   <div id="indiamap" class="map-container" style="height: 500px"></div>
                 </div>
             </div>
-    </section> -->
+    </section> 
     <!-- Bootstrap core JavaScript -->
       <script src="vendor/jquery/jquery.min.js"></script>
       <!--     <script src="vendor/bootstrap/js/popper.min.js"></script> -->
@@ -223,83 +224,53 @@ Certain information contained herein has been acquired from published sources an
       <script src="vendor/chart.js/Chart.min.js"></script>
       <!-- Custom scripts for this template -->
       <script src="js/agency.min.js"></script>
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-77741671-1"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-77741671-1');
-    </script>
-    <script>
-      function newTab(t) {
-      window.open(t);
+      const denverLatLng = { lat: 39.750002, lng: -104.936145 };
+      const hyderabadLatLng = { lat: 17.405093, lng: 78.397048 };
+      const citymap = {
+      LosAngeles: {lat: 33.682575, lng: -117.796538 },
+      SanFrancisco: {lat: 37.754151, lng: -122.429706 },
+      Portland: {lat: 45.498847, lng: -122.674248 },
+      Seattle: {lat: 47.518428, lng: -122.283021 },
+      Denver: {lat: 39.750002, lng: -104.936145  },
+      Dallas: {lat: 32.779951, lng: -96.797511 },
+      Austin: {lat: 30.264771, lng: -97.771296 },
+      Chicago: {lat: 41.793474, lng: -87.670201 },
+      Detroit: {lat: 42.337908, lng: -83.024369 },
+      NewJersey: {lat: 40.511784, lng: -74.488687 },
+      Philadelphia: {lat: 39.924555, lng: -74.741372 },
+      Boston: {lat: 42.335587, lng: -71.048570 },
+      NewYork: {lat: 40.716110, lng: -73.972329 },
+    };
+    const indiacitymap = {
+      Hyderabad: {lat: 17.405093, lng: 78.397048 },
+      Benguluru: {lat: 12.988085, lng: 77.622688 }, 
+      Mumbai: {lat: 19.056239, lng: 73.010264 },
+      Delhi: {lat: 28.612795, lng: 77.239655 }, 
+      Gandhinagar: {lat: 23.227004, lng: 72.627006  }, 
+      Kanpur: {lat: 26.458530, lng: 80.316407 }, 
+    };
+    function initMap() {
+      // Create the map.
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+        center: denverLatLng,
+      });
+      // Construct the marker for each value in citymap.
+      for (const city in citymap) {
+        // Add the market for this city to the map.
+        const cityMarker = new google.maps.Marker({
+            position: citymap[city],
+            map,
+            title: city,
+        });
       }
-    </script>
-    <script>
-     function initMap(){
-      var locations = [
-      ['Irvine', 'Irvine CA 92614'],
-      ['McKinney', 'McKinney TX 75070'],
-      ['Denver', 'Denver CO 80111'],
-      ['Lexington', 'Lexington, KY 40513'],
-      ['Ellicott City', 'Ellicott City, MD 21043'],
-      ['Franklin', 'Franklin WI 53132'],
-      ['Campbell', 'Campbell, CA 95008'],
-      ['Somerset', 'Somerset, NJ 08873'],
-      ['Ashburn', 'Ashburn, VA, 20147'],
-      ['Cumming', 'Cumming, GA 30040'],
-      ['Tigard', 'Portland, OR 97223']
-
-    ];
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 4,
-    });
-
-    var infowindow = new google.maps.InfoWindow();
-    var geocoder = new google.maps.Geocoder();
-
-    var marker, i;
-
-    for (i = 0; i < locations.length; i++) {
-      geocodeAddress(locations[i]);
+      
     }
-
-function geocodeAddress(location) {
-  geocoder.geocode( { 'address': location[1]}, function(results, status) {
-  //alert(status);
-    if (status == google.maps.GeocoderStatus.OK) {
-
-      //alert(results[0].geometry.location);
-      map.setCenter(results[0].geometry.location);
-      createMarker(results[0].geometry.location,location[0]+"<br>"+location[1]);
-    }
-    else
-    {
-      alert("some problem in geocode" + status);
-    }
-  });
-}
-
-function createMarker(latlng,html){
-  var marker = new google.maps.Marker({
-    position: latlng,
-    map: map
-  });
-
-  google.maps.event.addListener(marker, 'mouseover', function() {
-    infowindow.setContent(html);
-    infowindow.open(map, marker);
-  });
-
-  google.maps.event.addListener(marker, 'mouseout', function() {
-    infowindow.close();
-  });
-}
-}
-</script> -->
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQPNJVcvn7mNnKlOXCKO-wpuWearl6TmI&callback=initMap">
+</script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwMXIIOHrAuwSl_xdI-77HfxsHXo6Gi7w&callback=initMap&libraries=&v=weekly"async
+    >
     </script>
 {{end}}

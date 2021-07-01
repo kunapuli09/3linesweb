@@ -203,7 +203,7 @@ Certain information contained herein has been acquired from published sources an
                     <h2 class="section-heading text-uppercase">Investor Network</h2>
                    <h3 class="section-subheading"></h3>
                    <div id="map" class="map-container" style="height: 500px"></div>
-                   <div id="indiamap" class="map-container" style="height: 500px"></div>
+                   <!-- <div id="indiamap" class="map-container" style="height: 500px"></div> -->
                 </div>
             </div>
     </section> 
@@ -247,26 +247,27 @@ Certain information contained herein has been acquired from published sources an
     };
     const indiacitymap = {
       Hyderabad: {lat: 17.405093, lng: 78.397048 },
-      Benguluru: {lat: 12.988085, lng: 77.622688 }, 
+      Bengaluru: {lat: 12.988085, lng: 77.622688 }, 
       Mumbai: {lat: 19.056239, lng: 73.010264 },
       Delhi: {lat: 28.612795, lng: 77.239655 }, 
-      Gandhinagar: {lat: 23.227004, lng: 72.627006  }, 
-      Kanpur: {lat: 26.458530, lng: 80.316407 }, 
+      Gandhinagar: {lat: 23.227004, lng: 72.627006 }, 
+      Kanpur: {lat: 26.458530, lng: 80.316407 } 
     };
     function initMap() {
-      const indiamap = new google.maps.Map(document.getElementById("indiamap"), {
+      // Create the map.
+      const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
-        center: hyderabadLatLng,
+        center: denverLatLng,
       });
-      for (const indiacity in indiacitymap) {
+      // Construct the marker for each value in citymap.
+      for (const city in citymap) {
         // Add the market for this city to the map.
-        const indiacityMarker = new google.maps.Marker({
-            position: indiacitymap[indiacity],
-            indiamap,
-            title: indiacity,
+        const cityMarker = new google.maps.Marker({
+            position: citymap[city],
+            map,
+            title: city,
         });
-      } 
-      
+      }
     }
 </script>
 <script

@@ -236,12 +236,14 @@ Certain information contained herein has been acquired from published sources an
       Denver: {lat: 39.750002, lng: -104.936145  },
       Dallas: {lat: 32.779951, lng: -96.797511 },
       Austin: {lat: 30.264771, lng: -97.771296 },
+      Houston: {lat: 29.692890, lng: -95.365628 },
       Chicago: {lat: 41.793474, lng: -87.670201 },
       Detroit: {lat: 42.337908, lng: -83.024369 },
       NewJersey: {lat: 40.511784, lng: -74.488687 },
       Philadelphia: {lat: 39.924555, lng: -74.741372 },
       Boston: {lat: 42.335587, lng: -71.048570 },
       NewYork: {lat: 40.716110, lng: -73.972329 },
+
     };
     const indiacitymap = {
       Hyderabad: {lat: 17.405093, lng: 78.397048 },
@@ -266,6 +268,18 @@ Certain information contained herein has been acquired from published sources an
             title: city,
         });
       }
+      const indiamap = new google.maps.Map(document.getElementById("indiamap"), {
+        zoom: 4,
+        center: hyderabadLatLng,
+      });
+      for (const indiacity in indiacitymap) {
+        // Add the market for this city to the map.
+        const indiacityMarker = new google.maps.Marker({
+            position: indiacitymap[indiacity],
+            indiamap,
+            title: indiacity,
+        });
+      } 
       
     }
 </script>

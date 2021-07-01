@@ -268,18 +268,6 @@ Certain information contained herein has been acquired from published sources an
             title: city,
         });
       }
-      const indiamap = new google.maps.Map(document.getElementById("indiamap"), {
-        zoom: 4,
-        center: hyderabadLatLng,
-      });
-      for (const indiacity in indiacitymap) {
-        // Add the market for this city to the map.
-        const indiacityMarker = new google.maps.Marker({
-            position: indiacitymap[indiacity],
-            indiamap,
-            title: indiacity,
-        });
-      } 
       
     }
 </script>

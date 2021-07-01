@@ -254,20 +254,18 @@ Certain information contained herein has been acquired from published sources an
       Kanpur: {lat: 26.458530, lng: 80.316407 }, 
     };
     function initMap() {
-      // Create the map.
-      const map = new google.maps.Map(document.getElementById("map"), {
+      const indiamap = new google.maps.Map(document.getElementById("indiamap"), {
         zoom: 4,
-        center: denverLatLng,
+        center: hyderabadLatLng,
       });
-      // Construct the marker for each value in citymap.
-      for (const city in citymap) {
+      for (const indiacity in indiacitymap) {
         // Add the market for this city to the map.
-        const cityMarker = new google.maps.Marker({
-            position: citymap[city],
-            map,
-            title: city,
+        const indiacityMarker = new google.maps.Marker({
+            position: indiacitymap[indiacity],
+            indiamap,
+            title: indiacity,
         });
-      }
+      } 
       
     }
 </script>
